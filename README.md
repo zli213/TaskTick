@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Description
+
+This project is a React hands-on project that we have created to learn React. It is a simple todo list application that allows users to add, delete, and edit a list of items.
+
 ## Available Scripts
 
 In the project directory, you can run:
