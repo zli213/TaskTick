@@ -1,20 +1,10 @@
-import Link from "next/link";
 import "./app.scss";
+import { ListNav } from "../../components/layout/ListNav";
 
 export default function ListLayout({ children }) {
   return (
     <>
-      <nav className="list_nav">
-        <div className="flex_center">
-          <div>菜单</div>
-          <Link href="/app/today">Home</Link>
-          <div>Search</div>
-        </div>
-        <div className="flex_center">
-          <div>添加任务</div>
-          <div>个人头像</div>
-        </div>
-      </nav>
+      <ListNav />
       <div id="content-wrapper" className="list_content">
         <div id="left-sidebar" className="list_sidebar">
           <div id="top">
