@@ -10,27 +10,27 @@ export default function ListLayout({ children }) {
           <div id="top">
             <ul>
               <li>
-                <span>🫡 收件箱</span>
+                <span>🫡 Indox</span>
                 <span>3</span>
               </li>
               <li>
-                <span>🫡 今天</span>
+                <span>🫡 Today</span>
                 <span>4</span>
               </li>
               <li>
-                <span>🫡 预览</span>
+                <span>🫡 Preview</span>
               </li>
               <li>
-                <span>🫡 过滤器&标签</span>
+                <span>🫡 Filter&Labels</span>
               </li>
             </ul>
           </div>
           <div>
-            <div>项目</div>
+            <div>Project</div>
             <div>
                 <ul>
-                    <li>我的工作</li>
-                    <li>家庭</li>
+                    <li>My Work</li>
+                    <li>Family</li>
                 </ul>
             </div>
           </div>

@@ -32,7 +32,14 @@ function TodoList() {
         </div>
       </header>
       <div className="view_content">
-        <section>Overdue</section>
+        <section>
+            <header>
+                <div>icon</div>
+                <h2>Overdue</h2>
+                <div>Action</div>
+            </header>
+            <div>lists</div>
+        </section>
         <section>today</section>
         <section>today</section>
         <section>today</section>
