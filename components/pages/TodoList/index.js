@@ -1,31 +1,126 @@
 // TodoList.js
-'use client'
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./index.scss"
 
 function TodoList() {
-    const [todos, setTodos] = useState([]);
-    const [task, setTask] = useState('');
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState("");
 
-    const addTodo = () => {
-        if (task) {
-            setTodos([...todos, task]);
-            setTask('');
-        }
-    };
+  const addTodo = () => {
+    if (task) {
+      setTodos([...todos, task]);
+      setTask("");
+    }
+  };
 
-    return (
-        <div>
-            <h1>Todo List</h1>
-            <ul>
-                {todos.map((todo, index) => (
-                    <li key={index}>{todo}</li>
-                ))}
-            </ul>
-            <input value={task} onChange={e => setTask(e.target.value)} />
-            <button onClick={addTodo}>Add Todo</button>
+  return (
+    <div>
+      <header className="view_header" >
+        <div className="view_header_content">
+          <h1>
+            <span>Today</span>
+            <small>10.05</small>
+          </h1>
+          <div>
+            <button className="check_button">
+              <div>icon</div>
+              <span>check</span>
+            </button>
+          </div>
         </div>
-    );
+      </header>
+      <div className="view_content">
+        <section>Overdue</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+        <section>today</section>
+      </div>
+    </div>
+  );
 }
 
 export default TodoList;

@@ -1,12 +1,15 @@
 $navHeight: 44px;
 
 .list_nav {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 23px;
   height: $navHeight;
   line-height: $navHeight;
+  z-index: 10;
 }
 
 .list_content {
@@ -22,6 +25,8 @@ $navHeight: 44px;
 }
 
 .list_sidebar {
+  position: sticky;
+  top: $navHeight;
   width: 305px;
   height: calc(100vh - $navHeight);
   display: flex;
@@ -47,7 +52,9 @@ $navHeight: 44px;
 }
 
 .main_content {
+  position: relative;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 305px)
 }
