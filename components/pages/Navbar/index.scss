@@ -1,0 +1,29 @@
+// components/Navbar/index.scss
+
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: aquamarine;
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .navLinks {
+        display: flex;
+
+        a {
+            margin-left: 15px;
+            color: #000;
+            text-decoration: none;
+            font-size: 1.5rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
