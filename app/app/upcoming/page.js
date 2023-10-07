@@ -1,12 +1,12 @@
 import TodoList from "../../../components/pages/TodoList/index";
 
 export const metadata = {
-  title: "Today - Todo",
+  title: "Upcoming - Todo",
   description: "Your personal Todo list APP",
 };
 
-function Today() {
+function Upcoming() {
   return <TodoList />;
 }
 
-export default Today;
+export default Upcoming;
