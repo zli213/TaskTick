@@ -5,7 +5,10 @@ import Link from "next/link";
 function Navbar() {
     return (
         <nav className="navbarContainer">
-            <div className="logo">LOGO</div>
+            <div className="logo">
+                {/* add a logo picture */}
+                <img className="logoImage" src="./images/logo.png" alt="logo" />
+            </div>
             <div className="navLinks">
                 <Link href="/">Home</Link>
                 <Link href="/about">About</Link>
