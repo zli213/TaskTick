@@ -1,3 +1,4 @@
+import { ListContentHeader } from "../../../components/layout/ListContentHeader";
 import TodoList from "../../../components/pages/TodoList/index";
 
 export const metadata = {
@@ -6,7 +7,12 @@ export const metadata = {
 };
 
 function Today() {
-  return <TodoList />;
+  return (
+    <>
+      <ListContentHeader title={"Today"} />
+      <TodoList datas=""/>
+    </>
+  );
 }
 
 export default Today;
