@@ -7,6 +7,7 @@ export function SingleItems({
   description,
   priority,
   projectId,
+  key
 }) {
   return (
     <div>

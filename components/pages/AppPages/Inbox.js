@@ -71,11 +71,11 @@ const DUMMY_DATA = [
 
 export default function Inbox() {
   return (
-    <div>
+    <>
       <ListContentHeader title="Inbox" />
       <div className="list-box">
         <TodoList datas={DUMMY_DATA} />
       </div>
-    </div>
+    </>
   );
 }

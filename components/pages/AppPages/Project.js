@@ -66,11 +66,11 @@ const DUMMY_DATA = [
 
 export default function Project({projectId}) {
   return (
-    <div>
+    <>
       <ListContentHeader title={projectId} />
       <div className="list-box">
         <TodoList datas={DUMMY_DATA} />
       </div>
-    </div>
+    </>
   );
 }

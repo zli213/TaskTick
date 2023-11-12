@@ -48,3 +48,7 @@ nav a {
   height: 100%;
 }
 
+.grey_cover {
+  background-color: rgba($color: #000000ab, $alpha: 0.4);
+  z-index: 10;
+}
