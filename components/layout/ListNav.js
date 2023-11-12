@@ -4,10 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { UserMenu } from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
+import SettingsCard from "./Settings";
 
 export function ListNav({ switchHandler }) {
   const [showUserMenu, setShowMenu] = useState(false);
   const [addTask, setAddTask] = useState(false);
+  const [showSetting, setShowSettings] = useState({
+    state: false,
+    submenu: null,
+  });
 
   const switchUserMenu = () => {
     setShowMenu((prevState) => !prevState);
@@ -16,6 +21,20 @@ export function ListNav({ switchHandler }) {
   const switchAddTaskCard = () => {
     setAddTask((prevState) => !prevState);
   };
+
+  const switchSettingAccountCard = () => {
+    // if (newState == false) {
+    //   setShowSettings({ state: newState, submenu: null });
+    // } else {
+    //   setShowSettings({ state: true, submenu: subMenu });
+    // }
+    setShowSettings({state: true, submenu: 'account'})
+    setShowMenu((prevState) => !prevState);
+  };
+
+  const closeSettingCard = () => {
+    setShowSettings({state: false});
+  }
 
   return (
     <nav className="list_nav">
@@ -31,8 +50,14 @@ export function ListNav({ switchHandler }) {
         <div onClick={switchUserMenu} className="avatar_button">
           Avatar
         </div>
-        {showUserMenu && <UserMenu closeUserMenuHandler={switchUserMenu} />}
+        {showUserMenu && (
+          <UserMenu
+            closeUserMenuHandler={switchUserMenu}
+            settingCardHandler={switchSettingAccountCard}
+          />
+        )}
         {addTask && <NewTaskCard closeCardHandler={switchAddTaskCard} />}
+        {showSetting.state && <SettingsCard subMenu={showSetting.submenu} closeHandler={closeSettingCard}/>}
       </div>
     </nav>
   );

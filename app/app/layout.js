@@ -4,7 +4,6 @@ import "./app.scss";
 import { ListNav } from "../../components/layout/ListNav";
 import Link from "next/link";
 import { useState } from "react";
-import { PageContextProvider } from "../../components/context/page-context";
 
 export default function ListLayout({ children }) {
   const [showLeftNav, setShowLeftNav] = useState(true);
@@ -64,7 +63,7 @@ export default function ListLayout({ children }) {
           </div>
         )}
         <main className="main_content">
-          <PageContextProvider>{children}</PageContextProvider>
+          {children}
         </main>
       </div>
     </>
