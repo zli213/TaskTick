@@ -10,7 +10,7 @@ export default function ListLayout({ children }) {
         <div id="left-sidebar" className="list_sidebar">
           <div id="top">
             <ul>
-              <Link href="./inbox">
+              <Link href="./inbox" >
                 <li>
                   <span>🫡 Indox</span>
                   <span>3</span>{" "}
