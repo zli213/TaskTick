@@ -19,14 +19,16 @@ export default function SubAppPages({ params }) {
   };
 
   const closeSettingHandler = () => {
-    // setIsSetting(false);
+    setIsSetting(false);
     const param2 =
       pagectx.currentPage[1] == undefined ? "" : pagectx.currentPage[1];
+    const url = `/app/${pagectx.currentPage[0]}/${param2}`
 
-    router.push(`/app/${pagectx.currentPage[0]}/${param2}`);
+    router.push( url, { shallow: true } );
   };
 
   useEffect(() => {
+    console.log('111')
     if (params.list != "settings" && params.list != "task") {
       pagectx.updatePage(params.list, params.sublist);
     }
@@ -54,7 +56,7 @@ export default function SubAppPages({ params }) {
     }
 
     console.log(isSetting);
-  }, [params]);
+  }, []);
 
   return (
     <div>

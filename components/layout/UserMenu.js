@@ -14,7 +14,7 @@ export function UserMenu({ closeUserMenuHandler }) {
           <div onClick={closeUserMenuHandler}>Settings</div>
         </Link>
         <Link href="/app/settings/theme">
-          <div onClick={closeUserMenuHandler}>Theme</div>
+          <div onClick={closeUserMenuHandler}>Settings</div>
         </Link>
         <div>Logout</div>
       </div>
