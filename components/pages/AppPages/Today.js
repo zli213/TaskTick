@@ -1,5 +1,5 @@
-import { ListContentHeader } from "../../../components/layout/ListContentHeader";
-import TodoList from "../../../components/pages/TodoList/index";
+import { ListContentHeader } from "../../layout/ListContentHeader";
+import TodoList from "../TodoList/index";
 
 export const metadata = {
   title: "Today - Todo",

@@ -1,5 +1,5 @@
-import { ListContentHeader } from "../../../components/layout/ListContentHeader";
-import TodoList from "../../../components/pages/TodoList/index";
+import { ListContentHeader } from "../../layout/ListContentHeader";
+import TodoList from "../TodoList";
 
 export const metadata = {
   title: "Inbox - Todo",
@@ -69,7 +69,7 @@ const DUMMY_DATA = [
   },
 ];
 
-function Inbox() {
+export default function Inbox() {
   return (
     <div>
       <ListContentHeader title="Inbox" />
@@ -79,5 +79,3 @@ function Inbox() {
     </div>
   );
 }
-
-export default Inbox;

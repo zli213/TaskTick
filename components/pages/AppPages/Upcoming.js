@@ -1,4 +1,4 @@
-import TodoList from "../../../components/pages/TodoList/index";
+import TodoList from "../TodoList/index";
 
 export const metadata = {
   title: "Upcoming - Todo",

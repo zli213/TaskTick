@@ -19,24 +19,24 @@ export default function ListLayout({ children }) {
           <div id="left-sidebar" className="list_sidebar">
             <div id="top">
               <ul>
-                <Link href="./inbox">
+                <Link href="/app/inbox">
                   <li>
                     <span>🫡 Indox</span>
                     <span>3</span>{" "}
                   </li>
                 </Link>
-                <Link href="./today">
+                <Link href="/app/today">
                   <li>
                     <span>🫡 Today</span>
                     <span>4</span>
                   </li>
                 </Link>
-                <Link href="./upcoming">
+                <Link href="/app/upcoming">
                   <li>
                     <span>🫡 Preview</span>
                   </li>
                 </Link>
-                <Link href="./filters-labels">
+                <Link href="/app/filters-labels">
                   <li>
                     <span>🫡 Filter&Labels</span>
                   </li>
@@ -47,8 +47,16 @@ export default function ListLayout({ children }) {
               <div>Project</div>
               <div>
                 <ul>
-                  <li>My Work</li>
-                  <li>Family</li>
+                <Link href="/app/project/123">
+                  <li>
+                    <span>My Work</span>
+                  </li>
+                </Link>
+                <Link href="/app/project/234">
+                  <li>
+                    <span>Family</span>
+                  </li>
+                </Link>
                 </ul>
               </div>
             </div>

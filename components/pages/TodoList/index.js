@@ -12,6 +12,7 @@ function TodoList({ datas }) {
           <div>
             {datas.filter(data => (data.isChecked == false)). map((data) => (
               <SingleItems
+                key={data.id}
                 id={data.id}
                 content={data.content}
                 due={data.due}
