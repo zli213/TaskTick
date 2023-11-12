@@ -74,15 +74,8 @@ function Inbox() {
     <div>
       <ListContentHeader title="Inbox" />
       <div className="list-box">
-        <TodoList datas={DUMMY_DATA}/>
+        <TodoList datas={DUMMY_DATA} />
       </div>
-
-      <div>Home page</div>
-      <div>content
-        <div>setting</div>
-      </div>
-
-
     </div>
   );
 }

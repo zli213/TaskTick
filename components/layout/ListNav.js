@@ -5,7 +5,7 @@ import Link from "next/link";
 import { UserMenu } from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
 
-export function ListNav({switchHandler}) {
+export function ListNav({ switchHandler }) {
   const [showUserMenu, setShowMenu] = useState(false);
   const [addTask, setAddTask] = useState(false);
 
