@@ -5,46 +5,34 @@ import Link from "next/link";
 import { UserMenu } from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
 
-export function ListNav() {
-  const [showMenu, setShowMenu] = useState(false);
+export function ListNav({switchHandler}) {
+  const [showUserMenu, setShowMenu] = useState(false);
   const [addTask, setAddTask] = useState(false);
 
-  const openMenu = () => {
+  const switchUserMenu = () => {
     setShowMenu((prevState) => !prevState);
   };
 
-  const openAddTaskCard = () => {
+  const switchAddTaskCard = () => {
     setAddTask((prevState) => !prevState);
-  };
-
-  const closeAddTaskCard = () => {
-    setAddTask(false);
-  };
-
-  const closeUserMenu = () => {
-    setShowMenu(false);
   };
 
   return (
     <nav className="list_nav">
-      <div className="flex_center">
-        <div>Menu</div>
+      <div className="avatar_button flex_center">
+        <div onClick={switchHandler}>Menu</div>
         <Link href="/app/today">Home</Link>
         <div>Search</div>
       </div>
       <div className="flex_center">
-        <div
-          onClick={openAddTaskCard}
-          className="avatar_button"
-          closeHandler={closeAddTaskCard}
-        >
+        <div onClick={switchAddTaskCard} className="avatar_button">
           Add task
         </div>
-        <div onClick={openMenu} className="avatar_button">
+        <div onClick={switchUserMenu} className="avatar_button">
           Avatar
         </div>
-        {showMenu && <UserMenu closeUserMenuHandler={closeUserMenu} />}
-        {addTask && <NewTaskCard closeCardHandler={closeAddTaskCard} />}
+        {showUserMenu && <UserMenu closeUserMenuHandler={switchUserMenu} />}
+        {addTask && <NewTaskCard closeCardHandler={switchAddTaskCard} />}
       </div>
     </nav>
   );

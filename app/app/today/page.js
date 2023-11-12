@@ -66,6 +66,33 @@ const DUMMY_DATA = [
     isChecked: false,
     priority: "P1",
     label: "Reading",
+  },  {
+    id: 6,
+    content: "learn React.js",
+    due: "2024-01-01",
+    project: "learn",
+    projectId: 1000,
+    isChecked: false,
+    priority: "P1",
+    label: "Reading",
+  },  {
+    id: 6,
+    content: "learn React.js",
+    due: "2024-01-01",
+    project: "learn",
+    projectId: 1000,
+    isChecked: false,
+    priority: "P1",
+    label: "Reading",
+  },  {
+    id: 6,
+    content: "learn React.js",
+    due: "2024-01-01",
+    project: "learn",
+    projectId: 1000,
+    isChecked: false,
+    priority: "P1",
+    label: "Reading",
   },
 ];
 
