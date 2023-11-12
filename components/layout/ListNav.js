@@ -19,8 +19,11 @@ export function ListNav() {
 
   const closeAddTaskCard = () => {
     setAddTask(false);
-  }
+  };
 
+  const closeUserMenu = () => {
+    setShowMenu(false);
+  };
 
   return (
     <nav className="list_nav">
@@ -30,10 +33,18 @@ export function ListNav() {
         <div>Search</div>
       </div>
       <div className="flex_center">
-        <div onClick={openAddTaskCard} className='avatar_button' closeHandler={closeAddTaskCard}>Add task</div>
-        <div onClick={openMenu} className='avatar_button'>Avatar</div>
-        {showMenu && <UserMenu />}
-        {addTask && <NewTaskCard closeHandler={closeAddTaskCard} /> }
+        <div
+          onClick={openAddTaskCard}
+          className="avatar_button"
+          closeHandler={closeAddTaskCard}
+        >
+          Add task
+        </div>
+        <div onClick={openMenu} className="avatar_button">
+          Avatar
+        </div>
+        {showMenu && <UserMenu closeUserMenuHandler={closeUserMenu} />}
+        {addTask && <NewTaskCard closeCardHandler={closeAddTaskCard} />}
       </div>
     </nav>
   );
