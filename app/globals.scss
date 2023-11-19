@@ -40,36 +40,15 @@ nav a {
  
 }
 
-
-div {
-  padding: 20px;
+.click_close_cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.slogan {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0.5rem;
+.grey_cover {
+  background-color: rgba($color: #000000ab, $alpha: 0.4);
+  z-index: 10;
 }
-
-.background {
-  height: 50vh;
-  background-image: url('/images/landpage_background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.get_started {
-  background-color: #c6e6e3;
-  border: 0;
-  border-radius: 0.5rem;
-  height: 2rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-
-

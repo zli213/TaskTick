@@ -1,0 +1,17 @@
+.new_task_container {
+  position: fixed;
+  top: 10em;
+  left: calc(50vw - 410px);
+  display: flex;
+  box-sizing: border-box;
+  width: 825px;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #000;
+  box-shadow: 0px 1px 30px 1px rgba($color: #9e9e9e2c, $alpha: 0.3);
+  padding: 10px 15px;
+}
+
+
+
