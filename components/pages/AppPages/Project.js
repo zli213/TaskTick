@@ -64,7 +64,7 @@ const DUMMY_DATA = [
   },
 ];
 
-export default function Project({projectId}) {
+export default function Project({ projectId }) {
   return (
     <>
       <ListContentHeader title={projectId} />

@@ -10,14 +10,14 @@ function TodoList({ datas }) {
       <section className="section">
         <div>
           <div>
-            {datas.filter(data => (data.isChecked == false)). map((data) => (
+            {datas.filter(data => (data.completed == false)). map((data) => (
               <SingleItems
-                key={data.id}
-                id={data.id}
-                content={data.content}
-                due={data.due}
-                project={data.project}
-                label={data.label}
+                key={data._id}
+                id={data._id}
+                title={data.title}
+                dueDate={data.dueDate}
+                projectName={data.projectName}
+                label={data.tags}
                 description={data.description}
                 priority={data.priority}
                 projectId={data.projectId}

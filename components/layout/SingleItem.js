@@ -1,7 +1,7 @@
 export function SingleItems({
-  content,
-  id,
-  due,
+  title,
+  _id,
+  dueDate,
   project,
   label,
   description,
@@ -12,7 +12,7 @@ export function SingleItems({
   return (
     <div>
       <div>quan</div>
-      <div>{content}</div>
+      <div>{title}</div>
       <div>menu</div>
     </div>
   );
