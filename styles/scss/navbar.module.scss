@@ -1,4 +1,3 @@
-// components/Navbar/index.scss
 @use "./utils/variable" as *;
 .navbarContainer {
   display: flex;
@@ -6,15 +5,13 @@
   align-items: center;
   padding: $paddingXsm;
   background-color: $secondaryColor;
-  height: 5rem;
+  height: 4rem;
 
   .logo {
-    font-size: $fontSizeSm;
-    font-weight: bold;
     height: 4 rem;
-
+    width: auto;
     .logoImage {
-      width: 4rem;
+      width: 4rem !important;
     }
   }
 
