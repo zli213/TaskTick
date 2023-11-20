@@ -68,9 +68,10 @@ i {
   justify-content: center; /* Center the text horizontally */
   align-items: center; /* Center the text vertically */
   padding: 10px;
-  margin-top: 10px;
+  margin: $marginSm;
+  font-size: $fontSizeXsm;
   border-radius: $borderRadius;
-  background-color: $accentColor;
+  background-color: $primaryColor;
   color: $secondaryColor;
   cursor: pointer;
   transition: background-color 0.3s ease;

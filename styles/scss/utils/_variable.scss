@@ -1,10 +1,10 @@
 /* color palette */
-$primaryColor: #c6e6e3;
-$secondaryColor: #f0f4f8;
+$primaryColor: #de473a;
+$secondaryColor: #fefdfc;
 $accentColor: #ff7383;
 $textPrimaryColor: #333333;
 $textSecondaryColor: #555555;
-$bodyBg: #f4f4f4;
+$bodyBg: $secondaryColor;
 $grayColor: #c4c4c4;
 $errorColor: #db190c;
 $warningColor: $errorColor;
@@ -21,8 +21,13 @@ $fontSizeMd: 2.4rem;
 $fontSizeLg: 3rem;
 $fontSizeXl: 4rem;
 $gap: 2rem;
+$marginXsm: 0.5rem;
 $marginSm: 2rem;
 $marginMd: 3rem;
+$paddingXsm: 0.5rem;
+$paddingsm: 1rem;
+$paddingMd: 2rem;
+$paddingLg: 3rem;
 $itemMinHeightSm: 20rem;
 $itemMinHeightMd: 30rem;
 

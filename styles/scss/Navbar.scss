@@ -1,0 +1,48 @@
+// components/Navbar/index.scss
+@use "./utils/variable" as *;
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $paddingXsm;
+  background-color: $secondaryColor;
+  height: 5rem;
+
+  .logo {
+    font-size: $fontSizeSm;
+    font-weight: bold;
+    height: 4 rem;
+
+    .logoImage {
+      width: 4rem;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+
+    a {
+      margin-left: 15px;
+      color: #000;
+      text-decoration: none;
+      font-size: 1.5rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+      .loginButtom {
+        background-color: $primaryColor;
+        color: $secondaryColor;
+        border-radius: $borderRadius;
+        padding: $paddingXsm;
+        font-size: $fontSizeXsm;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: darken($primaryColor, 10%);
+        }
+      }
+    }
+  }
+}

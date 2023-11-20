@@ -1,66 +1,21 @@
 // App.scss
 @use "./utils/" as *;
-// body {
-//   background-color: $bodyBg;
-//   // background-color: $dangerColor;
-//   color: $textPrimaryColor;
-//   line-height: 1.6;
-//   margin: 0;
-//   font-family: $fontFamily;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-// }
+.homeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
-// a {
-//   color: $accentColor;
-//   &:hover {
-//     color: darken($accentColor, 10%);
-//   }
-// }
-
-// .button-primary {
-//   background-color: $primaryColor;
-//   color: $textPrimaryColor;
-// }
-
-// .alert-error {
-//   background-color: $errorColor;
-//   color: $secondaryColor;
-// }
-
-// nav {
-//   background-color: #333;
-//   color: #fff;
-//   padding: 10px 0;
-//   text-align: center;
-// }
-
-// code {
-//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-//     monospace;
-// }
-
-// nav {
-//   background-color: #dc4c3e;
-// }
-
-// nav Link,
-// nav a {
-//   color: #fff;
-//   margin: 0 15px;
-//   text-decoration: none;
-//   font-weight: 600;
-// }
-
-// .click_close_cover {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-// }
-
-// .grey_cover {
-//   background-color: rgba($color: #000000ab, $alpha: 0.4);
-//   z-index: 10;
-// }
+  .slogan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $textPrimaryColor;
+    margin: 0.5 rem;
+    padding: 0;
+    text-align: center;
+    justify-items: center;
+  }
+}
