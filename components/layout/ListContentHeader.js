@@ -1,4 +1,4 @@
-import styles from '../../styles/layout/ListContentHeader.module.scss';
+import styles from '../../styles/layout/listContentHeader.module.scss';
 
 export function ListContentHeader({title}) {
   return (

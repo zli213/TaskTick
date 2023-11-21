@@ -1,4 +1,4 @@
-import styles from "../../styles/layout/UserMenu.module.scss"
+import styles from "../../styles/layout/userMenu.module.scss"
 import Link from "next/link";
 
 export function UserMenu({ closeUserMenuHandler, settingCardHandler }) {

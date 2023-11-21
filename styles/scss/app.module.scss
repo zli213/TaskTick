@@ -2,7 +2,7 @@
 
 .main_content {
   position: relative;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: column;
   // width: calc(100vw - 305px)
@@ -24,14 +24,14 @@
 .list_sidebar {
   position: sticky;
   top: $navHeight;
-  width: 305px;
+  width: $appSideBarWidth;
   height: calc(100vh - $navHeight);
   display: flex;
   flex-direction: column;
   background-color: #fafafa;
   box-sizing: border-box;
-  padding: 30px 0;
-  gap: 20px;
+  padding: $paddingLg 0;
+  gap: $gap;
 
   //for hide animation
   transition: all 270ms ease 0ms;
@@ -47,15 +47,15 @@
     list-style: circle;
     display: flex;
     justify-content: space-between;
-    padding: 6px 18px;
-    font-size: 14px;
+    padding: $paddingXsm $paddingMd;
+    font-size: $fontSizeSm;
   }
 }
 
 // //for hide animation
 .list_sidebar_hide {
   width: 0px;
-  transform: translateX(-305px);
+  transform: translateX(-$appSideBarWidth);
   visibility: hidden;
   opacity: 0;
 }

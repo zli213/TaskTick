@@ -1,8 +1,10 @@
+@use "../scss/utils/variable" as *;
+
 .list_editor {
-  padding: 0px 55px 84px;
+  padding: 0px $paddingMd $paddingLg;
 }
 
 .section {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: $maxListWidth;
 }

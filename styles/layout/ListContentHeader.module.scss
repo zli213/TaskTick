@@ -4,24 +4,24 @@
     position: sticky;
     top: $navHeight;
     z-index: 2;
-    padding: 36px 55px 0px;
-    margin-bottom: 12px;
+    padding: $paddingMd $paddingLg 0;
+    margin-bottom: $marginXsm;
     background-color: #fff;
   
     .view_header_content {
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #eee;
-      padding-bottom: 8px;
-      max-width: 800px;
+      padding-bottom: $paddingXsm;
+      max-width: $maxListWidth;
       margin: 0 auto;
   
       h1 {
         padding: 0;
         margin: 0;
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 25px;
+        font-size: $fontSizeMd;
+        font-weight: bold;
+        line-height: $fontSizeMd;
       }
     }
   

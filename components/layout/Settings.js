@@ -1,4 +1,4 @@
-import styles from "../../styles/layout/Settings.module.scss"
+import styles from "../../styles/layout/settings.module.scss"
 
 export default function SettingsCard({ subMenu, closeHandler }) {
   const containerClickHandler = (event) => {

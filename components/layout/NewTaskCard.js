@@ -1,4 +1,4 @@
-import styles from "../../styles/layout/NewTaskCard.module.scss"
+import styles from "../../styles/layout/newTaskCard.module.scss"
 
 export default function NewTaskCard({ closeCardHandler }) {
   const containerClickHandler = (event) => {

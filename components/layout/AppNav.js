@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import styles from "../../styles/layout/AppNav.module.scss"
+import styles from "../../styles/layout/appNav.module.scss"
 import { UserMenu } from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
 import SettingsCard from "./Settings";

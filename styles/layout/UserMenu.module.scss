@@ -4,18 +4,18 @@
   position: fixed;
   display: flex;
   box-sizing: border-box;
-  width: 315px;
+  width: $mobileWidth;
   flex-direction: column;
-  right: 20px;
-  top: calc($navHeight - 5px);
-  background-color: #fff;
-  border-radius: 10px;
-  color: #000;
-  box-shadow: 0px 1px 5px 0px rgba($color: #9e9e9e2c, $alpha: 0.3);
-  padding: 10px 15px;
+  right: 2rem;
+  top: calc($navHeight - 0.2rem);
+  background-color: white;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  box-shadow: 0 0 0.6rem  $grayColor;
+  padding: $paddingsm ;
   align-items: flex-start;
 
   div:hover {
-    background-color: #eeeeee;
+    background-color: $grayColor;
   }
 }
