@@ -1,19 +1,19 @@
 export function SingleItems({
-  content,
-  id,
-  due,
-  project,
-  label,
+  title,
+  _id,
+  dueDate,
   description,
+  projectName,
+  board,
+  tags,
   priority,
-  projectId,
-  key
+  completed,
 }) {
   return (
     <div>
-      <div>quan</div>
-      <div>{content}</div>
-      <div>menu</div>
+      <div>{title}</div>
+      <div>{description}</div>
+      <div>{dueDate}</div>
     </div>
   );
 }

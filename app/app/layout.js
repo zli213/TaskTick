@@ -1,7 +1,7 @@
 "use client";
 
-import "./app.scss";
-import { ListNav } from "../../components/layout/ListNav";
+import styles from  "../../styles/scss/app.module.scss";
+import AppNav from "../../components/layout/AppNav";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -13,19 +13,19 @@ export default function ListLayout({ children }) {
 
   return (
     <>
-      <ListNav switchHandler={switchLeftNav} />
-      <div id="content-wrapper" className="list_content">
+      <AppNav switchHandler={switchLeftNav} />
+      <div id="content-wrapper" className={styles.list_content}>
         {/* {showLeftNav && ( */}
         <div
           id="left-sidebar"
-          className={"list_sidebar" + (showLeftNav ? "" : " " + "hide")}
+          className={`${styles.list_sidebar}  ${showLeftNav ? "" : styles.list_sidebar_hide }`}
         >
           <div id="top">
             <ul>
               <Link href="/app/inbox">
                 <li>
                   <span>🫡 Indox</span>
-                  <span>3</span>{" "}
+                  <span>3</span>
                 </li>
               </Link>
               <Link href="/app/today">
@@ -65,7 +65,7 @@ export default function ListLayout({ children }) {
           </div>
         </div>
         {/* )} */}
-        <main className="main_content">{children}</main>
+        <main className={styles.main_content}>{children}</main>
       </div>
     </>
   );

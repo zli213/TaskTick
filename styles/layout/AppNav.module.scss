@@ -1,0 +1,27 @@
+@use "../scss/utils/variable" as *;
+
+.app_nav {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 $paddingLg;
+  height: $navHeight;
+  line-height: $navHeight;
+  z-index: 10;
+  background-color: $primaryColor;
+  color: $secondaryColor;
+}
+
+.flex_center {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: $gap;
+}
+
+.avatar_button {
+  cursor: pointer;
+}
