@@ -1,131 +1,32 @@
 // TodoList.js
-"use client";
+// "use client";
 
-import React, { useState } from "react";
-import "./index.scss"
+import { SingleItems } from "../../layout/SingleItem";
+import "./index.scss";
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [task, setTask] = useState("");
-
-  const addTodo = () => {
-    if (task) {
-      setTodos([...todos, task]);
-      setTask("");
-    }
-  };
-
+function TodoList({ datas }) {
   return (
-    <div>
-      <header className="view_header" >
-        <div className="view_header_content">
-          <h1>
-            <span>Today</span>
-            <small>10.05</small>
-          </h1>
+    <div className="list_editor ">
+      <section className="section">
+        <div>
           <div>
-            <button className="check_button">
-              <div>icon</div>
-              <span>check</span>
-            </button>
+            {datas.filter(data => (data.isChecked == false)). map((data) => (
+              <SingleItems
+                key={data.id}
+                id={data.id}
+                content={data.content}
+                due={data.due}
+                project={data.project}
+                label={data.label}
+                description={data.description}
+                priority={data.priority}
+                projectId={data.projectId}
+              />
+            ))}
           </div>
+          <div>New Task</div>
         </div>
-      </header>
-      <div className="view_content">
-        <section>
-            <header>
-                <div>icon</div>
-                <h2>Overdue</h2>
-                <div>Action</div>
-            </header>
-            <div>lists</div>
-        </section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-        <section>today</section>
-      </div>
+      </section>
     </div>
   );
 }
