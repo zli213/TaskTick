@@ -26,3 +26,8 @@
     list-style: none;
   }
 }
+
+.grey_cover {
+  background-color: rgba($color: #000000ab, $alpha: 0.4);
+  z-index: 10;
+}

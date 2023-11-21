@@ -6,7 +6,7 @@ export default function SettingsCard({ subMenu, closeHandler }) {
   };
 
   return (
-    <div className="click_close_cover grey_cover " onClick={closeHandler}>
+    <div className={` click_close_cover ${styles.grey_cover} `} onClick={closeHandler}>
       <div className={styles.setting_container} onClick={containerClickHandler}>
         <div className={styles.setting_left}>
           <header>Settings</header>

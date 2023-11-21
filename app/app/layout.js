@@ -25,7 +25,7 @@ export default function ListLayout({ children }) {
               <Link href="/app/inbox">
                 <li>
                   <span>🫡 Indox</span>
-                  <span>3</span>{" "}
+                  <span>3</span>
                 </li>
               </Link>
               <Link href="/app/today">

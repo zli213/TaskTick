@@ -6,7 +6,7 @@ export default function NewTaskCard({ closeCardHandler }) {
   };
 
   return (
-    <div className={styles.click_close_cover} onClick={closeCardHandler}>
+    <div className="click_close_cover" onClick={closeCardHandler}>
       <div className={styles.new_task_container} onClick={containerClickHandler}>
         <div>Task name and description</div>
         <div>Options</div>

@@ -10,9 +10,9 @@
   height: $navHeight;
   line-height: $navHeight;
   z-index: 10;
+  background-color: $primaryColor;
+  color: rgb(255, 255, 255);
 }
-
-
 
 .flex_center {
   position: relative;

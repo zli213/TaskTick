@@ -1,8 +1,10 @@
 import { ListContentHeader } from "../../layout/ListContentHeader";
-import TodoList from "../TodoList/TodoList";
+import TodoList from "../../layout/TodoList";
 import { DUMMY_TASKS } from "../../../public/dummy-data";
 
 function Today() {
+  //fetch today's job
+
   return (
     <>
       <ListContentHeader title={"Today"} />
