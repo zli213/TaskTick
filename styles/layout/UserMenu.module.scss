@@ -1,3 +1,5 @@
+@use "../scss/utils/variable" as *;
+
 .menu_box {
   position: fixed;
   display: flex;
@@ -13,8 +15,7 @@
   padding: 10px 15px;
   align-items: flex-start;
 
-  div:hover{
+  div:hover {
     background-color: #eeeeee;
   }
 }
-

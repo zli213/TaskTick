@@ -1,4 +1,4 @@
-import "./Settings.scss";
+import styles from "../../styles/layout/Settings.module.scss"
 
 export default function SettingsCard({ subMenu, closeHandler }) {
   const containerClickHandler = (event) => {
@@ -7,8 +7,8 @@ export default function SettingsCard({ subMenu, closeHandler }) {
 
   return (
     <div className="click_close_cover grey_cover " onClick={closeHandler}>
-      <div className="setting_container" onClick={containerClickHandler}>
-        <div className="setting-left">
+      <div className={styles.setting_container} onClick={containerClickHandler}>
+        <div className={styles.setting_left}>
           <header>Settings</header>
           <div>Search</div>
           <div>
@@ -20,7 +20,7 @@ export default function SettingsCard({ subMenu, closeHandler }) {
             </ul>
           </div>
         </div>
-        <form className="setting-right">
+        <form className={styles.setting_right}>
           <header>{subMenu}</header>
           <div>content</div>
         </form>

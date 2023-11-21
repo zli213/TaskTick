@@ -2,7 +2,7 @@
 // "use client";
 
 import { SingleItems } from "../../layout/SingleItem";
-import "./index.scss";
+import "./todolist.scss";
 
 function TodoList({ datas }) {
   return (

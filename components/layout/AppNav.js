@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import styles from "../../styles/layout/AppNav.module.scss"
 import { UserMenu } from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
 import SettingsCard from "./Settings";
 
-export function ListNav({ switchHandler }) {
+export default function AppNav({ switchHandler }) {
   const [showUserMenu, setShowMenu] = useState(false);
   const [addTask, setAddTask] = useState(false);
   const [showSetting, setShowSettings] = useState({
@@ -37,17 +38,17 @@ export function ListNav({ switchHandler }) {
   }
 
   return (
-    <nav className="list_nav">
-      <div className="avatar_button flex_center">
+    <nav className={styles.app_nav}>
+      <div className={`${styles.avatar_button} ${styles.flex_center}`}>
         <div onClick={switchHandler}>Menu</div>
         <Link href="/app/today">Home</Link>
         <div>Search</div>
       </div>
-      <div className="flex_center">
-        <div onClick={switchAddTaskCard} className="avatar_button">
+      <div className={styles.flex_center}>
+        <div onClick={switchAddTaskCard} className={styles.avatar_button}>
           Add task
         </div>
-        <div onClick={switchUserMenu} className="avatar_button">
+        <div onClick={switchUserMenu} className={styles.avatar_button}>
           Avatar
         </div>
         {showUserMenu && (

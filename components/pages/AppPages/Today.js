@@ -1,5 +1,5 @@
 import { ListContentHeader } from "../../layout/ListContentHeader";
-import TodoList from "../TodoList";
+import TodoList from "../TodoList/TodoList";
 import { DUMMY_TASKS } from "../../../public/dummy-data";
 
 function Today() {

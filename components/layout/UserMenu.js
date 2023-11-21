@@ -1,4 +1,4 @@
-import "./UserMenu.scss";
+import styles from "../../styles/layout/UserMenu.module.scss"
 import Link from "next/link";
 
 export function UserMenu({ closeUserMenuHandler, settingCardHandler }) {
@@ -8,7 +8,7 @@ export function UserMenu({ closeUserMenuHandler, settingCardHandler }) {
 
   return (
     <div className="click_close_cover" onClick={closeUserMenuHandler}>
-      <div className="menu_box" onClick={containerClickHandler}>
+      <div className={styles.menu_box} onClick={containerClickHandler}>
         <div className="avatar_container">Avatar</div>
         <div onClick={settingCardHandler}>Settings</div>
       

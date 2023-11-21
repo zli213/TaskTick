@@ -1,3 +1,5 @@
+@use "../scss/utils/variable" as *;
+
 .view_header {
     position: sticky;
     top: $navHeight;
