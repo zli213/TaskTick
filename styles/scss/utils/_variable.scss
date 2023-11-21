@@ -1,0 +1,40 @@
+/* color palette */
+$primaryColor: #de473a;
+$secondaryColor: #fefdfc;
+$accentColor: #ff7383;
+$textPrimaryColor: #333333;
+$textSecondaryColor: #555555;
+$bodyBg: $secondaryColor;
+$grayColor: #c4c4c4;
+$errorColor: #db190c;
+$warningColor: $errorColor;
+// task priority colors
+$MiddleLevel: #ffcc8a;
+$HighLevel: $accentColor;
+$LowLevel: $grayColor;
+
+$fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$fontSizeXsm: 1.2rem;
+$fontSizeSm: 1.6rem;
+$fontSizeMd: 2.4rem;
+$fontSizeLg: 3rem;
+$fontSizeXl: 4rem;
+$gap: 2rem;
+$marginXsm: 0.5rem;
+$marginSm: 2rem;
+$marginMd: 3rem;
+$paddingXsm: 0.5rem;
+$paddingsm: 1rem;
+$paddingMd: 2rem;
+$paddingLg: 3rem;
+$itemMinHeightSm: 20rem;
+$itemMinHeightMd: 30rem;
+
+$sideBarWidth: 15rem;
+$mobileSpacing: 1.5rem;
+$borderRadius: 0.8rem;
+
+$mobileWidth: 28rem;
+$tabletWidth: 42rem;
+$minComputerWidth: 62.5rem;

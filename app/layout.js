@@ -1,12 +1,12 @@
 import Navbar from "../components/pages/Navbar";
-import "./globals.scss";
+// import "./globals.scss";
+import "../styles/scss/globals.scss";
 import Link from "next/link";
 
 export const metadata = {
   title: "Todo APP",
   description: "Your personal Todo list APP",
 };
-
 
 export default function RootLayout({ children }) {
   return (
