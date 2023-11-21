@@ -1,0 +1,23 @@
+@use "./utils/variable" as *;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: $marginMd;
+  .upCard {
+    width: 100%;
+    height: $itemMinHeightMd;
+    //   border: 1px solid darkblue;
+    border-radius: $borderRadius;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    .teamImage {
+      height: inherit;
+      width: 15.5%;
+      margin-left: $marginXsm;
+      .teamPhoto {
+        border-radius: 30px; // This value can be adjusted to your preference
+      }
+    }
+  }
+}
