@@ -1,5 +1,5 @@
 import { ListContentHeader } from "../../layout/ListContentHeader";
-import TodoList from "../TodoList";
+import TodoList from "../../layout/TodoList";
 import { DUMMY_TASKS } from "../../../public/dummy-data";
 
 export default function Project({ projectId }) {
