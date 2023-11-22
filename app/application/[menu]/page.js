@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Inbox from "../../../components/pages/AppPages/Inbox";
 import Today from "../../../components/pages/AppPages/Today";
+import SettingAccount from "../../../components/pages/Settings/Account";
+
 
 export default function AppPage({ params }) {
   const [activePage, setActivePage] = useState(null);
@@ -15,6 +17,9 @@ export default function AppPage({ params }) {
       case "today":
         setActivePage(<Today />);
         break;
+      // case "setting":
+      //   setActivePage(<SettingAccount />);
+      //   break;
     }
   }, [params]);
 
