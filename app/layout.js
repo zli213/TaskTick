@@ -1,6 +1,4 @@
-import Navbar from "../components/pages/Navbar";
 // import "./globals.scss";
-import "../styles/scss/globals.scss";
 import Link from "next/link";
 
 export const metadata = {
@@ -12,9 +10,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-
-        {/* <Navbar /> */}
-
         <main>{children}</main>
       </body>
     </html>
