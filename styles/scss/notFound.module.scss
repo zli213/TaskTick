@@ -1,0 +1,32 @@
+@use "../scss/utils/variable" as *;
+
+.logo_style {
+  padding: $paddingLg;
+}
+
+.info_content {
+  font: $fontFamily;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: $paddingsm;
+
+  h1 {
+    padding-bottom: $paddingsm;
+  }
+  p {
+    font-size: $fontSizeLg;
+    padding-bottom: $paddingLg;
+  }
+  button {
+    padding: $paddingsm $paddingMd;
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    border-radius: $borderRadius;
+    font-weight: bold;
+  }
+}
+
+.image_style {
+  display: block;
+  margin: 0 auto;
+}
