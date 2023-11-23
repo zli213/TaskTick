@@ -1,0 +1,13 @@
+@use "./utils/variable" as *;
+
+.app_holder {
+  position: relative;
+  display: flex;
+}
+
+.list_sidebar_hide {
+  width: 0px;
+  transform: translateX(-$appSideBarWidth);
+  visibility: hidden;
+  opacity: 0;
+}

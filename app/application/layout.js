@@ -1,12 +1,22 @@
+"use client";
+
+import { useState } from "react";
+import styles from "../../styles/scss/application.module.scss";
 import Leftbar from "../../components/application/leftbar/Leftbar";
 import Topbar from "../../components/application/topbar/Topbar";
 
-export default async function AppLayout(props) {
+export default function AppLayout(props) {
+  const [showLeftBar, setShowLeftBar] = useState(false);
+
+  const switchLeftBar = () => {
+    setShowLeftBar((prevState) => !prevState);
+  };
+
   return (
     <>
-      <Topbar />
-      <div id="app-holder">
-        <Leftbar />
+      <Topbar switchHandler={switchLeftBar} />
+      <div id="app-holder" className={styles.app_holder}>
+        <Leftbar classes={showLeftBar ? styles.list_sidebar_hide : ""} />
         <div>{props.children}</div>
       </div>
       <div id="modal_box">{props.settingModal}</div>

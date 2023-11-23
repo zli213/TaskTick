@@ -1,25 +1,41 @@
+"use client";
+
+import { useState } from "react";
+import UserMenu from "./UserMenu";
+import NewTaskCard from "./NewTaskCard";
 import Link from "next/link";
+import styles from "../../../styles/scss/topbar.module.scss";
 
-const BAR_STYLES = {
-  padding: "3px 1rem",
-  backgroundColor: "#dc4c3e",
-  display: "flex",
-  justifyContent: "space-between",
-};
+const Topbar = ({ switchHandler }) => {
+  const [showUserMenu, setShowMenu] = useState(false);
+  const [addTask, setAddTask] = useState(false);
 
-const Topbar = () => {
+  const switchUserMenu = () => {
+    setShowMenu((prevState) => !prevState);
+  };
+
+  const switchAddTaskCard = () => {
+    setAddTask((prevState) => !prevState);
+  };
+
   return (
-    <div style={BAR_STYLES}>
-      <div>
-        <a>Menu</a>
-        <Link href="/application/inbox">Home</Link>
+    <nav className={styles.app_nav}>
+      <div className={`${styles.avatar_button} ${styles.flex_center}`}>
+        <div onClick={switchHandler}>Menu</div>
+        <Link href="/application/today">Home</Link>
+        <div>Search</div>
       </div>
-      <div>
-        <a>Add Task</a>
-        <a>Avatar</a>
-        <Link href="/application/setting/account">Setting</Link>
+      <div className={styles.flex_center}>
+        <div onClick={switchAddTaskCard} className={styles.avatar_button}>
+          Add task
+        </div>
+        <div onClick={switchUserMenu} className={styles.avatar_button}>
+          Avatar
+        </div>
+        {showUserMenu && <UserMenu closeUserMenuHandler={switchUserMenu} />}
+        {addTask && <NewTaskCard closeCardHandler={switchAddTaskCard} />}
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -1,0 +1,21 @@
+@use "./utils/variable" as *;
+
+
+.setting_left {
+  padding: $paddingsm;
+  min-width: 22rem;
+  text-align: left;
+  background-color: $lightGrayColor;
+  border-radius: $borderRadius;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.grey_cover {
+  background-color: rgba($color:black, $alpha: 0.5);
+  z-index: 10;
+}

@@ -5,6 +5,7 @@ import Modal from "../../../../../components/application/widgets/Modal";
 import SettingAccount from "../../../../../components/pages/Settings/Account";
 import SettingTheme from "../../../../../components/pages/Settings/Theme";
 import { useRouter } from "next/navigation";
+import styles from "../../../../../styles/scss/settings.module.scss";
 
 export default function SettingModal({ params }) {
   const router = useRouter;
@@ -24,12 +25,27 @@ export default function SettingModal({ params }) {
   const pushNav = () => {
     router.push("/application/today");
   };
+
   return (
     <Modal>
-      <div>this is setting modal</div>
-      <Link href="/application/setting/account">account</Link>
-      <Link href="/application/setting/theme">theme</Link>
-      <div>{activePage}</div>
+      <div className={styles.setting_left}>
+        <h2>Settings</h2>
+        <div>Search</div>
+        <div>
+          <ul>
+            <li>
+              <Link href="/application/setting/account">account</Link>
+            </li>
+            <li>
+              <Link href="/application/setting/theme">theme</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h2>this is setting modal</h2>
+        <div>{activePage}</div>
+      </div>
     </Modal>
   );
 }
