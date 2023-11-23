@@ -31,16 +31,4 @@
       font-size: $fontSizeSm;
     }
   }
-  
-  // //for hide animation
-  .list_sidebar_hide {
-    width: 0px;
-    transform: translateX(-$appSideBarWidth);
-    visibility: hidden;
-    opacity: 0;
-  }
-  
-  .list_content {
-    position: relative;
-    display: flex;
-  }
+ 

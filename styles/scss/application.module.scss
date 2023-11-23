@@ -6,7 +6,7 @@
 }
 
 .list_sidebar_hide {
-  width: 0px;
+  width: 0;
   transform: translateX(-$appSideBarWidth);
   visibility: hidden;
   opacity: 0;

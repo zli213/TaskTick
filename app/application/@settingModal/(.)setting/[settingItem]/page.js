@@ -37,7 +37,6 @@ export default function SettingModal({ params }) {
           </li>
           <li>
             <Link href="/application/setting/theme" scroll={false}>
-              {" "}
               theme
             </Link>
           </li>
