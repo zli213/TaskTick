@@ -1,19 +1,17 @@
-// "use client";
+"use client";
 
 import TodoList from "../../application/widgets/TodoList";
 import { DUMMY_TASKS } from "../../../public/dummy-data";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
+// import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-function Today(props, req) {
+function Today(props) {
   //fetch today's job
+  const router = useRouter();
 
-  useEffect(() => {
-    if ("settingMenu" in props) {
-      redirect("/application/setting/account", "replace");
-      // router.push('/application/setting/account');
-    }
-  }, [props.settingMenu]);
+  if ("settingMenu" in props ) {
+    router.push(`/application/setting/${props.settingMenu}`);
+  }
 
   return (
     <>
