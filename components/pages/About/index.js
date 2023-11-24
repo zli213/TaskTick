@@ -1,6 +1,12 @@
 // About.js
+"use client";
 import styles from "../../../styles/scss/about.module.scss";
 import Navbar from "../Navbar";
+import dynamic from "next/dynamic";
+const MapWithNoSSR = dynamic(
+  () => import("../About/MapComponent"), // 换成您的地图组件路径
+  { ssr: false }
+);
 function About() {
   return (
     <div>
@@ -18,6 +24,7 @@ function About() {
           <div className="mapCard"></div>
         </div>
         <div className="middleCard"></div>
+        <MapWithNoSSR />
       </div>
     </div>
   );
