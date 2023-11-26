@@ -1,0 +1,25 @@
+@use "./utils/variable" as *;
+
+.modal_container {
+  position: fixed;
+  top: calc(50vh - $settingHeight / 2);
+  left: calc(50vw - $settingPageWidth / 2);
+  display: flex;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: $settingPageWidth;
+  flex-direction: row;
+  min-height: $settingHeight;
+  max-height: $settingPageWidth;
+}
+
+.overlay_styles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: black, $alpha: 0.5);
+  z-index: 10;
+}

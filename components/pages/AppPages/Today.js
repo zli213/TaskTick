@@ -1,13 +1,22 @@
-import { ListContentHeader } from "../../layout/ListContentHeader";
-import TodoList from "../../layout/TodoList";
-import { DUMMY_TASKS } from "../../../public/dummy-data";
+"use client";
 
-function Today() {
+import TodoList from "../../application/widgets/TodoList";
+import { DUMMY_TASKS } from "../../../public/dummy-data";
+// import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+function Today(props) {
   //fetch today's job
+  const router = useRouter();
+
+  if ("settingMenu" in props ) {
+    router.push(`/application/setting/${props.settingMenu}`);
+  }
 
   return (
     <>
-      <ListContentHeader title={"Today"} />
+      <h1>Today</h1>
+
       <TodoList datas={DUMMY_TASKS} />
     </>
   );

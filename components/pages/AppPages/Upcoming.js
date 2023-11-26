@@ -1,12 +1,13 @@
-import TodoList from "../TodoList/index";
-
-export const metadata = {
-  title: "Upcoming - Todo",
-  description: "Your personal Todo list APP",
-};
+import TodoList from "../../application/widgets/TodoList";
+import { DUMMY_TASKS } from "../../../public/dummy-data";
 
 function Upcoming() {
-  return <TodoList />;
+  return (
+    <>
+      <h1>Upcoming</h1>
+      <TodoList datas={DUMMY_TASKS} />;
+    </>
+  );
 }
 
 export default Upcoming;

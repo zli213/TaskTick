@@ -1,7 +1,8 @@
-@use "../scss/utils/variable" as *;
+@use "./utils/variable" as *;
+
 
 .list_editor {
-  padding: 0px $paddingMd $paddingLg;
+  padding: 0 $paddingMd $paddingLg;
 }
 
 .section {
