@@ -1,4 +1,6 @@
-import "./globals.scss";
+import Navbar from "../components/pages/Navbar";
+// import "./globals.scss";
+import "../styles/scss/globals.scss";
 import Link from "next/link";
 
 export const metadata = {
@@ -6,17 +8,12 @@ export const metadata = {
   description: "Your personal Todo list APP",
 };
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <nav>
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/today">Todo List</Link>
-          <Link href="/login">Login</Link>
-        </nav>
+        {/* <Navbar /> */}
+
         <main>{children}</main>
       </body>
     </html>

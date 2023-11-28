@@ -1,0 +1,45 @@
+@use "./utils/variable" as *;
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $paddingXsm;
+  background-color: $secondaryColor;
+  height: 4rem;
+
+  .logo {
+    height: 4 rem;
+    width: auto;
+    .logoImage {
+      width: 4rem !important;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+
+    a {
+      margin-left: 15px;
+      color: #000;
+      text-decoration: none;
+      font-size: 1.5rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+      .loginButtom {
+        background-color: $primaryColor;
+        color: $secondaryColor;
+        border-radius: $borderRadius;
+        padding: $paddingXsm;
+        font-size: $fontSizeXsm;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: darken($primaryColor, 10%);
+        }
+      }
+    }
+  }
+}

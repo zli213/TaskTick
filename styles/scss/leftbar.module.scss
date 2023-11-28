@@ -1,0 +1,34 @@
+@use "./utils/variable" as *;
+
+
+.list_sidebar {
+    position: sticky;
+    top: $navHeight;
+    width: $appSideBarWidth;
+    height: calc(100vh - $navHeight);
+    display: flex;
+    flex-direction: column;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    padding: $paddingLg 0;
+    gap: $gap;
+  
+    //for hide animation
+    transition: all 270ms ease 0ms;
+    flex-shrink: 0;
+  
+    ul {
+      padding: 0;
+      margin: 0;
+      // padding: 0 5px;
+    }
+  
+    li {
+      list-style: circle;
+      display: flex;
+      justify-content: space-between;
+      padding: $paddingXsm $paddingMd;
+      font-size: $fontSizeSm;
+    }
+  }
+ 

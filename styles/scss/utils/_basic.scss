@@ -1,0 +1,91 @@
+/* Base styles */
+@use "./variable" as *;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $fontFamily;
+  font-size: $fontSizeSm;
+  color: $textPrimaryColor;
+  background-color: $bodyBg;
+  letter-spacing: 1px;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+input,
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background-color: transparent;
+}
+
+i {
+  font-size: $fontSizeMd;
+}
+
+/* Reusable classes */
+.container {
+  max-width: 160rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.place-items-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.standard-button {
+  width: 12rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center; /* Center the text horizontally */
+  align-items: center; /* Center the text vertically */
+  padding: 10px;
+  margin: $marginSm;
+  font-size: $fontSizeXsm;
+  border-radius: $borderRadius;
+  background-color: $primaryColor;
+  color: $secondaryColor;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.standard-button:hover {
+  background-color: $grayColor;
+  color: $secondaryColor;
+}
+
+.click_close_cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
