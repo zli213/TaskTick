@@ -12,8 +12,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* <Navbar /> */}
-
+        <nav>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/today">Todo List</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/signup">Signup</Link>
+        </nav>
         <main>{children}</main>
       </body>
     </html>
