@@ -1,13 +1,19 @@
 import MyprojectsItem from "./MyprojectsItem";
 
-const Myprojects = () => {
+function Myprojects({ projectList }) {
+
   return (
     <div>
       <div>Project</div>
-      <MyprojectsItem label="My work" link="/application/project/123" />
-      <MyprojectsItem label="Family" link="/application/project/234" />
+      {projectList.map((project) => (
+        <MyprojectsItem
+          key={project.projectId}
+          label={project.name}
+          link={`/application/project/${project.projectId}`}
+        />
+      ))}
     </div>
   );
-};
+}
 
 export default Myprojects;

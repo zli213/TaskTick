@@ -1,17 +1,20 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
+import React from "react";
 
 export default function Project(props) {
   localStorage.setItem("lastPage", `project/${props.projectId}`);
 
   const tasks = props.data.filter((task) => {
-    return task.projectId == "632a3c5e8f8c9b987f441c3a";   //net to edit
-  })
+    return task.projectId == props.projectId;
+  });
+
+  const projectName = tasks[0].projectName;
 
   return (
     <>
-      <h1>Project name {props.projectId}</h1>
+      <h1>{projectName}</h1>
       <div className="list-box">
         <TodoList tasks={tasks} />
       </div>
