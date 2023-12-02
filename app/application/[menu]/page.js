@@ -1,45 +1,60 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { MongoClient } from "mongodb";
 import Inbox from "../../../components/pages/AppPages/Inbox";
 import Today from "../../../components/pages/AppPages/Today";
 import Upcoming from "../../../components/pages/AppPages/Upcoming";
 import FilterPage from "../../../components/pages/AppPages/Filters-labels";
-import { useRouter } from "next/navigation";
 
 import { notFound } from "next/navigation";
 
-export default function AppPage({ params }) {
-  const router = useRouter();
-  const [activePage, setActivePage] = useState(null);
+export default async function AppPage({ params }) {
+  const client = await MongoClient.connect(
+    "mongodb+srv://todo123:Z7xs799sOdztS5PU@tododata.ud04wyd.mongodb.net/?retryWrites=true&w=majority"
+  );
+  const db = client.db("todo-database");
 
-  useEffect(() => {
-    if (params.menu != "setting") {
-      localStorage.setItem("lastPage", params.menu);
-    }
+  const tasksCollections = db.collection("tasks");
 
-    switch (params.menu) {
-      case "inbox":
-        setActivePage(<Inbox />);
-        break;
-      case "today":
-        setActivePage(<Today />);
-        break;
-      case "upcoming":
-        setActivePage(<Upcoming />);
-        break;
-      case "filters-labels":
-        setActivePage(<FilterPage />); //need edit
-        break;
-      case "setting":
-        setActivePage(<Today />);
-        router.push(`/application/setting/account`);
-        break;
+  const tasks = await tasksCollections
+    .find({ username: "johndoe123" })
+    .toArray();
+  client.close;
 
-      default:
-        notFound();
-    }
-  }, [params]);
+  const tasks2 = tasks.map((task) => {
+    return {
+      _id: task._id.toString(),
+      title: task.title,
+      description: task.description,
+      tags: task.tags,
+      projectId: task.projectId ? task.projectId.toString() : "",
+      projectName: task.projectName,
+      board: task.board,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      time: task.time,
+      userId: task.userId.toString(),
+      username: task.username,
+      completed: task.completed,
+    };
+  });
+  // console.log(tasks2);
 
-  return <div>{activePage}</div>;
+  switch (params.menu) {
+    case "inbox":
+      return <Inbox data={tasks2} />
+
+    case "today":
+      return <Today data={tasks2} />;
+
+    case "upcoming":
+      return <Upcoming data={tasks2} />;
+
+    case "filters-labels":
+      return <FilterPage data={tasks2} />; //need edit
+      
+    case "setting":
+      return <Today data={tasks2} settingMenu={"account"} />;
+
+    default:
+      notFound();
+  }
 }

@@ -1,30 +1,52 @@
-"use client";
+// "use client";
 
-import React, { useState, useEffect } from "react";
+import { MongoClient } from "mongodb";
+
+// import React, { useState, useEffect } from "react";
 import Project from "../../../../components/pages/AppPages/Project";
 import Today from "../../../../components/pages/AppPages/Today";
 import { notFound } from "next/navigation";
 
-export default function SubAppPages({ params }) {
-  const [activePage, setActivePage] = useState(null);
+export default async function SubAppPages({ params }) {
+  const client = await MongoClient.connect(
+    "mongodb+srv://todo123:Z7xs799sOdztS5PU@tododata.ud04wyd.mongodb.net/?retryWrites=true&w=majority"
+  );
+  const db = client.db("todo-database");
 
-  useEffect(() => {
-    if (params.menu != "setting") {
-      localStorage.setItem("lastPage", `${params.menu}/${params.submenu}`);
-    }
+  const tasksCollections = db.collection("tasks");
 
-    switch (params.menu) {
-      case "project":
-        setActivePage(<Project projectId={params.submenu} />);
-        break;
-      case "setting":
-        localStorage.setItem("lastPage", `today`);
-        setActivePage(<Today settingMenu={params.submenu} />);
-        break;
-      default:
-        notFound();
-    }
-  }, [params]);
+  const tasks = await tasksCollections
+    .find({ username: "johndoe123" })
+    .toArray();
+  client.close;
 
-  return <div>{activePage}</div>;
+  const tasks2 = tasks.map((task) => {
+    return {
+      _id: task._id.toString(),
+      title: task.title,
+      description: task.description,
+      tags: task.tags,
+      projectId: task.projectId ? task.projectId.toString() : "",
+      projectName: task.projectName,
+      board: task.board,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      time: task.time,
+      userId: task.userId.toString(),
+      username: task.username,
+      completed: task.completed,
+    };
+  });
+
+switch (params.menu) {
+  case "project":
+    return <Project data={tasks2} projectId={params.submenu} />;
+  case "setting":
+    // localStorage.setItem("lastPage", `today`);
+    return <Today data={tasks2}  settingMenu={params.submenu} />;
+  default:
+    notFound();
+}
+
+
 }
