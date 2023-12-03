@@ -2,7 +2,7 @@ import Inbox from "../../../components/pages/AppPages/Inbox";
 import Today from "../../../components/pages/AppPages/Today";
 import Upcoming from "../../../components/pages/AppPages/Upcoming";
 import FilterPage from "../../../components/pages/AppPages/Filters-labels";
-import getAllTasks from "../../../components/data/getAllTasks";
+import getAllTasks from "../../../src/utils/data/getOneUserTasks";
 
 import { notFound } from "next/navigation";
 
@@ -24,7 +24,6 @@ export default async function AppPage({ params }) {
 
     case "setting":
       return <Today data={tasks} settingMenu={"account"} />;
-
     default:
       notFound();
   }

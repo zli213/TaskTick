@@ -1,7 +1,7 @@
 import LeftbarItem from "./LeftbarItem";
 import Myprojects from "./myprojects/Myprojects";
 import styles from "../../../styles/scss/leftbar.module.scss";
-import { getProjects } from "../../data/getProjects";
+import { getProjects } from "../../../src/utils/data/getProjects";
 
 async function Leftbar({ classes }) {
   const projects = await getProjects();
