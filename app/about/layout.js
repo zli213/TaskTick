@@ -1,7 +1,8 @@
 export default function AboutLayout(props) {
   return (
-    <>
-      <div>{props.children}</div>
-    </>
+    <div className="aboutLayout">
+      {props.children}
+      {props.MemberModal}
+    </div>
   );
 }

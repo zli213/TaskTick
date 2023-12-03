@@ -33,4 +33,13 @@
       border-radius: $borderRadius;
     }
   }
+  .middleCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: $itemMinHeightMd;
+    border-radius: $borderRadius;
+    box-shadow: 0 4px 8px 0 $grayColor;
+  }
 }

@@ -17,6 +17,11 @@ const nextConfig = {
 
     return config;
   },
+  // temporary, will be removed when the images are hosted on a local server
+  images: {
+    // remotePatterns: ["i.postimg.cc"],
+    domains: ["i.postimg.cc"],
+  },
 };
 
 module.exports = nextConfig;

@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree&display=swap");
+
+.gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1em;
+  width: 800px;
+  height: 500px;
+  transition: all 400ms;
+}
+
+.gallery:hover .box {
+  filter: grayscale(100%) opacity(24%);
+}
+
+.box {
+  position: relative;
+  background-size: cover;
+  transition: all 400ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@for $i from 1 through 7 {
+  .gallery:hover .box-#{$i} {
+    filter: grayscale(0%) opacity(100%);
+  }
+
+  .gallery.hovered-#{$i} {
+    grid-template-columns: repeat($i - 1, 1fr) 3fr repeat(7 - $i, 1fr);
+  }
+}

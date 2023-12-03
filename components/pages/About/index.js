@@ -3,12 +3,14 @@
 import styles from "../../../styles/scss/about.module.scss";
 import Navbar from "../Navbar";
 import dynamic from "next/dynamic";
+import MemberModal from "../../../app/about/@memberModal/page";
+import Gallery from "../About/GalleryComponent";
 const MapWithNoSSR = dynamic(() => import("../About/MapComponent"), {
   ssr: false,
 });
-function About() {
+function About(props) {
   return (
-    <div>
+    <div className="aboutPageComponent">
       <Navbar />
       <div className={styles.container}>
         <div className={styles.upCard}>
@@ -24,7 +26,9 @@ function About() {
             <MapWithNoSSR />
           </div>
         </div>
-        <div className="middleCard"></div>
+        <div className={styles.middleCard}>
+          <Gallery />
+        </div>
       </div>
     </div>
   );
