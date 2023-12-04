@@ -8,15 +8,10 @@ function Today(props) {
   const router = useRouter();
   localStorage.setItem("lastPage", "today");
 
-  //use timestamp to compare if the item dueDate is todya
+  //use timestamp to compare if the item dueDate is today
   const todayTasks = props.data.filter((task) => {
     return task.dueDate.getTime() == new Date().getTime();
   });
-
-  // console.log(props.data[0].dueDate.getTime());
-  // console.log(new Date("2023-11-30 13:00").getTime());
-  // console.log("test");
-  // console.log(todayTasks);
 
   useEffect(() => {
     if ("settingMenu" in props) {
