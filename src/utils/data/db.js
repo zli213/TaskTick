@@ -1,13 +1,13 @@
 /**
  * Get connection with MongoDB
  * 
- * when need write route or get data functions, import "connect" from this file
+ * When need write route or get data functions, import "connect" from this file
  */
 
 import mongoose from "mongoose";
 
 const connect = async () => {
-  // if (mongoose.connect[0].readyState) return;
+  // if (mongoose.connect[0].readyState) return;   //This line I wanna keep it, need to fix how to make it work
 
   //connect with MongoDB
   try {
