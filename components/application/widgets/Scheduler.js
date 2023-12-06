@@ -3,7 +3,7 @@
  * This component is used for schedule date picking.
  *
  * @param
- * data: {selectedDate: 'yyyy-mm-dd'}
+ * data: incoming data {selectedDate: 'yyyy-mm-dd'}
  * onChangeDate: fn (the return data of fn is {dateTime: Date, dateStr:"yyyy-mm-dd"})
  * onOverlayClick: fn  (usually used for hide the component)
  *
@@ -11,7 +11,6 @@
  * <Scheduler data={selectedDate:"yyyy-mm-dd" onChangeDate={(data)=>{...}} onOverlayClick={()=>{...}} />
  */
 
-"use client";
 import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";

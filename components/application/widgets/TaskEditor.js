@@ -1,11 +1,5 @@
-"use client";
-import { useState } from "react";
-import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
-import Scheduler, { convertDate } from "./Scheduler";
-
 /**
  * @param
- * [Deserted]onRef(necessary): used for exposure inside functions [showMe,...] to be called outside.
  * formType: ["add", "edit"]
  * taskData: {
  *      selectedDate: "2023-12-04",
@@ -17,14 +11,14 @@ import Scheduler, { convertDate } from "./Scheduler";
  * @todo
  * 1. How to submit the form
  * 2. Show date when type='edit'
+ * ...
  */
-function TaskEditor({
-  //   onRef,
-  formType,
-  taskData,
-  cancelCallBack,
-  submitCallBack,
-}) {
+
+import { useState } from "react";
+import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import Scheduler, { convertDate } from "./Scheduler";
+
+function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
   // Default values
   if (formType == null) {
     formType = "add";
@@ -45,11 +39,7 @@ function TaskEditor({
     setSelectedDate(date.dateStr);
   };
 
-  // show/hide scheduler
-  //   const schedulerRef = useRef();
-  //   const showScheduler = () => {
-  //     schedulerRef.current?.showMe();
-  //   };
+  // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const showScheduler = () => {
     setIsShowScheduler(true);

@@ -1,8 +1,9 @@
 /**
  *
- * @param {data} param0
- * {year:2023,month:12,selected:0}
- * @returns
+ * @param
+ * onDateSelect: fn, return a Date() that seleted
+ * data: incoming data {year:yyyy,month:mm,selected:0-31}
+ *
  */
 
 import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
@@ -12,25 +13,24 @@ function DatePicker({ onDateSelect, data }) {
   const year = data.year;
   const selected = data.selected;
 
-  // Get today: "Fri Dec 01 2023 00:02:55 GMT+1300 (新西兰夏令时间)"
+  /** Get today. Date structure in browser: "Fri Dec 01 2023 00:02:55 GMT+1300 (新西兰夏令时间)"*/
   const today = new Date();
+  /** The first day of the month in Date type*/
   const renderdate = new Date(year.toString() + "-" + month.toString());
+  /** The long month string */
   const monthString = renderdate.toLocaleString("En", { month: "long" });
 
-  //Day of first day
+  /** Week day of first day*/
   const firstDay = renderdate.getDay();
 
-  // Date of last day of the month: get first day of next month, then minus 1 and get date.
-  const lastday = new Date(
-    new Date(
-      `${month < 12 ? year : year + 1}-${month == 12 ? 1 : month + 1} 00:00`
-    ).getTime() - 1
-  ).getDate();
+  /** Date of last day of the month.*/
+  const lastday = new Date(year, month, 0).getDate();
 
-  // Structure of calendar for render.
+  /** Structure of calendar for render.*/
   let calendarList = [{ id: 0, days: [] }];
-  // How many days to be pushed to the list.
+  /** How many days have not been pushed to the list.*/
   let daysLeft = lastday;
+
   // First week
   while (calendarList[0].days.length < firstDay) {
     calendarList[0].days.push("");
@@ -63,7 +63,7 @@ function DatePicker({ onDateSelect, data }) {
     }
   }
 
-  // Using map to render list, every item need a key. 'tempKey' is used for the blanks of beginning and end of the calendar.
+  /** When using map to render list, every item need a key. The 'tempKey' is used for the blanks of beginning and end of the calendar.*/
   let tempKey = Date.now();
 
   return (
