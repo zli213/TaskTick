@@ -12,6 +12,7 @@
   height: calc(100vh - $marginLg * 2);
   max-width: $taskPageWidth;
   overflow: hidden;
+  font-size: $fontSizeXsm;
 }
 
 .task_title_bar {
@@ -51,13 +52,92 @@
     flex-direction: column;
     justify-content: space-evenly;
     gap: $paddingsm;
+    // font-weight: 700;
+  }
+
+  .task_sidebar_item {
+    display: flex;
+    flex-direction: column;
+    color: $textSecondaryColor;
   }
 
   hr {
-    border-top:  1px solid $lightGrayColor ;
-    height: 0;
-    background-color: $grayColor;
+    // border-top:  1px solid $lightGrayColor ;
+    height: 1px;
+    background-color: $lightGrayColor;
   }
+
+  .task_sidebar_label_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h4 {
+      line-height: $fontSizeMd;
+    }
+  }
+
+  .task_tags_container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .task_tag_item {
+    background-color: $grayColor;
+    padding: $paddingXsm;
+    margin-right: $marginXsm;
+    border-radius: $paddingXsm;
+    color: $textPrimaryColor;
+
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .task_tag_item:hover {
+    background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
+  }
+
+  // svg:hover  {
+  //   fill: black;
+  // }
 }
 
+.task_main_container {
+  padding: $paddingMd;
+  width: 100%;
 
+  .task_main_sub_container {
+    display: flex;
+    flex-direction: column;
+    gap: $paddingsm;
+  }
+
+  .task_main_task {
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+    align-items: flex-start;
+  }
+  .task_overview_main {
+    // margin-top: $marginXsm ;
+    margin-left: $paddingsm;
+    line-height: $fontSizeMd ;
+  }
+
+  .task_overview_title{
+    font-weight: 700;
+    font-size: $fontSizeMd;
+    margin: 0 $marginXsm $marginXsm 0 ;
+  }
+
+  .task_overview_description{
+      margin: $paddingsm 0 ;
+      font-size: $fontSizeSm;
+  }
+
+  .task_main_add_sub{
+    margin: $paddingsm $marginMd 0 ;
+  }
+}
