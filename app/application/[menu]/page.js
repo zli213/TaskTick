@@ -1,45 +1,30 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Inbox from "../../../components/pages/AppPages/Inbox";
 import Today from "../../../components/pages/AppPages/Today";
 import Upcoming from "../../../components/pages/AppPages/Upcoming";
 import FilterPage from "../../../components/pages/AppPages/Filters-labels";
-import { useRouter } from "next/navigation";
+import getAllTasks from "../../../src/utils/data/getOneUserTasks";
 
 import { notFound } from "next/navigation";
 
-export default function AppPage({ params }) {
-  const router = useRouter();
-  const [activePage, setActivePage] = useState(null);
+export default async function AppPage({ params }) {
+  const tasks = await getAllTasks();
 
-  useEffect(() => {
-    if (params.menu != "setting") {
-      localStorage.setItem("lastPage", params.menu);
-    }
+  switch (params.menu) {
+    case "inbox":
+      return <Inbox data={tasks} />;
 
-    switch (params.menu) {
-      case "inbox":
-        setActivePage(<Inbox />);
-        break;
-      case "today":
-        setActivePage(<Today />);
-        break;
-      case "upcoming":
-        setActivePage(<Upcoming />);
-        break;
-      case "filters-labels":
-        setActivePage(<FilterPage />); //need edit
-        break;
-      case "setting":
-        setActivePage(<Today />);
-        router.push(`/application/setting/account`);
-        break;
+    case "today":
+      return <Today data={tasks} />;
 
-      default:
-        notFound();
-    }
-  }, [params]);
+    case "upcoming":
+      return <Upcoming data={tasks} />;
 
-  return <div>{activePage}</div>;
+    case "filters-labels":
+      return <FilterPage data={tasks} />; //need edit
+
+    case "setting":
+      return <Today data={tasks} settingMenu={"account"} />;
+    default:
+      notFound();
+  }
 }
