@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function SingleItems({
   title,
   _id,
@@ -9,7 +11,9 @@ export function SingleItems({
   priority,
   completed,
 }) {
+
   const formattedDate = new Date(dueDate).toLocaleDateString();
+
   return (
     <div>
       <div>
@@ -17,7 +21,8 @@ export function SingleItems({
           <div>tuodong</div>
           <button>check</button>
           <div>
-            <div>{title}</div>
+            <Link href={`/application/task/${_id}`} scroll={false}>{title}</Link>
+           
             <div>{description}</div>
             <div>{formattedDate}</div>
           </div>

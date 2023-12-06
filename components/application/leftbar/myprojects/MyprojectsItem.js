@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const MyprojectsItem = ({ label, link }) => {
   return (
-    <li>
+    <li c>
       <Link href={link}>
         <div>
           <span></span>

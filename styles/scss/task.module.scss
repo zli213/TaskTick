@@ -1,0 +1,63 @@
+@use "./utils/variable" as *;
+
+.task_modal_container {
+  position: fixed;
+  top: calc($marginLg);
+  left: calc(50vw - $taskPageWidth / 2);
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: $settingPageWidth;
+  // min-height: $settingHeight;
+  height: calc(100vh - $marginLg * 2);
+  max-width: $taskPageWidth;
+  overflow: hidden;
+}
+
+.task_title_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: $paddingXsm;
+}
+
+.task_header {
+  padding: $paddingsm;
+  box-shadow: 0 0 1px $grayColor;
+  z-index: 10;
+}
+
+.task_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.taskHeadr_title {
+  display: flex;
+  flex-direction: row;
+}
+
+.task_sidebar {
+  min-width: $appSideBarWidth;
+  background-color: $lightGrayColor;
+  height: calc(100vh - $marginLg * 2);
+  padding: $paddingMd;
+  // z-index: -1;
+
+  .task_sidebar_list {
+    padding: 0 $paddingsm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: $paddingsm;
+  }
+
+  hr {
+    border-top:  1px solid $lightGrayColor ;
+    height: 0;
+    background-color: $grayColor;
+  }
+}
+
+

@@ -20,6 +20,7 @@ export default function AppLayout(props) {
         <div>{props.children}</div>
       </div>
       <div id="modal_box">{props.settingModal}</div>
+      <div id="task_modal_box">{props.taskModal}</div>
     </>
   );
 }

@@ -17,6 +17,11 @@ function Today(props) {
     if ("settingMenu" in props) {
       router.push(`/application/setting/${props.settingMenu}`);
     }
+
+    if ("taskId" in props) {
+      router.push(`/application/task/${props.taskId}`);
+    }
+
   }, []);
 
   return (
