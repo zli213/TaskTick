@@ -1,12 +1,36 @@
 /**
  * Description: Include details of a task
  */
+"use client";
 
+import { useState } from "react";
 import styles from "../../../../styles/scss/task.module.scss";
-import Link from "next/link";
 import TaskHeaderLeft from "./TaskHeaderLeft";
+import {
+  convertDate,
+  formatDate,
+} from "../../../application/widgets/Scheduler";
+import CalenderIcon from "../../../../public/icon/calender.svg";
+import FlagIcon from "../../../../public/icon/flag.svg";
+import Scheduler from "../../../application/widgets/Scheduler";
 
 export default function TaskDetailsSidebar({ task }) {
+  const dateJson = formatDate(task.dueDate);
+
+  // Default selected date: from incoming parameters
+  const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
+  const changeSelectedDate = (date) => {
+    setSelectedDate(date.dateStr);
+  };
+  // Show/Hide Scheduler
+  const [isShowScheduler, setIsShowScheduler] = useState(false);
+  const showScheduler = () => {
+    setIsShowScheduler(true);
+  };
+  const hideScheduler = () => {
+    setIsShowScheduler(false);
+  };
+
   return (
     <div className={styles.task_sidebar}>
       <div className={styles.task_sidebar_list}>
@@ -21,12 +45,35 @@ export default function TaskDetailsSidebar({ task }) {
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Due date</h4>
-          <div>{task.dueDate.getDate().toString()}</div>
+          <button
+            className={styles.task_sidebar_button}
+            onClick={showScheduler}
+          >
+            <div>
+              <CalenderIcon />
+            </div>
+            <span>{convertDate(selectedDate)}</span>
+          </button>
+          {isShowScheduler && (
+            <Scheduler
+              data={{ selectedDate: selectedDate }}
+              onChangeDate={(dateJson) => {
+                changeSelectedDate(dateJson);
+                hideScheduler();
+              }}
+              onOverlayClick={hideScheduler}
+            />
+          )}
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
-          <div>{task.priority}</div>
+          <button className={styles.task_sidebar_button}>
+            <div>
+              <FlagIcon />
+            </div>
+            <span>{task.priority}</span>
+          </button>
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>

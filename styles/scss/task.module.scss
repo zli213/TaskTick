@@ -2,14 +2,14 @@
 
 .task_modal_container {
   position: fixed;
-  top: calc($marginLg);
+  top: calc($marginMd);
   left: calc(50vw - $taskPageWidth / 2);
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
   width: $taskPageWidth;
   // min-height: $settingHeight;
-  height: calc(100vh - $marginLg * 2);
+  height: calc(100vh - $marginMd * 2);
   max-width: $taskPageWidth;
   overflow: hidden;
   font-size: $fontSizeXsm;
@@ -48,7 +48,7 @@
 }
 
 .task_sidebar {
-  min-width: $appSideBarWidth;
+  min-width: $taskSideBarWidth;
   background-color: $lightGrayColor;
   height: calc(100vh - $marginLg * 2);
   padding: $paddingMd;
@@ -68,7 +68,7 @@
     // flex-direction: column;
     color: $textSecondaryColor;
     h4 {
-      margin-bottom: $paddingsm;
+     line-height: $lineHeight;
     }
   }
 
@@ -168,4 +168,23 @@
   bottom:hover {
     background-color: $lightGrayColor;
   }
+}
+
+.task_sidebar_button {
+  // padding: $paddingXsm;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: $paddingsm;
+  align-items: center;
+  line-height: $lineHeight;
+  vertical-align: center;
+  border-radius: $borderRadius;
+
+  
+}
+
+.task_sidebar_button:hover {
+  background-color: $grayColor;
 }
