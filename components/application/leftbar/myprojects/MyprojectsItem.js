@@ -1,11 +1,14 @@
 import Link from "next/link";
+import Hashtag from "../../../../public/icon/hashtag.svg";
 
 const MyprojectsItem = ({ label, link }) => {
   return (
     <li c>
       <Link href={link}>
         <div>
-          <span></span>
+          <span>
+            <Hashtag />
+          </span>
           {label}
         </div>
         <div></div>
@@ -13,6 +16,5 @@ const MyprojectsItem = ({ label, link }) => {
     </li>
   );
 };
-
 
 export default MyprojectsItem;

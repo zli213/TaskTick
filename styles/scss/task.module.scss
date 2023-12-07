@@ -7,7 +7,7 @@
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
-  width: $settingPageWidth;
+  width: $taskPageWidth;
   // min-height: $settingHeight;
   height: calc(100vh - $marginLg * 2);
   max-width: $taskPageWidth;
@@ -19,11 +19,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: $paddingXsm;
+  // padding: $paddingXsm;
+  align-items: center;
+  // height: $fontSizeMd;
 }
 
 .task_header {
-  padding: $paddingsm;
+  padding: $paddingXsm $paddingsm;
   box-shadow: 0 0 1px $grayColor;
   z-index: 10;
 }
@@ -37,6 +39,12 @@
 .taskHeadr_title {
   display: flex;
   flex-direction: row;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
 .task_sidebar {
@@ -56,9 +64,12 @@
   }
 
   .task_sidebar_item {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     color: $textSecondaryColor;
+    h4 {
+      margin-bottom: $paddingsm;
+    }
   }
 
   hr {
@@ -93,6 +104,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .task_tag_item:hover {
@@ -123,21 +136,36 @@
   .task_overview_main {
     // margin-top: $marginXsm ;
     margin-left: $paddingsm;
-    line-height: $fontSizeMd ;
+    line-height: $fontSizeMd;
   }
 
-  .task_overview_title{
+  .task_overview_title {
     font-weight: 700;
     font-size: $fontSizeMd;
-    margin: 0 $marginXsm $marginXsm 0 ;
+    margin: 0 $marginXsm $marginXsm 0;
   }
 
-  .task_overview_description{
-      margin: $paddingsm 0 ;
-      font-size: $fontSizeSm;
+  .task_overview_description {
+    margin: $paddingsm 0;
+    font-size: $fontSizeSm;
   }
 
-  .task_main_add_sub{
-    margin: $paddingsm $marginMd 0 ;
+  .task_main_add_sub {
+    margin: $paddingsm $marginMd 0;
+  }
+}
+
+.task_header_button {
+  display: flex;
+  flex-direction: row;
+  gap: $gap;
+
+  bottom {
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  bottom:hover {
+    background-color: $lightGrayColor;
   }
 }

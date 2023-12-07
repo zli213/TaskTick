@@ -12,21 +12,22 @@
 
 import styles from "../../../../styles/scss/task.module.scss";
 import Link from "next/link";
+import HashtagSm from "../../../../public/icon/hashtag_small.svg";
 
 export default function TaskHeaderLeft({ projectId, projectName, board }) {
-  const str = " / ";
-
   return (
     <div className={styles.taskHeadr_title}>
       {!projectId ? (
-        <Link href="application/inbox"># Inbox</Link>
+        <Link href="application/inbox">
+          <HashtagSm />&nbsp; Inbox
+        </Link>
       ) : (
-        <Link href={`/application/project/${projectId}`}># {projectName}</Link>
+        <Link href={`/application/project/${projectId}`}><HashtagSm />&nbsp;{projectName}</Link>
       )}
       {board && (
         <>
-          {str}
-          <Link href={`/application/project/${projectId}`}>board</Link>
+          &nbsp;/&nbsp;
+          <Link href={`/application/project/${projectId}`}>{board}</Link>
         </>
       )}
     </div>

@@ -7,7 +7,12 @@ import styles from "../../../../styles/scss/task.module.scss";
 import Link from "next/link";
 import Uncheck from "../../../../public/icon/uncheck_grey_button.svg";
 
-export default function TaskMainContent() {
+export default function TaskMainContent({
+  taskId,
+  taskTitle,
+  taskDescription,
+  taskCompleted,
+}) {
   return (
     <div className={styles.task_main_container}>
       <div className={styles.task_main_sub_container}>
@@ -17,9 +22,9 @@ export default function TaskMainContent() {
               <Uncheck />
             </button>
             <div className={styles.task_overview_main}>
-              <div className={styles.task_overview_title}>Title</div>
+              <div className={styles.task_overview_title}>{taskTitle}</div>
               <div className={styles.task_overview_description}>
-                获取description
+                {taskDescription ? taskDescription : "Description" }
               </div>
             </div>
           </div>

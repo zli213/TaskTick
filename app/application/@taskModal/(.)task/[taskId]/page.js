@@ -1,8 +1,9 @@
 /***
  * Description: Modal Page for single tasks
- * 
+ *
  * Author: Ryan
  */
+
 
 import { notFound } from "next/navigation";
 import Modal from "../../../../../components/application/widgets/Modal";
@@ -11,15 +12,15 @@ import styles from "../../../../../styles/scss/task.module.scss";
 import TaskHeaderLeft from "../../../../../components/pages/AppPages/Task.js/TaskHeaderLeft";
 import TaskMainContent from "../../../../../components/pages/AppPages/Task.js/TaskMainContent";
 import TaskDetailsSidebar from "../../../../../components/pages/AppPages/Task.js/TaskDetailsSidebar";
+import TaskHeaderButtons from "../../../../../components/pages/AppPages/Task.js/TaskHeaderButtons";
 
 export default async function TaskModal({ params }) {
   try {
-
     //get single task
     const task = await getOneTask(params.taskId);
 
     return (
-      <Modal>
+      <Modal >
         <div className={styles.task_modal_container}>
           <header className={styles.task_header}>
             <div className={styles.task_title_bar}>
@@ -28,11 +29,16 @@ export default async function TaskModal({ params }) {
                 projectName={task.projectName}
                 board={task.board}
               />
-              <div>right buttion</div>
+              <TaskHeaderButtons />
             </div>
           </header>
           <div id="task-container" className={styles.task_container}>
-            <TaskMainContent />
+            <TaskMainContent
+              taskId={task._id}
+              taskTitle={task.title}
+              taskDescription={task.description}
+              taskCompleted={task.completed}
+            />
             <TaskDetailsSidebar task={task} />
           </div>
         </div>

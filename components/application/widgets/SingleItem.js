@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CheckButton from "../../../public/icon/uncheck_grey_button.svg";
 
 export function SingleItems({
   title,
@@ -17,7 +18,9 @@ export function SingleItems({
     <div>
       <li>
         <div>tuodong</div>
-        <button>check</button>
+        <button>
+          <CheckButton />
+        </button>
         <div>
           <Link href={`/application/task/${_id}`} scroll={false}>
             {title}
