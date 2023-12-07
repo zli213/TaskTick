@@ -10,15 +10,14 @@ import connect from "./db";
 import Tasks from "../../models/Tasks";
 
 export default async function getOneUserTasks(userId) {
-  //connect to the DB
-  // await connect();
+  //Connect to the DB
+  await connect();
 
   try {
-    //find the tasks
+    //Find the tasks
     const existingTasks = await Tasks.find({ username: "johndoe123" }); //need edit
-    // console.log(existingTasks);
 
-    //transfor the ObjectID to String
+    //Transfor the ObjectID to String
     const tasks2 = existingTasks.map((task) => {
       return {
         _id: task._id.toString(),

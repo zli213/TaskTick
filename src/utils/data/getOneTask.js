@@ -8,11 +8,11 @@ import connect from "./db";
 import Tasks from "../../models/Tasks";
 
 export default async function getOneTask(taskId) {
-  //connect to the DB
-  //   await connect();
+  //Connect to the DB
+  await connect();
 
   try {
-    //find the tasks
+    //Find the tasks
     const task = await Tasks.findOne({ _id: taskId });
 
     if (!task) {

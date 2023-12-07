@@ -1,15 +1,16 @@
 /**
  * Get connection with MongoDB
- * 
+ *
  * When need write route or get data functions, import "connect" from this file
  */
 
 import mongoose from "mongoose";
 
 const connect = async () => {
-  // if (mongoose.connect[0].readyState) return;   //This line I wanna keep it, need to fix how to make it work
+  //Check connection state
+  if (mongoose.connection.readyState) return;
 
-  //connect with MongoDB
+  //Connect with MongoDB
   try {
     await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
