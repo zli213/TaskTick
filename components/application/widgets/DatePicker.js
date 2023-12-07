@@ -13,7 +13,7 @@ function DatePicker({ onDateSelect, data }) {
   const year = data.year;
   const selected = data.selected;
 
-  /** Get today. Date structure in browser: "Fri Dec 01 2023 00:02:55 GMT+1300 (新西兰夏令时间)"*/
+  /** Get today. Date structure in browser: "Fri Dec 01 2023 00:02:55 GMT+1300 (...)"*/
   const today = new Date();
   /** The first day of the month in Date type*/
   const renderdate = new Date(year.toString() + "-" + month.toString());

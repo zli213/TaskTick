@@ -167,12 +167,12 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
   const debounce = useCallback((fn, wait = 50, immediate) => {
     let timer = null;
     return function (...args) {
-      // this保存给context
+      // using context to save this
       const context = this;
       if (timer) clearTimeout(timer);
 
-      // immediate 为 true 表示第一次触发后执行
-      // timer 为空表示首次触发
+      // if immediate is true means execute once without waiting
+      // if timer is null means first trigger
       if (immediate && !timer) {
         fn.apply(context, args);
       }
