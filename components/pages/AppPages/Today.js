@@ -2,6 +2,7 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import { useRouter } from "next/navigation";
+import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 
 function Today(props) {
@@ -27,6 +28,7 @@ function Today(props) {
   return (
     <>
       <h1>Today</h1>
+      <AddTask />
       <TodoList tasks={todayTasks} />
     </>
   );
