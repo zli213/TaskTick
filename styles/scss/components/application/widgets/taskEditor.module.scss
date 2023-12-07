@@ -1,0 +1,62 @@
+@use "../../../utils/variable" as *;
+
+.task_edit_form{
+    background-color: #fff;
+    border:1px solid #e5e5e5;
+    border-radius: 8px;
+}
+
+.task_name{
+    display: block;
+}
+
+.task_edit_area{
+    width: 100%;
+    padding:1rem;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.task_edit_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    button{
+        border: 1px solid $grayColor;
+        border-radius: 4px;
+        margin: 0 .3rem;
+        padding: .5rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        &:hover{
+            background-color: #e5e5e5;
+        }
+    }
+}
+.task_footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding:1rem;
+    button{
+        border-radius: 4px;
+        margin: 0 .3rem;
+        padding: .5rem 2rem;
+        font-weight: bold;
+    }
+}
+.task_footer_cancel{
+    color: #000;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    &:hover {
+        background-color: #e5e5e5;
+    }
+}
+.task_footer_submit{
+    color: #fff;
+    background-color: #dc4c3e;
+    cursor: pointer;
+    &:hover {
+        background-color: #c3392c;
+    }
+}
