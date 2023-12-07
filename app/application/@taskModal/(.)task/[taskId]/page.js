@@ -9,10 +9,10 @@ import { notFound } from "next/navigation";
 import Modal from "../../../../../components/application/widgets/Modal";
 import getOneTask from "../../../../../src/utils/data/getOneTask";
 import styles from "../../../../../styles/scss/task.module.scss";
-import TaskHeaderLeft from "../../../../../components/pages/AppPages/Task.js/TaskHeaderLeft";
-import TaskMainContent from "../../../../../components/pages/AppPages/Task.js/TaskMainContent";
-import TaskDetailsSidebar from "../../../../../components/pages/AppPages/Task.js/TaskDetailsSidebar";
-import TaskHeaderButtons from "../../../../../components/pages/AppPages/Task.js/TaskHeaderButtons";
+import TaskHeaderLeft from "../../../../../components/pages/AppPages/Task/TaskHeaderLeft";
+import TaskMainContent from "../../../../../components/pages/AppPages/Task/TaskMainContent";
+import TaskDetailsSidebar from "../../../../../components/pages/AppPages/Task/TaskDetailsSidebar";
+import TaskHeaderButtons from "../../../../../components/pages/AppPages/Task/TaskHeaderButtons";
 
 export default async function TaskModal({ params }) {
   try {
