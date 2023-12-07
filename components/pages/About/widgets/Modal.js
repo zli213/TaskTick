@@ -41,7 +41,6 @@ export default function Modal({ children }) {
     <div ref={overlay} className={styles.modal_overlay} onClick={onClick}>
       <div ref={wrapper} className={styles.modal_wrapper}>
         {children}
-        <p>这里是模态框内容</p>
       </div>
     </div>
   );

@@ -6,20 +6,25 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 50px;
+  z-index: 10000;
+  top: 50%; // 调整为居中
+  left: 50%; // 调整为居中
+  transform: translate(-50%, -50%); // 居中定位
+  width: 80%; // 调整宽度
+  max-width: 500px; // 最大宽度
+  height: auto; // 高度自动
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px; // 内边距
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); // 阴影效果
 }
+
 .modal_overlay {
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 9999;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -27,10 +32,9 @@
 }
 
 .modal_wrapper {
-  background: white;
   padding: 20px;
   width: 80%;
   max-width: 500px;
-  z-index: 1001;
+  z-index: 10001;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }

@@ -1,0 +1,18 @@
+@use "./utils/variable" as *;
+
+.frame {
+  border-radius: 15px;
+
+  background-color: rgba(246, 241, 241, 0.5);
+  .image {
+    border-radius: 15px;
+  }
+  .frame_text {
+    font-family: "Figtree", cursive;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $textPrimaryColor;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}

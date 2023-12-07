@@ -1,13 +1,18 @@
 import Image from "next/image";
-import { photo } from "../../../../public/images/members";
-
+import styles from "../../../../styles/scss/frame.module.scss";
 export default function Frame({ imageUrl, name, description }) {
   return (
-    <div className="frame">
-      <div className="frame__image">
-        <Image alt={name} src={imageUrl} height={500} width={500} />
+    <div className={styles.frame}>
+      <div className={styles.frame_image}>
+        <Image
+          alt={name}
+          src={imageUrl}
+          height={500}
+          width={500}
+          className={styles.image}
+        />
       </div>
-      <div className="frame__text">
+      <div className={styles.frame_text}>
         <h1>{name}</h1>
         <p>{description}</p>
       </div>

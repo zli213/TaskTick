@@ -19,8 +19,13 @@ const nextConfig = {
   },
   // temporary, will be removed when the images are hosted on a local server
   images: {
-    // remotePatterns: ["i.postimg.cc"],
-    domains: ["i.postimg.cc"],
+    // domains: ["i.postimg.cc"], old config
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.postimg.cc",
+      },
+    ],
   },
 };
 

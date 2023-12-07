@@ -3,8 +3,6 @@
 import styles from "../../../styles/scss/about.module.scss";
 import Navbar from "../Navbar";
 import dynamic from "next/dynamic";
-import MemberModal from "../../../app/about/@memberModal/page";
-import Gallery from "../About/GalleryComponent";
 const MapWithNoSSR = dynamic(() => import("../About/MapComponent"), {
   ssr: false,
 });
@@ -25,9 +23,6 @@ function About(props) {
           <div className={styles.mapCard}>
             <MapWithNoSSR />
           </div>
-        </div>
-        <div className={styles.middleCard}>
-          <Gallery />
         </div>
       </div>
     </div>

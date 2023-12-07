@@ -2,23 +2,13 @@
 
 "use client";
 import React, { useState } from "react";
-import Box from "./widgets/Box";
-import MemberModal from "./widgets/Modal"; // 引入MemberModal组件
+import Image from "next/image";
+import Link from "next/link";
 import teamMembers from "../../../public/images/members.js";
-import galleryStyles from "../../../styles/scss/box.module.scss";
+import galleryStyles from "../../../styles/scss/gallery.module.scss";
 
 function GalleryComponent() {
   const [hoveredBox, setHoveredBox] = useState(null);
-  const [selectedMember, setSelectedMember] = useState(null); // 新状态
-
-  const openModal = (member) => {
-    setSelectedMember(member);
-    console.log("openModal", member);
-  };
-
-  const closeModal = () => {
-    setSelectedMember(null);
-  };
 
   return (
     <>
@@ -28,20 +18,19 @@ function GalleryComponent() {
         }`}
       >
         {teamMembers.map((member) => (
-          <Box
-            key={member.id}
-            id={member.id}
-            imageUrl={member.imageUrl}
-            name={member.name}
-            onMouseEnter={() => setHoveredBox(member.id)}
-            onMouseLeave={() => setHoveredBox(null)}
-            onClick={() => openModal(member)}
-          />
+          <div key={member.id} className={galleryStyles.box}>
+            <Link key={member.id} href={`/about/teammembers/${member.id}`}>
+              <Image
+                alt={member.name}
+                src={member.imageUrl}
+                height={500}
+                width={500}
+                className={galleryStyles.image}
+              />
+            </Link>
+          </div>
         ))}
       </div>
-      {selectedMember && (
-        <MemberModal id={selectedMember.id} onClose={closeModal} />
-      )}
     </>
   );
 }

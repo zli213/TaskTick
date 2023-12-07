@@ -1,11 +1,9 @@
 // (about/teammembers/[id]/page.js)
 import teamMembers from "../../../../public/images/members";
 import Frame from "../../../../components/pages/About/widgets/Frame";
-export default function Page({ id }) {
-  const person = teamMembers.find((person) => person.id === id);
-  if (!person) {
-    return <div>Loading...</div>;
-  }
+export default function Page({ params }) {
+  console.log("id", params.id);
+  const person = teamMembers.find((p) => p.id === params.id);
 
   return (
     <Frame

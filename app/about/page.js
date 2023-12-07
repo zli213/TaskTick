@@ -1,9 +1,13 @@
+"use client";
 import AboutPage from "../../components/pages/About/index";
+import styles from "../../styles/scss/about.module.scss";
+import Gallery from "../../components/pages/About/GalleryComponent";
 
 function About() {
   return (
     <div className="aboutPage">
       <AboutPage />
+      <Gallery />
     </div>
   );
 }

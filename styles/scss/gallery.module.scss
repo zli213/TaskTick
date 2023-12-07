@@ -1,13 +1,14 @@
+@use "./utils/variable" as *;
 @import url("https://fonts.googleapis.com/css2?family=Figtree&display=swap");
-
 .gallery {
   position: relative;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1em;
-  width: 800px;
-  height: 500px;
+  width: 95%;
+  height: auto;
   transition: all 400ms;
+  margin: auto;
 }
 
 .gallery:hover .box {
@@ -16,11 +17,16 @@
 
 .box {
   position: relative;
-  background-size: cover;
   transition: all 400ms;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.image {
+  border-radius: 15px;
 }
 
 @for $i from 1 through 7 {
