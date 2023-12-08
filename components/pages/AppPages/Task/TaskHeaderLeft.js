@@ -16,7 +16,7 @@ import HashtagSm from "../../../../public/icon/hashtag_small.svg";
 
 export default function TaskHeaderLeft({ projectId, projectName, board }) {
   return (
-    <div className={styles.taskHeadr_title}>
+    <div className={styles.task_header_title}>
       {!projectId ? (
         <Link href="application/inbox">
           <HashtagSm />&nbsp; Inbox
