@@ -3,7 +3,7 @@
 import styles from "../../../styles/scss/about.module.scss";
 import Navbar from "../Navbar";
 import dynamic from "next/dynamic";
-const MapWithNoSSR = dynamic(() => import("../About/MapComponent"), {
+const MapComponent = dynamic(() => import("../About/MapComponent"), {
   ssr: false,
 });
 function About(props) {
@@ -21,7 +21,7 @@ function About(props) {
             />
           </div>
           <div className={styles.mapCard}>
-            <MapWithNoSSR />
+            <MapComponent />
           </div>
         </div>
       </div>

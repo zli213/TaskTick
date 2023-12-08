@@ -7,15 +7,15 @@
   justify-content: center;
   position: fixed;
   z-index: 10000;
-  top: 50%; // 调整为居中
-  left: 50%; // 调整为居中
-  transform: translate(-50%, -50%); // 居中定位
-  width: 80%; // 调整宽度
-  max-width: 500px; // 最大宽度
-  height: auto; // 高度自动
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  height: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px; // 内边距
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); // 阴影效果
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .modal_overlay {

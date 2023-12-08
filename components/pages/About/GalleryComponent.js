@@ -1,5 +1,4 @@
 // (component/pages/About/GalleryComponent.js)
-
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import teamMembers from "../../../public/images/members.js";
 import galleryStyles from "../../../styles/scss/gallery.module.scss";
 
 function GalleryComponent() {
+  // Todo: add hover effect
   const [hoveredBox, setHoveredBox] = useState(null);
 
   return (
