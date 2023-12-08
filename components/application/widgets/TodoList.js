@@ -4,19 +4,19 @@
 import { SingleItems } from "./SingleItem";
 import styles from "../../../styles/scss/todoList.module.scss";
 
-function TodoList({ datas }) {
+function TodoList({ tasks }) {
   return (
     <div className={styles.list_editor}>
       <section className={styles.section}>
         <div>
-          {datas
+          {tasks
             .filter((data) => data.completed == false)
             .map((data) => (
               <SingleItems
                 key={data._id}
                 _id={data._id}
                 title={data.title}
-                dueDate={data.dueDate}
+                dueDate={data.dueDate.toString()}
                 description={data.description}
                 projectName={data.projectName}
                 board={data.board}

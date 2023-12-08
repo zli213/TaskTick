@@ -1,15 +1,19 @@
+"use client";
+
 import TodoList from "../../application/widgets/TodoList";
 
-import { DUMMY_TASKS } from "../../../public/dummy-data";
+export default function Inbox(props) {
+  localStorage.setItem("lastPage", "inbox");
 
-export default function Inbox() {
-  //fetch tasks without program
+  const inBoxTasks = props.data.filter((task) => {
+    return task.projectId == "";
+  });
 
   return (
     <>
       <h1>Inbox</h1>
       <div className="list-box">
-        <TodoList datas={DUMMY_TASKS} />
+        <TodoList tasks={inBoxTasks} />
       </div>
     </>
   );

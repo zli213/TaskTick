@@ -1,11 +1,14 @@
-import TodoList from "../../application/widgets/TodoList";
-import { DUMMY_TASKS } from "../../../public/dummy-data";
+"use client";
 
-function FilterPage() {
+import TodoList from "../../application/widgets/TodoList";
+
+function FilterPage(props) {
+  localStorage.setItem("lastPage", "filters-labels");
+
   return (
     <>
       <h1>Filter Page</h1>
-      <TodoList datas={DUMMY_TASKS} />;
+      <TodoList tasks={props.data} />;
     </>
   );
 }
