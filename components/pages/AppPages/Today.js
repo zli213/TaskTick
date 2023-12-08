@@ -7,7 +7,14 @@ import { useEffect } from "react";
 
 function Today(props) {
   const router = useRouter();
-  localStorage.setItem("lastPage", "today");
+  // localStorage.setItem("lastPage", "today");
+  useEffect(() => {
+    localStorage.setItem("lastPage", "today");
+
+    if ("settingMenu" in props) {
+      router.push(`/application/setting/${props.settingMenu}`);
+    }
+  }, [props.settingMenu]);
 
   //use timestamp to compare if the item dueDate is today
   const todayTasks = props.data.filter((task) => {
