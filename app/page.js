@@ -5,7 +5,9 @@ import "../styles/scss/globals.scss";
 export default function Home() {
   return (
     <div className="homeContainer">
-      <Navbar />
+      <div>
+        <Navbar />
+      </div>
       <div className="slogan">
         <h1 className="slogan_h1">Organize your work</h1>
         <h1 className="slogan_h1">and life, finally.</h1>
