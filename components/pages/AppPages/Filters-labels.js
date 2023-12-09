@@ -1,9 +1,13 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
+import { useEffect } from "react";
+
 
 function FilterPage(props) {
-  localStorage.setItem("lastPage", "filters-labels");
+  useEffect(() => {
+    localStorage.setItem("lastPage", "filters-labels");
+  }, []);
 
   return (
     <>

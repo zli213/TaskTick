@@ -2,9 +2,12 @@
 
 import React from "react";
 import TodoList from "../../application/widgets/TodoList";
+import { useEffect } from "react";
 
 function Upcoming(props) {
-  localStorage.setItem("lastPage", "upcoming");
+  useEffect(() => {
+    localStorage.setItem("lastPage", "upcoming");
+  }, []);
 
   return (
     <>
