@@ -9,11 +9,21 @@ export function SingleItems({
   priority,
   completed,
 }) {
+  const formattedDate = new Date(dueDate).toLocaleDateString();
   return (
     <div>
-      <div>{title}</div>
-      <div>{description}</div>
-      <div>{dueDate}</div>
+      <div>
+        <li>
+          <div>tuodong</div>
+          <button>check</button>
+          <div>
+            <div>{title}</div>
+            <div>{description}</div>
+            <div>{formattedDate}</div>
+          </div>
+          <div>right side function</div>
+        </li>
+      </div>
     </div>
   );
 }

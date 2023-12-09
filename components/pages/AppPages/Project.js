@@ -1,15 +1,22 @@
+"use client";
+
 import TodoList from "../../application/widgets/TodoList";
+import React from "react";
 
-import { DUMMY_TASKS } from "../../../public/dummy-data";
+export default function Project(props) {
+  localStorage.setItem("lastPage", `project/${props.projectId}`);
 
-export default function Project({ projectId }) {
-  // fetch/filter relative tasks
+  const tasks = props.data.filter((task) => {
+    return task.projectId == props.projectId;
+  });
+
+  const projectName = tasks[0].projectName;
 
   return (
     <>
-      <h1>Project name {projectId}</h1>
+      <h1>{projectName}</h1>
       <div className="list-box">
-        <TodoList datas={DUMMY_TASKS} />
+        <TodoList tasks={tasks} />
       </div>
     </>
   );

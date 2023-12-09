@@ -1,7 +1,6 @@
-import { ObjectId } from 'mongodb';
 import { NextResponse} from 'next/server';
 import { connectDatabase } from '../../../db';
-
+import connect from "../../../src/utils/data/db";
 //retrieve user info
 export async function GET() {
     
