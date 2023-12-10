@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../Signup/index";
+import styles from "../../../styles/scss/form.module.scss";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({});
@@ -65,7 +65,7 @@ const SignupForm = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit} method="post">
+    <form className={styles.signupForm} onSubmit={handleSubmit} method="post">
       <div className={styles.inputGroup}>
         <label>Email</label>
         <input
