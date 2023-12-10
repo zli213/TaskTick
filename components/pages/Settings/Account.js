@@ -10,7 +10,7 @@ const SettingAccount = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/users");
+        const response = await fetch("/api/account");
 
         if (response.ok) {
           const data = await response.json();

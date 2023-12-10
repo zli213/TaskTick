@@ -7,7 +7,7 @@ export const GET = async () => {
     await connect();
 
     //wait for modification. Auth?
-    const user = await User.find({username: "johndoe123"});
+    const user = await User.findOne({ username: 'johndoe123' });
     console.log("Found: ",user);
 
     try {
