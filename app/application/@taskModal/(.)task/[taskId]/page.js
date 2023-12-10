@@ -4,7 +4,6 @@
  * Author: Ryan
  */
 
-
 import { notFound } from "next/navigation";
 import Modal from "../../../../../components/application/widgets/Modal";
 import getOneTask from "../../../../../src/utils/data/getOneTask";
