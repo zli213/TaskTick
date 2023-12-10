@@ -14,6 +14,7 @@ const connect = async () => {
     await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      dbName: 'todo-database'
     });
 
     console.log("Mongo Conection Completed!");
