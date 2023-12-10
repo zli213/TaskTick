@@ -1,5 +1,4 @@
-// import "./globals.scss";
-import Link from "next/link";
+import "../styles/scss/globals.scss";
 
 export const metadata = {
   title: "Todo APP",
