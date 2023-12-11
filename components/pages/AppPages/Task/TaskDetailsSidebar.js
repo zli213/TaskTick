@@ -22,6 +22,7 @@ export default function TaskDetailsSidebar({ task }) {
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
+  
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const showScheduler = () => {
