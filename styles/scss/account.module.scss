@@ -1,0 +1,24 @@
+@use "./utils/variable" as *;
+
+.container {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+}
+
+    .header {
+        padding: 10px;
+        margin:auto;
+        flex-direction: row;
+    }
+
+    .accountForm {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    

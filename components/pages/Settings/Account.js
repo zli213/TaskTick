@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { NextResponse } from "next/server";
-import EditableInput from "../../application/widgets/EditableInput";
+import styles from "../../../styles/scss/account.module.scss";
+
 
 const SettingAccount = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [inputValue, setInputValue] = useState(null);
+  const [showButton, setShowButton] = useState(false);
+  const [username, setUsername] = useState(null);
 
+  //set user info
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/account");
+        const response = await fetch("/api/account", { method: 'GET' });
 
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data);
-        } else {
-          //Now it gets "User not found".
-          const errorData = await response.json();
-          setError(errorData.message || "Failed to fetch user data");
-        }
+          if (response.ok) {
+            const data = await response.json();
+            setUserData(data);
+            setInputValue(data.username);
+            setUsername(data.username);
+          } else {
+            const errorData = await response.json();
+            setError(errorData.message || "Failed to fetch user data");
+          }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setError("Failed to fetch user data. Please try again.");
@@ -27,35 +34,59 @@ const SettingAccount = () => {
         setLoading(false);
       }
     };
-    console.log("User data:", userData);
     fetchData();
   }, []);
+  
 
-  // const handleNameChange = (newName) => {
-  //   fetch("/api/users", {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ name: newName }),
-  //   });
-  // };
+  //handle input changes
+  const inputChangeHandler =  (event) => {
+    setInputValue(event.target.value);
+  };
+
+  //if inputValue changes, set buttons visiable.
+  useEffect(() => {
+    console.log("inputValue Now: ", inputValue);
+    setShowButton(inputValue !== username);
+  }, [inputValue, username]);
+
+  async function handleSubmit () {
+    const res = await fetch("/api/account", {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ inputValue })
+    });
+    if (res.ok) {
+      setUsername(inputValue);
+    } else {
+      const errorData = await res.json();
+      setError(errorData.message || "Failed to save new username.");
+    }
+  }
 
   return (
-    <div>
-      <div>
-      <h1>Account Information</h1>
+    <div className={styles.container}>
+      <header>
+        <div><h2>Account Information</h2></div>
+        <div><button type="button">Close</button></div>
+      </header>
       {userData ? (
         <>
-          <p>Username: {userData.username}</p>
-          <p>Email: {userData.email}</p>
-          <p>Password: not visible</p>
+        <form className={styles.accountForm}>
+          <label>Username: </label><input value={inputValue} type="text" onChange={inputChangeHandler}/>
+          <label>Email: </label><p>{userData.email}</p>
+          <a href="/application/setting/account/email">
+            <span>Change Email Address</span></a>
+          <label>Password: </label><p>not visible</p>
+          {showButton && <button onClick={handleSubmit} type="button">Submit</button>}
+        </form>
+          
         </>
       ) : (
         <p>Loading...</p>
       )}
       {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
     </div>
   );
 };
