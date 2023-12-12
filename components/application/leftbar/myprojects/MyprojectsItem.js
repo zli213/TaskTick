@@ -3,7 +3,7 @@ import Hashtag from "../../../../public/icon/hashtag.svg";
 
 const MyprojectsItem = ({ label, link }) => {
   return (
-    <li c>
+    <li >
       <Link href={link}>
         <div>
           <span>

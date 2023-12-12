@@ -1,8 +1,5 @@
 /**
- * Description: the left part of header of Task page.
- *
- * Each project name should link to the specific project page.
- * If a task don't belong to a project, it belongs to Inbox
+ * Description: the Buttons of header on Task page.
  *
  * Param:
  *  - projectId
@@ -18,7 +15,7 @@ import CloseButton from "../../../../public/icon/close.svg";
 import UpArrow from "../../../../public/icon/up_arrow.svg";
 import DownArrow from "../../../../public/icon/down_arrow.svg";
 
-export default function TaskHeaderLeft({ projectId, projectName, board }) {
+export default function TaskHeaderButton() {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
