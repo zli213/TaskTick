@@ -53,7 +53,6 @@
   background-color: $lightGrayColor;
   height: calc(100vh - $marginLg * 2);
   padding: $paddingMd;
-  // z-index: -1;
 
   .task_sidebar_list {
     padding: 0 $paddingsm;
@@ -61,12 +60,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     gap: $paddingsm;
-    // font-weight: 700;
   }
 
   .task_sidebar_item {
-    // display: flex;
-    // flex-direction: column;
+
     color: $textSecondaryColor;
     h4 {
       line-height: $lineHeight;
@@ -74,7 +71,6 @@
   }
 
   hr {
-    // border-top:  1px solid $lightGrayColor ;
     height: 1px;
     background-color: $lightGrayColor;
   }
@@ -113,9 +109,7 @@
     background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
   }
 
-  // svg:hover  {
-  //   fill: black;
-  // }
+
 }
 
 .task_main_container {
@@ -135,7 +129,6 @@
     align-items: flex-start;
   }
   .task_overview_main {
-    // margin-top: $marginXsm ;
     margin-left: $paddingsm;
     line-height: $fontSizeMd;
   }
@@ -172,7 +165,6 @@
 }
 
 .task_sidebar_button {
-  // padding: $paddingXsm;
   width: 100%;
   cursor: pointer;
   display: flex;

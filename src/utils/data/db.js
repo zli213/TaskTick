@@ -1,7 +1,8 @@
 /**
  * Get connection with MongoDB
  *
- * When need write route or get data functions, import "connect" from this file
+ * When need write route or get data functions, import connect from this file
+ * eg. `import connect from "./db"; `
  */
 
 import mongoose from "mongoose";
