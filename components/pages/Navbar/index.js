@@ -1,8 +1,11 @@
 // components/Navbar/index.js
 import styles from "../../../styles/scss/navbar.module.scss";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { options } from "../../../app/api/auth/[...nextauth]";
 
-function Navbar() {
+const Navbar = async () => {
+  const session = await getServerSession({ options });
   return (
     <nav className={styles.navbarContainer}>
       <div className={styles.logo}>
@@ -19,6 +22,6 @@ function Navbar() {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
