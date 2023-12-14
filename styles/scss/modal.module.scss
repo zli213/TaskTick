@@ -2,7 +2,7 @@
 
 .modal_container {
   position: fixed;
-  top: calc(50vh - $settingHeight / 2);
+  top: calc(50vh - $settingHeight / 3);
   left: calc(50vw - $settingPageWidth / 2);
   display: flex;
   background-color: #fff;
@@ -10,8 +10,8 @@
   color: $textPrimaryColor;
   width: $settingPageWidth;
   flex-direction: row;
-  min-height: $settingHeight;
-  max-height: $settingPageWidth;
+  min-height: $settingHeight / 1.5;
+  max-height: $settingPageWidth / 2;
 }
 
 .overlay_styles {

@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
+import Tasks from "../../../src/models/Tasks";
 
 //retrieve user info
 export const GET = async () => {
@@ -30,6 +31,7 @@ export const POST = async (req) => {
     const filter = { username: 'johndoe123' };
     const update = { username: newUsername };
     await User.updateOne(filter, update);
+    await Tasks.updateMany(filter, update);
 
     try {
         return NextResponse.json({ message: 'Succeed. ', status: 201 });

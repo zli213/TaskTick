@@ -4,21 +4,94 @@
     border: 0;
     margin: 0;
     padding: 0;
-    width: auto;
-    height: auto;
-}
+    width: max;
+    height: max;
 
-    .header {
+    header {
         padding: 10px;
         margin:auto;
-        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
     }
 
-    .accountForm {
+    form {
+        display:flex;
         border: 0;
         margin: 0;
         padding: 0;
         flex-direction: column;
-    }
+        justify-content: space-evenly;
 
+        .submitButton {
+            // need to fix the position
+            position:relative;
+            width: 100%;
+            text-align: end;
+            padding: 10px;
+
+            button {
+                padding: $paddingsm;
+                border-radius: $borderRadius;
+                background-color: $primaryColor;
+                color: $secondaryColor;
+                cursor: pointer;
+            }
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: $paddingMd;
+            border-top: 1px solid $grayColor;
+
+            input {
+                border: 1px solid $grayColor;
+                border-radius: $borderRadius;
+                padding: $paddingsm;
+                width: 30%;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid grey;
+                }
+            }
+
+            * {
+                margin:$marginXsm;
+            }
+
+            label {
+                font-size: $fontSizeSm;
+                font-weight: bold;
+            }
+
+            a {
+                display: inline-block;
+                padding: 10px;
+                text-decoration: none;
+                text-align: center;
+                background-color: #ccc;
+                border-radius: 5px;
+                color: #000;
+                width: 30%;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #aaa;
+                }
+            }
+        }
+    }
+}
     

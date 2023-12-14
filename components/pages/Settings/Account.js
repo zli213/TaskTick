@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { NextResponse } from "next/server";
 import styles from "../../../styles/scss/account.module.scss";
 
 
@@ -12,7 +11,6 @@ const SettingAccount = () => {
   const [username, setUsername] = useState(null);
 
   //set user info
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,12 +41,13 @@ const SettingAccount = () => {
     setInputValue(event.target.value);
   };
 
-  //if inputValue changes, set buttons visiable.
+  //if inputValue changes, set buttons visible.
   useEffect(() => {
     console.log("inputValue Now: ", inputValue);
     setShowButton(inputValue !== username);
   }, [inputValue, username]);
 
+  //help submit the form
   async function handleSubmit () {
     const res = await fetch("/api/account", {
       method:'POST',
@@ -68,18 +67,28 @@ const SettingAccount = () => {
   return (
     <div className={styles.container}>
       <header>
-        <div><h2>Account Information</h2></div>
-        <div><button type="button">Close</button></div>
+        <h4>Account Information</h4>
+        {/* need to be rerplaced by a close button pic */}
+        <button type="button">Close</button>
       </header>
       {userData ? (
         <>
-        <form className={styles.accountForm}>
-          <label>Username: </label><input value={inputValue} type="text" onChange={inputChangeHandler}/>
-          <label>Email: </label><p>{userData.email}</p>
-          <a href="/application/setting/account/email">
-            <span>Change Email Address</span></a>
-          <label>Password: </label><p>not visible</p>
-          {showButton && <button onClick={handleSubmit} type="button">Submit</button>}
+        <form>
+          <div><label>Username</label><input value={inputValue} type="text" onChange={inputChangeHandler}/></div>
+          <div><label>Email</label><p>{userData.email}</p>
+            <a href="/application/setting/account/email">
+              <span>Change Email Address</span>
+            </a>
+          </div>
+          <div>
+            <label>Password</label>
+            <a href="/application/setting/account/email">
+              <span>Change Password</span>
+            </a>
+          </div>
+          <div className={`${styles.submitButton} ${showButton ? styles.visible : styles.hidden}`}>
+            {showButton && <button onClick={handleSubmit} type="button">Submit</button>}
+          </div>
         </form>
           
         </>
