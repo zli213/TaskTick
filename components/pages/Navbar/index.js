@@ -2,7 +2,7 @@
 import styles from "../../../styles/scss/navbar.module.scss";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
-import { options } from "../../../app/api/auth/[...nextauth]";
+import { options } from "../../../app/api/auth/[...nextauth]/options";
 
 const Navbar = async () => {
   const session = await getServerSession({ options });
@@ -16,9 +16,9 @@ const Navbar = async () => {
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
         <Link href="/today">Todo List</Link>
-        <Link href="/login">
+        {/* <Link href="/login">
           <button className={styles.loginButtom}>Start for free</button>
-        </Link>
+        </Link> */}
         {session ? (
           <Link href="/api/auth/signout?callbackUrl=/">
             <button className={styles.loginButtom}>Sign out</button>
