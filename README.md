@@ -24,7 +24,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 1. You need to get github auth token from your github account( in settings/developer settings/oAuth Apps)
 
-2. You need to get google auth token from your google account( in settings/developer settings/personal access tokens)
+2. You need to get google auth token from your google account(https://console.cloud.google.com/apis)to Create OAuth client ID
 
 ## Deploy on Vercel
 
