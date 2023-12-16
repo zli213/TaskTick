@@ -10,10 +10,10 @@ function Upcoming(props) {
   }, []);
 
   return (
-    <>
+    <div>
       <h1>Upcoming</h1>
       <TodoList tasks={props.data} />;
-    </>
+    </div>
   );
 }
 

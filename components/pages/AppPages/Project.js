@@ -13,11 +13,11 @@ export default function Project(props) {
   const projectName = tasks[0].projectName;
 
   return (
-    <>
+    <div>
       <h1>{projectName}</h1>
       <div className="list-box">
         <TodoList tasks={tasks} />
       </div>
-    </>
+    </div>
   );
 }

@@ -26,11 +26,11 @@ function Today(props) {
   }, []);
 
   return (
-    <>
+    <div>
       <h1>Today</h1>
       <AddTask />
       <TodoList tasks={todayTasks} />
-    </>
+    </div>
   );
 }
 
