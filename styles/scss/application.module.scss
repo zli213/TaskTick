@@ -15,4 +15,8 @@
 .content_holder {
   margin: 0 auto;
   padding: $paddingLg;
+
+  li {
+    list-style: none;
+  }
 }
