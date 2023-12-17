@@ -14,9 +14,49 @@
 
 .content_holder {
   margin: 0 auto;
-  padding: $paddingLg;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
   li {
     list-style: none;
   }
+}
+
+.view_header {
+  padding: $marginLg $marginLg 0;
+  position: sticky;
+  top: $navHeight;
+  background-color: $bodyBg;
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+
+  .view_header_content {
+    width: 100%;
+    max-width: $maxListWidth;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin: 0 auto;
+    border-bottom: 1px solid $grayColor;
+    padding-bottom: $paddingsm;
+
+    h1{
+      font-size: $fontSizeMd;
+    }
+  }
+}
+
+.list_box {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 $marginLg;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+
+  // z-index: 2;
 }

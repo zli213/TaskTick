@@ -2,6 +2,7 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import { useEffect } from "react";
+import styles from "../../../styles/scss/application.module.scss";
 
 export default function Inbox(props) {
   useEffect(() => {
@@ -13,11 +14,16 @@ export default function Inbox(props) {
   });
 
   return (
-    <div className="">
-      <h1>Inbox</h1>
-      <div className="list-box">
+    <>
+      <header className={styles.view_header}>
+        <div className={styles.view_header_content}>
+          <h1>Inbox</h1>
+          <div>buttons</div>
+        </div>
+      </header>
+      <div className={styles.list_box}>
         <TodoList tasks={inBoxTasks} />
       </div>
-    </div>
+    </>
   );
 }
