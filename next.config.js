@@ -7,22 +7,21 @@ const nextConfig = {
       includePaths: [path.join(__dirname, "src/styles/scss")],
     },
   },
-  webpack(config) {
+  webpack: (config, { isServer }) => {
+    // use @svgr/webpack Handle SVG file
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"]
-    }); // for SVG 
-
-    return config;
-  }
-  webpack: (config, { isServer }) => {
+    });
+  
+    // For other picture resourse, use asset/resource
     if (!isServer) {
       config.module.rules.push({
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif)$/i, // notice: not includ svg
         type: "asset/resource",
       });
     }
-
+  
     return config;
   },
   // temporary, will be removed when the images are hosted on a local server
