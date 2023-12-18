@@ -10,6 +10,7 @@ import HashtagIcon from "../../../public/icon/hashtag.svg";
 import UpcomingIcon from "../../../public/icon/upcoming.svg";
 import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import FilterIcon from "../../../public/icon/filter.svg";
+import FilterSelected from "../../../public/icon/filter_selected.svg";
 import { useRouter } from "next/navigation";
 
 const LeftbarItem = ({
@@ -39,7 +40,7 @@ const LeftbarItem = ({
       icon = isSelected ? <UpcomingSelected /> : <UpcomingIcon />;
       break;
     case "filters-labels":
-      icon = <FilterIcon />;
+      icon = isSelected ? <FilterSelected /> : <FilterIcon />;
       break;
     case "project":
       icon = <HashtagIcon />;

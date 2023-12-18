@@ -55,9 +55,14 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
 
       {/* Projects */}
       <div>
-        <div className={styles.project_title}>
-          <Link href="/application/projects/active" >
-            <h4 className={styles.leftbar_prject_header}>My Projects</h4>
+        <div
+          className={`${styles.project_title} ${
+            selectedItemType === "projects/active" ? styles.selected_item : ""
+          }`}
+          onClick={() => handleItemClick("projects/active")}
+        >
+          <Link href="/application/projects/active">
+            <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <span>buttons</span>
         </div>
@@ -69,8 +74,8 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
             link={`/application/project/${project.projectId}`}
             type="project"
             num={project.num}
-            onClickHandler={() => handleItemClick(project.projectId)}
-            isSelected={selectedItemType === project.projectId}
+            onClickHandler={() => handleItemClick(`project/${project.projectId}`)}
+            isSelected={selectedItemType === `project/${project.projectId}`}
           />
         ))}
       </div>

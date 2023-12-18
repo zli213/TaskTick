@@ -1,6 +1,6 @@
 @use "./utils/variable" as *;
 
-.app_layout{
+.app_layout {
   position: relative;
 }
 
@@ -38,18 +38,20 @@
   margin: 0 auto;
 
   .view_header_content {
+    @include flexRowBetween();
     width: 100%;
     max-width: $maxListWidth;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     flex-grow: 1;
     margin: 0 auto;
     border-bottom: 1px solid $grayColor;
     padding-bottom: $paddingsm;
 
-    h1{
+    h1 {
       font-size: $fontSizeMd;
+    }
+
+    span {
+      font-weight: 500;
     }
   }
 }
@@ -70,4 +72,85 @@
   margin: 0 auto;
   max-width: $maxListWidth;
   width: 100%;
+  padding-top: $paddingsm;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  h4 {
+    font-weight: 500;
+    padding-bottom: $paddingsm;
+    border-bottom: 1px solid $grayColor;
+  }
+
+  .searchArea_projects {
+    width: 100%;
+    // line-height: $fontSizeLg;
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    @include flexRowStart();
+    padding: $paddingXsm;
+    gap: $paddingXsm;
+    outline: initial;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+  }
+}
+.searchArea_projects:focus-within {
+  border: 1px solid $textSecondaryColor;
+}
+
+.view_header_project {
+  border-bottom: 0px !important;
+
+  a {
+   @include flexRowStart();
+   gap: $paddingXsm
+  }
+}
+
+.btn_projects {
+  @include flexRowBetween();
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm $paddingsm;
+    gap: $paddingXsm;
+  }
+
+  .add_btn_projects {
+    background-color: $lightGrayColor;
+    font-weight: 500;
+  }
+
+  .active_btn_projects {
+    border: 1px solid $grayColor;
+  }
+}
+
+.project_list {
+  li {
+    @include flexRowBetween();
+    border-radius: $borderRadius;
+    padding-right: $paddingXsm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+  
+  a {
+    padding: $paddingMd $paddingXsm;
+    @include flexRowStart();
+    width: 100%;
+  }
 }

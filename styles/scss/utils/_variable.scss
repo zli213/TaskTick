@@ -5,8 +5,8 @@ $accentColor: #ff7383;
 $textPrimaryColor: #333333;
 $textSecondaryColor: #555555;
 $bodyBg: $secondaryColor;
-$grayColor: #c4c4c4;
-$lightGrayColor: #fafafa;
+$grayColor: #d6d6d6;
+$lightGrayColor: #f5f5f5;
 $errorColor: #db190c;
 $warningColor: $errorColor;
 // task priority colors
@@ -36,6 +36,7 @@ $itemMinHeightMd: 30rem;
 $sideBarWidth: 15rem;
 $mobileSpacing: 1.5rem;
 $borderRadius: 0.8rem;
+$borderRadiusSm: 0.6rem;
 $hoverColor: #f6efee;
 $selectedColor: #fee6e3;
 
@@ -43,7 +44,7 @@ $mobileWidth: 28rem;
 $tabletWidth: 42rem;
 $appSideBarWidth: 30.5rem;
 $minComputerWidth: 62.5rem;
-$maxListWidth: 80rem;
+$maxListWidth: 91.4rem;
 
 $navHeight: 4.31rem;
 
@@ -51,6 +52,24 @@ $settingHeight: 80rem;
 $settingPageWidth: 105rem;
 
 $taskPageWidth: 86.4rem;
-$taskSideBarWidth:26rem;
-$lineHeight:2.8rem;
+$taskSideBarWidth: 26rem;
+$lineHeight: 2.8rem;
 
+
+//When you need flex with Row direction, you can use functions below like:
+// @include flexRowStart();
+
+@mixin flexRowBetween() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: $paddingsm;
+}
+
+@mixin flexRowStart() {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $paddingsm;
+}

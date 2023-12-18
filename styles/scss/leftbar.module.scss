@@ -56,8 +56,8 @@
   }
 }
 
-.leftbar_prject_header {
-  padding: $paddingXsm 0;
+.leftbar_project_header {
+  padding: $paddingsm 0;
   font-weight: 500;
   color: $textSecondaryColor;
 }
@@ -68,7 +68,7 @@
 }
 
 .project_title {
-  padding: $paddingXsm;
+  padding: 0 $paddingXsm;
   line-height: $fontSizeLg;
   display: flex;
   flex-direction: row;
