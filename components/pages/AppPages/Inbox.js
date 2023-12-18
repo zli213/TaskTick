@@ -15,12 +15,12 @@ export default function Inbox(props) {
 
   return (
     <>
-      <header className={styles.view_header}>
+      <div className={styles.view_header}>
         <div className={styles.view_header_content}>
           <h1>Inbox</h1>
           <div>buttons</div>
         </div>
-      </header>
+      </div>
       <div className={styles.list_box}>
         <TodoList tasks={inBoxTasks} />
       </div>

@@ -17,12 +17,12 @@ export default async function AppLayout(props) {
   // };
 
   var projects = await getProjects("johndoe123");
-  projects = await updateInfo(projects);
+  projects =  JSON.parse(JSON.stringify( (await updateInfo(projects))));
   const inboxNum = await getInboxNum("johndoe123");
   const todayNum = await getTodayNum("johndoe123");
 
   return (
-    <>
+    <div className={styles.app_layout}>
       <Topbar /*switchHandler={switchLeftBar} */ />
       <div id="app-holder" className={styles.app_holder}>
         <Leftbar projects={projects} inboxNum={inboxNum} todayNum={todayNum} />
@@ -30,7 +30,7 @@ export default async function AppLayout(props) {
       </div>
       <div id="modal_box">{props.settingModal}</div>
       <div id="task_modal_box">{props.taskModal}</div>
-    </>
+    </div>
   );
 }
 

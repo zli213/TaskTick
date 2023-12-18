@@ -1,5 +1,9 @@
 @use "./utils/variable" as *;
 
+.app_layout{
+  position: relative;
+}
+
 .app_holder {
   position: relative;
   display: flex;
@@ -17,6 +21,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  position: relative;
 
   li {
     list-style: none;

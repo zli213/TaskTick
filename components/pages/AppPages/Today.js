@@ -39,12 +39,12 @@ function Today(props) {
 
   return (
     <>
-      <header className={styles.view_header}>
+      <div className={styles.view_header}>
         <div className={styles.view_header_content}>
           <h1>Today</h1>
           <div>buttons</div>
         </div>
-      </header>
+      </div>
       <div className={styles.list_box}>
         <AddTask />
         <TodoList tasks={todayTasks} />
