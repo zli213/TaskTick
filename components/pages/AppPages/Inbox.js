@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 
 export default function Inbox(props) {
+  document.title = "Inbox - Todo";
+
   useEffect(() => {
     localStorage.setItem("lastPage", "inbox");
   }, []);

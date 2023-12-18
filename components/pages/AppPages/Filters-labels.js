@@ -5,8 +5,12 @@ import styles from "../../../styles/scss/application.module.scss";
 import { useEffect } from "react";
 
 function FilterPage(props) {
+
+  document.title = 'Filters & Labels - Todo';
+
   useEffect(() => {
     localStorage.setItem("lastPage", "filters-labels");
+
   }, []);
 
   return (

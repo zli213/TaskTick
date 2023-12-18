@@ -6,15 +6,16 @@ import React from "react";
 import { useEffect } from "react";
 
 export default function Project(props) {
-  useEffect(() => {
-    localStorage.setItem("lastPage", `project/${props.projectId}`);
-  }, []);
-
   const tasks = props.data.filter((task) => {
     return task.projectId == props.projectId;
   });
 
   const projectName = tasks[0].projectName;
+  document.title = projectName + " - Todo";
+
+  useEffect(() => {
+    localStorage.setItem("lastPage", `project/${props.projectId}`);
+  }, []);
 
   return (
     <div>

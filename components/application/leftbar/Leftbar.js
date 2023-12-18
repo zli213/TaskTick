@@ -7,7 +7,7 @@ import LeftItem from "../widgets/LeftItem";
 async function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
 
-  //Question: Will cause whole page refresh
+  ////Question: Will cause whole page refresh
   const handleItemClick = (type) => {
     setSeletedItemType(type);
   };
