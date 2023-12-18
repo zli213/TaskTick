@@ -13,7 +13,34 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
+        width: 100%;
+
+        span {
+            display: flex;
+            flex-direction: row;
+
+            label {
+                font-size: $fontSizeSm;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                padding: $paddingsm;
+            }
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: $borderRadius;
+            padding: $paddingXsm;
+
+            &:hover {
+                background-color: $grayColor;
+            }
+        }
     }
 
     form {
@@ -23,9 +50,13 @@
         padding: 0;
         flex-direction: column;
         justify-content: space-evenly;
+        height: 100%;
 
         .submitButton {
             // need to fix the position
+            display: flex;
+            justify-items: flex-end;
+            flex-direction: row-reverse;
             position:relative;
             width: 100%;
             text-align: end;
@@ -37,6 +68,7 @@
                 background-color: $primaryColor;
                 color: $secondaryColor;
                 cursor: pointer;
+                margin-right: $marginXsm;
             }
         }
 
@@ -76,7 +108,7 @@
                 font-weight: bold;
             }
 
-            a {
+            span {
                 display: inline-block;
                 padding: 10px;
                 text-decoration: none;
@@ -91,6 +123,62 @@
                     background-color: #aaa;
                 }
             }
+        }
+
+        // ⬇️for email editing page
+        .smallGroup {
+            display: flex;
+            flex-direction: row;
+            justify-items: left;
+            border-top: none;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+
+            p {
+                color: $textSecondaryColor;
+                font-size: $fontSizeSm;
+                vertical-align: bottom;
+                padding-top: $paddingsm;
+            }
+
+        }
+
+        .buttonGroup {
+            display: flex;
+            justify-items: flex-end;
+            flex-direction: row-reverse;
+            position:relative;
+            width: 100%;
+            text-align: end;
+            padding: 10px;
+        }
+
+        .cannotSubmit {
+            padding: $paddingsm;
+            border-radius: $borderRadius;
+            background-color: $accentColor;
+            color: $secondaryColor;
+            margin-right: $marginXsm;
+            cursor: not-allowed;
+        }
+
+        .canSubmit {
+            padding: $paddingsm;
+            border-radius: $borderRadius;
+            background-color: $primaryColor;
+            color: $secondaryColor;
+            cursor: pointer;
+            margin-right: $marginXsm;
+        }
+
+        .cancelButton {
+            padding: $paddingsm;
+            border-radius: $borderRadius;
+            background-color: $grayColor;
+            color: $textPrimaryColor;
+            cursor: pointer;
+            margin-right: $marginXsm;
         }
     }
 }

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../../styles/scss/account.module.scss";
-
+import Link from "next/link";
 
 const SettingAccount = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [inputValue, setInputValue] = useState(null);
+  const [inputValue, setInputValue] = useState("");
   const [showButton, setShowButton] = useState(false);
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState("");
 
   //set user info
   useEffect(() => {
@@ -74,23 +74,32 @@ const SettingAccount = () => {
       {userData ? (
         <>
         <form>
-          <div><label>Username</label><input value={inputValue} type="text" onChange={inputChangeHandler}/></div>
-          <div><label>Email</label><p>{userData.email}</p>
-            <a href="/application/setting/account/email">
-              <span>Change Email Address</span>
-            </a>
+          <div>
+            <label>Username</label>
+            <input value={inputValue} type="text" onChange={inputChangeHandler}/>
           </div>
+
+          <div>
+            <label>Email</label>
+            <p>{userData.email}</p>
+            <Link href="/application/setting/account/email">
+                <span>Change Email Address</span>
+            </Link>
+          </div>
+
           <div>
             <label>Password</label>
-            <a href="/application/setting/account/email">
-              <span>Change Password</span>
-            </a>
+            <Link href="/application/setting/account/password">
+                <span>Change Password</span>
+            </Link>
+            
           </div>
+
           <div className={`${styles.submitButton} ${showButton ? styles.visible : styles.hidden}`}>
             {showButton && <button onClick={handleSubmit} type="button">Submit</button>}
           </div>
+
         </form>
-          
         </>
       ) : (
         <p>Loading...</p>
