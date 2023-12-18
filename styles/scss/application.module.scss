@@ -110,8 +110,14 @@
   border-bottom: 0px !important;
 
   a {
-   @include flexRowStart();
-   gap: $paddingXsm
+    @include flexRowStart();
+    gap: $paddingXsm;
+    padding: $paddingXsm $paddingsm;
+    border-radius: $borderRadiusSm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
   }
 }
 
@@ -130,6 +136,11 @@
   .add_btn_projects {
     background-color: $lightGrayColor;
     font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayColor;
+    }
   }
 
   .active_btn_projects {
@@ -147,7 +158,7 @@
       background-color: $lightGrayColor;
     }
   }
-  
+
   a {
     padding: $paddingMd $paddingXsm;
     @include flexRowStart();

@@ -39,9 +39,7 @@
 
 .list_item_box {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  @include flexRowStart();
 
   a {
     width: 100%;
@@ -63,25 +61,39 @@
 }
 
 .selected_item {
-  background-color: $selectedColor;
+  background-color: $selectedColor !important;
   color: $primaryColor;
 }
 
 .project_title {
   padding: 0 $paddingXsm;
   line-height: $fontSizeLg;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  @include flexRowBetween();
   border-radius: $borderRadius;
 
-  a{
+  a {
     width: 100%;
   }
-
 }
 
 .project_title:hover {
   background-color: $hoverColor;
+}
 
+.leftbar_btn {
+  display: none;
+
+  button{
+    cursor: pointer;
+    @include flexRowStart();
+  }
+
+  svg:hover {
+    background-color: $hoverColor;
+  }
+}
+
+.list_sidebar:hover .leftbar_btn {
+  display: block;
+  @include flexRowStart();
 }

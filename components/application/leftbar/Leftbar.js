@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
+import AddIcon from "../../../public/icon/add.svg";
+import ArrowIcon from "../../../public/icon/down_arrow.svg";
 
 function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
@@ -64,7 +66,14 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
           <Link href="/application/projects/active">
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
-          <span>buttons</span>
+          <div className={styles.leftbar_btn}>
+            <button>
+              <AddIcon />
+            </button>
+            <button>
+              <ArrowIcon />
+            </button>
+          </div>
         </div>
 
         {projects.map((project) => (
@@ -74,7 +83,9 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
             link={`/application/project/${project.projectId}`}
             type="project"
             num={project.num}
-            onClickHandler={() => handleItemClick(`project/${project.projectId}`)}
+            onClickHandler={() =>
+              handleItemClick(`project/${project.projectId}`)
+            }
             isSelected={selectedItemType === `project/${project.projectId}`}
           />
         ))}
