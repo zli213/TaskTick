@@ -7,9 +7,11 @@ import TaskNotFound from "../../../../components/pages/NotFound/TaskNotFound";
 
 export default async function SubAppPages({ params }) {
   //Check if Task exist
-  var ifTaskExist = await checkTaskExist(params.submenu);
-  if (params.menu == "task" && !ifTaskExist) {
-    return <TaskNotFound />;
+  if (params.menu == "task") {
+    var ifTaskExist = await checkTaskExist(params.submenu);
+    if (!ifTaskExist) {
+      return <TaskNotFound />;
+    }
   }
   const tasks = await getOneUserTasks();
 

@@ -12,7 +12,7 @@ function Today(props) {
 
   //use timestamp to compare if the item dueDate is today
   const todayTasks = props.data.filter((task) => {
-    return task.dueDate.getTime() == new Date().getTime();
+    return task.dueDate.getTime() <= new Date().getTime();
   });
 
   useEffect(() => {

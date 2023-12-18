@@ -3,9 +3,12 @@
 import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
 import React from "react";
+import { useEffect } from "react";
 
 export default function Project(props) {
-  localStorage.setItem("lastPage", `project/${props.projectId}`);
+  useEffect(() => {
+    localStorage.setItem("lastPage", `project/${props.projectId}`);
+  }, []);
 
   const tasks = props.data.filter((task) => {
     return task.projectId == props.projectId;

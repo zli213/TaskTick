@@ -1,15 +1,18 @@
-import MyprojectsItem from "./MyprojectsItem";
+import LeftItem from "../../widgets/LeftItem";
+import styles from "../../../../styles/scss/leftbar.module.scss";
 
-function Myprojects({ projectList }) {
+async function Myprojects({ projectList }) {
 
   return (
     <div>
-      <div>Project</div>
+      <h4 className={styles.leftbar_prject_header}>My Projects</h4>
       {projectList.map((project) => (
-        <MyprojectsItem
+        <LeftItem
           key={project.projectId}
           label={project.name}
           link={`/application/project/${project.projectId}`}
+          type="project"
+          num={project.num}
         />
       ))}
     </div>
@@ -17,3 +20,4 @@ function Myprojects({ projectList }) {
 }
 
 export default Myprojects;
+

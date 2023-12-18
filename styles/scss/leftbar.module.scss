@@ -1,34 +1,70 @@
 @use "./utils/variable" as *;
 
-
 .list_sidebar {
-    position: sticky;
-    top: $navHeight;
-    width: $appSideBarWidth;
-    height: calc(100vh - $navHeight);
-    display: flex;
-    flex-direction: column;
-    background-color: #fafafa;
-    box-sizing: border-box;
-    padding: $paddingLg 0;
-    gap: $gap;
-  
-    //for hide animation
-    transition: all 270ms ease 0ms;
-    flex-shrink: 0;
-  
-    ul {
-      padding: 0;
-      margin: 0;
-      // padding: 0 5px;
-    }
-  
-    li {
-      list-style: circle;
-      display: flex;
-      justify-content: space-between;
-      padding: $paddingXsm $paddingMd;
-      font-size: $fontSizeSm;
-    }
+  position: sticky;
+  top: $navHeight;
+  width: $appSideBarWidth;
+  height: calc(100vh - $navHeight);
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  padding: $paddingLg $paddingsm;
+  gap: $gap;
+
+  //for hide animation
+  transition: all 270ms ease 0ms;
+  flex-shrink: 0;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    // padding: 0 5px;
   }
- 
+
+  li {
+    list-style: circle;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $paddingXsm;
+    font-size: $fontSizeSm;
+    border-radius: $borderRadius;
+  }
+
+  li:hover {
+    background-color: $hoverColor;
+  }
+}
+
+
+
+.list_item_box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+
+  a {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: baseline;
+  }
+
+  .list_item_content {
+    padding-left: $paddingXsm;
+  }
+}
+
+.leftbar_prject_header {
+  padding: $paddingXsm;
+  font-weight: 500;
+  color: $textSecondaryColor;
+}
+
+.selected_item {
+  background-color: $selectedColor;
+  color: $primaryColor;
+}
