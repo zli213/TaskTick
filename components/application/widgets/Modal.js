@@ -16,7 +16,7 @@ export default function Modal(props) {
 
   const onDismiss = useCallback(() => {
     const currentPage = localStorage.getItem("lastPage");
-    router.push(`/application/${currentPage}`, { scroll: false } );
+    router.push(`/application/${currentPage}`, { scroll: false });
     router.refresh();
   }, [router]);
 
