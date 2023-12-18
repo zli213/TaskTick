@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
 import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import TaskNotFound from "../../../../components/pages/NotFound/TaskNotFound";
+import MyProjects from "../../../../components/pages/AppPages/MyProjects";
 
 export default async function SubAppPages({ params }) {
   //Check if Task exist
@@ -18,6 +19,8 @@ export default async function SubAppPages({ params }) {
   switch (params.menu) {
     case "project":
       return <Project data={tasks} projectId={params.submenu} />;
+    case "projects":
+      return <MyProjects data={tasks} />;
     case "setting":
       return <Today data={tasks} settingMenu={params.submenu} />;
     case "task":

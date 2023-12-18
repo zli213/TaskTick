@@ -6,9 +6,9 @@ import { useEffect } from "react";
 
 function FilterPage(props) {
 
-  document.title = 'Filters & Labels - Todo';
-
+  
   useEffect(() => {
+    document.title = 'Filters & Labels - Todo';
     localStorage.setItem("lastPage", "filters-labels");
 
   }, []);

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
+import Link from "next/link";
 
 function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
@@ -54,9 +55,13 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
 
       {/* Projects */}
       <div>
-        <div>
-          <h4 className={styles.leftbar_prject_header}>My Projects</h4>
+        <div className={styles.project_title}>
+          <Link href="/application/projects/active" >
+            <h4 className={styles.leftbar_prject_header}>My Projects</h4>
+          </Link>
+          <span>buttons</span>
         </div>
+
         {projects.map((project) => (
           <LeftItem
             key={project.projectId}

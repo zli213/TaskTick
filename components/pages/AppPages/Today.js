@@ -15,8 +15,8 @@ function Today(props) {
     return task.dueDate.getTime() <= new Date().getTime();
   });
 
-  document.title = 'Today - Todo';
   useEffect(() => {
+    document.title = 'Today - Todo';
     localStorage.setItem("lastPage", "today");
 
     if ("settingMenu" in props) {

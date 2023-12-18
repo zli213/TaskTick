@@ -6,8 +6,8 @@ import styles from "../../../styles/scss/application.module.scss";
 import { useEffect } from "react";
 
 function Upcoming(props) {
-  document.title = 'Upcoming - Todo';
   useEffect(() => {
+    document.title = 'Upcoming - Todo';
     localStorage.setItem("lastPage", "upcoming");
 
   }, []);

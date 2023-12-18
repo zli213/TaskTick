@@ -26,7 +26,7 @@
     list-style: circle;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: $paddingXsm;
     font-size: $fontSizeSm;
     border-radius: $borderRadius;
@@ -37,14 +37,11 @@
   }
 }
 
-
-
 .list_item_box {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: baseline;
 
   a {
     width: 100%;
@@ -55,11 +52,12 @@
 
   .list_item_content {
     padding-left: $paddingXsm;
+    line-height: $fontSizeLg;
   }
 }
 
 .leftbar_prject_header {
-  padding: $paddingXsm;
+  padding: $paddingXsm 0;
   font-weight: 500;
   color: $textSecondaryColor;
 }
@@ -67,4 +65,23 @@
 .selected_item {
   background-color: $selectedColor;
   color: $primaryColor;
+}
+
+.project_title {
+  padding: $paddingXsm;
+  line-height: $fontSizeLg;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: $borderRadius;
+
+  a{
+    width: 100%;
+  }
+
+}
+
+.project_title:hover {
+  background-color: $hoverColor;
+
 }
