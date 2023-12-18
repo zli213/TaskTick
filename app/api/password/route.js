@@ -1,25 +1,24 @@
 import { NextResponse } from 'next/server';
 import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
-import bcrypt from 'bcrypt';
+import hashPassword from '../../../src/utils/data/hashPassword';
 
 export const POST = async (req) => {
     await connect();
 
+    const usr = await User.findOne({ username: 'johndoe123'});
     const result = await req.json();
+    const currentPassword = result.currentPassword;
     const newPassword = result.confirmPassword;
-
-    const saltAround = 1;
     let hashedPassword;
 
-    bcrypt.hash(newPassword, saltAround)
-    .then(hash => {
-        hashedPassword = hash;
-    }).catch(err => {
-        console.error('Error hashing password:', err);
-    });
+    hashedPassword = await hashPassword(currentPassword);
+    if (usr.password !== hashedPassword) {
+        return NextResponse.json({ message: 'The old password you entered is incorrect. Fail to edit. ', status: 500});
+    }
 
     //wait for modificatin. Auth?
+    hashedPassword = await hashPassword(newPassword);
     const filter = { username: 'johndoe123' };
     const update = { password: hashedPassword };
     await User.updateOne(filter, update);

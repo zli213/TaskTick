@@ -7,11 +7,12 @@ const SetEmail = () => {
     const [password, setPassword] = useState("");
     const [submitDisabled, setSubmitDisabled] = useState(true);
     const [sameEmail, setSameEmail] = useState(false);
+    const [backendMessage, setMessage] = useState("");
 
+    //Update for every change
     const updateSubmitButton = (newEmail, confirmEmail, password) => {
         const isAllFilled = newEmail && confirmEmail && password;
-        const matchOrNot = newEmail === confirmEmail;
-        setSubmitDisabled(!isAllFilled || !matchOrNot);
+        setSubmitDisabled(!isAllFilled || !sameEmail);
     }
 
     //if two email addresses are different, show a notification.
@@ -42,18 +43,22 @@ const SetEmail = () => {
             headers: {
                 'Content-Type': 'application/json',
               },
-            body: JSON.stringify({ confirmEmail })}
+            body: JSON.stringify({ password, confirmEmail })}
             )
             if (res.ok) {
-                console.log("Email updates completed.")
+                console.log("Email updates completed.");
+                setMessage(res.json());
             } else {
-                console.log("Something goes wrong...")
+                console.log("Something goes wrong...");
+                setMessage(res.json());
             }
         } catch (error) {
             console.log("Error occured: ", error);
         }
-        
     }
+
+    //get messages from backend
+
 
     return (
         <div className={styles.container}>
@@ -96,6 +101,10 @@ const SetEmail = () => {
                 <label>Verify your password</label>
                 <input type="password" value={password} onChange={handlePassword}/>
             </div>
+
+            <span>
+                <p className={backendMessage ? styles.visible : styles.hidden}>{backendMessage}</p>
+            </span>
 
             <div className={styles.buttonGroup}>
                 {/* need to be rerplaced by a pic */}

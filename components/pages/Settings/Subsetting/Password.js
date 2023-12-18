@@ -9,12 +9,13 @@ const SetPassword = () => {
     const [samePassword, setSamePassword] = useState(false);
 
     //password requirements?
+    //⬇️Update for every change
     const updateSubmitButton = (currentPassword, newPassword, confirmPassword) => {
         const isAllFilled = newPassword && confirmPassword && currentPassword;
-        const matchOrNot = newPassword === confirmPassword;
-        setSubmitDisabled(!isAllFilled || !matchOrNot);
+        setSubmitDisabled(!isAllFilled || !samePassword);
     }
 
+    //if not match, show a notification.
     useEffect(() => {
         setSamePassword(newPassword===confirmPassword);
     }, [newPassword, confirmPassword]);
@@ -43,7 +44,7 @@ const SetPassword = () => {
             headers: {
                 'Content-Type': 'application/json',
               },
-            body: JSON.stringify({ confirmPassword })}
+            body: JSON.stringify({ currentPassword, confirmPassword })}
             )
             if (res.ok) {
                 console.log("Password updates completed.")

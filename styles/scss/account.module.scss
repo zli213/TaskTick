@@ -59,8 +59,10 @@
             flex-direction: row-reverse;
             position:relative;
             width: 100%;
+            height: $itemMinHeightSm;
             text-align: end;
             padding: 10px;
+            z-index: 10;
 
             button {
                 padding: $paddingsm;
