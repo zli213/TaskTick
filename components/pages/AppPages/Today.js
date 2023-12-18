@@ -6,6 +6,7 @@ import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 
+
 function Today(props) {
   const router = useRouter();
 
@@ -14,7 +15,7 @@ function Today(props) {
     return task.dueDate.getTime() <= new Date().getTime();
   });
 
-  document.title = "Today - Todo";
+  document.title = 'Today - Todo';
   useEffect(() => {
     localStorage.setItem("lastPage", "today");
 

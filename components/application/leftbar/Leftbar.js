@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 
-async function Leftbar({ classes, projects, inboxNum, todayNum }) {
+function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
 
   ////Question: Will cause whole page refresh
@@ -37,7 +37,7 @@ async function Leftbar({ classes, projects, inboxNum, todayNum }) {
           isSelected={selectedItemType === "today"}
         />
         <LeftItem
-          label="upcoming"
+          label="Upcoming"
           link="/application/upcoming"
           type="upcoming"
           onClickHandler={() => handleItemClick("upcoming")}
