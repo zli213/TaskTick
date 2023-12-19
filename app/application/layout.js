@@ -17,9 +17,10 @@ export default function AppLayout(props) {
       <Topbar /*switchHandler={switchLeftBar} */ />
       <div id="app-holder" className={styles.app_holder}>
         <Leftbar /*classes={showLeftBar ? styles.list_sidebar_hide : ""} */ />
-        <div>{props.children}</div>
+        <div className={styles.content_holder}>{props.children}</div>
       </div>
       <div id="modal_box">{props.settingModal}</div>
+      <div id="task_modal_box">{props.taskModal}</div>
     </>
   );
 }

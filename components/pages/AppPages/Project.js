@@ -1,6 +1,7 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
+import styles from "../../../styles/scss/application.module.scss";
 import React from "react";
 
 export default function Project(props) {
@@ -14,8 +15,13 @@ export default function Project(props) {
 
   return (
     <>
-      <h1>{projectName}</h1>
-      <div className="list-box">
+      <header className={styles.view_header}>
+        <div className={styles.view_header_content}>
+          <h1>{projectName}</h1>
+          <div>buttons</div>
+        </div>
+      </header>
+      <div className={styles.list_box}>
         <TodoList tasks={tasks} />
       </div>
     </>

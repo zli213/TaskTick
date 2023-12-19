@@ -1,0 +1,181 @@
+@use "./utils/variable" as *;
+
+.task_modal_container {
+  position: fixed;
+  top: calc($marginMd);
+  left: calc(50vw - $taskPageWidth / 2);
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: $taskPageWidth;
+  // min-height: $settingHeight;
+  height: calc(100vh - $marginMd * 2);
+  max-width: $taskPageWidth;
+  overflow: hidden;
+  font-size: $fontSizeXsm;
+}
+
+.task_title_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // padding: $paddingXsm;
+  align-items: center;
+  // height: $fontSizeMd;
+}
+
+.task_header {
+  padding: $paddingXsm $paddingsm;
+  box-shadow: 0 0 1px $grayColor;
+  z-index: 10;
+}
+
+.task_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.task_header_title {
+  display: flex;
+  flex-direction: row;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    white-space: nowrap;
+  }
+}
+
+.task_sidebar {
+  min-width: $taskSideBarWidth;
+  background-color: $lightGrayColor;
+  height: calc(100vh - $marginLg * 2);
+  padding: $paddingMd;
+
+  .task_sidebar_list {
+    padding: 0 $paddingsm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: $paddingsm;
+  }
+
+  .task_sidebar_item {
+
+    color: $textSecondaryColor;
+    h4 {
+      line-height: $lineHeight;
+    }
+  }
+
+  hr {
+    height: 1px;
+    background-color: $lightGrayColor;
+  }
+
+  .task_sidebar_label_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h4 {
+      line-height: $fontSizeMd;
+    }
+  }
+
+  .task_tags_container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .task_tag_item {
+    background-color: $grayColor;
+    padding: $paddingXsm;
+    margin-right: $marginXsm;
+    border-radius: $paddingXsm;
+    color: $textPrimaryColor;
+
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .task_tag_item:hover {
+    background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
+  }
+
+
+}
+
+.task_main_container {
+  padding: $paddingMd;
+  width: 100%;
+
+  .task_main_sub_container {
+    display: flex;
+    flex-direction: column;
+    gap: $paddingsm;
+  }
+
+  .task_main_task {
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+    align-items: flex-start;
+  }
+  .task_overview_main {
+    margin-left: $paddingsm;
+    line-height: $fontSizeMd;
+  }
+
+  .task_overview_title {
+    font-weight: 700;
+    font-size: $fontSizeMd;
+    margin: 0 $marginXsm $marginXsm 0;
+  }
+
+  .task_overview_description {
+    margin: $paddingsm 0;
+    font-size: $fontSizeSm;
+  }
+
+  .task_main_add_sub {
+    margin: $paddingsm $marginMd 0;
+  }
+}
+
+.task_header_button {
+  display: flex;
+  flex-direction: row;
+  gap: $gap;
+
+  bottom {
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  bottom:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.task_sidebar_button {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: $paddingsm;
+  align-items: center;
+  line-height: $lineHeight;
+  vertical-align: center;
+  border-radius: $borderRadius;
+}
+
+.task_sidebar_button:hover {
+  background-color: $grayColor;
+}

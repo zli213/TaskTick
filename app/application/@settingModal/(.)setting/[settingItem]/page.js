@@ -26,25 +26,27 @@ export default function SettingModal({ params }) {
 
   return (
     <Modal>
-      <div className={styles.setting_left}>
-        <h2>Settings</h2>
-        <div>Search</div>
-        <ul>
-          <li>
-            <Link href="/application/setting/account" scroll={false}>
-              account
-            </Link>
-          </li>
-          <li>
-            <Link href="/application/setting/theme" scroll={false}>
-              theme
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2>this is setting modal</h2>
-        <div>{activePage}</div>
+      <div className={styles.setting_modal_container}>
+        <div className={styles.setting_left}>
+          <h2>Settings</h2>
+          <div>Search</div>
+          <ul>
+            <li>
+              <Link href="/application/setting/account" scroll={false}>
+                account
+              </Link>
+            </li>
+            <li>
+              <Link href="/application/setting/theme" scroll={false}>
+                theme
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>this is setting modal</h2>
+          <div>{activePage}</div>
+        </div>
       </div>
     </Modal>
   );

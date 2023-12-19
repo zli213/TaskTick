@@ -290,16 +290,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
   };
 
   const selectDate = (selDate) => {
-    let dateJson = { dateTime: null, dateStr: "" };
-    if (selDate != "") {
-      dateJson.dateTime = selDate;
-      dateJson.dateStr =
-        selDate.getFullYear() +
-        "-" +
-        (selDate.getMonth() + 1) +
-        "-" +
-        selDate.getDate();
-    }
+    let dateJson = formatDate(selDate);
     // Change current selected date
 
     // Call parent function when select a date, and pass the date to parent using json convert
@@ -443,6 +434,21 @@ function convertSelectedDate(date) {
     return "Tomorrow";
   }
   return date;
+}
+
+export function formatDate(inDate) {
+  let dateJson = { dateTime: null, dateStr: "" };
+  if (inDate != "") {
+    dateJson.dateTime = inDate;
+    dateJson.dateStr =
+      inDate.getFullYear() +
+      "-" +
+      (inDate.getMonth() + 1) +
+      "-" +
+      inDate.getDate();
+  }
+
+  return dateJson;
 }
 
 export default Scheduler;
