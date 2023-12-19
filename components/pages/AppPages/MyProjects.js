@@ -1,15 +1,22 @@
 "use client";
 
 import styles from "../../../styles/scss/application.module.scss";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useEffect } from "react";
 import SettingIcon from "../../../public/icon/setting.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
 import SearchIcon from "../../../public/icon/search.svg";
 import AddIcon from "../../../public/icon/add.svg";
+import AddProject from "../../application/widgets/AddProject";
 
 export default function MyProjects(props) {
+  const [showAddCard, setShowAddCard] = useState(false);
+
+  const showCardHandler = () => {
+    setShowAddCard((preState) => !preState);
+  }
+
+
   useEffect(() => {
     document.title = "My Projects - Todo";
     localStorage.setItem("lastPage", `projects/active`);
@@ -39,7 +46,7 @@ export default function MyProjects(props) {
 
         <div className={styles.btn_projects}>
           <div className={styles.active_btn_projects}>Active projects</div>
-          <div className={styles.add_btn_projects}>
+          <div className={styles.add_btn_projects} onClick={showCardHandler}>
             <AddIcon />
             <span>Add project</span>
           </div>
@@ -60,6 +67,7 @@ export default function MyProjects(props) {
           ))}
         </ul>
       </div>
+      {showAddCard && <AddProject closeHandler={showCardHandler} />}
     </>
   );
 }

@@ -1,19 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
 import AddIcon from "../../../public/icon/add.svg";
 import ArrowIcon from "../../../public/icon/down_arrow.svg";
+import AddProject from "../widgets/AddProject";
 
 function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
+  const [showList, setShowList] = useState(true)
+  const [showAddCard, setShowAddCard] = useState(false);
 
-  ////Question: Will cause whole page refresh
+  const showCardHandler = () => {
+    setShowAddCard((preState) => !preState);
+  }
+
+
   const handleItemClick = (type) => {
     setSeletedItemType(type);
   };
+
+  const clickListHandler = () => {
+    setShowList((preState) => !preState);
+  }
 
   useEffect(() => {
     const current = localStorage.getItem("lastPage");
@@ -61,22 +72,22 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
           className={`${styles.project_title} ${
             selectedItemType === "projects/active" ? styles.selected_item : ""
           }`}
-          onClick={() => handleItemClick("projects/active")}
+         
         >
-          <Link href="/application/projects/active">
+          <Link href="/application/projects/active"  onClick={() => handleItemClick("projects/active")}>
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
-            <button>
+            <button onClick={showCardHandler}>
               <AddIcon />
             </button>
-            <button>
+            <button onClick={clickListHandler} className={ !showList && styles.show_project_icon } >
               <ArrowIcon />
             </button>
           </div>
         </div>
 
-        {projects.map((project) => (
+        { showList && projects.map((project) => (
           <LeftItem
             key={project.projectId}
             label={project.name}
@@ -90,6 +101,8 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
           />
         ))}
       </div>
+      {showAddCard && <AddProject closeHandler={showCardHandler} />}
+
     </div>
   );
 }

@@ -11,6 +11,8 @@
   box-sizing: border-box;
   padding: $paddingLg $paddingsm;
   gap: $gap;
+  z-index: 10;
+
 
   //for hide animation
   transition: all 270ms ease 0ms;
@@ -19,7 +21,6 @@
   ul {
     padding: 0;
     margin: 0;
-    // padding: 0 5px;
   }
 
   li {
@@ -27,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $paddingXsm;
+    padding: $paddingXsm $paddingsm $paddingXsm $paddingXsm;
     font-size: $fontSizeSm;
     border-radius: $borderRadius;
   }
@@ -83,17 +84,32 @@
 .leftbar_btn {
   display: none;
 
-  button{
+  button {
     cursor: pointer;
+    overflow: hidden;
     @include flexRowStart();
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm;
+
+    svg {
+      transition: all 0.3s;
+    }
   }
 
-  svg:hover {
+  button:hover {
     background-color: $hoverColor;
+    
   }
 }
 
 .list_sidebar:hover .leftbar_btn {
   display: block;
   @include flexRowStart();
+}
+
+.show_project_icon {
+  svg {
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+  }
 }

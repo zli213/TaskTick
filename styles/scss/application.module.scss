@@ -33,7 +33,7 @@
   position: sticky;
   top: $navHeight;
   background-color: $bodyBg;
-  z-index: 2;
+  z-index: 1;
   width: 100%;
   margin: 0 auto;
 
@@ -85,12 +85,8 @@
 
   .searchArea_projects {
     width: 100%;
-    // line-height: $fontSizeLg;
     border: 1px solid $grayColor;
     border-radius: $borderRadiusSm;
-    // display: flex;
-    // flex-direction: row;
-    // align-items: center;
     @include flexRowStart();
     padding: $paddingXsm;
     gap: $paddingXsm;

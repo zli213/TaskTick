@@ -2,14 +2,14 @@
 
 .task_modal_container {
   position: fixed;
-  top: calc($marginMd);
+  top: calc($marginLg);
   left: calc(50vw - $taskPageWidth / 2);
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
   width: $taskPageWidth;
   // min-height: $settingHeight;
-  height: calc(100vh - $marginMd * 2);
+  height: calc(100vh - $marginLg * 2);
   max-width: $taskPageWidth;
   overflow: hidden;
   font-size: $fontSizeXsm;
@@ -68,11 +68,6 @@
     h4 {
       line-height: $lineHeight;
     }
-  }
-
-  hr {
-    height: 1px;
-    background-color: $lightGrayColor;
   }
 
   .task_sidebar_label_title {
