@@ -1,0 +1,18 @@
+@use "../../../utils/variable" as *;
+
+.mask {
+    z-index: 666;
+    background-color: rgb(192, 192, 192, 0.5);
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.noticeContainer {
+    width: 30vw;
+    height: 20vh;
+    background-color: $secondaryColor;
+    z-index: 777;
+}

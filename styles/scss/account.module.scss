@@ -5,15 +5,22 @@
     margin: 0;
     padding: 0;
     width: max;
-    height: max;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .subsettingForm {
+        justify-content: space-between;
+    }
+    
 
     header {
-        padding: 10px;
-        margin:auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        position: sticky;
+        border-bottom: 1px solid $grayColor;
 
         span {
             display: flex;
@@ -45,24 +52,24 @@
 
     form {
         display:flex;
-        border: 0;
-        margin: 0;
-        padding: 0;
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: 100%;
+        overflow-y: auto;
+        flex: 1;
+        flex-direction: column;  
+        justify-content: space-between;      
 
         .submitButton {
-            // need to fix the position
+            position: sticky;
             display: flex;
             justify-items: flex-end;
             flex-direction: row-reverse;
-            position:relative;
             width: 100%;
+            bottom: 0;
             height: $itemMinHeightSm;
             text-align: end;
             padding: 10px;
-            z-index: 10;
+            z-index: 66;
+            background-color: $secondaryColor;
+            border-top: 1px solid $grayColor;
 
             button {
                 padding: $paddingsm;
@@ -86,8 +93,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: $paddingMd;
-            border-top: 1px solid $grayColor;
+            padding: $paddingXsm;
+            border-top: 1px solid $secondaryColor;
 
             input {
                 border: 1px solid $grayColor;
@@ -127,7 +134,7 @@
             }
         }
 
-        // ⬇️for email editing page
+        // ⬇️for email&password editing page
         .smallGroup {
             display: flex;
             flex-direction: row;
@@ -154,6 +161,8 @@
             width: 100%;
             text-align: end;
             padding: 10px;
+            position: sticky;
+            bottom: 0;
         }
 
         .cannotSubmit {

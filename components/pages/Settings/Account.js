@@ -77,8 +77,13 @@ const SettingAccount = () => {
         </a>
       </header>
       {userData ? (
-        <>
+        
         <form>
+          <div>
+            <label>Avatar</label>
+            <span>Change your Avatar</span>
+          </div>
+
           <div>
             <label>Username</label>
             <input value={inputValue} type="text" onChange={inputChangeHandler}/>
@@ -87,16 +92,34 @@ const SettingAccount = () => {
           <div>
             <label>Email</label>
             <p>{userData.email}</p>
-            <Link href="/application/setting/account/email">
-                <span>Change Email Address</span>
-            </Link>
+            <span>
+              <Link href="/application/setting/account/email">
+                Change Email Address        
+              </Link>
+            </span>
           </div>
 
           <div>
             <label>Password</label>
-            <Link href="/application/setting/account/password">
-                <span>Change Password</span>
-            </Link>
+            <span>
+              <Link href="/application/setting/account/password">
+                Change Password
+              </Link>
+            </span>
+          </div>
+
+          <div>
+            <label>Associated accounts</label>
+            <span>Manage</span>
+          </div>
+
+          <div>
+            <label>Delete account</label>
+            <p>This will immediately delete all your data, including tasks, projects, comments, etc.</p>
+            <p>This cannot be undone.</p>
+            <span>
+              Delete Account
+            </span>
           </div>
 
           <div className={`${styles.submitButton} ${showButton ? styles.visible : styles.hidden}`}>
@@ -104,7 +127,7 @@ const SettingAccount = () => {
           </div>
 
         </form>
-        </>
+        
       ) : (
         <p>Loading...</p>
       )}

@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import styles from "../../../../styles/scss/account.module.scss";
+import Notice from "../../../application/widgets/settingNotice";
 
 const SetEmail = () => {
+    const router = useRouter;
     const [newEmail, setNewEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
     const [submitDisabled, setSubmitDisabled] = useState(true);
     const [sameEmail, setSameEmail] = useState(false);
     const [backendMessage, setMessage] = useState("");
+    const [isAllFilled, setAllFilled] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     //Update for every change
     const updateSubmitButton = (newEmail, confirmEmail, password) => {
-        const isAllFilled = newEmail && confirmEmail && password;
-        setSubmitDisabled(!isAllFilled || !sameEmail);
+        setSubmitDisabled(!newEmail || !confirmEmail || !password || newEmail !== confirmEmail);
     }
 
     //if two email addresses are different, show a notification.
     useEffect(() => {
         setSameEmail(newEmail===confirmEmail);
     }, [newEmail, confirmEmail]);
+
+    //if three inputs are filled, set it true
+    useEffect (() => {
+        setAllFilled(newEmail && confirmEmail && password);
+    }, [newEmail, confirmEmail, password]);
 
     const handleNewEmail = (event) => {
         setNewEmail(event.target.value);
@@ -57,17 +66,22 @@ const SetEmail = () => {
         }
     }
 
-    //get messages from backend
+    //click cnacel button
+    const clickCancel = () => {
+        if (isAllFilled) {
+            setShowModal(true);
+        } else {
+            router.push('/application/setting/account');
+        }
+    }
 
 
     return (
         <div className={styles.container}>
-        <>
-        <form>
             <header>
                 <span>
                 <a href="/application/setting/account">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="1" y1="12" x2="8" y2="20" />
                         <line x1="1" y1="12" x2="8" y2="4" />
                         <line x1="1" y1="12" x2="24" y2="12" />
@@ -77,42 +91,49 @@ const SetEmail = () => {
                 </span>
                 {/* need to be fixed. click & close the modal */}
                 <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
                 </a>
             </header>
 
-            <div>
-                <label>New email address</label>
-                <input type="email" value={newEmail} onChange={handleNewEmail}/>
-            </div>
+            <form className={styles.subsettingForm}>
 
-            <div>
-                <label>Confirm new email address</label>
-                <div className={styles.smallGroup}>
-                    <input type="email" value={confirmEmail} onChange={handleConfirmEmail}/>
-                    <p className={sameEmail ? styles.hidden : styles.visible}>Email addresses do not match</p>
+                <div>
+                    <label>New email address</label>
+                    <input type="email" value={newEmail} onChange={handleNewEmail}/>
                 </div>
-            </div>
 
-            <div>
-                <label>Verify your password</label>
-                <input type="password" value={password} onChange={handlePassword}/>
-            </div>
+                <div>
+                    <label>Confirm new email address</label>
+                    <div className={styles.smallGroup}>
+                        <input type="email" value={confirmEmail} onChange={handleConfirmEmail}/>
+                        <p className={sameEmail ? styles.hidden : styles.visible}>Email addresses do not match</p>
+                    </div>
+                </div>
 
-            <span>
-                <p className={backendMessage ? styles.visible : styles.hidden}>{backendMessage}</p>
-            </span>
+                <div>
+                    <label>Verify your password</label>
+                    <input type="password" value={password} onChange={handlePassword}/>
+                </div>
 
-            <div className={styles.buttonGroup}>
-                {/* need to be rerplaced by a pic */}
-                <button type="reset" className={styles.cancelButton}>Cancel</button>
-                <button type="submit" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
-            </div>
-        </form>
-        </>
+                <span>
+                    <p className={backendMessage ? styles.visible : styles.hidden}>{backendMessage}</p>
+                </span>
+
+                <div className={styles.buttonGroup}>
+                    <button type="button" className={styles.cancelButton} onClick={clickCancel}>Cancel</button>
+                    <button type="submit" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
+                </div>
+            </form>
+
+            <Notice
+                isOpen={isAllFilled && showModal}
+                onClose={() => setShowModal(false)}
+                onConfirm={() => router.push('/application/setting/account')}
+                promptText={'Are you sure you want to discard changes?'}
+            />
         </div>
         
     );

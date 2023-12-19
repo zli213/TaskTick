@@ -59,12 +59,10 @@ const SetPassword = () => {
 
     return (
         <div className={styles.container}>
-        <>
-        <form>
             <header>
                 <span>
                     <a href="/application/setting/account">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="1" y1="12" x2="8" y2="20" />
                             <line x1="1" y1="12" x2="8" y2="4" />
                             <line x1="1" y1="12" x2="24" y2="12" />
@@ -75,13 +73,14 @@ const SetPassword = () => {
 
                 {/* need to be fixed. click & close the modal */}
                 <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
                 </a>
             </header>
 
+        <form className={styles.subsettingForm}>
             <div>
                 <label>Current password</label>
                 <input type="password" value={currentPassword} onChange={handleCurPassword}/>
@@ -96,18 +95,15 @@ const SetPassword = () => {
                 <label>Confirm your new password</label>
                 <div className={styles.smallGroup}>
                     <input type="password" value={confirmPassword} onChange={handleConfirm}/>
-                    {/* hide / visible not good */}
                     <p className={samePassword ? styles.hidden : styles.visible}>Passwords do not match</p>
                 </div>
             </div>
 
             <div className={styles.buttonGroup}>
-                {/* need to be rerplaced by a pic */}
                 <button type="reset" className={styles.cancelButton}>Cancel</button>
                 <button type="submit" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
             </div>
         </form>
-        </>
         </div>
         
     );
