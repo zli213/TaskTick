@@ -20,6 +20,7 @@
         align-items: center;
         width: 100%;
         position: sticky;
+        padding: $paddingsm;
         border-bottom: 1px solid $grayColor;
 
         span {
@@ -42,7 +43,6 @@
             border: none;
             cursor: pointer;
             border-radius: $borderRadius;
-            padding: $paddingXsm;
 
             &:hover {
                 background-color: $grayColor;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import styles from "../../../../styles/scss/account.module.scss";
 import Notice from "../../../application/widgets/settingNotice";
 
 const SetEmail = () => {
-    const router = useRouter;
+    const router = useRouter();
     const [newEmail, setNewEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -64,23 +64,23 @@ const SetEmail = () => {
         } catch (error) {
             console.log("Error occured: ", error);
         }
-    }
+    };
 
-    //click cnacel button
+    //click cancel button
     const clickCancel = () => {
         if (isAllFilled) {
             setShowModal(true);
         } else {
             router.push('/application/setting/account');
         }
-    }
+    };
 
 
     return (
         <div className={styles.container}>
             <header>
                 <span>
-                <a href="/application/setting/account">
+                <a onClick={() => router.push('/application/setting/account')}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="1" y1="12" x2="8" y2="20" />
                         <line x1="1" y1="12" x2="8" y2="4" />
@@ -132,7 +132,7 @@ const SetEmail = () => {
                 isOpen={isAllFilled && showModal}
                 onClose={() => setShowModal(false)}
                 onConfirm={() => router.push('/application/setting/account')}
-                promptText={'Are you sure you want to discard changes?'}
+                promptText={'Your inputs would not be saved.'}
             />
         </div>
         
