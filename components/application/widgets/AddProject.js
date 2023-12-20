@@ -1,5 +1,10 @@
+/***
+ * The card you can add or edit projects
+ */
+
 // "use client";
 
+import { useState, useRef } from "react";
 import Modal from "./Modal";
 import styles from "../../../styles/scss/addProject.module.scss";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
@@ -7,7 +12,25 @@ import ListIcon from "../../../public/icon/horizon_page.svg";
 import CalenderIcon from "../../../public/icon/upcoming.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
 
+
 export default function AddProject(props) {
+  const nameInputRef = useRef();
+  const [enteredName, setEnteredName] = useState("");
+
+  if(props.projectname){
+    setEnteredName(props.projectname);
+  }
+
+  const nameChangeHandler = (event) => {
+    setEnteredName(event.target.value);
+  };
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const name = nameInputRef.current.value;
+    console.log(name);
+  }
+
   return (
     <div onClick={props.closeHandler}>
       <Modal>
@@ -17,7 +40,7 @@ export default function AddProject(props) {
           </div>
           <hr />
 
-          <form>
+          <form onSubmit={formSubmitHandler}>
             <div className={styles.add_project_form}>
               <div className={styles.form_field}>
                 <label
@@ -26,14 +49,19 @@ export default function AddProject(props) {
                 >
                   Name
                 </label>
-                <input id="edit_project_modal_field_name"></input>
+                <input
+                  ref={nameInputRef}
+                  id="edit_project_modal_field_name"
+                  onChange={nameChangeHandler}
+                  value={enteredName}
+                ></input>
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Color</div>
                 <button disabled="true" className={styles.color_selector}>
                   <div>
                     <span className={styles.color_dropdown_select_color}></span>
-                    <span>Charcoal</span>{" "}
+                    <span>Black</span>{" "}
                   </div>
                   <DownArrowIcon />
                 </button>
@@ -69,7 +97,13 @@ export default function AddProject(props) {
               >
                 Cancel
               </button>
-              <button className={styles.btn_add}>Add</button>
+              <button
+                type="submit"
+                className={`${styles.btn_add} ${enteredName && styles.named_states} `  }
+                disabled={enteredName ? false : true}
+              >
+                {props.projectname ? "Save" : "Add"}
+              </button>
             </footer>
           </form>
         </div>

@@ -104,7 +104,7 @@
   align-items: center;
 
   button {
-    cursor: pointer;
+    // cursor: pointer;
     border-radius: $borderRadius;
     padding: $paddingsm ;
     width: 7.5rem;
@@ -114,6 +114,7 @@
 
 .btn_cancel {
   background-color: $lightGrayColor;
+  cursor: pointer;
 
   &:hover {
     background-color: $grayColor;
@@ -123,4 +124,12 @@
 .btn_add {
   background-color: rgba($color: $primaryColor, $alpha: 0.5);
   color: #fff;
+  cursor: not-allowed;
+
+}
+
+.named_states{
+  background-color: rgba($color: $primaryColor, $alpha: 1);
+    cursor: pointer;
+
 }
