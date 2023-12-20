@@ -6,14 +6,14 @@
 
 import { useState, useRef } from "react";
 import Modal from "./Modal";
-import styles from "../../../styles/scss/addProject.module.scss";
+import styles from "../../../styles/scss/newProject.module.scss";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
 import ListIcon from "../../../public/icon/horizon_page.svg";
 import CalenderIcon from "../../../public/icon/upcoming.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
 
 
-export default function AddProject(props) {
+export default function NewProject(props) {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
 

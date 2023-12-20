@@ -7,7 +7,7 @@ import SettingIcon from "../../../public/icon/setting.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
 import SearchIcon from "../../../public/icon/search.svg";
 import AddIcon from "../../../public/icon/add.svg";
-import AddProject from "../../application/widgets/AddProject";
+import NewProject from "../../application/widgets/NewProject";
 
 export default function MyProjects(props) {
   const [showAddCard, setShowAddCard] = useState(false);
@@ -67,7 +67,7 @@ export default function MyProjects(props) {
           ))}
         </ul>
       </div>
-      {showAddCard && <AddProject closeHandler={showCardHandler} />}
+      {showAddCard && <NewProject closeHandler={showCardHandler} />}
     </>
   );
 }

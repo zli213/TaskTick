@@ -6,7 +6,7 @@ import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
 import AddIcon from "../../../public/icon/add.svg";
 import ArrowIcon from "../../../public/icon/down_arrow.svg";
-import AddProject from "../widgets/AddProject";
+import NewProject from "../widgets/NewProject";
 
 function Leftbar({ classes, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
@@ -101,7 +101,7 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
           />
         ))}
       </div>
-      {showAddCard && <AddProject closeHandler={showCardHandler} />}
+      {showAddCard && <NewProject closeHandler={showCardHandler} />}
 
     </div>
   );
