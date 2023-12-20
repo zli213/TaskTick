@@ -13,7 +13,6 @@
   gap: $gap;
   z-index: 10;
 
-
   //for hide animation
   transition: all 270ms ease 0ms;
   flex-shrink: 0;
@@ -41,7 +40,12 @@
 .list_item_box {
   width: 100%;
   @include flexRowStart();
+  align-items: center;
 
+  span {
+    @include flexRowStart();
+  }
+  
   a {
     width: 100%;
     display: flex;
@@ -98,7 +102,6 @@
 
   button:hover {
     background-color: $hoverColor;
-    
   }
 }
 
