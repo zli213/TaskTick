@@ -6,7 +6,7 @@ import hashPassword from '../../../src/utils/data/hashPassword';
 export const POST = async (req) => {
     await connect();
 
-    const usr = await User.findOne({ username: 'johndoe123'});
+    const usr = await User.findOne({ username: 'Spidy'});
     const result = await req.json();
     const currentPassword = result.currentPassword;
     const newPassword = result.confirmPassword;
@@ -19,7 +19,7 @@ export const POST = async (req) => {
 
     //wait for modificatin. Auth?
     hashedPassword = await hashPassword(newPassword);
-    const filter = { username: 'johndoe123' };
+    const filter = { username: 'Spidy' };
     const update = { password: hashedPassword };
     await User.updateOne(filter, update);
 

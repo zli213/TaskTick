@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Modal from "../../../../../../components/application/widgets/Modal";
 import SetEmail from "../../../../../../components/pages/Settings/Subsetting/Email";
 import SetPassword from "../../../../../../components/pages/Settings/Subsetting/Password";
+import DeleteAccount from "../../../../../../components/pages/Settings/Subsetting/Delete";
 import styles from "../../../../../../styles/scss/settings.module.scss";
 import CatchAll from "../../../[...catchAll]/page";
 
@@ -18,6 +19,9 @@ export default function SettingModal({ params }) {
       case "password":
         setActivePage(<SetPassword />);
         break;
+        case "deleteaccount":
+          setActivePage(<DeleteAccount />);
+          break;  
       default:
         setActivePage(<CatchAll />);
         break;

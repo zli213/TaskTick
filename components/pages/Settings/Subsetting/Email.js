@@ -53,13 +53,13 @@ const SetEmail = () => {
                 'Content-Type': 'application/json',
               },
             body: JSON.stringify({ password, confirmEmail })}
-            )
+            );
             if (res.ok) {
                 console.log("Email updates completed.");
-                setMessage(res.json());
             } else {
+                const data = await res.json();
                 console.log("Something goes wrong...");
-                setMessage(res.json());
+                setMessage(data.message);
             }
         } catch (error) {
             console.log("Error occured: ", error);

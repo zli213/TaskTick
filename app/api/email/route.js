@@ -2,28 +2,35 @@ import { NextResponse } from 'next/server';
 import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
 import hashPassword from '../../../src/utils/data/hashPassword';
+import bcrypt from "bcrypt";
 
 export const POST = async (req) => {
     await connect();
-    const usr = await User.findOne({ username: 'johndoe123'});
+    const usr = await User.findOne({ username: 'Spidy'});
 
     const result = await req.json();
-    const password = result.password;
+    const password = hashPassword(result.password) + "";
     const newEmail = result.confirmEmail;
-    console.log("New Email: ", newEmail);
+    const isPasswordValid = bcrypt.compare(usr.password + "", password);
 
-    if (usr.password !== hashPassword(password)) {
-        return NextResponse.json({ message: 'The old password you entered is incorrect. Fail to edit. ', status: 422});
+    if (!isPasswordValid) {
+        // console.log("Not valid!");
+        return NextResponse.json({ message: 'The password you entered is incorrect. Fail to edit. '}, { status: 401 });
+    } else {
+        // console.log("Valid!");
+        try {
+            //wait for modificatin. Auth?
+            const filter = { username: 'Spidy' };
+            const update = { email: newEmail };
+            await User.updateOne(filter, update);
+            // not working
+            return NextResponse.redirect(new URL('/application/setting/account', req.url));
+        } catch (error) {
+            return NextResponse.json({ message: "Fail to edit"}, {status: 500});
+        }
     }
 
-    //wait for modificatin. Auth?
-    const filter = { username: 'johndoe123' };
-    const update = { emial: newEmail };
-    await User.updateOne(filter, update);
+    
 
-    try {
-        return NextResponse.json({ message: 'Succeed. ', status: 201 });
-    } catch (error) {
-        return NextResponse.json({ message: error, status: 500});
-    }
+    
 }

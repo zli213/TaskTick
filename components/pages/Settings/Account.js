@@ -118,7 +118,9 @@ const SettingAccount = () => {
             <p>This will immediately delete all your data, including tasks, projects, comments, etc.</p>
             <p>This cannot be undone.</p>
             <span>
-              Delete Account
+              <Link href="/application/setting/account/deleteaccount">
+                Delete Account
+              </Link>
             </span>
           </div>
 
