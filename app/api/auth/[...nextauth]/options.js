@@ -1,3 +1,4 @@
+//app/api/auth/[...nextauth]/options.js
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -88,5 +89,11 @@ export const options = {
       if (session?.user) session.user.role = token.role;
       return session;
     },
+  },
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
+    error: "/auth/error", // Error code passed in query string as ?error=
+    verifyRequest: "/auth/verify-request", // (used for check email message)
   },
 };

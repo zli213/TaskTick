@@ -1,3 +1,5 @@
+@use "./utils/variable" as *;
+
 .signupForm {
   display: flex;
   flex-direction: column;
@@ -29,5 +31,14 @@
       outline: none;
       border-color: #4f005f;
     }
+  }
+  .submit {
+    background-color: #007bff;
+    &:hover {
+      background-color: #0056b3;
+    }
+    width: 100%;
+    padding: 5px;
+    border-radius: $borderRadius;
   }
 }

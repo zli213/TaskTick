@@ -36,7 +36,7 @@ const SignupForm = () => {
       }
     } else {
       router.refresh();
-      router.push("/");
+      router.push("/auth/signin");
     }
   };
   const handleChange = (e) => {
@@ -88,7 +88,7 @@ const SignupForm = () => {
           value={formData.password}
         />
       </div>
-      <button type={styles.submit}>Sign Up</button>
+      <button className={styles.submit}>Sign Up</button>
     </form>
   );
 };

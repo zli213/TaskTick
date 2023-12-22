@@ -1,8 +1,8 @@
-import Navbar from "../components/pages/Navbar";
+import dynamic from "next/dynamic";
+// import Navbar from "./(components)/Nav";
 // import "./globals.scss";
 import "../styles/scss/globals.scss";
-import Link from "next/link";
-
+import ProviderWrapper from "./ProviderWrapper";
 export const metadata = {
   title: "Todo APP",
   description: "Your personal Todo list APP",
@@ -12,21 +12,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {/* <nav>
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/today">Todo List</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/signup">Signup</Link>
-        </nav> */}
-        <main>{children}</main>
+        <ProviderWrapper>
+          {/* <Navbar /> */}
+          <main>{children}</main>
+        </ProviderWrapper>
       </body>
     </html>
   );
 }
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
