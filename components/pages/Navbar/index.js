@@ -4,11 +4,8 @@
 import { signOut, useSession } from "next-auth/react";
 import styles from "../../../styles/scss/navbar.module.scss";
 import Link from "next/link";
-import { getServerSession } from "next-auth/next";
-import { options } from "../../../app/api/auth/[...nextauth]/options";
 
 const Navbar = async () => {
-  // const session = await getServerSession({ options });
   const { data: session, status } = useSession();
   console.log(session);
   console.log(status);
