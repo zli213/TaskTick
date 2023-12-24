@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   @include flexRowBetween();
-  padding: 0 $paddingLg;
+  padding: 0 $paddingXsm;
   height: $navHeight;
   line-height: $navHeight;
   z-index: 10;
@@ -13,8 +13,10 @@
 }
 
 .flex_center {
+  padding: 0 $paddingXsm;
   position: relative;
   @include flexRowStart();
+  gap: $gap;
 }
 
 .avatar_button {
