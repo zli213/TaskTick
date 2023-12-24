@@ -11,6 +11,7 @@ import UpcomingIcon from "../../../public/icon/upcoming.svg";
 import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import FilterIcon from "../../../public/icon/filter.svg";
 import FilterSelected from "../../../public/icon/filter_selected.svg";
+import MenuIcon from "../../../public/icon/three_point.svg";
 import { useRouter } from "next/navigation";
 
 const LeftbarItem = ({
@@ -28,13 +29,19 @@ const LeftbarItem = ({
     onClickHandler();
   };
 
+  const isProject = type == "project";
+
   var icon = null;
   switch (type) {
     case "inbox":
-      icon = isSelected ? <InboxSelected /> :<InboxIcon />;
+      icon = isSelected ? <InboxSelected /> : <InboxIcon />;
       break;
     case "today":
-      icon = isSelected ? <TodayIconSelected day={new Date().getDate()} />  : <TodayIcon day={new Date().getDate()} />;
+      icon = isSelected ? (
+        <TodayIconSelected day={new Date().getDate()} />
+      ) : (
+        <TodayIcon day={new Date().getDate()} />
+      );
       break;
     case "upcoming":
       icon = isSelected ? <UpcomingSelected /> : <UpcomingIcon />;
@@ -58,7 +65,16 @@ const LeftbarItem = ({
           <span className={styles.list_item_content}>{label}</span>
         </Link>
       </div>
-      <div>{num}</div>
+      <div className={styles.item_btn}>
+        <span className={isProject && styles.item_btn_number}>{num}</span>
+        {isProject && (
+          <button type="button" className={styles.more_project_action_btn}>
+            <span>
+              <MenuIcon />
+            </span>
+          </button>
+        )}
+      </div>
     </li>
   );
 };

@@ -45,7 +45,7 @@
   span {
     @include flexRowStart();
   }
-  
+
   a {
     width: 100%;
     display: flex;
@@ -63,11 +63,6 @@
   padding: $paddingsm 0;
   font-weight: 500;
   color: $textSecondaryColor;
-}
-
-.selected_item {
-  background-color: $selectedColor !important;
-  color: $primaryColor;
 }
 
 .project_title {
@@ -115,4 +110,43 @@
     transform: rotate(-90deg);
     transition: all 0.3s;
   }
+}
+
+.item_btn {
+  position: relative;
+  width: $fontSizeSm;
+  text-align: center;
+  height: $lineHeight;
+  line-height: $lineHeight;
+}
+
+.more_project_action_btn {
+  display: none;
+  position: absolute;
+  height: $lineHeight;
+  cursor: pointer;
+  color: #989898;
+  height: $lineHeight;
+
+  span {
+    @include flexRowBetween();
+    align-items: baseline;
+  }
+}
+
+li:hover .more_project_action_btn {
+  display: block;
+}
+
+.more_project_action_btn:hover {
+  color: $textPrimaryColor;
+}
+
+li:hover .item_btn_number {
+  display: none;
+}
+
+.selected_item {
+  background-color: $selectedColor !important;
+  color: $primaryColor;
 }
