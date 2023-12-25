@@ -45,7 +45,8 @@ const SetEmail = () => {
     };
 
     //submit the form
-    async function handleSubmit () {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             const res = await fetch("/api/email", {
             method: "POST",
@@ -54,12 +55,15 @@ const SetEmail = () => {
               },
             body: JSON.stringify({ password, confirmEmail })}
             );
+
             if (res.ok) {
                 console.log("Email updates completed.");
+                router.push('/application/setting/account');
             } else {
                 const data = await res.json();
                 console.log("Something goes wrong...");
                 setMessage(data.message);
+                return;
             }
         } catch (error) {
             console.log("Error occured: ", error);
@@ -124,14 +128,16 @@ const SetEmail = () => {
 
                 <div className={styles.buttonGroup}>
                     <button type="button" className={styles.cancelButton} onClick={clickCancel}>Cancel</button>
-                    <button type="submit" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
+                    <button type="button" onClick={handleSubmit} disabled={submitDisabled} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
                 </div>
             </form>
 
             <Notice
                 isOpen={isAllFilled && showModal}
                 onClose={() => setShowModal(false)}
-                onConfirm={() => router.push('/application/setting/account')}
+                onConfirm={() => {
+                    setShowModal(false);
+                    router.push('/application/setting/account')}}
                 promptText={'Your inputs would not be saved.'}
             />
         </div>

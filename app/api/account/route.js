@@ -8,7 +8,7 @@ export const GET = async () => {
     await connect();
 
     //wait for modification. Auth?
-    const user = await User.findOne({ username: 'Spidy' });
+    const user = await User.findOne({ username: 'Peter Paker' });
     //console.log("Found: ",user);
 
     try {
@@ -28,7 +28,7 @@ export const POST = async (req) => {
     console.log("Get New: ", newUsername);
 
     //wait for modification. Auth?
-    const filter = { username: 'Spidy' };
+    const filter = { username: 'Peter Paker' };
     const update = { username: newUsername };
     await User.updateOne(filter, update);
     await Tasks.updateMany(filter, update);

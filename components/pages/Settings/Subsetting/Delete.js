@@ -6,7 +6,7 @@ const DeleteAccount = () => {
     const router = useRouter();
     const [password, setPassword] = useState("");
     const [deleteDisabled, setDeleteDisabled] = useState(true);
-    const [message, setMessage] = useState("");
+    const [backendMessage, setMessage] = useState("");
 
     useEffect(() => {
         setDeleteDisabled(password);
@@ -16,7 +16,8 @@ const DeleteAccount = () => {
         setPassword(event.target.value);
     }
 
-    async function handleDelete () {
+    const handleDelete = async (e) => {
+        e.preventDefault();
         try {
             const res = await fetch("/api/deleteaccount", {
             method: "DELETE",
@@ -24,7 +25,8 @@ const DeleteAccount = () => {
                 'Content-Type': 'application/json',
               },
             body: JSON.stringify({ password })}
-            )
+            );
+
             if (res.ok) {
                 
                 router.push("/");
@@ -32,6 +34,7 @@ const DeleteAccount = () => {
                 console.log("Something goes wrong...");
                 const data = await res.json();
                 setMessage(data.message);
+                return;
             }
         } catch (error) {
             console.log("Error occured: ", error);
@@ -82,11 +85,13 @@ const DeleteAccount = () => {
                 </div>
                 <div>
                     {/* dispay messages from backend */}
-                    <p>{message}</p>
+                <p className={backendMessage ? styles.visible : styles.hidden}>{backendMessage}</p>
+
                 </div>
                 <div className={styles.buttonGroup}>
                     <button type="button" className={styles.cancelButton} onClick={() => router.push("/application/setting/account")}>Cancel</button>
-                    <button type="button" disabled={deleteDisabled} onClick={handleDelete} className={deleteDisabled ? styles.canSubmit : styles.cannotSubmit}>Delete Account</button>
+                    {/* not working */}
+                    <button type="button" onClick={handleDelete} disabled={deleteDisabled} className={deleteDisabled ? styles.canSubmit : styles.cannotSubmit}>Delete Account</button>
                 </div>
 
             </form>

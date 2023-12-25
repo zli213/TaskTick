@@ -12,6 +12,7 @@ const SetPassword = () => {
     const [samePassword, setSamePassword] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isAllFilled, setAllFilled] = useState(false);
+    const [backendMessage, setMessage] = useState("");
 
     //password requirements?
     //⬇️Update for every change
@@ -46,7 +47,8 @@ const SetPassword = () => {
 
 
     //submit the form
-    async function handleSubmit () {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             const res = await fetch("/api/password", {
             method: "POST",
@@ -54,11 +56,16 @@ const SetPassword = () => {
                 'Content-Type': 'application/json',
               },
             body: JSON.stringify({ currentPassword, confirmPassword })}
-            )
+            );
+            
             if (res.ok) {
-                console.log("Password updates completed.")
+                console.log("Password updates completed.");
+                router.push('/application/setting/account');
             } else {
-                console.log("Something goes wrong...")
+                console.log("Something goes wrong...");
+                const data = await res.json();
+                setMessage(data.message);
+                return;
             }
         } catch (error) {
             console.log("Error occured: ", error);
@@ -117,16 +124,20 @@ const SetPassword = () => {
                 </div>
             </div>
 
+            <span>
+                <p className={backendMessage ? styles.visible : styles.hidden}>{backendMessage}</p>
+            </span>
+
             <div className={styles.buttonGroup}>
                 <button type="button" className={styles.cancelButton} onClick={clickCancel}>Cancel</button>
-                <button type="submit" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
+                <button type="button" disabled={submitDisabled} onClick={handleSubmit} className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}>Submit</button>
             </div>
         </form>
 
         <Notice
             isOpen={isAllFilled && showModal}
             onClose={() => setShowModal(false)}
-            onConfirm={() => router.push('/application/setting/account')}
+            onConfirm={() => { setShowModal(false), router.push('/application/setting/account') }}
             promptText={'Your inputs would not be saved.'}
         />
 
