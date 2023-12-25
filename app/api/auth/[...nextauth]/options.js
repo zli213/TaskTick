@@ -19,6 +19,7 @@ export const options = {
         return {
           ...profile,
           role: userRole,
+          id: profile.id.toString(),
         };
       },
       clientId: process.env.GITHUB_ID,
@@ -92,8 +93,5 @@ export const options = {
   },
   pages: {
     signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error", // Error code passed in query string as ?error=
-    verifyRequest: "/auth/verify-request", // (used for check email message)
   },
 };

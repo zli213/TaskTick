@@ -31,7 +31,6 @@ const SignInPage = () => {
         password: formValues.password,
       });
       setLoading(false);
-      console.log("这个是啥",res);
       if (!res?.error) {
         router.push("/application/today");
       } else {
