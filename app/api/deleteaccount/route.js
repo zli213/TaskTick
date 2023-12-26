@@ -6,9 +6,8 @@ import bcrypt from "bcrypt";
 export const DELETE = async(req) => {
     await connect();
 
-    const usr = await User.findOne({ username: 'Peter Paker'});
+    const usr = await User.findOne({ username: 'johndoe123'});
     const result = await req.json();
-    console.log("Get password: ", password);
 
     const isPasswordValid = await bcrypt.compare(result.password, usr.password);
     if (!isPasswordValid) {
@@ -16,7 +15,7 @@ export const DELETE = async(req) => {
     }
 
     try {
-        await User.deleteOne({ username: 'Peter Paker'});//wait for modification
+        await User.deleteOne({ username: 'johndoe123'});//wait for modification
         return NextResponse.json({ message: 'Succeed. '}, {status: 201});
     } catch (error) {
         return NextResponse.json({ message: 'Fail to delete account. '}, {status: 500});

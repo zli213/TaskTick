@@ -9,7 +9,9 @@ const DeleteAccount = () => {
     const [backendMessage, setMessage] = useState("");
 
     useEffect(() => {
-        setDeleteDisabled(password);
+        if(password) {
+            setDeleteDisabled(false);
+        }
     }, [password]);
 
     const handlePassword = (event) => {
@@ -28,10 +30,8 @@ const DeleteAccount = () => {
             );
 
             if (res.ok) {
-                
                 router.push("/");
             } else {
-                console.log("Something goes wrong...");
                 const data = await res.json();
                 setMessage(data.message);
                 return;
@@ -91,7 +91,7 @@ const DeleteAccount = () => {
                 <div className={styles.buttonGroup}>
                     <button type="button" className={styles.cancelButton} onClick={() => router.push("/application/setting/account")}>Cancel</button>
                     {/* not working */}
-                    <button type="button" onClick={handleDelete} disabled={deleteDisabled} className={deleteDisabled ? styles.canSubmit : styles.cannotSubmit}>Delete Account</button>
+                    <button type="button" onClick={handleDelete} disabled={deleteDisabled} className={deleteDisabled ? styles.cannotSubmit : styles.canSubmit}>Delete Account</button>
                 </div>
 
             </form>

@@ -8,8 +8,7 @@ export const GET = async () => {
     await connect();
 
     //wait for modification. Auth?
-    const user = await User.findOne({ username: 'Peter Paker' });
-    //console.log("Found: ",user);
+    const user = await User.findOne({ username: 'johndoe123' });
 
     try {
         return NextResponse.json(user);
@@ -25,10 +24,9 @@ export const POST = async (req) => {
 
     const result = await req.json();
     const newUsername = result.inputValue;
-    console.log("Get New: ", newUsername);
 
     //wait for modification. Auth?
-    const filter = { username: 'Peter Paker' };
+    const filter = { username: 'johndoe123' };
     const update = { username: newUsername };
     await User.updateOne(filter, update);
     await Tasks.updateMany(filter, update);

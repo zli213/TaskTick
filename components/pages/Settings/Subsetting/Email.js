@@ -57,11 +57,9 @@ const SetEmail = () => {
             );
 
             if (res.ok) {
-                console.log("Email updates completed.");
                 router.push('/application/setting/account');
             } else {
                 const data = await res.json();
-                console.log("Something goes wrong...");
                 setMessage(data.message);
                 return;
             }

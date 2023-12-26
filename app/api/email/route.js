@@ -5,19 +5,17 @@ import bcrypt from "bcrypt";
 
 export const POST = async (req) => {
     await connect();
-    const usr = await User.findOne({ username: 'Peter Paker'});
+    const usr = await User.findOne({ username: 'johndoe123'});
     const result = await req.json();   
     const newEmail = result.confirmEmail;
     const isPasswordValid = await bcrypt.compare(result.password, usr.password);
 
     if (!isPasswordValid) {
-        console.log("Not valid!");
         return NextResponse.json({ message: 'The password you entered is incorrect. Fail to edit. '}, { status: 401 });
     } else {
-        console.log("Valid!");
         try {
             //wait for modificatin. Auth?
-            const filter = { username: 'Peter Paker' };
+            const filter = { username: 'johndoe123' };
             const update = { email: newEmail };
             await User.updateOne(filter, update);
             return NextResponse.json({ message: "Succeed. "}, {status: 201});

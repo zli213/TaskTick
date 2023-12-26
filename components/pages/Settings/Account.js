@@ -43,7 +43,6 @@ const SettingAccount = () => {
 
   //if inputValue changes, set buttons visible.
   useEffect(() => {
-    console.log("inputValue Now: ", inputValue);
     setShowButton(inputValue !== username);
   }, [inputValue, username]);
 

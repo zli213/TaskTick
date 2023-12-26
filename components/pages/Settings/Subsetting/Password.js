@@ -59,10 +59,8 @@ const SetPassword = () => {
             );
             
             if (res.ok) {
-                console.log("Password updates completed.");
                 router.push('/application/setting/account');
             } else {
-                console.log("Something goes wrong...");
                 const data = await res.json();
                 setMessage(data.message);
                 return;
