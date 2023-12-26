@@ -25,7 +25,6 @@ export function SingleItems({
           <Link href={`/application/task/${_id}`} scroll={false}>
             {title}
           </Link>
-
           <div>{description}</div>
           <div>{formattedDate}</div>
         </div>

@@ -8,7 +8,7 @@ const nextConfig = {
     },
   },
   webpack: (config, { isServer }) => {
-    // use @svgr/webpack Handle SVG file
+    // Use @svgr/webpack Handle SVG file
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"]
@@ -17,7 +17,7 @@ const nextConfig = {
     // For other picture resourse, use asset/resource
     if (!isServer) {
       config.module.rules.push({
-        test: /\.(png|jpg|jpeg|gif)$/i, // notice: not includ svg
+        test: /\.(png|jpg|jpeg|gif)$/i, // notice: not include svg
         type: "asset/resource",
       });
     }

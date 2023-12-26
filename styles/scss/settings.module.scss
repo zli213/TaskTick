@@ -12,6 +12,8 @@
   flex-direction: row;
   min-height: $settingHeight;
   max-height: $settingPageWidth;
+  box-shadow: 0px 0px 4px 4px rgba($color: black, $alpha: 0.1);
+
 }
 
 .setting_left {

@@ -1,5 +1,9 @@
 @use "./utils/variable" as *;
 
+.app_layout {
+  position: relative;
+}
+
 .app_holder {
   position: relative;
   display: flex;
@@ -17,6 +21,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  position: relative;
 
   li {
     list-style: none;
@@ -28,23 +33,25 @@
   position: sticky;
   top: $navHeight;
   background-color: $bodyBg;
-  z-index: 2;
+  z-index: 1;
   width: 100%;
   margin: 0 auto;
 
   .view_header_content {
+    @include flexRowBetween();
     width: 100%;
     max-width: $maxListWidth;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     flex-grow: 1;
     margin: 0 auto;
     border-bottom: 1px solid $grayColor;
     padding-bottom: $paddingsm;
 
-    h1{
+    h1 {
       font-size: $fontSizeMd;
+    }
+
+    span {
+      font-weight: 500;
     }
   }
 }
@@ -59,4 +66,98 @@
   margin: 0 auto;
 
   // z-index: 2;
+}
+
+.content_box {
+  margin: 0 auto;
+  max-width: $maxListWidth;
+  width: 100%;
+  padding-top: $paddingsm;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  h4 {
+    font-weight: 500;
+    padding-bottom: $paddingsm;
+    border-bottom: 1px solid $grayColor;
+  }
+
+  .searchArea_projects {
+    width: 100%;
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    @include flexRowStart();
+    padding: $paddingXsm;
+    gap: $paddingXsm;
+    outline: initial;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+  }
+}
+.searchArea_projects:focus-within {
+  border: 1px solid $textSecondaryColor;
+}
+
+.view_header_project {
+  border-bottom: 0px !important;
+
+  a {
+    @include flexRowStart();
+    gap: $paddingXsm;
+    padding: $paddingXsm $paddingsm;
+    border-radius: $borderRadiusSm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+.btn_projects {
+  @include flexRowBetween();
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm $paddingsm;
+    gap: $paddingXsm;
+  }
+
+  .add_btn_projects {
+    background-color: $lightGrayColor;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
+
+  .active_btn_projects {
+    border: 1px solid $grayColor;
+  }
+}
+
+.project_list {
+  li {
+    @include flexRowBetween();
+    border-radius: $borderRadius;
+    padding-right: $paddingXsm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+
+  a {
+    padding: $paddingMd $paddingXsm;
+    @include flexRowStart();
+    width: 100%;
+  }
 }

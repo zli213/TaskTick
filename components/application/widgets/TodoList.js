@@ -6,7 +6,7 @@ import styles from "../../../styles/scss/todoList.module.scss";
 
 function TodoList({ tasks }) {
   return (
-    <section className={styles.section}>
+    <div className={styles.section}>
       <div>
         {tasks
           .filter((data) => data.completed == false)
@@ -25,7 +25,7 @@ function TodoList({ tasks }) {
             />
           ))}
       </div>
-    </section>
+    </div>
   );
 }
 
