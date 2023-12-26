@@ -50,7 +50,7 @@ export default function TaskDetailsSidebar({ task }) {
             className={styles.task_sidebar_button}
             onClick={showScheduler}
           >
-            <div>
+            <div className={styles.flexStart}>
               <CalenderIcon />
             </div>
             <span>{convertDate(selectedDate)}</span>
@@ -70,7 +70,7 @@ export default function TaskDetailsSidebar({ task }) {
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
           <button className={styles.task_sidebar_button}>
-            <div>
+            <div className={styles.flexStart}>
               <FlagIcon />
             </div>
             <span>{task.priority}</span>
