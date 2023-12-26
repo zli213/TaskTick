@@ -8,7 +8,7 @@ const tasksSchema = new Schema(
     _id: ObjectId,
     title: String,
     description: String,
-    tags: String,
+    tags: [String],
     projectId: ObjectId,
     projectName: String,
     board: String,

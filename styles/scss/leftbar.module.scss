@@ -1,34 +1,152 @@
 @use "./utils/variable" as *;
 
-
 .list_sidebar {
-    position: sticky;
-    top: $navHeight;
-    width: $appSideBarWidth;
-    height: calc(100vh - $navHeight);
+  position: sticky;
+  top: $navHeight;
+  width: $appSideBarWidth;
+  height: calc(100vh - $navHeight);
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  padding: $paddingLg $paddingsm;
+  gap: $gap;
+  z-index: 10;
+
+  //for hide animation
+  transition: all 270ms ease 0ms;
+  flex-shrink: 0;
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style: circle;
     display: flex;
-    flex-direction: column;
-    background-color: #fafafa;
-    box-sizing: border-box;
-    padding: $paddingLg 0;
-    gap: $gap;
-  
-    //for hide animation
-    transition: all 270ms ease 0ms;
-    flex-shrink: 0;
-  
-    ul {
-      padding: 0;
-      margin: 0;
-      // padding: 0 5px;
-    }
-  
-    li {
-      list-style: circle;
-      display: flex;
-      justify-content: space-between;
-      padding: $paddingXsm $paddingMd;
-      font-size: $fontSizeSm;
+    justify-content: space-between;
+    align-items: center;
+    padding: $paddingXsm $paddingsm $paddingXsm $paddingXsm;
+    font-size: $fontSizeSm;
+    border-radius: $borderRadius;
+  }
+
+  li:hover {
+    background-color: $hoverColor;
+  }
+}
+
+.list_item_box {
+  width: 100%;
+  @include flexRowStart();
+  align-items: center;
+
+  span {
+    @include flexRowStart();
+  }
+
+  a {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: baseline;
+  }
+
+  .list_item_content {
+    padding-left: $paddingXsm;
+    line-height: $fontSizeLg;
+  }
+}
+
+.leftbar_project_header {
+  padding: $paddingsm 0;
+  font-weight: 500;
+  color: $textSecondaryColor;
+}
+
+.project_title {
+  padding: 0 $paddingXsm;
+  line-height: $fontSizeLg;
+  @include flexRowBetween();
+  border-radius: $borderRadius;
+
+  a {
+    width: 100%;
+  }
+}
+
+.project_title:hover {
+  background-color: $hoverColor;
+}
+
+.leftbar_btn {
+  display: none;
+
+  button {
+    cursor: pointer;
+    overflow: hidden;
+    @include flexRowStart();
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm;
+
+    svg {
+      transition: all 0.3s;
     }
   }
- 
+
+  button:hover {
+    background-color: $hoverColor;
+  }
+}
+
+.list_sidebar:hover .leftbar_btn {
+  display: block;
+  @include flexRowStart();
+}
+
+.show_project_icon {
+  svg {
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+  }
+}
+
+.item_btn {
+  position: relative;
+  width: $fontSizeSm;
+  text-align: center;
+  height: $lineHeight;
+  line-height: $lineHeight;
+}
+
+.more_project_action_btn {
+  display: none;
+  position: absolute;
+  height: $lineHeight;
+  cursor: pointer;
+  color: #989898;
+  height: $lineHeight;
+
+  span {
+    @include flexRowBetween();
+    align-items: baseline;
+  }
+}
+
+li:hover .more_project_action_btn {
+  display: block;
+}
+
+.more_project_action_btn:hover {
+  color: $textPrimaryColor;
+}
+
+li:hover .item_btn_number {
+  display: none;
+}
+
+.selected_item {
+  background-color: $selectedColor !important;
+  color: $primaryColor;
+}

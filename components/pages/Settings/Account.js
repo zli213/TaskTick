@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/account.module.scss";
 import Link from "next/link";
+import CloseButton from "../../../public/icon/close.svg";
 
 const SettingAccount = () => {
+  const router = useRouter();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -63,17 +66,20 @@ const SettingAccount = () => {
     }
   }
 
+  const onDismiss = useCallback(() => {
+    const currentPage = localStorage.getItem("lastPage");
+    router.push(`/application/${currentPage}`, { scroll: false });
+    router.refresh();
+  }, [router]);
+
   return (
     <div className={styles.container}>
       <header>
         <h4>Account Information</h4>
         {/* need to be fixed. click & close the modal */}
-        <a>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </a>
+        <button onClick={onDismiss}>
+          <CloseButton/>
+        </button>
       </header>
       {userData ? (
         

@@ -1,0 +1,46 @@
+@use "./utils/variable" as *;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: $marginMd;
+  .upCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: $itemMinHeightMd;
+    border-radius: $borderRadius;
+    box-shadow: 0 4px 8px 0 $grayColor;
+
+    .teamImage {
+      height: 80%;
+      width: auto;
+      margin-left: $marginXsm;
+      .teamPhoto {
+        width: auto;
+        height: 100%;
+        border-radius: $borderRadius;
+      }
+    }
+    .mapCard {
+      display: flex;
+      width: 80%;
+      height: 97%;
+      margin: $marginXsm;
+      align-items: center;
+      border-radius: $borderRadius;
+      z-index: 1;
+    }
+  }
+  .middleCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: $itemMinHeightMd;
+    border-radius: $borderRadius;
+    box-shadow: 0 4px 8px 0 $grayColor;
+  }
+}

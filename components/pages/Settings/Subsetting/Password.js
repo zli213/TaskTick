@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../../styles/scss/account.module.scss";
 import Notice from "../../../application/widgets/settingNotice";
+import LeftArrow from "../../../../public/icon/left_arrow.svg";
+import CancelButton from "../../../../public/icon/close.svg";
 
 const SetPassword = () => {
     const router = useRouter();
@@ -80,27 +82,26 @@ const SetPassword = () => {
         }
     };
 
+    const onDismiss = useCallback(() => {
+        const currentPage = localStorage.getItem("lastPage");
+        router.push(`/application/${currentPage}`, { scroll: false });
+        router.refresh();
+    }, [router]);
+
+
     return (
         <div className={styles.container}>
             <header>
                 <span>
-                    <a onClick={() => router.push('/application/setting/account')}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="1" y1="12" x2="8" y2="20" />
-                            <line x1="1" y1="12" x2="8" y2="4" />
-                            <line x1="1" y1="12" x2="24" y2="12" />
-                        </svg>
-                    </a>
+                    <button onClick={() => router.push("/application/setting/account")}>
+                        <LeftArrow/>
+                    </button>
                     <label>Modify your password</label>
                 </span>
 
-                {/* need to be fixed. click & close the modal */}
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="gray" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </a>
+                <button onClick={onDismiss}>
+                    <CancelButton/>
+                </button>
             </header>
 
         <form className={styles.subsettingForm}>
@@ -135,7 +136,10 @@ const SetPassword = () => {
         <Notice
             isOpen={isAllFilled && showModal}
             onClose={() => setShowModal(false)}
-            onConfirm={() => { setShowModal(false), router.push('/application/setting/account') }}
+            onConfirm={() => { 
+                setShowModal(false);
+                router.push('/application/setting/account') 
+            }}
             promptText={'Your inputs would not be saved.'}
         />
 

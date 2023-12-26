@@ -1,5 +1,20 @@
 @use "./utils/variable" as *;
 
+.setting_modal_container {
+  position: fixed;
+  top: calc(50vh - $settingHeight / 2);
+  left: calc(50vw - $settingPageWidth / 2);
+  display: flex;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: $settingPageWidth;
+  flex-direction: row;
+  min-height: $settingHeight;
+  max-height: $settingPageWidth;
+  box-shadow: 0px 0px 4px 4px rgba($color: black, $alpha: 0.1);
+
+}
 
 .setting_left {
   width: 20%;
