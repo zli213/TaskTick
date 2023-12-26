@@ -66,7 +66,9 @@ const LeftbarItem = ({
         </Link>
       </div>
       <div className={styles.item_btn}>
-        <span className={isProject && styles.item_btn_number}>{num}</span>
+        <span className={isProject ? styles.item_btn_number : ""}>
+          {num ? num : ""}
+        </span>
         {isProject && (
           <button type="button" className={styles.more_project_action_btn}>
             <span>

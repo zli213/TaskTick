@@ -20,6 +20,6 @@ export default async function getProjectNum(projectId) {
 
     return project[0].name;
   } catch (error) {
-    throw new Error("Error get project name");
+    return null;
   }
 }
