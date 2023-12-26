@@ -6,6 +6,7 @@ import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import TaskNotFound from "../../../../components/pages/NotFound/TaskNotFound";
 import MyProjects from "../../../../components/pages/AppPages/MyProjects";
 import getProjects from "../../../../src/utils/data/getProjects";
+import getProjectName from "../../../../src/utils/data/getProjectName";
 
 export default async function SubAppPages({ params }) {
   //Check if Task exist
@@ -16,12 +17,14 @@ export default async function SubAppPages({ params }) {
     }
   }
   const tasks = await getOneUserTasks();
+  const projectName = await getProjectName(params.submenu);
   var projects = await getProjects("johndoe123");
   projects  = JSON.parse(JSON.stringify(projects));
+  
 
   switch (params.menu) {
     case "project":
-      return <Project data={tasks} projectId={params.submenu} />;
+      return <Project data={tasks} projectId={params.submenu} projectName = {projectName} />;
     case "projects":
       return <MyProjects data={projects} />;
     case "setting":

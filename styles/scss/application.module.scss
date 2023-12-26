@@ -22,6 +22,7 @@
   flex-direction: column;
   flex-grow: 1;
   position: relative;
+  max-width: $maxListWidth;
 
   li {
     list-style: none;
@@ -159,5 +160,27 @@
     padding: $paddingMd $paddingXsm;
     @include flexRowStart();
     width: 100%;
+  }
+}
+
+.no_tasks {
+  margin: 0 auto;
+  text-align: center;
+  width: 40%;
+
+  img{
+    margin-top: $marginLg;
+
+  }
+  
+  h4 {
+    margin-top: $marginXsm;
+  }
+
+  .no_tasks_content {
+    margin: 0 auto;
+    width: 70%;
+    padding: $paddingsm;
+    font-size: $fontSizeXsm;
   }
 }
