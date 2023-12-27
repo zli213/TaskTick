@@ -10,7 +10,6 @@ export const POST = async (req) => {
     const usr = await User.findOne({ username: 'johndoe123'});
     const result = await req.json();
 
-    //wait for modificatin. Auth?
     const isPasswordValid = await bcrypt.compare(result.currentPassword, usr.password);
     if (!isPasswordValid) {
         return NextResponse.json({ message: 'The password you entered is incorrect. Fail to edit. '}, {status: 401 });

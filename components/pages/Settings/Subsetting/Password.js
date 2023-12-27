@@ -22,13 +22,10 @@ const SetPassword = () => {
         setSubmitDisabled(!currentPassword || !newPassword || !confirmPassword || newPassword !== confirmPassword);
     }
 
-    //if not match, show a notification.
     useEffect(() => {
+        //if not match, show a notification.
         setSamePassword(newPassword===confirmPassword);
-    }, [newPassword, confirmPassword]);
-
-    //if three inputs are filled, set it true
-    useEffect (() => {
+        //if three inputs are filled, set it true
         setAllFilled(currentPassword && newPassword && confirmPassword);
     }, [currentPassword, newPassword, confirmPassword]);
 
@@ -52,7 +49,7 @@ const SetPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/password", {
+            const res = await fetch("/api/updatePassword", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

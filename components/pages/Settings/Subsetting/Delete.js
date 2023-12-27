@@ -23,7 +23,7 @@ const DeleteAccount = () => {
     const handleDelete = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/deleteaccount", {
+            const res = await fetch("/api/deleteAccount", {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

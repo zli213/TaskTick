@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
+import Tasks from "../../../src/models/Tasks";
 import bcrypt from "bcrypt";
 
 export const DELETE = async(req) => {
@@ -15,7 +16,8 @@ export const DELETE = async(req) => {
     }
 
     try {
-        await User.deleteOne({ username: 'johndoe123'});//wait for modification
+        await User.deleteOne({ username: 'johndoe123'});
+        await Tasks.deleteMany({ username: 'johndoe123' });
         return NextResponse.json({ message: 'Succeed. '}, {status: 201});
     } catch (error) {
         return NextResponse.json({ message: 'Fail to delete account. '}, {status: 500});

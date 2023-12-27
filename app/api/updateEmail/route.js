@@ -14,7 +14,6 @@ export const POST = async (req) => {
         return NextResponse.json({ message: 'The password you entered is incorrect. Fail to edit. '}, { status: 401 });
     } else {
         try {
-            //wait for modificatin. Auth?
             const filter = { username: 'johndoe123' };
             const update = { email: newEmail };
             await User.updateOne(filter, update);

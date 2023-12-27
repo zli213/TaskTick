@@ -21,13 +21,10 @@ const SetEmail = () => {
         setSubmitDisabled(!newEmail || !confirmEmail || !password || newEmail !== confirmEmail);
     }
 
-    //if two email addresses are different, show a notification.
     useEffect(() => {
+        //if two email addresses are different, show a notification.
         setSameEmail(newEmail===confirmEmail);
-    }, [newEmail, confirmEmail]);
-
-    //if three inputs are filled, set it true
-    useEffect (() => {
+        //if three inputs are filled, set it true
         setAllFilled(newEmail && confirmEmail && password);
     }, [newEmail, confirmEmail, password]);
 
@@ -50,7 +47,7 @@ const SetEmail = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/email", {
+            const res = await fetch("/api/updateEmail", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

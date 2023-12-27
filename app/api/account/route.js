@@ -6,8 +6,6 @@ import Tasks from "../../../src/models/Tasks";
 //retrieve user info
 export const GET = async () => {
     await connect();
-
-    //wait for modification. Auth?
     const user = await User.findOne({ username: 'johndoe123' });
 
     try {
@@ -25,13 +23,12 @@ export const POST = async (req) => {
     const result = await req.json();
     const newUsername = result.inputValue;
 
-    //wait for modification. Auth?
     const filter = { username: 'johndoe123' };
     const update = { username: newUsername };
-    await User.updateOne(filter, update);
-    await Tasks.updateMany(filter, update);
 
     try {
+        await User.updateOne(filter, update);
+        await Tasks.updateMany(filter, update);    
         return NextResponse.json({ message: 'Succeed. ', status: 201 });
     } catch (error) {
         return NextResponse.json({ message: error, status: 500});
