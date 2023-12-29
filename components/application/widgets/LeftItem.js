@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/leftbar.module.scss";
+import { useRouter } from "next/navigation";
+import { useState, useRef } from "react";
 
 //Icons
 import InboxIcon from "../../../public/icon/inbox.svg";
@@ -14,8 +16,6 @@ import FilterSelected from "../../../public/icon/filter_selected.svg";
 import MenuIcon from "../../../public/icon/three_point.svg";
 import EditIcon from "../../../public/icon/edit.svg";
 import DeleteIcon from "../../../public/icon/delete.svg";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 const LeftbarItem = ({
   label,
@@ -27,18 +27,35 @@ const LeftbarItem = ({
 }) => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const clickHandler = (e) => {
     e.preventDefault();
     onClickHandler();
   };
 
+  const disableScroll = (event) => {
+    event.preventDefault();
+  };
+
   const swithMenuHandler = () => {
+    document.addEventListener("click", closeMenuHandler);
+    document.addEventListener('wheel', disableScroll, { passive: false });
+    document.addEventListener('touchmove', disableScroll, { passive: false });
     setShowMenu((preState) => !preState);
   };
 
-  const isProject = type == "project";
+  const closeMenuHandler = (event) => {
+    document.removeEventListener("click", closeMenuHandler);
+    document.removeEventListener('wheel', disableScroll);
+    document.removeEventListener('touchmove', disableScroll);
+    if (!menuRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
 
+
+  const isProject = type == "project";
   var icon = null;
   switch (type) {
     case "inbox":
@@ -64,7 +81,9 @@ const LeftbarItem = ({
 
   return (
     <li
-      className={`${isSelected ? styles.selected_item : ""} ${showMenu && styles.li_hover }`}
+      className={`${isSelected ? styles.selected_item : ""} ${
+        showMenu && styles.li_hover
+      }`}
     >
       <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>
@@ -73,13 +92,18 @@ const LeftbarItem = ({
         </Link>
       </div>
       <div className={styles.item_btn}>
-        <span className={`${isProject ? styles.item_btn_number : ""} ${showMenu && styles.item_btn_number_hover }`}>
+        <span
+          className={`${isProject ? styles.item_btn_number : ""} ${
+            showMenu && styles.item_btn_number_hover
+          }`}
+        >
           {num ? num : ""}
         </span>
         {isProject && (
           <div>
             {/* button */}
             <button
+              ref={menuRef}
               type="button"
               className={`${styles.more_project_action_btn} ${
                 showMenu && styles.more_project_action_btn_hover

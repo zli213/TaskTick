@@ -22,7 +22,7 @@ export default function TaskDetailsSidebar({ task }) {
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
-  
+
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const showScheduler = () => {
@@ -93,8 +93,8 @@ export default function TaskDetailsSidebar({ task }) {
           </div>
           <div className={styles.task_tags_container}>
             {task.tags &&
-              task.tags.map((tag) => (
-                <span className={styles.task_tag_item}>
+              task.tags.map((tag, index) => (
+                <span className={styles.task_tag_item} key={index}>
                   <span>{tag} </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
