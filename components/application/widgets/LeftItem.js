@@ -64,17 +64,16 @@ const LeftbarItem = ({
 
   return (
     <li
-      onClick={clickHandler}
-      className={isSelected ? styles.selected_item : ""}
+      className={`${isSelected ? styles.selected_item : ""} ${showMenu && styles.li_hover }`}
     >
-      <div className={styles.list_item_box}>
+      <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>
           <span>{icon}</span>
           <span className={styles.list_item_content}>{label}</span>
         </Link>
       </div>
       <div className={styles.item_btn}>
-        <span className={isProject ? styles.item_btn_number : ""}>
+        <span className={`${isProject ? styles.item_btn_number : ""} ${showMenu && styles.item_btn_number_hover }`}>
           {num ? num : ""}
         </span>
         {isProject && (
@@ -82,7 +81,9 @@ const LeftbarItem = ({
             {/* button */}
             <button
               type="button"
-              className={styles.more_project_action_btn}
+              className={`${styles.more_project_action_btn} ${
+                showMenu && styles.more_project_action_btn_hover
+              } `}
               onClick={swithMenuHandler}
             >
               <span>

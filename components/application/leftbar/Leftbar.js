@@ -12,7 +12,6 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
   const [showList, setShowList] = useState(true);
   const [showAddCard, setShowAddCard] = useState(false);
- 
 
   const showCardHandler = () => {
     setShowAddCard((preState) => !preState);
@@ -92,20 +91,23 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
           </div>
         </div>
 
-        {showList &&
-          projects.map((project) => (
-            <LeftItem
-              key={project.projectId}
-              label={project.name}
-              link={`/application/project/${project.projectId}`}
-              type="project"
-              num={project.num}
-              onClickHandler={() =>
-                handleItemClick(`project/${project.projectId}`)
+        <div className={`${styles.project_list} ${!showList && styles.project_list_hide}`}>
+          {
+            projects.map((project) => (
+              <LeftItem
+                key={project.projectId}
+                label={project.name}
+                link={`/application/project/${project.projectId}`}
+                type="project"
+                num={project.num}
+                onClickHandler={() =>
+                  handleItemClick(`project/${project.projectId}`)
+                }
+                isSelected={selectedItemType === `project/${project.projectId}`}
+              />
+            ))
               }
-              isSelected={selectedItemType === `project/${project.projectId}`}
-            />
-          ))}
+        </div>
       </div>
       {showAddCard && <NewProject closeHandler={showCardHandler} />}
     </div>
