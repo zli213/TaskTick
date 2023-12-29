@@ -8,10 +8,11 @@ import AddIcon from "../../../public/icon/add.svg";
 import ArrowIcon from "../../../public/icon/down_arrow.svg";
 import NewProject from "../widgets/NewProject";
 
-function Leftbar({ classes, projects, inboxNum, todayNum }) {
+function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
   const [showList, setShowList] = useState(true);
   const [showAddCard, setShowAddCard] = useState(false);
+ 
 
   const showCardHandler = () => {
     setShowAddCard((preState) => !preState);
@@ -31,7 +32,7 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
   }, []);
 
   return (
-    <div className={`${styles.list_sidebar} ${classes}`}>
+    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`}>
       <div>
         <LeftItem
           label="Inbox"

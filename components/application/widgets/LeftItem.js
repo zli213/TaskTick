@@ -12,7 +12,10 @@ import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import FilterIcon from "../../../public/icon/filter.svg";
 import FilterSelected from "../../../public/icon/filter_selected.svg";
 import MenuIcon from "../../../public/icon/three_point.svg";
+import EditIcon from "../../../public/icon/edit.svg";
+import DeleteIcon from "../../../public/icon/delete.svg";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const LeftbarItem = ({
   label,
@@ -23,10 +26,15 @@ const LeftbarItem = ({
   isSelected,
 }) => {
   const router = useRouter();
+  const [showMenu, setShowMenu] = useState(false);
 
   const clickHandler = (e) => {
     e.preventDefault();
     onClickHandler();
+  };
+
+  const swithMenuHandler = () => {
+    setShowMenu((preState) => !preState);
   };
 
   const isProject = type == "project";
@@ -70,11 +78,36 @@ const LeftbarItem = ({
           {num ? num : ""}
         </span>
         {isProject && (
-          <button type="button" className={styles.more_project_action_btn}>
-            <span>
-              <MenuIcon />
-            </span>
-          </button>
+          <div>
+            {/* button */}
+            <button
+              type="button"
+              className={styles.more_project_action_btn}
+              onClick={swithMenuHandler}
+            >
+              <span>
+                <MenuIcon />
+              </span>
+            </button>
+          </div>
+        )}
+        {showMenu && (
+          <div className={styles.action_btn_menu}>
+            <ul>
+              <li className={styles.action_btn_menu_item}>
+                <span>
+                  <EditIcon />
+                </span>
+                Edit
+              </li>
+              <li className={styles.action_btn_menu_item}>
+                <span>
+                  <DeleteIcon />
+                </span>
+                Delete
+              </li>
+            </ul>
+          </div>
         )}
       </div>
     </li>
