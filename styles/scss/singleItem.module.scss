@@ -1,0 +1,99 @@
+@use "./utils/variable" as *;
+
+.task_container {
+  position: relative;
+
+  &:hover {
+    .drag_tool {
+      opacity: 1;
+      
+    }
+
+    .task_list_action {
+      opacity: 1;
+    }
+  }
+}
+
+.content_container {
+  @include flexRowStart();
+  position: relative;
+  align-items: flex-start;
+  padding: $paddingsm 0;
+  border-bottom: 1px solid $grayColor;
+}
+
+.drag_tool {
+  opacity: 0;
+  position: absolute;
+  left: -2.7rem;
+  width: $fontSizeMd;
+  height: $fontSizeMd;
+  border-radius: $borderRadiusXsm;
+  color: $textSecondaryColor;
+  transition: all 100ms ease 0ms;
+
+  &:hover{
+    background-color: $midGrayColor;
+  }
+}
+
+.task_content {
+  width: 100%;
+  // min-width: $maxListWidth;
+}
+
+.task_list_action {
+  @include flexRowStart();
+  position: absolute;
+  right: 0;
+  top: $paddingsm;
+  opacity: 0;
+  color: $textSecondaryColor;
+  
+  .task_list_action_last {
+    position: absolute;
+    left: 6rem;
+  }
+
+  button{
+    width: $fontSizeMd;
+    height: $fontSizeMd;
+    cursor: pointer;
+    margin-left: $marginXsm;
+    color: $textSecondaryColor;
+    border-radius: $borderRadiusXsm;
+
+    &:hover{
+        color: $textPrimaryColor;
+        background-color: $midGrayColor;
+    }
+  }
+}
+
+.task_title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.task_description {
+  font-size: $fontSizeXsm;
+  color: $textSecondaryColor;
+}
+
+.task_info {
+  @include flexRowStart();
+  font-size: $fontSizeXsm;
+  padding-top: $paddingXsm;
+
+  span, button {
+    @include flexRowStart();
+    gap: 0.2rem;
+    color: $textSecondaryColor;
+    cursor: pointer;
+  }
+
+  .task_info_date {
+    color: $primaryColor;
+  }
+}

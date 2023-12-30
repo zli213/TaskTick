@@ -65,15 +65,13 @@
   position: relative;
   width: 100%;
   margin: 0 auto;
-
-  // z-index: 2;
 }
 
 .content_box {
   margin: 0 auto;
   max-width: $maxListWidth;
   width: 100%;
-  padding-top: $paddingsm;
+  padding: $marginXsm $marginLg 0;
   display: flex;
   flex-direction: column;
   gap: $gap;
@@ -168,11 +166,10 @@
   text-align: center;
   width: 40%;
 
-  img{
+  img {
     margin-top: $marginLg;
-
   }
-  
+
   h4 {
     margin-top: $marginXsm;
   }
