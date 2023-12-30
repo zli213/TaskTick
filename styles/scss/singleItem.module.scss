@@ -131,6 +131,7 @@
     width: 32px;
     height: 32px;
     padding: 0;
+    border-radius: $borderRadiusXsm;
   }
 
   .button_red {
@@ -143,6 +144,10 @@
 
   .button_blue {
     color: $priorityBlue;
+  }
+
+  .button_selected{
+    border: 1px solid $grayColor;
   }
 }
 

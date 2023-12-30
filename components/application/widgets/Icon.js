@@ -16,6 +16,7 @@ import CloseIcon from "../../../public/icon/close.svg";
 import DeleteIcon from "../../../public/icon/delete.svg";
 import DragIcon from "../../../public/icon/drag.svg";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
+import DownArrowSmallIcon from "../../../public/icon/down_arrow_small.svg";
 import EditIcon from "../../../public/icon/edit.svg";
 import FilterIcon from "../../../public/icon/filter.svg";
 import FilterSelected from "../../../public/icon/filter_selected.svg";
@@ -104,6 +105,8 @@ const Icon = ({ type, ...props }) => {
         return <UpArrowIcon {...props} />;
       case "down_arrow":
         return <DownArrowIcon {...props} />;
+        case "down_arrow_small":
+            return <DownArrowSmallIcon {...props} />;
 
 
       case "flag":

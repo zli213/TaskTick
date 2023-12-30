@@ -3,10 +3,21 @@
 
 import { SingleItems } from "./SingleItem";
 import styles from "../../../styles/scss/todoList.module.scss";
+import AddTask from "./AddTask";
+import Icon from "./Icon";
 
-function TodoList({ tasks }) {
+function TodoList({ tasks, title }) {
   return (
-    <div className={styles.section}>
+    <section className={styles.section}>
+      {title != "" && title != null ?  (
+        <header className={styles.todolist_header}>
+          <div className={styles.content_wrapper}>
+            <Icon type="down_arrow_small" />
+          </div>
+          <h4>{title}</h4>
+        </header>
+      ) : ""}
+
       <div>
         {tasks
           .filter((data) => data.completed == false)
@@ -26,7 +37,8 @@ function TodoList({ tasks }) {
             />
           ))}
       </div>
-    </div>
+      {tasks == "" ? <AddTask /> : ""}
+    </section>
   );
 }
 

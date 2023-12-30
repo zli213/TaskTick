@@ -2,6 +2,29 @@
 
 .section {
   width: 100%;
-  margin: 0 auto;
   max-width: $maxListWidth;
+}
+
+.todolist_header{
+  @include flexRowBetween();
+  margin: $marginMd auto 0;
+  position: relative;
+}
+
+.content_wrapper{
+  position: absolute;
+  left: -3rem;
+  color: $textSecondaryColor;
+  width: 24px;
+  height: 24px;
+  border-radius: $borderRadiusXsm;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: $midGrayColor;
+  }
 }

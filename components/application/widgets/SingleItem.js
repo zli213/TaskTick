@@ -9,6 +9,7 @@ import PopupMenu from "./PopupMenu";
 import Icon from "./Icon";
 
 export function SingleItems({
+  
   title,
   _id,
   dueDate,
@@ -27,6 +28,7 @@ export function SingleItems({
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
   const [showItemMenu, setShowItemMenu] = useState(false);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
+  const [selectedPriority, setPriority] = useState(priority);
 
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
@@ -63,8 +65,12 @@ export function SingleItems({
     setShowItemMenu((preState) => !preState);
   };
 
+  const priorityChangeHandler = (option) => {
+    setPriority(option);
+  }
+
   return (
-    <li>
+    <li >
       <div className={styles.task_container}>
         {/* content */}
         <div className={styles.content_container}>
@@ -149,16 +155,16 @@ export function SingleItems({
               <div>
                 <div className={styles.menu_title}>Priority</div>
                 <div className={styles.priority_button_list}>
-                  <button>
+                  <button className={selectedPriority == "P1" ? styles.button_selected : "" }>
                     <Icon type="flag_filled" className={styles.button_red} />
                   </button>
-                  <button>
+                  <button className={selectedPriority == "P2" ? styles.button_selected : "" }>
                     <Icon type="flag_filled" className={styles.button_yellow} />
                   </button>
-                  <button>
+                  <button className={selectedPriority == "P3" ? styles.button_selected : "" }>
                     <Icon type="flag_filled" className={styles.button_blue} />
                   </button>
-                  <button>
+                  <button className={selectedPriority == "P4" ? styles.button_selected : "" }>
                     <Icon type="flag_big" className={styles.button_gray} />
                   </button>
                 </div>

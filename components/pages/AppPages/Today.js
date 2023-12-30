@@ -6,17 +6,25 @@ import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 
-
 function Today(props) {
   const router = useRouter();
 
   //use timestamp to compare if the item dueDate is today
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const overDueTasks = props.data.filter((task) => {
+    const taskDueDate = new Date(task.dueDate);
+    return taskDueDate.getTime() < today.getTime();
+  });
+
   const todayTasks = props.data.filter((task) => {
-    return task.dueDate.getTime() <= new Date().getTime();
+    const taskDueDate = new Date(task.dueDate);
+    return taskDueDate.getTime() === today.getTime();
   });
 
   useEffect(() => {
-    document.title = 'Today - Todo';
+    document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
 
     if ("settingMenu" in props) {
@@ -31,14 +39,14 @@ function Today(props) {
   return (
     <>
       <div className={styles.view_header}>
-        <div className={styles.view_header_content}>
+        <div className={`${styles.view_header_content} ${styles.no_bottom_border}`}>
           <h1>Today</h1>
           <div>buttons</div>
         </div>
       </div>
       <div className={styles.list_box}>
-        <AddTask />
-        <TodoList tasks={todayTasks} />
+        <TodoList tasks={overDueTasks} title="Overdue"/>
+        <TodoList tasks={todayTasks} title="Today"/>
       </div>
     </>
   );

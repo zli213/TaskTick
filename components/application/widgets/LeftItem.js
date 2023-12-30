@@ -33,9 +33,9 @@ const LeftbarItem = ({
       break;
     case "today":
       icon = isSelected ? (
-        <Icon type="today_selected" day={new Date().getDate()} />
+        <Icon type="today_selected" />
       ) : (
-        <Icon type="today" day={new Date().getDate()} />
+        <Icon type="today" />
       );
       break;
     case "upcoming":
