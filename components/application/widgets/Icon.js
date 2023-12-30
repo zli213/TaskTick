@@ -10,28 +10,38 @@
 import React from "react";
 
 // Import SVG icons
-import InboxIcon from "../../../public/icon/inbox.svg";
-import InboxSelected from "../../../public/icon/inbox_selected.svg";
-import TodayIcon from "../../../public/icon/today";
-import TodayIconSelected from "../../../public/icon/today_selected";
-import HashtagIcon from "../../../public/icon/hashtag.svg";
-import UpcomingIcon from "../../../public/icon/upcoming.svg";
-import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
+import CalenderBigIcon from "../../../public/icon/big_calender.svg";
+import CalenderIcon from "../../../public/icon/calender.svg";
+import CloseIcon from "../../../public/icon/close.svg";
+import DeleteIcon from "../../../public/icon/delete.svg";
+import DragIcon from "../../../public/icon/drag.svg";
+import DownArrowIcon from "../../../public/icon/down_arrow.svg";
+import EditIcon from "../../../public/icon/edit.svg";
 import FilterIcon from "../../../public/icon/filter.svg";
 import FilterSelected from "../../../public/icon/filter_selected.svg";
+import FlagIcon from "../../../public/icon/flag.svg";
+import FlagBigIcon from "../../../public/icon/flag_big.svg";
+import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
+import HashtagIcon from "../../../public/icon/hashtag.svg";
+
+import InboxIcon from "../../../public/icon/inbox.svg";
+import InboxSelected from "../../../public/icon/inbox_selected.svg";
+import ListIcon from "../../../public/icon/list.svg";
 import MenuIcon from "../../../public/icon/three_point.svg";
-import EditIcon from "../../../public/icon/edit.svg";
-import DeleteIcon from "../../../public/icon/delete.svg";
-import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
-import DragIcon from "../../../public/icon/drag.svg";
+import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
+import MoveListIcon from "../../../public/icon/move_list.svg";
+
+import SearchIcon from "../../../public/icon/search.svg";
 import SmallTagIcon from "../../../public/icon/small_tag.svg";
 import SmallCalenderIcon from "../../../public/icon/small_calender.svg";
-import CalenderBigIcon from "../../../public/icon/big_calender.svg";
-import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
-import ListIcon from "../../../public/icon/list.svg";
-import MoveListIcon from "../../../public/icon/move_list.svg";
-import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
-import FlagBigIcon from "../../../public/icon/flag_big.svg";
+import TodayIcon from "../../../public/icon/today";
+import TodayIconSelected from "../../../public/icon/today_selected";
+import TopMenuIcon from "../../../public/icon/menu.svg";
+import UpcomingIcon from "../../../public/icon/upcoming.svg";
+import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
+import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
+import UpArrowIcon from "../../../public/icon/up_arrow.svg";
+
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -68,7 +78,6 @@ const Icon = ({ type, ...props }) => {
         return <SmallCalenderIcon {...props} />;
       case "uncheck":
         return <UnCheckButton {...props} />;
-
       case "calender_big":
         return <CalenderBigIcon {...props} />;
       case "menu_unfill":
@@ -81,9 +90,27 @@ const Icon = ({ type, ...props }) => {
         return <FlagFilledIcon {...props} />;
       case "flag_big":
         return <FlagBigIcon {...props} />;
+      case "top_menu":
+        return <TopMenuIcon {...props} />;
+      case "search":
+        return <SearchIcon {...props} />;
+      case "calender":
+        return <CalenderIcon {...props} />;
+      case "flag":
+        return <FlagIcon {...props} />;
+      case "close":
+        return <CloseIcon {...props} />;
+      case "up_arrow":
+        return <UpArrowIcon {...props} />;
+      case "down_arrow":
+        return <DownArrowIcon {...props} />;
 
-      case "move_list":
-        return <MoveListIcon {...props} />;
+
+      case "flag":
+        return <FlagIcon {...props} />;
+      case "flag":
+        return <FlagIcon {...props} />;
+
       default:
         return null;
     }

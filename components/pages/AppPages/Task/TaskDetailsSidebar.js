@@ -10,9 +10,8 @@ import {
   convertDate,
   formatDate,
 } from "../../../application/widgets/Scheduler";
-import CalenderIcon from "../../../../public/icon/calender.svg";
-import FlagIcon from "../../../../public/icon/flag.svg";
 import Scheduler from "../../../application/widgets/Scheduler";
+import Icon from "../../../application/widgets/Icon";
 
 export default function TaskDetailsSidebar({ task }) {
   const dateJson = formatDate(task.dueDate);
@@ -60,7 +59,7 @@ export default function TaskDetailsSidebar({ task }) {
             onClick={showScheduler}
           >
             <div className={styles.flexStart}>
-              <CalenderIcon />
+              <Icon type="calender" />
             </div>
             <span>{convertDate(selectedDate)}</span>
           </button>
@@ -81,7 +80,7 @@ export default function TaskDetailsSidebar({ task }) {
           <h4>Priority</h4>
           <button className={styles.task_sidebar_button}>
             <div className={styles.flexStart}>
-              <FlagIcon />
+              <Icon type="flag" />
             </div>
             <span>{task.priority}</span>
           </button>
