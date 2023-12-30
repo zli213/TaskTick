@@ -4,7 +4,7 @@
  */
 
 "use client";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "../../../styles/scss/components/application/widgets/popupMenu.module.scss";
 
 export default function PopupMenu(props) {
@@ -22,7 +22,6 @@ export default function PopupMenu(props) {
     };
   }, []);
 
-  console.log(props.position);
   var position = props.position ? convertPosition(props.position) : null;
   const schedulerStyle = position
     ? {
@@ -31,16 +30,19 @@ export default function PopupMenu(props) {
         left: `${position.left}px`,
       }
     : "";
-    console.log(position);
-  
 
   return (
     <>
-      <div className={styles.popup_overlay} onClick={props.onOverlayClick}></div>
-      <div className={styles.action_btn_menu} style={position && schedulerStyle}>
-         {props.children}
+      <div
+        className={styles.popup_overlay}
+        onClick={props.onOverlayClick}
+      ></div>
+      <div
+        className={styles.action_btn_menu}
+        style={position && schedulerStyle}
+      >
+        {props.children}
       </div>
-      
     </>
   );
 }
@@ -49,16 +51,16 @@ function convertPosition(position) {
   var newtop = position.top;
   var newleft = position.left;
 
-  if (window.innerHeight - position.bottom < 50) {
-    newtop = position.bottom - 10;
+  if (window.innerHeight - position.bottom < 280) {
+    newtop = position.bottom - 290;
   }
   if (window.innerWidth - position.right < 130) {
-    if (window.innerHeight - position.bottom < 10) {
-      newtop = position.bottom - 10;
-      newleft = window.innerWidth - 140;
+    if (window.innerHeight - position.bottom < 280) {
+      newtop = position.bottom - 290;
+      newleft = window.innerWidth - 170;
     } else {
-      newtop = position.bottom - 190;
-      newleft = position.left - 130;
+      newtop = position.bottom - 150;
+      newleft = position.left - 160;
     }
   }
 
@@ -72,7 +74,7 @@ function convertPosition(position) {
 
   return {
     ...position,
-    left: newleft - 114 + position.width / 2,
-    top: newtop + 2,
+    left: newleft - 130 + position.width / 2,
+    top: newtop + 5,
   };
 }

@@ -9,6 +9,8 @@
   @include flexRowBetween();
   margin: $marginMd auto 0;
   position: relative;
+  border-bottom: 1px solid $grayColor;
+  padding: $paddingXsm 0;
 }
 
 .content_wrapper{
@@ -18,13 +20,21 @@
   width: 24px;
   height: 24px;
   border-radius: $borderRadiusXsm;
+  @include flexRowStart();
 
   svg {
-    width: 20px;
-    height: 20px;
+ 
+    transition: all 0.3s;
   }
 
   &:hover {
     background: $midGrayColor;
+  }
+}
+
+.content_wrapper_rotate {
+  svg {
+    transform: rotate(-90deg) ;    
+    transition: all 0.3s;
   }
 }

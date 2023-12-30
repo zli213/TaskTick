@@ -18,7 +18,6 @@ export default function Project(props) {
 
   const noTasks = (
     <>
-      <AddTask />
       <div className={styles.no_tasks}>
         <img src="/images/startNewTask.jpg" />
         <h4>Start small (or dream big)...</h4>

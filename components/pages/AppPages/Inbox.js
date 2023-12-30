@@ -3,6 +3,7 @@
 import TodoList from "../../application/widgets/TodoList";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
+import AddTask from "../../application/widgets/AddTask";
 
 export default function Inbox(props) {
   
@@ -25,6 +26,7 @@ export default function Inbox(props) {
       </div>
       <div className={styles.list_box}>
         <TodoList tasks={inBoxTasks} />
+        <AddTask />
       </div>
     </>
   );
