@@ -1,5 +1,6 @@
 @use "./utils/variable" as *;
 
+
 .list_sidebar {
   position: sticky;
   top: $navHeight;
@@ -167,20 +168,6 @@
   }
 }
 
-.action_btn_menu {
-  // display: none;
-  position: absolute;
-  top: $fontSizeLg;
-  left: calc(-1 * calc($mobileWidth / 2 - $paddingMd));
-  box-shadow: 0px 0px 10px 1px rgba($color: black, $alpha: 0.1);
-  width: calc($mobileWidth - $paddingMd);
-  background-color: #fff;
-  border-radius: $borderRadius;
-  padding: $paddingXsm;
-  color: $textPrimaryColor;
-  z-index: 10;
-}
-
 .item_btn_number_hover {
   opacity: 0;
 }
@@ -197,7 +184,7 @@
 }
 
 .action_btn_menu_item {
-  border-radius: $borderRadiusSm;
+  border-radius: $borderRadiusXsm;
   justify-content: flex-start !important;
   cursor: pointer;
 

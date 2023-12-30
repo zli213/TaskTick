@@ -14,19 +14,19 @@ export default function Modal(props) {
     event.stopPropagation();
   };
 
-  const disableScroll = (event) => {
-    event.preventDefault();
-  };
+  // const disableScroll = (event) => {
+  //   event.preventDefault();
+  // };
 
-  useEffect(() => {
-    document.addEventListener("wheel", disableScroll, { passive: false });
-    document.addEventListener("touchmove", disableScroll, { passive: false });
+  // useEffect(() => {
+  //   document.addEventListener("wheel", disableScroll, { passive: false });
+  //   document.addEventListener("touchmove", disableScroll, { passive: false });
 
-    return () => {
-      document.removeEventListener("wheel", disableScroll);
-      document.removeEventListener("touchmove", disableScroll);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("wheel", disableScroll);
+  //     document.removeEventListener("touchmove", disableScroll);
+  //   };
+  // }, []);
 
   const onDismiss = useCallback(() => {
     const currentPage = localStorage.getItem("lastPage");

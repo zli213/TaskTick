@@ -3,16 +3,10 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Scheduler from "./Scheduler";
-import { convertDate, formatDate } from "./Scheduler";
+import { formatDate } from "./Scheduler";
 import { useState } from "react";
-
-import CheckButton from "../../../public/icon/uncheck_grey_button.svg";
-import DragIcon from "../../../public/icon/drag.svg";
-import SmallTagIcon from "../../../public/icon/small_tag.svg";
-import SmallCalenderIcon from "../../../public/icon/small_calender.svg";
-import EditIcon from "../../../public/icon/edit.svg";
-import CalenderIcon from "../../../public/icon/big_calender.svg";
-import MenuIcon from "../../../public/icon/three_point_unfill.svg";
+import PopupMenu from "./PopupMenu";
+import Icon from "./Icon";
 
 export function SingleItems({
   title,
@@ -20,6 +14,7 @@ export function SingleItems({
   dueDate,
   description,
   projectName,
+  projectId,
   board,
   tags,
   priority,
@@ -30,27 +25,42 @@ export function SingleItems({
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
+  const [showItemMenu, setShowItemMenu] = useState(false);
+  const [isShowScheduler, setIsShowScheduler] = useState(false);
+
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
 
   // Show/Hide Scheduler
-  const [isShowScheduler, setIsShowScheduler] = useState(false);
-
   const showScheduler = (event) => {
     const buttonRect = event.target.getBoundingClientRect();
     setButtonPosition({
       width: buttonRect.width,
+      height: buttonRect.height,
       top: buttonRect.bottom,
       left: buttonRect.left,
       bottom: buttonRect.top,
-      right: buttonRect.right
+      right: buttonRect.right,
     });
     setIsShowScheduler(true);
   };
 
   const hideScheduler = () => {
     setIsShowScheduler(false);
+  };
+
+  const swithMenuHandler = () => {
+    const buttonRect = event.target.getBoundingClientRect();
+    setButtonPosition({
+      width: buttonRect.width,
+      height: buttonRect.height,
+      top: buttonRect.bottom,
+      left: buttonRect.left,
+      bottom: buttonRect.top,
+      right: buttonRect.right,
+    });
+    setShowItemMenu((preState) => !preState);
   };
 
   return (
@@ -61,12 +71,12 @@ export function SingleItems({
           <div className={styles.drag_tool}>
             <div>
               <span>
-                <DragIcon />
+                <Icon type="drag" />
               </span>
             </div>
           </div>
           <button>
-            <CheckButton />
+            <Icon type="uncheck" />
           </button>
           <div className={styles.task_content}>
             <Link href={`/application/task/${_id}`} scroll={false}>
@@ -75,12 +85,12 @@ export function SingleItems({
             </Link>
             <div className={styles.task_info}>
               <button className={styles.task_info_date} onClick={showScheduler}>
-                <SmallCalenderIcon />
+                <Icon type="calender_small" />
                 {selectedDate}
               </button>
               {tags.map((tag) => (
                 <span>
-                  <SmallTagIcon />
+                  <Icon type="small_tag" />
                   {tag}
                 </span>
               ))}
@@ -92,15 +102,15 @@ export function SingleItems({
         <div className={styles.task_list_action}>
           <div>
             <button>
-              <EditIcon />
+              <Icon type="edit" />
             </button>
             <button onClick={showScheduler}>
-              <CalenderIcon />
+              <Icon type="calender_big" />
             </button>
           </div>
           <div className={styles.task_list_action_last}>
-            <button>
-              <MenuIcon />
+            <button onClick={swithMenuHandler}>
+              <Icon type="menu_unfill" />
             </button>
           </div>
         </div>
@@ -114,6 +124,57 @@ export function SingleItems({
             }}
             onOverlayClick={hideScheduler}
           />
+        )}
+        {showItemMenu && (
+          <PopupMenu
+            onOverlayClick={swithMenuHandler}
+            position={buttonPosition}
+          >
+            <div className={styles.task_item_action_menu}>
+              <button>
+                <Icon type="edit" />
+                <span>Edit</span>
+              </button>
+              {projectName && (
+                <Link href={`/application/project/${projectId}`}>
+                  <Icon type="list" />
+                  <span>Go to Project</span>
+                </Link>
+              )}
+              <hr />
+              <div>
+                <div className={styles.menu_title}>Due date</div>
+                <div className={styles.priority_button_list}>icons</div>
+              </div>
+              <div>
+                <div className={styles.menu_title}>Priority</div>
+                <div className={styles.priority_button_list}>
+                  <button>
+                    <Icon type="flag_filled" className={styles.button_red} />
+                  </button>
+                  <button>
+                    <Icon type="flag_filled" className={styles.button_yellow} />
+                  </button>
+                  <button>
+                    <Icon type="flag_filled" className={styles.button_blue} />
+                  </button>
+                  <button>
+                    <Icon type="flag_big" className={styles.button_gray} />
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <button>
+                <Icon type="move_list" />
+                <span>Move to...</span>
+              </button>
+              <hr />
+              <button className={styles.button_delete}>
+                <Icon type="delete" />
+                <span >Delete</span>
+              </button>
+            </div>
+          </PopupMenu>
         )}
       </div>
     </li>

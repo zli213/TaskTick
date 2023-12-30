@@ -25,7 +25,16 @@ export default function TaskDetailsSidebar({ task }) {
 
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
   const showScheduler = () => {
+    const buttonRect = event.target.getBoundingClientRect();
+    setButtonPosition({
+      width: 0,
+      top: buttonRect.bottom,
+      left: buttonRect.left,
+      bottom: buttonRect.top,
+      right: buttonRect.right,
+    });
     setIsShowScheduler(true);
   };
   const hideScheduler = () => {
@@ -57,6 +66,7 @@ export default function TaskDetailsSidebar({ task }) {
           </button>
           {isShowScheduler && (
             <Scheduler
+              position={buttonPosition}
               data={{ selectedDate: selectedDate }}
               onChangeDate={(dateJson) => {
                 changeSelectedDate(dateJson);

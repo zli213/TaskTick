@@ -18,6 +18,7 @@ function TodoList({ tasks }) {
               dueDate={data.dueDate}
               description={data.description}
               projectName={data.projectName}
+              projectId={data.projectId}
               board={data.board}
               tags={data.tags}
               priority={data.priority}

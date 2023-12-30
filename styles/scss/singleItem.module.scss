@@ -6,7 +6,6 @@
   &:hover {
     .drag_tool {
       opacity: 1;
-      
     }
 
     .task_list_action {
@@ -33,7 +32,7 @@
   color: $textSecondaryColor;
   transition: all 100ms ease 0ms;
 
-  &:hover{
+  &:hover {
     background-color: $midGrayColor;
   }
 }
@@ -50,13 +49,13 @@
   top: $paddingsm;
   opacity: 0;
   color: $textSecondaryColor;
-  
+
   .task_list_action_last {
     position: absolute;
     left: 6rem;
   }
 
-  button{
+  button {
     width: $fontSizeMd;
     height: $fontSizeMd;
     cursor: pointer;
@@ -64,9 +63,9 @@
     color: $textSecondaryColor;
     border-radius: $borderRadiusXsm;
 
-    &:hover{
-        color: $textPrimaryColor;
-        background-color: $midGrayColor;
+    &:hover {
+      color: $textPrimaryColor;
+      background-color: $midGrayColor;
     }
   }
 }
@@ -86,7 +85,8 @@
   font-size: $fontSizeXsm;
   padding-top: $paddingXsm;
 
-  span, button {
+  span,
+  button {
     @include flexRowStart();
     gap: 0.2rem;
     color: $textSecondaryColor;
@@ -96,4 +96,56 @@
   .task_info_date {
     color: $primaryColor;
   }
+}
+
+.task_item_action_menu {
+  button,
+  a {
+    width: 100%;
+    @include flexRowStart();
+    border-radius: $borderRadiusXsm;
+    cursor: pointer;
+    padding: $paddingXsm $paddingsm;
+    line-height: $fontSizeSm;
+    text-align: center;
+    color: $textPrimaryColor;
+
+    &:hover {
+      background-color: $midGrayColor;
+    }
+  }
+}
+
+.menu_title {
+  padding: $paddingXsm $paddingsm;
+
+  font-weight: 500;
+}
+.priority_button_list {
+  @include flexRowStart();
+  padding: $paddingXsm $paddingsm;
+
+  button {
+    @include flexRowBetween();
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+
+  .button_red {
+    color: $priorityRed;
+  }
+
+  .button_yellow {
+    color: $priorityYellow;
+  }
+
+  .button_blue {
+    color: $priorityBlue;
+  }
+}
+
+.button_delete{
+  color: $primaryColor !important;
 }

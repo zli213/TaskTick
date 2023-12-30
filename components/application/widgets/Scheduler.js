@@ -297,14 +297,15 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     onChangeDate(dateJson);
   };
 
-
   //--------- set position ------------
-  var position =  position ? convertPosition(position) : null;
-  const schedulerStyle =  position ? {
-    position: "fixed",
-    top: `${position.top + 2}px`,
-    left: `${position.left - 114 + position.width / 2}px`,
-  } : "";
+  var position = position ? convertPosition(position) : null;
+  const schedulerStyle = position
+    ? {
+        position: "fixed",
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+      }
+    : "";
 
   return (
     <>
@@ -463,6 +464,15 @@ export function formatDate(inDate) {
 function convertPosition(position) {
   var newtop = position.top;
   var newleft = position.left;
+
+  if(position.width == 0){
+    return {
+      ...position,
+      left: position.left - 26 ,
+      
+    };
+  }
+
   if (window.innerHeight - position.bottom < 450) {
     newtop = position.bottom - 410;
   }
@@ -486,11 +496,10 @@ function convertPosition(position) {
 
   return {
     ...position,
-    left: newleft,
-    top: newtop,
+    left: newleft - 114 + position.width / 2,
+    top: newtop + 2,
   };
 }
-
 
 export default Scheduler;
 

@@ -2,20 +2,8 @@ import Link from "next/link";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
-
-//Icons
-import InboxIcon from "../../../public/icon/inbox.svg";
-import InboxSelected from "../../../public/icon/inbox_selected.svg";
-import TodayIcon from "../../../public/icon/today";
-import TodayIconSelected from "../../../public/icon/today_selected";
-import HashtagIcon from "../../../public/icon/hashtag.svg";
-import UpcomingIcon from "../../../public/icon/upcoming.svg";
-import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
-import FilterIcon from "../../../public/icon/filter.svg";
-import FilterSelected from "../../../public/icon/filter_selected.svg";
-import MenuIcon from "../../../public/icon/three_point.svg";
-import EditIcon from "../../../public/icon/edit.svg";
-import DeleteIcon from "../../../public/icon/delete.svg";
+import PopupMenu from "./PopupMenu";
+import Icon from "./Icon";
 
 const LeftbarItem = ({
   label,
@@ -27,55 +15,37 @@ const LeftbarItem = ({
 }) => {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
 
   const clickHandler = (e) => {
     e.preventDefault();
     onClickHandler();
   };
 
-  const disableScroll = (event) => {
-    event.preventDefault();
-  };
-
   const swithMenuHandler = () => {
-    document.addEventListener("click", closeMenuHandler);
-    document.addEventListener('wheel', disableScroll, { passive: false });
-    document.addEventListener('touchmove', disableScroll, { passive: false });
     setShowMenu((preState) => !preState);
   };
-
-  const closeMenuHandler = (event) => {
-    document.removeEventListener("click", closeMenuHandler);
-    document.removeEventListener('wheel', disableScroll);
-    document.removeEventListener('touchmove', disableScroll);
-    if (!menuRef.current.contains(event.target)) {
-      setShowMenu(false);
-    }
-  };
-
 
   const isProject = type == "project";
   var icon = null;
   switch (type) {
     case "inbox":
-      icon = isSelected ? <InboxSelected /> : <InboxIcon />;
+      icon = isSelected ? <Icon type="inbox_selected" /> : <Icon type="inbox" />;
       break;
     case "today":
       icon = isSelected ? (
-        <TodayIconSelected day={new Date().getDate()} />
+        <Icon type="today_selected" day={new Date().getDate()} />
       ) : (
-        <TodayIcon day={new Date().getDate()} />
+        <Icon type="today" day={new Date().getDate()} />
       );
       break;
     case "upcoming":
-      icon = isSelected ? <UpcomingSelected /> : <UpcomingIcon />;
+      icon = isSelected ? <Icon type="upcoming_selected" /> : <Icon type="upcoming" />;
       break;
     case "filters-labels":
-      icon = isSelected ? <FilterSelected /> : <FilterIcon />;
+      icon = isSelected ? <Icon type="filter_selected" /> : <Icon type="filter" />;
       break;
     case "project":
-      icon = <HashtagIcon />;
+      icon = <Icon type="hashtag" />;
       break;
   }
 
@@ -103,7 +73,6 @@ const LeftbarItem = ({
           <div>
             {/* button */}
             <button
-              ref={menuRef}
               type="button"
               className={`${styles.more_project_action_btn} ${
                 showMenu && styles.more_project_action_btn_hover
@@ -111,28 +80,28 @@ const LeftbarItem = ({
               onClick={swithMenuHandler}
             >
               <span>
-                <MenuIcon />
+                <Icon type="menu_filled" />
               </span>
             </button>
           </div>
         )}
         {showMenu && (
-          <div className={styles.action_btn_menu}>
+          <PopupMenu onOverlayClick={swithMenuHandler}>
             <ul>
               <li className={styles.action_btn_menu_item}>
                 <span>
-                  <EditIcon />
+                  <Icon type="edit" />
                 </span>
                 Edit
               </li>
               <li className={styles.action_btn_menu_item}>
                 <span>
-                  <DeleteIcon />
+                  <Icon type="delete" />
                 </span>
                 Delete
               </li>
             </ul>
-          </div>
+          </PopupMenu>
         )}
       </div>
     </li>
