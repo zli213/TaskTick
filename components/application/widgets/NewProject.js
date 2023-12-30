@@ -6,7 +6,7 @@
 
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import styles from "../../../styles/scss/newProject.module.scss";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
@@ -20,6 +20,10 @@ export default function NewProject(props) {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
   const [isWrong, setIsWrong] = useState(false);
+
+  const disableScroll = (event) => {
+    event.preventDefault();
+  };
 
   if (props.projectName) {
     setEnteredName(props.projectName);
@@ -57,6 +61,16 @@ export default function NewProject(props) {
     }
     props.closeHandler();
   };
+
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
 
   return (
     <div onClick={props.closeHandler}>

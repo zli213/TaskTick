@@ -474,11 +474,11 @@ function convertPosition(position) {
   }
 
   if (window.innerHeight - position.bottom < 450) {
-    newtop = position.bottom - 410;
+    newtop = position.bottom - 380;
   }
   if (window.innerWidth - position.right < 120) {
     if (window.innerHeight - position.bottom < 200) {
-      newtop = position.bottom - 410;
+      newtop = position.bottom - 380;
       newleft = window.innerWidth - 140;
     } else {
       newtop = position.bottom - 190;
