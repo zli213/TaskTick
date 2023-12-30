@@ -27,7 +27,7 @@ const Topbar = ({ switchHandler }) => {
         <div onClick={switchHandler} className={styles.flex_center}>
           <Icon type="top_menu" />
         </div>
-        <Link href="/application/today">Home</Link>
+        <Link href="/application/today" className={styles.flex_center}><Icon type="home" /></Link>
         <div className={styles.flex_center}>
           <Icon type="search" />
         </div>

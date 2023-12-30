@@ -24,6 +24,7 @@ import FlagIcon from "../../../public/icon/flag.svg";
 import FlagBigIcon from "../../../public/icon/flag_big.svg";
 import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
+import HomeIcon from "../../../public/icon/home.svg";
 
 import InboxIcon from "../../../public/icon/inbox.svg";
 import InboxSelected from "../../../public/icon/inbox_selected.svg";
@@ -42,7 +43,6 @@ import UpcomingIcon from "../../../public/icon/upcoming.svg";
 import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
 import UpArrowIcon from "../../../public/icon/up_arrow.svg";
-
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -105,12 +105,11 @@ const Icon = ({ type, ...props }) => {
         return <UpArrowIcon {...props} />;
       case "down_arrow":
         return <DownArrowIcon {...props} />;
-        case "down_arrow_small":
-            return <DownArrowSmallIcon {...props} />;
+      case "down_arrow_small":
+        return <DownArrowSmallIcon {...props} />;
+      case "home":
+        return <HomeIcon {...props} />;
 
-
-      case "flag":
-        return <FlagIcon {...props} />;
       case "flag":
         return <FlagIcon {...props} />;
 
