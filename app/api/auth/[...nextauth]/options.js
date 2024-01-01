@@ -90,6 +90,36 @@ export const options = {
       if (session?.user) session.user.role = token.role;
       return session;
     },
+    // async signIn with new account of google and github
+    async signIn({ user, account, profile }) {
+      console.log("user", user);
+      let userData;
+      if (account.provider === 'github' || account.provider === 'google') {
+        userData = {
+          name: user.name,
+          email: user.email,
+          id: user.id,
+          role: account.provider === 'github' ? 'GitHub User' : 'Google User',
+          avatar_url: user.image,
+          account_category: account.provider,
+        };
+      }
+  
+      try {
+        const existingUser = await User.findOne({ email: userData.email });
+        if (!existingUser) {
+          await User.create(userData);
+          return { status: 'created', user: userData };
+        } else {
+          return { status: 'existing_user' };
+        }
+      } catch (error) {
+        console.error(error);
+        throw new Error('User creation failed');
+      }
+
+      return true;
+    },
   },
   pages: {
     signIn: "/auth/signin",
