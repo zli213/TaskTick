@@ -17,6 +17,7 @@
 }
 
 .setting_left {
+  width: 20%;
   padding: $paddingsm;
   min-width: 22rem;
   text-align: left;
@@ -28,6 +29,14 @@
     padding: 0;
     list-style: none;
   }
+}
+
+.setting_right {
+  width: 80%;
+  padding: $paddingsm;
+  border-radius: $borderRadius;
+  text-align: left;
+  overflow: hidden;
 }
 
 .grey_cover {
