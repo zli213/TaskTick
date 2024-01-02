@@ -37,6 +37,7 @@ export default async function TaskModal({ params }) {
               taskTitle={task.title}
               taskDescription={task.description}
               taskCompleted={task.completed}
+              taskPriority={task.priority}
             />
             <TaskDetailsSidebar task={task} />
           </div>

@@ -1,6 +1,9 @@
 /**
- * Description: Pop up menu with translucent overlay.
+ * Pop up menu with transparent overlay.
  * Author: Ryan
+ * 
+ * This menu can automatically adjust the position displayed on the screen based on the clicked position.
+ * The content in the menu should edit mannully at where you import this component.
  */
 
 "use client";
@@ -23,7 +26,7 @@ export default function PopupMenu(props) {
   }, []);
 
   var position = props.position ? convertPosition(props.position) : null;
-  const schedulerStyle = position
+  const menuPosition = position
     ? {
         position: "fixed",
         top: `${position.top}px`,
@@ -39,7 +42,7 @@ export default function PopupMenu(props) {
       ></div>
       <div
         className={styles.action_btn_menu}
-        style={position && schedulerStyle}
+        style={position && menuPosition}
       >
         {props.children}
       </div>

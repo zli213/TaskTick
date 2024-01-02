@@ -6,21 +6,21 @@
 import styles from "../../../../styles/scss/task.module.scss";
 import Link from "next/link";
 import Uncheck from "../../../../public/icon/uncheck_grey_button.svg";
+import CheckBoxButton from "../../../application/widgets/CheckBoxButton";
 
 export default function TaskMainContent({
   taskId,
   taskTitle,
   taskDescription,
   taskCompleted,
+  taskPriority
 }) {
   return (
     <div className={styles.task_main_container}>
       <div className={styles.task_main_sub_container}>
         <div>
           <div className={styles.task_main_task}>
-            <button>
-              <Uncheck />
-            </button>
+            <CheckBoxButton priority={taskPriority} />
             <div className={styles.task_overview_main}>
               <div className={styles.task_overview_title}>{taskTitle}</div>
               <div className={styles.task_overview_description}>

@@ -25,7 +25,8 @@ export default function TaskDetailsSidebar({ task }) {
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
-  const showScheduler = () => {
+
+  const showScheduler = (event) => {
     const buttonRect = event.target.getBoundingClientRect();
     setButtonPosition({
       width: 0,
@@ -36,6 +37,8 @@ export default function TaskDetailsSidebar({ task }) {
     });
     setIsShowScheduler(true);
   };
+
+
   const hideScheduler = () => {
     setIsShowScheduler(false);
   };

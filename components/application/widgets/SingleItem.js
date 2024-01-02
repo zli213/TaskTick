@@ -1,15 +1,21 @@
+/**
+ * Compoent for single Item in the Todolist
+ * 
+ * @param
+ * All the attribute of one task
+ */
+
 "use client";
 
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
-import Scheduler from "./Scheduler";
-import { formatDate } from "./Scheduler";
+import Scheduler, { formatDate }  from "./Scheduler";
 import { useState } from "react";
 import PopupMenu from "./PopupMenu";
 import Icon from "./Icon";
+import CheckBoxButton from "./CheckBoxButton";
 
 export function SingleItems({
-  
   title,
   _id,
   dueDate,
@@ -67,23 +73,21 @@ export function SingleItems({
 
   const priorityChangeHandler = (option) => {
     setPriority(option);
-  }
+  };
 
   return (
-    <li >
+    <li>
       <div className={styles.task_container}>
         {/* content */}
         <div className={styles.content_container}>
           <div className={styles.drag_tool}>
             <div>
-              <span>
+              <span className={styles.check}>
                 <Icon type="drag" />
               </span>
             </div>
           </div>
-          <button>
-            <Icon type="uncheck" />
-          </button>
+          <CheckBoxButton priority={priority} />
           <div className={styles.task_content}>
             <Link href={`/application/task/${_id}`} scroll={false}>
               <div className={styles.task_title}>{title}</div>
@@ -155,16 +159,32 @@ export function SingleItems({
               <div>
                 <div className={styles.menu_title}>Priority</div>
                 <div className={styles.priority_button_list}>
-                  <button className={selectedPriority == "P1" ? styles.button_selected : "" }>
+                  <button
+                    className={
+                      selectedPriority == "P1" ? styles.button_selected : ""
+                    }
+                  >
                     <Icon type="flag_filled" className={styles.button_red} />
                   </button>
-                  <button className={selectedPriority == "P2" ? styles.button_selected : "" }>
+                  <button
+                    className={
+                      selectedPriority == "P2" ? styles.button_selected : ""
+                    }
+                  >
                     <Icon type="flag_filled" className={styles.button_yellow} />
                   </button>
-                  <button className={selectedPriority == "P3" ? styles.button_selected : "" }>
+                  <button
+                    className={
+                      selectedPriority == "P3" ? styles.button_selected : ""
+                    }
+                  >
                     <Icon type="flag_filled" className={styles.button_blue} />
                   </button>
-                  <button className={selectedPriority == "P4" ? styles.button_selected : "" }>
+                  <button
+                    className={
+                      selectedPriority == "P4" ? styles.button_selected : ""
+                    }
+                  >
                     <Icon type="flag_big" className={styles.button_gray} />
                   </button>
                 </div>
@@ -177,7 +197,7 @@ export function SingleItems({
               <hr />
               <button className={styles.button_delete}>
                 <Icon type="delete" />
-                <span >Delete</span>
+                <span>Delete</span>
               </button>
             </div>
           </PopupMenu>

@@ -43,6 +43,7 @@ import UpcomingIcon from "../../../public/icon/upcoming.svg";
 import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
 import UpArrowIcon from "../../../public/icon/up_arrow.svg";
+import CheckIcon from "../../../public/icon/check_mark.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -109,9 +110,8 @@ const Icon = ({ type, ...props }) => {
         return <DownArrowSmallIcon {...props} />;
       case "home":
         return <HomeIcon {...props} />;
-
-      case "flag":
-        return <FlagIcon {...props} />;
+      case "check":
+        return <CheckIcon {...props} />;
 
       default:
         return null;
