@@ -1,30 +1,34 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
 import Project from "../../../../components/pages/AppPages/Project";
 import Today from "../../../../components/pages/AppPages/Today";
 import { notFound } from "next/navigation";
+import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
+import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
+import TaskNotFound from "../../../../components/pages/NotFound/TaskNotFound";
+import MyProjects from "../../../../components/pages/AppPages/MyProjects";
+import getProjects from "../../../../src/utils/data/getProjects";
 
-export default function SubAppPages({ params }) {
-  const [activePage, setActivePage] = useState(null);
-
-  useEffect(() => {
-    if (params.menu != "setting") {
-      localStorage.setItem("lastPage", `${params.menu}/${params.submenu}`);
+export default async function SubAppPages({ params }) {
+  //Check if Task exist
+  if (params.menu == "task") {
+    var ifTaskExist = await checkTaskExist(params.submenu);
+    if (!ifTaskExist) {
+      return <TaskNotFound />;
     }
+  }
+  const tasks = await getOneUserTasks();
+  var projects = await getProjects("johndoe123");
+  projects  = JSON.parse(JSON.stringify(projects));
 
-    switch (params.menu) {
-      case "project":
-        setActivePage(<Project projectId={params.submenu} />);
-        break;
-      case "setting":
-        localStorage.setItem("lastPage", `today`);
-        setActivePage(<Today settingMenu={params.submenu} />);
-        break;
-      default:
-        notFound();
-    }
-  }, [params]);
-
-  return <div>{activePage}</div>;
+  switch (params.menu) {
+    case "project":
+      return <Project data={tasks} projectId={params.submenu} />;
+    case "projects":
+      return <MyProjects data={projects} />;
+    case "setting":
+      return <Today data={tasks} settingMenu={params.submenu} />;
+    case "task":
+      return <Today data={tasks} taskId={params.submenu} />;
+    default:
+      notFound();
+  }
 }

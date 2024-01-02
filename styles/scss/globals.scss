@@ -2,7 +2,7 @@
 @use "./utils/" as *;
 .homeContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 
   .slogan {

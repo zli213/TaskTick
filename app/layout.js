@@ -1,6 +1,4 @@
 import dynamic from "next/dynamic";
-// import Navbar from "./(components)/Nav";
-// import "./globals.scss";
 import "../styles/scss/globals.scss";
 import ProviderWrapper from "./ProviderWrapper";
 export const metadata = {
@@ -13,7 +11,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <ProviderWrapper>
-          {/* <Navbar /> */}
           <main>{children}</main>
         </ProviderWrapper>
       </body>
