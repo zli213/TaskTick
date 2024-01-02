@@ -10,6 +10,7 @@
 import React from "react";
 
 // Import SVG icons
+import AddIcon from "../../../public/icon/add.svg";
 import CalenderBigIcon from "../../../public/icon/big_calender.svg";
 import CalenderIcon from "../../../public/icon/calender.svg";
 import CloseIcon from "../../../public/icon/close.svg";
@@ -24,6 +25,7 @@ import FlagIcon from "../../../public/icon/flag.svg";
 import FlagBigIcon from "../../../public/icon/flag_big.svg";
 import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
+import HashtagBigIcon from "../../../public/icon/hashtag_big.svg";
 import HomeIcon from "../../../public/icon/home.svg";
 
 import InboxIcon from "../../../public/icon/inbox.svg";
@@ -34,6 +36,7 @@ import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
 import MoveListIcon from "../../../public/icon/move_list.svg";
 
 import SearchIcon from "../../../public/icon/search.svg";
+import SettingIcon from "../../../public/icon/setting.svg";
 import SmallTagIcon from "../../../public/icon/small_tag.svg";
 import SmallCalenderIcon from "../../../public/icon/small_calender.svg";
 import TodayIcon from "../../../public/icon/today";
@@ -48,6 +51,8 @@ import CheckIcon from "../../../public/icon/check_mark.svg";
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
     switch (type) {
+      case "add":
+        return <AddIcon {...props} />;
       case "inbox":
         return <InboxIcon {...props} />;
       case "inbox_selected":
@@ -112,6 +117,10 @@ const Icon = ({ type, ...props }) => {
         return <HomeIcon {...props} />;
       case "check":
         return <CheckIcon {...props} />;
+      case "hashtag_big":
+        return <HashtagBigIcon {...props} />;
+      case "setting":
+        return <SettingIcon {...props} />;
 
       default:
         return null;

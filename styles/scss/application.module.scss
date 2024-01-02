@@ -56,7 +56,7 @@
     }
   }
 
-  .no_bottom_border{
+  .no_bottom_border {
     border-bottom: 0;
   }
 }
@@ -151,10 +151,14 @@
   li {
     @include flexRowBetween();
     border-radius: $borderRadius;
-    padding-right: $paddingXsm;
+    padding-right: $paddingMd;
 
     &:hover {
       background-color: $lightGrayColor;
+
+      .project_item_menu {
+        opacity: 1;
+      }
     }
   }
 
@@ -162,6 +166,38 @@
     padding: $paddingMd $paddingXsm;
     @include flexRowStart();
     width: 100%;
+  }
+
+  .project_item_menu {
+    width: 2.4rem;
+    height: 2.4rem;
+    background-color: $lightGrayColor;
+    border-radius: $borderRadiusXsm;
+    opacity: 0;
+    cursor: pointer;
+    color: $textSecondaryColor;
+
+    &:hover {
+      color: $textPrimaryColor;
+    }
+  }
+}
+
+.task_item_action_menu {
+  button,
+  a {
+    width: 100%;
+    @include flexRowStart();
+    border-radius: $borderRadiusXsm;
+    cursor: pointer;
+    padding: $paddingXsm $paddingsm;
+    line-height: $fontSizeSm;
+    text-align: center;
+    color: $textPrimaryColor;
+
+    &:hover {
+      background-color: $midGrayColor;
+    }
   }
 }
 
@@ -183,5 +219,59 @@
     width: 70%;
     padding: $paddingsm;
     font-size: $fontSizeXsm;
+  }
+}
+
+//Filters-labels
+.filters_header {
+  @include flexRowBetween();
+  margin: $marginMd auto 0;
+  position: relative;
+  border-bottom: 1px solid $grayColor;
+  padding: $paddingXsm 0;
+}
+
+.content_wrapper {
+  position: absolute;
+  left: -3rem;
+  color: $textSecondaryColor;
+  width: 24px;
+  height: 24px;
+  border-radius: $borderRadiusXsm;
+  @include flexRowStart();
+
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $midGrayColor;
+  }
+}
+
+.content_wrapper_rotate {
+  svg {
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+  }
+}
+
+
+
+.labels_item_container {
+  padding: $paddingsm 0;
+  border-bottom: 1px solid $grayColor;
+
+  svg{
+    color: $heaveGrayColor
+  }
+
+  a {
+    @include flexRowStart();
+
+    .labels_item_content{
+      width: 100%;
+      @include flexRowBetween();
+    }
   }
 }

@@ -5,13 +5,12 @@ import FilterPage from "../../../components/pages/AppPages/Filters-labels";
 import MyProjects from "../../../components/pages/AppPages/MyProjects";
 import getAllTasks from "../../../src/utils/data/getOneUserTasks";
 import getProjects from "../../../src/utils/data/getProjects";
+import getLabels from "../../../src/utils/data/getLabels";
 
 import { notFound } from "next/navigation";
 
 export default async function AppPage({ params }) {
   const tasks = await getAllTasks();
-  var projects = await getProjects("johndoe123");
-  projects  = JSON.parse(JSON.stringify(projects));
 
   switch (params.menu) {
     case "inbox":
@@ -24,13 +23,17 @@ export default async function AppPage({ params }) {
       return <Upcoming data={tasks} />;
 
     case "filters-labels":
-      return <FilterPage data={tasks} />; //need edit
+      var labels = await getLabels("johndoe123");
+      return <FilterPage labels={labels} />; //need edit
 
     case "projects":
+      var projects = await getProjects("johndoe123");
+      projects = JSON.parse(JSON.stringify(projects));
       return <MyProjects data={projects} />;
 
     case "setting":
       return <Today data={tasks} settingMenu={"account"} />;
+      
     default:
       notFound();
   }
