@@ -8,7 +8,6 @@ import styles from "../../../styles/scss/application.module.scss";
 
 function Today(props) {
   const router = useRouter();
-  localStorage.setItem("lastPage", "today");
 
   //use timestamp to compare if the item dueDate is today
   const today = new Date();
