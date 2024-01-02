@@ -90,7 +90,6 @@ const DeleteAccount = () => {
                 </div>
                 <div className={styles.buttonGroup}>
                     <button type="button" className={styles.cancelButton} onClick={() => router.push("/application/setting/account")}>Cancel</button>
-                    {/* not working */}
                     <button type="button" onClick={handleDelete} disabled={deleteDisabled} className={deleteDisabled ? styles.cannotSubmit : styles.canSubmit}>Delete Account</button>
                 </div>
 
