@@ -17,6 +17,8 @@
 import { useState } from "react";
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import Scheduler, { convertDate } from "./Scheduler";
+import PriorityPicker from "./PriorityPicker";
+import TaskNameInput from "./TaskNameInput";
 
 function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
   // Default values
@@ -24,7 +26,7 @@ function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
     formType = "add";
   }
   if (taskData == null) {
-    taskData = { selectedDate: "" };
+    taskData = { selectedDate: "", priority: 4 };
   }
   if (cancelCallBack == null) {
     cancelCallBack = () => {};
@@ -38,6 +40,10 @@ function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
+  const [selectedPriority, setSelectedPriority] = useState(taskData.priority);
+  const changeSelectedPriority = (pri) => {
+    setSelectedPriority(pri);
+  };
 
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
@@ -48,20 +54,47 @@ function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
     setIsShowScheduler(false);
   };
 
+  // Show/Hide PriorityPicker
+  const [isShowPriority, setIsShowPriority] = useState(false);
+  const showPriority = () => {
+    setIsShowPriority(true);
+  };
+  const hidePriority = () => {
+    setIsShowPriority(false);
+  };
+
+  const createNewTag = (newTag) => {
+    console.log("create tag " + newTag);
+    /**@todo create new tag in database */
+  };
+
   return (
     <>
       <div className={styles.task_edit_form}>
         <form>
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">
-              <input placeholder="Task Name" className={styles.task_name} />
-              <textarea placeholder="Description"></textarea>
+              <TaskNameInput
+                tags={["aa", "bb"]}
+                createNewTag={(newTag) => {
+                  createNewTag(newTag);
+                }}
+              />
+              {/* <input placeholder="Task Name" className={styles.task_name} /> */}
+              <div
+                id="taskContent"
+                className={styles.task_content}
+                contentEditable="true"
+                placeholder="Task Content"
+              ></div>
             </div>
             <div className={styles.task_edit_buttons}>
               <button type="button" onClick={showScheduler}>
                 {convertDate(selectedDate)}
               </button>
-              <button type="button">Priority</button>
+              <button type="button" onClick={showPriority}>
+                Priority&nbsp;{selectedPriority}
+              </button>
               <button type="button">Tag</button>
             </div>
           </div>
@@ -102,6 +135,15 @@ function TaskEditor({ formType, taskData, cancelCallBack, submitCallBack }) {
             hideScheduler();
           }}
           onOverlayClick={hideScheduler}
+        />
+      ) : null}
+      {isShowPriority ? (
+        <PriorityPicker
+          onPrioritySelect={(pri) => {
+            changeSelectedPriority(pri);
+            hidePriority();
+          }}
+          onOverlayClick={hidePriority}
         />
       ) : null}
     </>

@@ -7,6 +7,7 @@ const nextConfig = {
       includePaths: [path.join(__dirname, "src/styles/scss")],
     },
   },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
