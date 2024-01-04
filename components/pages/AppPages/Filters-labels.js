@@ -4,6 +4,7 @@ import styles from "../../../styles/scss/application.module.scss";
 import { useEffect, useState } from "react";
 import Icon from "../../application/widgets/Icon";
 import Link from "next/link";
+import LabelItem from "../../application/widgets/LabelItem";
 
 function FilterPage(props) {
   const [showList, setShowList] = useState(true);
@@ -44,23 +45,7 @@ function FilterPage(props) {
           <ul>
             {showList &&
               props.labels.map((label) => (
-                <div className={styles.labels_item_container}>
-                  <li key={label}>
-                    <Link href="#">
-                      <Icon type="hashtag_big" />
-                      <span className={styles.labels_item_content}>
-                        <span>{label}</span>
-                        <div>num</div>
-                      </span>
-                      <span className="label_edit_btn">
-                        <Icon type="edit" />
-                      </span>
-                      <button className="label_edit_btn">
-                        <Icon type="menu_filled" />
-                      </button>
-                    </Link>
-                  </li>
-                </div>
+                <LabelItem label={label} />
               ))}
           </ul>
         </section>

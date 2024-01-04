@@ -2,24 +2,10 @@ import React, { useState } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import Link from "next/link";
 import Icon from "./Icon";
-import PopupMenu from "./PopupMenu";
+import PopupMenu, {useMenu} from "./PopupMenu";
 
 function MyProjectItem({ project }) {
-  const [showItemMenu, setShowItemMenu] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
-
-  const swithMenuHandler = (event) => {
-    const buttonRect = event.target.getBoundingClientRect();
-    setButtonPosition({
-      width: buttonRect.width,
-      height: buttonRect.height,
-      top: buttonRect.bottom,
-      left: buttonRect.left,
-      bottom: buttonRect.top,
-      right: buttonRect.right,
-    });
-    setShowItemMenu((preState) => !preState);
-  };
+  const {showItemMenu, buttonPosition, swithMenuHandler} = useMenu();
 
   return (
     <li key={project.projectId}>
@@ -34,16 +20,16 @@ function MyProjectItem({ project }) {
         <Icon type="menu_unfill" />
       </span>
       {showItemMenu && (
-        <PopupMenu onOverlayClick={swithMenuHandler} position={buttonPosition}>
+        <PopupMenu onOverlayClick={swithMenuHandler} position={buttonPosition} levels='2'>
           <div className={`${styles.task_item_action_menu}`}>
             <button>
               <Icon type="edit" />
-              <span>Edit label</span>
+              <span>Edit</span>
             </button>
             <hr />
             <button>
               <Icon type="delete" />
-              <span>Delete label</span>
+              <span>Delete</span>
             </button>
           </div>
         </PopupMenu>

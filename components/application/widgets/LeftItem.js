@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
-import PopupMenu from "./PopupMenu";
+import PopupMenu, {useMenu} from "./PopupMenu";
 import Icon from "./Icon";
 
 const LeftbarItem = ({
@@ -13,16 +13,11 @@ const LeftbarItem = ({
   onClickHandler,
   isSelected,
 }) => {
-  const router = useRouter();
-  const [showMenu, setShowMenu] = useState(false);
+  const {showItemMenu, buttonPosition, swithMenuHandler} = useMenu();
 
   const clickHandler = (e) => {
     e.preventDefault();
     onClickHandler();
-  };
-
-  const swithMenuHandler = () => {
-    setShowMenu((preState) => !preState);
   };
 
   const isProject = type == "project";
@@ -52,7 +47,7 @@ const LeftbarItem = ({
   return (
     <li
       className={`${isSelected ? styles.selected_item : ""} ${
-        showMenu && styles.li_hover
+        showItemMenu && styles.li_hover
       }`}
     >
       <div className={styles.list_item_box} onClick={clickHandler}>
@@ -64,7 +59,7 @@ const LeftbarItem = ({
       <div className={styles.item_btn}>
         <span
           className={`${isProject ? styles.item_btn_number : ""} ${
-            showMenu && styles.item_btn_number_hover
+            showItemMenu && styles.item_btn_number_hover
           }`}
         >
           {num ? num : ""}
@@ -75,7 +70,7 @@ const LeftbarItem = ({
             <button
               type="button"
               className={`${styles.more_project_action_btn} ${
-                showMenu && styles.more_project_action_btn_hover
+                showItemMenu && styles.more_project_action_btn_hover
               } `}
               onClick={swithMenuHandler}
             >
@@ -85,8 +80,8 @@ const LeftbarItem = ({
             </button>
           </div>
         )}
-        {showMenu && (
-          <PopupMenu onOverlayClick={swithMenuHandler}>
+        {showItemMenu && (
+          <PopupMenu onOverlayClick={swithMenuHandler} position={buttonPosition} levels='2'>
             <ul>
               <li className={styles.action_btn_menu_item}>
                 <span>

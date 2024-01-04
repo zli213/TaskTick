@@ -14,7 +14,9 @@ import Scheduler from "../../../application/widgets/Scheduler";
 import Icon from "../../../application/widgets/Icon";
 
 export default function TaskDetailsSidebar({ task }) {
-  const dateJson = formatDate(task.dueDate);
+  const dateJson =  task.dueDate ? formatDate(task.dueDate) : "";
+  const hasDue = task.dueDate == null ? false : true;
+
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
@@ -57,7 +59,7 @@ export default function TaskDetailsSidebar({ task }) {
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Due date</h4>
-          <button
+          {hasDue && (<button
             className={styles.task_sidebar_button}
             onClick={showScheduler}
           >
@@ -65,7 +67,7 @@ export default function TaskDetailsSidebar({ task }) {
               <Icon type="calender" />
             </div>
             <span>{convertDate(selectedDate)}</span>
-          </button>
+          </button>)}
           {isShowScheduler && (
             <Scheduler
               position={buttonPosition}

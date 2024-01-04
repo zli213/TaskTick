@@ -1,6 +1,6 @@
 /**
  * Compoent for single Item in the Todolist
- * 
+ *
  * @param
  * All the attribute of one task
  */
@@ -9,9 +9,9 @@
 
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
-import Scheduler, { formatDate }  from "./Scheduler";
+import Scheduler, { formatDate } from "./Scheduler";
 import { useState } from "react";
-import PopupMenu from "./PopupMenu";
+import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
 
@@ -27,14 +27,14 @@ export function SingleItems({
   priority,
   completed,
 }) {
-  const dateJson = formatDate(dueDate);
+  const dateJson = dueDate ? formatDate(dueDate) : "";
+  const hasDue = dueDate == null ? false : true;
 
-  // Default selected date: from incoming parameters
+  const { showItemMenu, buttonPosition: menuPosition, swithMenuHandler } = useMenu();
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
-  const [showItemMenu, setShowItemMenu] = useState(false);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const [selectedPriority, setPriority] = useState(priority);
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
 
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
@@ -56,19 +56,6 @@ export function SingleItems({
 
   const hideScheduler = () => {
     setIsShowScheduler(false);
-  };
-
-  const swithMenuHandler = () => {
-    const buttonRect = event.target.getBoundingClientRect();
-    setButtonPosition({
-      width: buttonRect.width,
-      height: buttonRect.height,
-      top: buttonRect.bottom,
-      left: buttonRect.left,
-      bottom: buttonRect.top,
-      right: buttonRect.right,
-    });
-    setShowItemMenu((preState) => !preState);
   };
 
   const priorityChangeHandler = (option) => {
@@ -94,10 +81,10 @@ export function SingleItems({
               <div className={styles.task_description}>{description}</div>
             </Link>
             <div className={styles.task_info}>
-              <button className={styles.task_info_date} onClick={showScheduler}>
+              {hasDue && (<button className={styles.task_info_date} onClick={showScheduler}>
                 <Icon type="calender_small" />
                 {selectedDate}
-              </button>
+              </button>)}
               {tags.map((tag) => (
                 <span>
                   <Icon type="small_tag" />
@@ -138,7 +125,8 @@ export function SingleItems({
         {showItemMenu && (
           <PopupMenu
             onOverlayClick={swithMenuHandler}
-            position={buttonPosition}
+            position={menuPosition}
+            levels={projectId ? 8 : 7}
           >
             <div className={styles.task_item_action_menu}>
               <button>

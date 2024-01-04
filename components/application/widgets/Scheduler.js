@@ -448,7 +448,7 @@ function convertSelectedDate(date) {
 
 export function formatDate(inDate) {
   let dateJson = { dateTime: null, dateStr: "" };
-  if (inDate != "") {
+  if (inDate != "" || inDate != null) {
     dateJson.dateTime = inDate;
     dateJson.dateStr =
       inDate.getFullYear() +
