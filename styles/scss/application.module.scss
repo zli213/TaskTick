@@ -101,6 +101,7 @@
     outline: none;
   }
 }
+
 .searchArea_projects:focus-within {
   border: 1px solid $textSecondaryColor;
 }
@@ -118,6 +119,14 @@
       background-color: $lightGrayColor;
     }
   }
+}
+
+.today_task_label{
+  padding-top: 0.2rem;
+  @include flexRowStart();
+  gap: 0.2rem;
+  font-size: $fontSizeXsm;
+  color: $textSecondaryColor;
 }
 
 .btn_projects {
@@ -184,21 +193,7 @@
 }
 
 .task_item_action_menu {
-  button,
-  a {
-    width: 100%;
-    @include flexRowStart();
-    border-radius: $borderRadiusXsm;
-    cursor: pointer;
-    padding: $paddingXsm $paddingsm;
-    line-height: $fontSizeSm;
-    text-align: center;
-    color: $textPrimaryColor;
-
-    &:hover {
-      background-color: $midGrayColor;
-    }
-  }
+  @include menuItems();
 }
 
 .no_tasks {
@@ -256,22 +251,48 @@
   }
 }
 
-
-
 .labels_item_container {
+  position: relative;
   padding: $paddingsm 0;
   border-bottom: 1px solid $grayColor;
 
-  svg{
-    color: $heaveGrayColor
+  svg {
+    color: $heaveGrayColor;
   }
 
   a {
     @include flexRowStart();
 
-    .labels_item_content{
+    .labels_item_content {
       width: 100%;
       @include flexRowBetween();
     }
+  }
+
+  &:hover {
+    .right_menu {
+      opacity: 1;
+    }
+  }
+}
+
+.right_menu {
+  position: absolute;
+  right: 0;
+  @include flexRowStart();
+  opacity: 0;
+  background-color: #fff;
+  z-index: 1;
+
+  span,
+  button {
+    @include menuButton();
+    @include flexRowStart();
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .right_menu_btn {
+    padding-left: 4px;
   }
 }

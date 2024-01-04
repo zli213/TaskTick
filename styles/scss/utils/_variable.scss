@@ -83,3 +83,35 @@ $priorityBlue: #246fe0;
   gap: $paddingsm;
   justify-content: flex-start;
 }
+
+@mixin menuItems() {
+  button,
+  a {
+    width: 100%;
+    @include flexRowStart();
+    border-radius: $borderRadiusXsm;
+    cursor: pointer;
+    padding: $paddingXsm $paddingsm;
+    line-height: $fontSizeSm;
+    text-align: center;
+    color: $textPrimaryColor;
+
+    &:hover {
+      background-color: $midGrayColor;
+    }
+  }
+}
+
+@mixin menuButton(){
+  width: $fontSizeMd;
+  height: $fontSizeMd;
+  cursor: pointer;
+  margin-left: $marginXsm;
+  color: $textSecondaryColor;
+  border-radius: $borderRadiusXsm;
+
+  &:hover {
+    color: $textPrimaryColor;
+    background-color: $midGrayColor;
+  }
+}

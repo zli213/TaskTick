@@ -4,8 +4,14 @@ import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
 import React, { useEffect } from "react";
 
+
 export default function Project({ projectId, projectName, tasks, boards }) {
   const groupedTasks = {};
+  boards.forEach((boardName) => {
+    if (!groupedTasks[boardName]) {
+      groupedTasks[boardName] = [];
+    }
+  })
   tasks.forEach((task) => {
     const boardName = task.board;
     if (!groupedTasks[boardName]) {

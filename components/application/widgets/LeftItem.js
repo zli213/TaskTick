@@ -1,7 +1,5 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/leftbar.module.scss";
-import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
 import PopupMenu, {useMenu} from "./PopupMenu";
 import Icon from "./Icon";
 

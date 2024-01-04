@@ -38,3 +38,7 @@
     transition: all 0.3s;
   }
 }
+
+.task_item_action_menu {
+  @include menuItems();
+}

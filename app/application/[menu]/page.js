@@ -6,6 +6,7 @@ import MyProjects from "../../../components/pages/AppPages/MyProjects";
 import getAllTasks from "../../../src/utils/data/getOneUserTasks";
 import getProjects from "../../../src/utils/data/getProjects";
 import getLabels from "../../../src/utils/data/getLabels";
+import getTodayNum from "../../../src/utils/data/getTodayNum";
 
 import { notFound } from "next/navigation";
 
@@ -17,7 +18,8 @@ export default async function AppPage({ params }) {
       return <Inbox data={tasks} />;
 
     case "today":
-      return <Today data={tasks} />;
+      const todayNum = await getTodayNum("johndoe123");
+      return <Today data={tasks} num={todayNum} />;
 
     case "upcoming":
       return <Upcoming data={tasks} />;

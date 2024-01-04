@@ -26,6 +26,7 @@ import FlagBigIcon from "../../../public/icon/flag_big.svg";
 import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
 import HashtagBigIcon from "../../../public/icon/hashtag_big.svg";
+import HashtagSmallIcon from "../../../public/icon/hashtag_small.svg";
 import HomeIcon from "../../../public/icon/home.svg";
 
 import InboxIcon from "../../../public/icon/inbox.svg";
@@ -47,6 +48,7 @@ import UpcomingSelected from "../../../public/icon/upcoming_selected.svg";
 import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
 import UpArrowIcon from "../../../public/icon/up_arrow.svg";
 import CheckIcon from "../../../public/icon/check_mark.svg";
+import CheckSmallIcon from "../../../public/icon/check_small.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -117,8 +119,12 @@ const Icon = ({ type, ...props }) => {
         return <HomeIcon {...props} />;
       case "check":
         return <CheckIcon {...props} />;
+      case "check_small":
+        return <CheckSmallIcon {...props} />;
       case "hashtag_big":
         return <HashtagBigIcon {...props} />;
+      case "hashtag_small":
+        return <HashtagSmallIcon {...props} />;
       case "setting":
         return <SettingIcon {...props} />;
 

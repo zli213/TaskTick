@@ -2,9 +2,9 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import { useRouter } from "next/navigation";
-import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
+import Icon from "../../application/widgets/Icon";
 
 function Today(props) {
   const router = useRouter();
@@ -39,14 +39,24 @@ function Today(props) {
   return (
     <>
       <div className={styles.view_header}>
-        <div className={`${styles.view_header_content} ${styles.no_bottom_border}`}>
-          <h1>Today</h1>
+        <div
+          className={styles.view_header_content}
+        >
+          <div>
+            <h1>Today</h1>
+            {props.num && (
+              <div className={styles.today_task_label}>
+                <Icon type="check_small" />
+                {props.num} tasks
+              </div>
+            )}
+          </div>
           <div>buttons</div>
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={overDueTasks} title="Overdue"/>
-        <TodoList tasks={todayTasks} title="Today"/>
+        <TodoList tasks={overDueTasks} title="Overdue" />
+        <TodoList tasks={todayTasks} title="Today" />
       </div>
     </>
   );

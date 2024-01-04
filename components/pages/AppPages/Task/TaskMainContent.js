@@ -4,8 +4,6 @@
  */
 
 import styles from "../../../../styles/scss/task.module.scss";
-import Link from "next/link";
-import Uncheck from "../../../../public/icon/uncheck_grey_button.svg";
 import CheckBoxButton from "../../../application/widgets/CheckBoxButton";
 
 export default function TaskMainContent({
