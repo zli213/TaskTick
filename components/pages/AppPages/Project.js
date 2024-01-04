@@ -2,18 +2,21 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
-import React from "react";
-import { useEffect } from "react";
-import AddTask from "../../application/widgets/AddTask";
+import React, { useEffect } from "react";
 
-export default function Project(props) {
-  const tasks = props.data.filter((task) => {
-    return task.projectId == props.projectId;
+export default function Project({ projectId, projectName, tasks, boards }) {
+  const groupedTasks = {};
+  tasks.forEach((task) => {
+    const boardName = task.board;
+    if (!groupedTasks[boardName]) {
+      groupedTasks[boardName] = [];
+    }
+    groupedTasks[boardName].push(task);
   });
 
   useEffect(() => {
-    document.title = props.projectName + " - Todo";
-    localStorage.setItem("lastPage", `project/${props.projectId}`);
+    document.title = projectName + " - Todo";
+    localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 
   const noTasks = (
@@ -33,12 +36,18 @@ export default function Project(props) {
     <>
       <div className={styles.view_header}>
         <div className={styles.view_header_content}>
-          <h1>{props.projectName}</h1>
+          <h1>{projectName}</h1>
           <div>buttons</div>
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={tasks} />
+         <TodoList tasks={groupedTasks[undefined]} />
+        {boards ? 
+          Object.keys(groupedTasks)
+            .filter((boardName) => boardName != "undefined")
+            .map((boardName) => (
+              <TodoList key={boardName} title={boardName} tasks={groupedTasks[boardName]} />
+            )) : ""}
         {tasks[0] == null ? noTasks : ""}
       </div>
     </>

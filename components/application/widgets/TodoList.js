@@ -9,8 +9,9 @@ import Icon from "./Icon";
 
 function TodoList({ tasks, title }) {
   const [showList, setShowList] = useState(true);
-
-  const haveTitle = title != "" && title != null;
+  
+  const haveTasks = tasks != "" && tasks != "undefined" && tasks != null;
+  const haveTitle = title != "" && title != "undefined" && title != null;
 
   const switchListHandler = () => {
     setShowList((preState) => !preState);
@@ -20,7 +21,12 @@ function TodoList({ tasks, title }) {
     <section className={styles.section}>
       {haveTitle && (
         <header className={styles.todolist_header}>
-          <div className={`${styles.content_wrapper} ${!showList && styles.content_wrapper_rotate }`} onClick={switchListHandler} >
+          <div
+            className={`${styles.content_wrapper} ${
+              !showList && styles.content_wrapper_rotate
+            }`}
+            onClick={switchListHandler}
+          >
             <Icon type="down_arrow_small" />
           </div>
           <h4>{title}</h4>
@@ -29,7 +35,7 @@ function TodoList({ tasks, title }) {
 
       {showList && (
         <div>
-          {tasks
+          {haveTasks && (  tasks
             .filter((data) => data.completed == false)
             .map((data) => (
               <SingleItems
@@ -45,10 +51,10 @@ function TodoList({ tasks, title }) {
                 priority={data.priority}
                 completed={data.completed}
               />
-            ))}
+            )))}
         </div>
       )}
-      {tasks == "" ? <AddTask /> : ""}
+      {title != "Overdue" && <AddTask />}
     </section>
   );
 }

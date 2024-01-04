@@ -100,22 +100,16 @@ export default function PopupMenu(props) {
   );
 }
 
-//Calculate Position
+//Calculate Position Function
 function convertPosition(position, levels) {
   var buttonGap = 3;
   if (position.height < 10) {
     buttonGap = 12;
   }
-  console.log(buttonGap);
 
   const menuHeight = levels * 38 + 6;
   var newtop = position.top;
   var newleft = position.left;
-
-  console.log(position);
-  console.log(levels);
-  console.log(window.innerHeight);
-  console.log(menuHeight);
 
   if (window.innerHeight - position.bottom < menuHeight) {
     newtop = position.bottom - menuHeight - buttonGap * 2.8;
@@ -134,10 +128,6 @@ function convertPosition(position, levels) {
   if (newtop < 0) {
     newtop = 10;
   }
-
-  // if (newtop - 100 > window.innerHeight) {
-  //   newtop = window.innerHeight - 50;
-  // }
 
   return {
     ...position,
