@@ -5,6 +5,8 @@ import Modal from "../../../../../../components/application/widgets/Modal";
 import SetEmail from "../../../../../../components/pages/Settings/Subsetting/Email";
 import SetPassword from "../../../../../../components/pages/Settings/Subsetting/Password";
 import DeleteAccount from "../../../../../../components/pages/Settings/Subsetting/Delete";
+import AccountSelected from "../../../../../../public/icon/account_selected.svg";
+import Theme from "../../../../../../public/icon/theme.svg";
 import styles from "../../../../../../styles/scss/settings.module.scss";
 import CatchAll from "../../../[...catchAll]/page";
 
@@ -35,17 +37,31 @@ export default function SettingModal({ params }) {
         <div>Search</div>
         <ul>
           <li>
-            <Link href="/application/setting/account" scroll={false}>
-              account
-            </Link>
+            <div className={`${styles.leftGroup} ${styles.selected}`}>
+              <Link href="/application/setting/account" scroll={false}>
+                <span>
+                  <AccountSelected/>
+                </span>
+                <span className={styles.list_item_content}>
+                  Account
+                </span>
+              </Link>
+            </div>
           </li>
+
           <li>
-            <Link href="/application/setting/theme" scroll={false}>
-              theme
-            </Link>
+            <div
+            className={styles.leftGroup}
+            >
+              <Link href="/application/setting/theme" scroll={false}>
+                <span><Theme/></span>
+                <span className={styles.list_item_content}>Theme</span>
+              </Link>
+            </div>
           </li>
         </ul>
       </div>
+
       <div className={styles.setting_right}>
         <div>{activePage}</div>
       </div>

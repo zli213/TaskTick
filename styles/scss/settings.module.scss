@@ -28,7 +28,46 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    div {
+      border-radius: $borderRadius;
+      font-size: $fontSizeSm;
+      padding: $paddingXsm $paddingsm $paddingXsm $paddingXsm;
+
+      &:hover {
+          background-color: $hoverColor;
+      }
+    }
   }
+
+
+  .leftGroup {
+    width: 100%;
+    @include flexRowStart();
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      @include flexRowStart();
+    }
+
+    a {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-items: baseline
+    }
+
+    .list_item_content {
+      padding-left: $paddingXsm;
+      line-height: $fontSizeLg;
+    }
+  }
+}
+
+.selected {
+  background-color: $selectedColor !important;
+  color: $primaryColor;
 }
 
 .setting_right {
