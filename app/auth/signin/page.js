@@ -7,6 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import styles from "../../../styles/scss/signin.module.scss";
 import Link from "next/link";
+import Navbar from "../../../components/pages/Navbar";
 
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
@@ -50,70 +51,73 @@ const SignInPage = () => {
   const input_style = "p-2 my-2 border border-gray-400 rounded-md";
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmit}>
-        {error && <p className={styles.error}>{error}</p>}
-        <div className={styles.input_style}>
-          <input
-            required
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder="Email address"
-          />
-        </div>
-        <div className={styles.input_style}>
-          <input
-            required
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
-        </div>
-        <button type="submit" className={styles.submit} disabled={loading}>
-          {loading ? "loading..." : "Sign In"}
-        </button>
+    <>
+      <Navbar />
+      <div className={styles.container}>
+        <form className={styles.form} onSubmit={onSubmit}>
+          {error && <p className={styles.error}>{error}</p>}
+          <div className={styles.input_style}>
+            <input
+              required
+              type="email"
+              name="email"
+              value={formValues.email}
+              onChange={handleChange}
+              placeholder="Email address"
+            />
+          </div>
+          <div className={styles.input_style}>
+            <input
+              required
+              type="password"
+              name="password"
+              value={formValues.password}
+              onChange={handleChange}
+              placeholder="Password"
+            />
+          </div>
+          <button type="submit" className={styles.submit} disabled={loading}>
+            {loading ? "loading..." : "Sign In"}
+          </button>
 
-        <div className={styles.dividerWithText}>
-          <span>OR</span>
-        </div>
-        <div className={styles.google}>
-          <a
-            className={styles.google}
-            style={{ backgroundColor: "#55acee" }}
-            onClick={() =>
-              signIn("google", { callbackUrl: "/application/today" })
-            }
-            role="button"
-          >
-            <img className={styles.icon} src="/images/google.svg" alt="" />
-            Continue with Google
-          </a>
-        </div>
-        <div className={styles.github}>
-          <a
-            className={styles.github}
-            style={{ backgroundColor: "#55acee" }}
-            onClick={() =>
-              signIn("github", { callbackUrl: "/application/today" })
-            }
-            role="button"
-          >
-            <img className={styles.icon} src="/images/github.svg" alt="" />
-            Continue with GitHub
-          </a>
-        </div>
-        <p className={styles.signUp}>
-          If you don't have an account,plese
-          <Link href="/register" className={styles.signUpLink}>
-            sign up
-          </Link>
-        </p>
-      </form>
-    </div>
+          <div className={styles.dividerWithText}>
+            <span>OR</span>
+          </div>
+          <div className={styles.google}>
+            <a
+              className={styles.google}
+              style={{ backgroundColor: "#55acee" }}
+              onClick={() =>
+                signIn("google", { callbackUrl: "/application/today" })
+              }
+              role="button"
+            >
+              <img className={styles.icon} src="/images/google.svg" alt="" />
+              Continue with Google
+            </a>
+          </div>
+          <div className={styles.github}>
+            <a
+              className={styles.github}
+              style={{ backgroundColor: "#55acee" }}
+              onClick={() =>
+                signIn("github", { callbackUrl: "/application/today" })
+              }
+              role="button"
+            >
+              <img className={styles.icon} src="/images/github.svg" alt="" />
+              Continue with GitHub
+            </a>
+          </div>
+          <p className={styles.signUp}>
+            If you don't have an account,plese
+            <Link href="/register" className={styles.signUpLink}>
+              sign up
+            </Link>
+          </p>
+        </form>
+      </div>
+    </>
   );
 };
 

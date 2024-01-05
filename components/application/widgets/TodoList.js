@@ -15,7 +15,7 @@ function TodoList({ tasks }) {
               key={data._id}
               _id={data._id}
               title={data.title}
-              dueDate={data.dueDate.toString()}
+              dueDate={data.dueDate ? data.dueDate.toString() : ""}
               description={data.description}
               projectName={data.projectName}
               board={data.board}

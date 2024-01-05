@@ -10,8 +10,9 @@ import { notFound } from "next/navigation";
 
 export default async function AppPage({ params }) {
   const tasks = await getAllTasks();
+  console.log(tasks);
   var projects = await getProjects("johndoe123");
-  projects  = JSON.parse(JSON.stringify(projects));
+  projects = JSON.parse(JSON.stringify(projects));
 
   switch (params.menu) {
     case "inbox":

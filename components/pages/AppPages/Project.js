@@ -10,12 +10,15 @@ export default function Project(props) {
     return task.projectId == props.projectId;
   });
 
-  const projectName = tasks[0].projectName;
-  
+  const projectName =
+    tasks.length > 0 ? tasks[0].projectName : "Unknown Project";
+
   useEffect(() => {
-    document.title = projectName + " - Todo";
-    localStorage.setItem("lastPage", `project/${props.projectId}`);
-  }, []);
+    if (tasks.length > 0) {
+      document.title = projectName + " - Todo";
+      localStorage.setItem("lastPage", `project/${props.projectId}`);
+    }
+  }, [tasks, props.projectId]);
 
   return (
     <>
