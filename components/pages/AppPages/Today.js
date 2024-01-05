@@ -6,18 +6,22 @@ import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 
-
 function Today(props) {
   const router = useRouter();
   localStorage.setItem("lastPage", "today");
 
   //use timestamp to compare if the item dueDate is today
   const todayTasks = props.data.filter((task) => {
+    console.log("task content: ", task);
+    if (!task.dueDate) {
+      console.log("task dueDate is null");
+      return false;
+    }
     return task.dueDate.getTime() <= new Date().getTime();
   });
 
   useEffect(() => {
-    document.title = 'Today - Todo';
+    document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
 
     if ("settingMenu" in props) {
