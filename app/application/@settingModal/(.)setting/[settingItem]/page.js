@@ -35,7 +35,6 @@ export default function SettingModal({ params }) {
     <Modal>
       <div className={styles.setting_left}>
         <h2>Settings</h2>
-        <div>Search</div>
         <ul>
           <li>
             <div

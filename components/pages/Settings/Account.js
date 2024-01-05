@@ -76,7 +76,6 @@ const SettingAccount = () => {
     <div className={styles.container}>
       <header>
         <h4>Account Information</h4>
-        {/* need to be fixed. click & close the modal */}
         <button onClick={onDismiss}>
           <CloseButton/>
         </button>

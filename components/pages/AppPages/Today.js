@@ -9,11 +9,15 @@ import styles from "../../../styles/scss/application.module.scss";
 
 function Today(props) {
   const router = useRouter();
-  localStorage.setItem("lastPage", "today");
+  //localStorage.setItem("lastPage", "today");
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem("lastPage", "today");
+  }
 
   //use timestamp to compare if the item dueDate is today
   const todayTasks = props.data.filter((task) => {
-    return task.dueDate.getTime() <= new Date().getTime();
+    return task.dueDate?.getTime() <= new Date().getTime();
   });
 
   useEffect(() => {

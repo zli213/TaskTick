@@ -24,6 +24,10 @@
   background-color: $lightGrayColor;
   border-radius: $borderRadius;
 
+  h2 {
+    padding: $paddingsm;
+  }
+
   ul {
     margin: 0;
     padding: 0;
