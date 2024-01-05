@@ -1,6 +1,3 @@
-// TodoList.js
-// "use client";
-
 import { useState } from "react";
 import { SingleItems } from "./SingleItem";
 import styles from "../../../styles/scss/todoList.module.scss";
