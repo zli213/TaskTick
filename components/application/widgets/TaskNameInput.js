@@ -1,22 +1,65 @@
 /**
  * @description
  * Task name rich text box which can input tags with "@" symbol.
+ *
+ * @param
+ * tags: tags of the task
+ * taskName: text content of the task
+ * allTags: all user tags that can be seleted
+ * createNewTag: fn to create a new tag by click create btn in drop down list
+ * recordTaskName: pass task name(string) after every input by a function
+ * recordTaskTags: pass tags(list) after every input by a function
+ *
+ * @usage
+ * <TaskNameInput
+ *    tags={[]}
+ *    taskName={""}
+ *    allTags={[]}
+ *    createNewTag={(newTag)=>{}}
+ *    recordTaskName={(taskName)=>{}}
+ *    recordTaskTage={(taskTags)=>{}}
+ *  />
  */
 
 import { useEffect, useRef, useState } from "react";
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import TaskTagDropDown from "./TaskTagDropDown";
 
-function TaskNameInput({ tags, createNewTag }) {
-  //const space = document.createTextNode(" ");
+function TaskNameInput({
+  tags,
+  taskName,
+  allTags,
+  createNewTag,
+  recordTaskName,
+  recordTaskTags,
+}) {
+  //---------------- variables -----------------
+  /** Record the key just pressed */
+  let pressedKey = useRef("");
+  /** The ref of taskName div. Used for adding event listener*/
+  const taskNameRef = useRef(null);
+  /**The ref of the drop down tag selection. Used for calling the function in TaskTagDropDown component. */
+  const dropDownRef = useRef(null);
 
-  const [tagList, setTagList] = useState(["aa", "bb", "ab"]);
-  // call when new tag is created
+  //------------- common functions ---------------
+  /** Return the tags in the user tag list that are matched by inputing string. */
+  const matchValue = (str) => {
+    const matched = tagList.filter((item) => {
+      const reg = new RegExp(`^${str}`, "i");
+      return reg.test(item);
+    });
+    return matched;
+  };
+
+  //-------------- states ------------
+  /** All user tags, which should be updated when new tag is created. */
+  const [tagList, setTagList] = useState(allTags);
+  /* call when new tag is created */
   const updateTagList = (taglist) => {
     setTagList(taglist);
   };
 
-  // Show/hide match selection
+  /** Show/hide match selection. The flag indicates the state of the drop down tag list which will not be initialized by re-render.*/
   const isShowTagMatchFlag = useRef(false);
   const [isShowTagMatch, setIsShowTagMatch] = useState(false);
   const showTagMatch = () => {
@@ -28,33 +71,63 @@ function TaskNameInput({ tags, createNewTag }) {
     isShowTagMatchFlag.current = false;
   };
 
-  // matched tags btn
+  /** List of matched tags. For creating drop down list. */
   const [matchedTags, setMatchedTags] = useState(tagList);
   const updateMatchedTags = (taglist) => {
     setMatchedTags(taglist);
   };
 
-  // set true when the create tag btn should be shown
+  /** set true when the create tag btn at the bottom of the drop down list needs to be shown */
   const [isShowCreateTag, setIsShowCreateTag] = useState(false);
-  const showCreateTagBtn = () => {
-    setIsShowCreateTag(true);
-  };
-  const hideCreateTagBtn = () => {
-    setIsShowCreateTag(false);
-  };
 
+  /** The string is been matching. If the string is not exactly matched, the create tag btn needs to be shown. */
   const [matchingValue, setMatchingValue] = useState("");
 
-  const dropDownRef = useRef(null);
+  //--------- functions for interactive ------------
+  /** When the task name input box enters text, record the tags and the text content  */
+  const recordNameAndTag = () => {
+    const allNodes = document.getElementById("taskName").childNodes;
+    let tags = [];
+    let name = "";
+    // Traverse all the nodes.
 
+    for (let key in allNodes) {
+      const node = allNodes[key];
+      // node type: 1-Element 3-Text
+      if (node.nodeType === 1) {
+        // If a node is "matched", the text content without first "@" is a tag.
+        if (node.getAttribute("match-type") === "matched") {
+          if (!tags.includes(node.textContent.substring(1))) {
+            tags.push(node.textContent.substring(1));
+          }
+        }
+        // If a node is "matching", it is regard as a part of text of the task name.
+        else if (node.getAttribute("match-type") === "matching") {
+          name += node.textContent;
+        }
+      }
+      // If a node is text node, it is a part of text of the task name.
+      if (node.nodeType === 3) {
+        name += node.textContent;
+      }
+    }
+    name = name.trim();
+    name = name.replace(/\s+/g, " ");
+    recordTaskName(name);
+    recordTaskTags(tags);
+  };
+
+  /** When selecting a tag in the dropdown tag list, replace the matching string to a defined tag.*/
   const onTagSelect = (tag) => {
     let sel = getSelection();
     const matchingNode = sel.anchorNode.parentNode;
     const textSpace = document.createTextNode("\u00a0");
+    // add a &nbsp; text node after a tag to ensure the next input will be out of the span.
+    // if the tag node is the last node of the div, just append the space text node.
     if (matchingNode === matchingNode.parentNode.lastChild) {
       matchingNode.parentNode.append(textSpace);
     } else {
-      //console.log(matchingNode.nextSibling.textContent.charAt(0) === " ");
+      // if the tag node is not the last node, and if no space after it, add a space text node after it.
       if (
         matchingNode.nextSibling.textContent.charAt(0) != " " &&
         matchingNode.nextSibling.textContent.charAt(0) != "\u00a0"
@@ -65,43 +138,37 @@ function TaskNameInput({ tags, createNewTag }) {
         );
       }
     }
+    // complete the tag node.
     matchingNode.setAttribute("match-type", "matched");
     matchingNode.textContent = `@${tag}`;
 
+    // set range after the space.
     const newRange = document.createRange();
     newRange.setStart(matchingNode.nextSibling, 1);
     newRange.setEnd(matchingNode.nextSibling, 1);
     sel.removeAllRanges();
     sel.addRange(newRange);
+
+    // hide drop down selector and record the task name text and tags.
     hideTagMatch();
+    recordNameAndTag();
   };
 
+  // if the create tag xxx is been clicked, form the string as a tag and save the tag to the user tags.
   const onCreateNewTag = (newTag) => {
     onTagSelect(newTag);
     createNewTag(newTag);
   };
 
-  // 匹配输入中的值是否在tagList里
-  const matchValue = (str) => {
-    const matched = tagList.filter((item) => {
-      const reg = new RegExp(`^${str}`, "i");
-      return reg.test(item);
-    });
-    return matched;
-  };
-
-  let pressedKey = useRef("");
-
-  const taskNameRef = useRef(null);
+  //------------ useEffect -----------
 
   useEffect(() => {
-    let currentMatchNode = null;
-    let isMatching = false;
-
+    /** keydown event */
     const taskNameKeydown = (e) => {
-      //console.log(e.code);
       const sel = getSelection();
       const range = sel.getRangeAt(0);
+
+      // the key arrowUp and arrowDown are used for selecting the tags in the dropdown list.
       if (e.key == "ArrowUp") {
         e.preventDefault();
         if (isShowTagMatchFlag.current) {
@@ -114,8 +181,9 @@ function TaskNameInput({ tags, createNewTag }) {
           dropDownRef.current.increaseOnIndex();
         }
       }
+
+      // if the range go out of the matching tag span, make the matching tag as a text node.
       if (e.key == "ArrowLeft") {
-        //e.preventDefault();
         if (
           sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
           range.startOffset === 1
@@ -136,15 +204,11 @@ function TaskNameInput({ tags, createNewTag }) {
           range.insertNode(text);
           range.setStart(sel.anchorNode, sel.getRangeAt(0).startOffset + 1);
           range.collapse(false);
-          // console.log(sel.anchorNode);
-          // console.log(sel.getRangeAt(0).startOffset);
           hideTagMatch();
         }
       }
-      // if (range.startOffset === 0) {
-      //   e.preventDefault();
-      //   const inputChar = e.key;
-      // }
+
+      // press enter to select or create a tag when drop down list is shown.
       if (e.key === "Enter") {
         e.preventDefault();
         if (isShowTagMatchFlag.current) {
@@ -152,6 +216,7 @@ function TaskNameInput({ tags, createNewTag }) {
         }
       }
 
+      // if press Backspace when the range after the "@" of a tag, make the tag to be the matching mode.
       if (
         e.key === "Backspace" &&
         range.startOffset === 1 &&
@@ -165,38 +230,86 @@ function TaskNameInput({ tags, createNewTag }) {
           matchValue(sel.anchorNode.parentNode.textContent.substring(1))
         );
       }
+      // record the pressed key for further process in the input event.
       pressedKey.current = e.key;
-      // if (sel.anchorNode.parentNode.hasAttribute("match-type")) {
-      //   sel.anchorNode.parentNode.setAttribute("match-type", "matching");
-      //   isMatching = true;
-      // }
       return () => {
         taskNameRef.current?.removeEventListener("keydown", taskNameKeydown);
       };
     };
 
+    /** input event */
     const taskNameInput = () => {
       const k = pressedKey.current;
       const sel = getSelection();
       const range = sel.getRangeAt(0);
-      //console.log(range.startOffset);
-      //console.log(sel.anchorNode.parentNode);
-      //console.log(sel.anchorNode);
+
+      // if it is not in a matching span when comes a new input, make the matching span (if exist) to be a text node.
+      if (sel.anchorNode.parentNode.getAttribute("match-type") != "matching") {
+        const root = document.getElementById("taskName");
+        const allNodes = root.childNodes;
+        for (let key in allNodes) {
+          const node = allNodes[key];
+          if (
+            node.nodeType === 1 &&
+            node.getAttribute("match-type") === "matching"
+          ) {
+            const textNode = document.createTextNode(node.textContent);
+            root.replaceChild(textNode, node);
+          }
+        }
+        hideTagMatch();
+      }
+
+      // When the new input is in a matching or matched span, continue matching.
+      // If the cursor(range) is between two nodes, it is regard as in the former node with the offset equal to the length of the text content.
+      // The new input will be the last charater of the former node.
+      // One special case is that the cursor is at the very beginning of the div, which is regard as in the first node with the offset 0
+      // If use backspace to delete the only char of the first node, there will still be a "" text node left.
+      // While then comes a new input, it will be in the second node.
       if (sel.anchorNode.parentNode.hasAttribute("match-type")) {
+        // The range.startOffset === 1 means the range is in the very front of the div,
+        // which is the only case that the cursor is in the front and inside a span
         if (k != "Backspace" && range.startOffset === 1) {
+          // the new character will be the first character of the span. Delete it and insert a new node before the span
           sel.anchorNode.textContent = sel.anchorNode.textContent.substring(1);
-          sel.anchorNode.parentNode.parentNode.insertAdjacentText(
-            "afterbegin",
-            k === " " ? "\u00a0" : k
-          );
+          if (k === "@") {
+            // prepare to add a tag
+            const tagspan = document.createElement("span");
+            tagspan.setAttribute("match-type", "matching");
+            tagspan.textContent = "@";
+            sel.anchorNode.parentNode.parentNode.insertBefore(
+              tagspan,
+              sel.anchorNode.parentNode
+            );
+            const newrange = document.createRange();
+            newrange.setStart(tagspan.childNodes[0], 1);
+            newrange.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(newrange);
+            showTagMatch();
+          } else {
+            // insert a text node
+            sel.anchorNode.parentNode.parentNode.insertAdjacentText(
+              "afterbegin",
+              k === " " ? "\u00a0" : k
+            );
+          }
         } else {
-          /* when delete all the characters before the first tag, the range will be in the first tag. To avoid call matching, just return. */
+          // to make sure when the last char is deleted, the node is also deleted (no empty text node left).
+          if (sel.anchorNode.parentNode.previousSibling) {
+            if (sel.anchorNode.parentNode.previousSibling.textContent === "") {
+              sel.anchorNode.parentNode.previousSibling.remove();
+            }
+          }
+          /* when delete all the characters before the first tag, the range will be in the first tag.
+           * In this case, we don't want to call matching. */
           if (
             k === "Backspace" &&
             !sel.anchorNode.parentNode.previousSibling &&
             range.startOffset === 0
           ) {
-            return;
+            sel.removeAllRanges();
+            sel.addRange(range);
           } else {
             /* otherwise, start matching when one of the tag character is deleted. */
             sel.anchorNode.parentNode.setAttribute("match-type", "matching");
@@ -205,46 +318,52 @@ function TaskNameInput({ tags, createNewTag }) {
           }
         }
       }
+      // use "@" to call matching tags. If in the matching span, the "@" is regard as a letter of the tag.
       if (k === "@") {
         if (!sel.anchorNode.parentNode.hasAttribute("match-type")) {
           /* surround @ with span tags and add match-type attribute */
           const matchingRange = document.createRange();
           matchingRange.setStart(sel.anchorNode, range.startOffset - 1);
           matchingRange.setEnd(sel.anchorNode, range.endOffset);
-
           const span = document.createElement("span");
           span.setAttribute("match-type", "matching");
           matchingRange.surroundContents(span);
-          //console.log(atRange.startContainer);
-          /* set cursor in the span tag and after @ */
+
+          /* set cursor in the span and after @ */
           let cursorRange = document.createRange();
           cursorRange.setStart(span.childNodes[0], 1);
           cursorRange.collapse(true);
           sel.removeAllRanges();
           sel.addRange(cursorRange);
-          //console.log(sel.anchorNode.parentNode);
+
+          // show drop down list
           showTagMatch();
+          // hide create tag btn
+          setIsShowCreateTag(false);
           updateMatchedTags(tagList);
           return;
         }
       }
 
-      if (k === "Backspace") {
-        if (!sel.anchorNode.parentNode.hasAttribute("match-type")) {
-          hideTagMatch();
-        }
-      }
+      // When input a space in a matching span,
+      // if the text is matched to a tag, set the span as a matched tag
+      // if not, set the span as a text node.
       if (k === " ") {
+        // if in a tag matching span and the cursor is at the end.
         if (
           sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
           range.startOffset === sel.anchorNode.length
         ) {
           const matchingNode = sel.anchorNode.parentNode;
+          // if tag matched
           if (tagList.includes(matchingNode.textContent.substring(1).trim())) {
             const textSpace = document.createTextNode("\u00a0");
+            // add a &nbsp; text node after a tag to ensure the next input will be out of the span.
+            // if the tag node is the last node of the div, just append the space text node.
             if (matchingNode === matchingNode.parentNode.lastChild) {
               matchingNode.parentNode.append(textSpace);
             } else {
+              // if the tag node is not the last node, and if no space after it, add a space text node after it.
               if (
                 matchingNode.nextSibling.textContent.charAt(0) != " " &&
                 matchingNode.nextSibling.textContent.charAt(0) != "\u00a0"
@@ -255,27 +374,29 @@ function TaskNameInput({ tags, createNewTag }) {
                 );
               }
             }
+            // set the span as a matched tag
             matchingNode.setAttribute("match-type", "matched");
-            //matchingNode.classList.add(styles.tag_matched);
             matchingNode.textContent = matchingNode.textContent.trim();
 
-            // if exist next sibling, add a space before next sibling
-            //console.log(sel.anchorNode.nextSibling);
-            // if (sel.anchorNode.nextSibling) {
-            //   sel.anchorNode.nextSibling.textContent =
-            //     " " + sel.anchorNode.nextSibling.textContent;
-            // } else {
-            //   const textSpace = document.createTextNode("\u00a0"); //\u00a0: &nbsp; \u200b: noWidthSpace
-            //   //console.log(document.getElementById("taskName"));
-            //   // document
-            //   //   .getElementById("taskName")
-            //   //   .insertAdjacentElement("beforeend", textSpace);
-            //   document.getElementById("taskName").appendChild(textSpace);
-            // }
-            //sel.anchorNode.parentNode.insertAdjacentText("afterend", "\u00a0");
+            // set cursor to the next space
             let newRange = document.createRange();
             newRange.setStart(sel.anchorNode.nextSibling, 1);
             newRange.setEnd(sel.anchorNode.nextSibling, 1);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+          } else {
+            // if tag not matched, make the span to be a text node
+            const textNode = document.createTextNode(
+              sel.anchorNode.textContent
+            );
+            document
+              .getElementById("taskName")
+              .replaceChild(textNode, sel.anchorNode.parentNode);
+
+            // set cursor to the end of the text node
+            let newRange = document.createRange();
+            newRange.setStartAfter(textNode);
+            newRange.collapse(true);
             sel.removeAllRanges();
             sel.addRange(newRange);
           }
@@ -283,35 +404,65 @@ function TaskNameInput({ tags, createNewTag }) {
           return;
         }
       }
+
+      // if in a matching span, show drop down list and update the list when inputing.
       if (sel.anchorNode.parentNode.getAttribute("match-type") === "matching") {
         showTagMatch();
         updateMatchedTags(
           matchValue(sel.anchorNode.parentNode.textContent.substring(1))
         );
+        // used for the creat tag btn.(display create tag xxx)
         setMatchingValue(sel.anchorNode.parentNode.textContent.substring(1));
+        // if matched a tag or the string is empty, hide the create tag btn
         if (
-          tagList.includes(sel.anchorNode.parentNode.textContent.substring(1))
+          tagList.includes(
+            sel.anchorNode.parentNode.textContent.substring(1)
+          ) ||
+          sel.anchorNode.parentNode.textContent.substring(1) === ""
         ) {
           setIsShowCreateTag(false);
         } else {
+          // else, show the create tag btn
           setIsShowCreateTag(true);
         }
         return;
       }
+      // record task name and tags at evety input event.
+      recordNameAndTag();
       return () => {
         taskNameRef.current?.removeEventListener("input", taskNameInput);
       };
     };
 
+    // when use mouse to change the position of the cursor, if not in matching, hide drop down list.
     const mousedown = (e) => {
       const sel = getSelection();
+      if (sel.anchorNode.parentNode != null) {
+        if (
+          sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
+          isShowTagMatchFlag.current
+        ) {
+          return;
+        } else {
+          setIsShowTagMatch(false);
+        }
+      }
       return () => {
         document.removeEventListener("selectionchange", mousedown);
       };
     };
 
+    // when task name div blured, hide drop down list.
+    const taskNameBlur = (e) => {
+      setIsShowTagMatch(false);
+      return () => {
+        document.removeEventListener("blur", taskNameBlur);
+      };
+    };
+
     taskNameRef.current?.addEventListener("keydown", taskNameKeydown);
     taskNameRef.current?.addEventListener("input", taskNameInput);
+    taskNameRef.current?.addEventListener("blur", taskNameBlur);
     document.addEventListener("selectionchange", mousedown);
   }, []);
 
@@ -326,16 +477,13 @@ function TaskNameInput({ tags, createNewTag }) {
       >
         {tags.map((item) => (
           <>
-            <span
-              key={item}
-              match-type="matched"
-              //className={styles.tag_matched}
-            >
+            <span key={item} match-type="matched">
               {"@" + item}
-            </span>{" "}
+            </span>
+            {"\u00a0"}
           </>
         ))}
-        qqqqqq
+        {taskName}
       </div>
       {isShowTagMatch ? (
         <TaskTagDropDown

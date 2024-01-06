@@ -1,6 +1,7 @@
 @use "../../../utils/variable" as *;
 
 .task_edit_form{
+    position: relative;
     background-color: #fff;
     border:1px solid #e5e5e5;
     border-radius: 8px;
@@ -26,8 +27,9 @@
 
 
 .task_name_tag_selector{
-    // position: absolute;
-    // width: 80%;
+    position: absolute;
+    width: 90%;
+    margin:0 auto;
     left: 0;
     right: 0;
     display: flex;
