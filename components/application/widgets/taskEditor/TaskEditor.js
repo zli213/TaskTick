@@ -20,9 +20,9 @@
  */
 
 import { useRef, useState } from "react";
-import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
-import Scheduler, { convertDate } from "./Scheduler";
-import PriorityPicker from "./PriorityPicker";
+import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import Scheduler, { convertDate } from "../Scheduler";
+import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 
 function TaskEditor({
@@ -37,13 +37,7 @@ function TaskEditor({
     formType = "add";
   }
   if (taskData == null) {
-    taskData = {
-      selectedDate: "",
-      priority: 4,
-      taskName: "",
-      taskContent: "",
-      tags: ["Reading1", "Reading2", "Daily"],
-    };
+    taskData = {};
   }
   if (tagList == null) {
     tagList = ["Reading1", "Reading2", "Daily", "Weekly"];
@@ -55,12 +49,15 @@ function TaskEditor({
     submitCallBack = () => {};
   }
 
+  const taskNameInputRef = useRef(null);
+
   let newTaskData = useRef({
-    selectedDate: taskData.selectedDate,
-    priority: taskData.priority,
-    taskName: taskData.taskName,
-    taskContent: taskData.taskContent,
-    tags: taskData.tags,
+    id: taskData.id == null ? "" : taskData.id,
+    selectedDate: taskData.selectedDate == null ? "" : taskData.selectedDate,
+    priority: taskData.priority == null ? 4 : taskData.priority,
+    taskName: taskData.taskName == null ? "" : taskData.taskName,
+    taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
+    tags: taskData.tags == null ? ["Reading1", "Daily"] : taskData.tags,
   });
 
   const setNewTaskData = (key, value) => {
@@ -70,12 +67,16 @@ function TaskEditor({
   };
 
   // Default selected date: from incoming parameters
-  const [selectedDate, setSelectedDate] = useState(taskData.selectedDate);
+  const [selectedDate, setSelectedDate] = useState(
+    newTaskData.current.selectedDate
+  );
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
   };
-  const [selectedPriority, setSelectedPriority] = useState(taskData.priority);
+  const [selectedPriority, setSelectedPriority] = useState(
+    newTaskData.current.priority
+  );
   const changeSelectedPriority = (pri) => {
     setSelectedPriority(pri);
     setNewTaskData("priority", pri);
@@ -124,8 +125,8 @@ function TaskEditor({
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">
               <TaskNameInput
-                tags={taskData.tags}
-                taskName={taskData.taskName}
+                tags={newTaskData.current.tags}
+                taskName={newTaskData.current.taskName}
                 allTags={tagList}
                 createNewTag={(newTag) => {
                   createNewTag(newTag);
@@ -136,6 +137,7 @@ function TaskEditor({
                 recordTaskTags={(tags) => {
                   recordTaskTags(tags);
                 }}
+                onRef={taskNameInputRef}
               />
               {/* <input placeholder="Task Name" className={styles.task_name} /> */}
               <div
@@ -153,7 +155,18 @@ function TaskEditor({
               <button type="button" onClick={showPriority}>
                 Priority&nbsp;{selectedPriority}
               </button>
-              <button type="button">Tag</button>
+              <button
+                type="button"
+                onClick={() => {
+                  taskNameInputRef.current.checkTags([
+                    "Reading1",
+                    "Reading2",
+                    "Weekly",
+                  ]);
+                }}
+              >
+                Tags
+              </button>
             </div>
           </div>
           <div className={styles.task_footer}>

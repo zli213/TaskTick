@@ -4,7 +4,7 @@
  */
 
 import { forwardRef, useImperativeHandle, useState } from "react";
-import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 
 function TaskTagDropDown(
   { tags, onTagSelect, showCreateTag, matchingValue, createNewTag },

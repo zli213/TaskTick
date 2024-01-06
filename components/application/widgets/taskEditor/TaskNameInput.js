@@ -21,25 +21,33 @@
  *  />
  */
 
-import { useEffect, useRef, useState } from "react";
-import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import TaskTagDropDown from "./TaskTagDropDown";
 
-function TaskNameInput({
-  tags,
-  taskName,
-  allTags,
-  createNewTag,
-  recordTaskName,
-  recordTaskTags,
-}) {
+function TaskNameInput(
+  // tags,
+  // taskName,
+  // allTags,
+  // createNewTag,
+  // recordTaskName,
+  // recordTaskTags,
+  props
+) {
+  useImperativeHandle(props.onRef, () => {
+    return {
+      checkTags: checkTags,
+    };
+  });
   //---------------- variables -----------------
   /** Record the key just pressed */
   let pressedKey = useRef("");
   /** The ref of taskName div. Used for adding event listener*/
   const taskNameRef = useRef(null);
-  /**The ref of the drop down tag selection. Used for calling the function in TaskTagDropDown component. */
+  /** The ref of the drop down tag selection. Used for calling the function in TaskTagDropDown component. */
   const dropDownRef = useRef(null);
+  /** used for record the tags changed by the check boxes that called by tag btn*/
+  let newTags = useRef([...props.tags]);
 
   //------------- common functions ---------------
   /** Return the tags in the user tag list that are matched by inputing string. */
@@ -53,7 +61,7 @@ function TaskNameInput({
 
   //-------------- states ------------
   /** All user tags, which should be updated when new tag is created. */
-  const [tagList, setTagList] = useState(allTags);
+  const [tagList, setTagList] = useState(props.allTags);
   /* call when new tag is created */
   const updateTagList = (taglist) => {
     setTagList(taglist);
@@ -113,8 +121,9 @@ function TaskNameInput({
     }
     name = name.trim();
     name = name.replace(/\s+/g, " ");
-    recordTaskName(name);
-    recordTaskTags(tags);
+    props.recordTaskName(name);
+    props.recordTaskTags(tags);
+    newTags.current = [...tags];
   };
 
   /** When selecting a tag in the dropdown tag list, replace the matching string to a defined tag.*/
@@ -157,7 +166,56 @@ function TaskNameInput({
   // if the create tag xxx is been clicked, form the string as a tag and save the tag to the user tags.
   const onCreateNewTag = (newTag) => {
     onTagSelect(newTag);
-    createNewTag(newTag);
+    props.createNewTag(newTag);
+  };
+
+  // call when tag checkboxes are changed
+  const checkTags = (taglist) => {
+    const tagsToBeDeleted = newTags.current.filter(
+      (tag) => !taglist.includes(tag)
+    );
+    console.log(tagsToBeDeleted);
+    const tagsToBeAdded = taglist.filter(
+      (tag) => !newTags.current.includes(tag)
+    );
+    const root = document.getElementById("taskName");
+    const allNodes = root.childNodes;
+    for (let key in allNodes) {
+      const node = allNodes[key];
+      // set matching span to be text node
+      if (
+        node.nodeType === 1 &&
+        node.getAttribute("match-type") === "matching"
+      ) {
+        const textNode = document.createTextNode(node.textContent);
+        root.replaceChild(textNode, node);
+      }
+      // process tag
+      if (
+        node.nodeType === 1 &&
+        node.getAttribute("match-type") === "matched"
+      ) {
+        const thistag = node.textContent.substring(1);
+        // if tag in the list of to be deleted, remove it.
+        if (tagsToBeDeleted.includes(thistag)) {
+          node.remove();
+        }
+      }
+    }
+
+    // add new tags to the end of the task name div
+    for (let idx in tagsToBeAdded) {
+      let textspace = "\u00a0";
+      let newtagspan = document.createElement("span");
+      newtagspan.setAttribute("match-type", "matched");
+      newtagspan.textContent = `@${tagsToBeAdded[idx]}`;
+      root.appendChild(newtagspan);
+      root.insertAdjacentText("beforeend", textspace);
+    }
+
+    // update the current tags
+    newTags.current = [...taglist];
+    props.recordTaskTags(taglist);
   };
 
   //------------ useEffect -----------
@@ -437,7 +495,7 @@ function TaskNameInput({
     // when use mouse to change the position of the cursor, if not in matching, hide drop down list.
     const mousedown = (e) => {
       const sel = getSelection();
-      if (sel.anchorNode.parentNode != null) {
+      if (sel.anchorNode != null && sel.anchorNode.parentNode != null) {
         if (
           sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
           isShowTagMatchFlag.current
@@ -446,24 +504,29 @@ function TaskNameInput({
         } else {
           setIsShowTagMatch(false);
         }
+      } else {
+        setIsShowTagMatch(false);
       }
       return () => {
         document.removeEventListener("selectionchange", mousedown);
       };
     };
 
-    // when task name div blured, hide drop down list.
+    // when task name div blured (click an other element), hide drop down list.
+    // if add blur event listener, the drop down list will hide first so that the btns can not be clicked.
     const taskNameBlur = (e) => {
-      setIsShowTagMatch(false);
+      if (document.activeElement.getAttribute("id") != "taskName") {
+        setIsShowTagMatch(false);
+      }
       return () => {
-        document.removeEventListener("blur", taskNameBlur);
+        document.removeEventListener("click", taskNameBlur);
       };
     };
 
     taskNameRef.current?.addEventListener("keydown", taskNameKeydown);
     taskNameRef.current?.addEventListener("input", taskNameInput);
-    taskNameRef.current?.addEventListener("blur", taskNameBlur);
     document.addEventListener("selectionchange", mousedown);
+    document.addEventListener("click", taskNameBlur);
   }, []);
 
   return (
@@ -475,7 +538,7 @@ function TaskNameInput({
         ref={taskNameRef}
         placeholder="Task Name"
       >
-        {tags.map((item) => (
+        {props.tags.map((item) => (
           <>
             <span key={item} match-type="matched">
               {"@" + item}
@@ -483,7 +546,7 @@ function TaskNameInput({
             {"\u00a0"}
           </>
         ))}
-        {taskName}
+        {props.taskName}
       </div>
       {isShowTagMatch ? (
         <TaskTagDropDown
