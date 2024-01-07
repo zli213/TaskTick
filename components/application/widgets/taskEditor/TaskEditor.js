@@ -24,6 +24,7 @@ import styles from "../../../../styles/scss/components/application/widgets/taskE
 import Scheduler, { convertDate } from "../Scheduler";
 import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
+import TaskTagCheckList from "./TaskTagCheckList";
 
 function TaskEditor({
   formType,
@@ -37,7 +38,14 @@ function TaskEditor({
     formType = "add";
   }
   if (taskData == null) {
-    taskData = {};
+    taskData = {
+      id: "",
+      selectedDate: "",
+      priority: 4,
+      taskName: "",
+      taskContent: "",
+      tags: ["Reading1", "Daily"],
+    };
   }
   if (tagList == null) {
     tagList = ["Reading1", "Reading2", "Daily", "Weekly"];
@@ -51,6 +59,7 @@ function TaskEditor({
 
   const taskNameInputRef = useRef(null);
 
+  /** record the editing task */
   let newTaskData = useRef({
     id: taskData.id == null ? "" : taskData.id,
     selectedDate: taskData.selectedDate == null ? "" : taskData.selectedDate,
@@ -60,6 +69,7 @@ function TaskEditor({
     tags: taskData.tags == null ? ["Reading1", "Daily"] : taskData.tags,
   });
 
+  /** update newTaskData */
   const setNewTaskData = (key, value) => {
     if (key in newTaskData.current) {
       newTaskData.current[key] = value;
@@ -74,12 +84,18 @@ function TaskEditor({
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
   };
+
   const [selectedPriority, setSelectedPriority] = useState(
     newTaskData.current.priority
   );
   const changeSelectedPriority = (pri) => {
     setSelectedPriority(pri);
     setNewTaskData("priority", pri);
+  };
+
+  const [allTags, setAllTags] = useState([...tagList]);
+  const updateAllTags = (taglist) => {
+    setAllTags(taglist);
   };
 
   // Show/Hide Scheduler
@@ -100,6 +116,15 @@ function TaskEditor({
     setIsShowPriority(false);
   };
 
+  // Show/Hide TaskTagCheckList
+  const [isShowTagCheck, setIsShowTagCheck] = useState(false);
+  const showTagCheck = () => {
+    setIsShowTagCheck(true);
+  };
+  const hideTagCheck = () => {
+    setIsShowTagCheck(false);
+  };
+
   const recordTaskContent = () => {
     setNewTaskData(
       "taskContent",
@@ -115,7 +140,9 @@ function TaskEditor({
 
   const createNewTag = (newTag) => {
     console.log("create tag " + newTag);
-    /**@todo create new tag in database */
+    /**@todo create new tag in database, update newTagList
+     * updateAllTags(newAllTags)
+     */
   };
 
   return (
@@ -125,8 +152,8 @@ function TaskEditor({
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">
               <TaskNameInput
-                tags={newTaskData.current.tags}
-                taskName={newTaskData.current.taskName}
+                tags={taskData.tags}
+                taskName={taskData.taskName}
                 allTags={tagList}
                 createNewTag={(newTag) => {
                   createNewTag(newTag);
@@ -139,7 +166,6 @@ function TaskEditor({
                 }}
                 onRef={taskNameInputRef}
               />
-              {/* <input placeholder="Task Name" className={styles.task_name} /> */}
               <div
                 id="taskContent"
                 className={styles.task_content}
@@ -155,16 +181,7 @@ function TaskEditor({
               <button type="button" onClick={showPriority}>
                 Priority&nbsp;{selectedPriority}
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  taskNameInputRef.current.checkTags([
-                    "Reading1",
-                    "Reading2",
-                    "Weekly",
-                  ]);
-                }}
-              >
+              <button type="button" onClick={showTagCheck}>
                 Tags
               </button>
             </div>
@@ -223,6 +240,18 @@ function TaskEditor({
             hidePriority();
           }}
           onOverlayClick={hidePriority}
+        />
+      ) : null}
+      {isShowTagCheck ? (
+        <TaskTagCheckList
+          allTags={allTags}
+          checkedTags={newTaskData.current.tags}
+          onTagCheckClick={(tags) => {
+            //updateCheckTags(tags);
+            setNewTaskData("tags", tags);
+            taskNameInputRef.current.checkTags(tags);
+          }}
+          onOverlayClick={hideTagCheck}
         />
       ) : null}
     </>

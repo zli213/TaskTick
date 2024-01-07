@@ -34,11 +34,6 @@ function TaskNameInput(
   // recordTaskTags,
   props
 ) {
-  useImperativeHandle(props.onRef, () => {
-    return {
-      checkTags: checkTags,
-    };
-  });
   //---------------- variables -----------------
   /** Record the key just pressed */
   let pressedKey = useRef("");
@@ -174,7 +169,6 @@ function TaskNameInput(
     const tagsToBeDeleted = newTags.current.filter(
       (tag) => !taglist.includes(tag)
     );
-    console.log(tagsToBeDeleted);
     const tagsToBeAdded = taglist.filter(
       (tag) => !newTags.current.includes(tag)
     );
@@ -204,14 +198,22 @@ function TaskNameInput(
     }
 
     // add new tags to the end of the task name div
-    for (let idx in tagsToBeAdded) {
+    tagsToBeAdded.forEach((item) => {
       let textspace = "\u00a0";
       let newtagspan = document.createElement("span");
       newtagspan.setAttribute("match-type", "matched");
-      newtagspan.textContent = `@${tagsToBeAdded[idx]}`;
+      newtagspan.textContent = `@${item}`;
       root.appendChild(newtagspan);
       root.insertAdjacentText("beforeend", textspace);
-    }
+    });
+    // for (let idx in tagsToBeAdded) {
+    //   let textspace = "\u00a0";
+    //   let newtagspan = document.createElement("span");
+    //   newtagspan.setAttribute("match-type", "matched");
+    //   newtagspan.textContent = `@${tagsToBeAdded[idx]}`;
+    //   root.appendChild(newtagspan);
+    //   root.insertAdjacentText("beforeend", textspace);
+    // }
 
     // update the current tags
     newTags.current = [...taglist];
@@ -528,6 +530,12 @@ function TaskNameInput(
     document.addEventListener("selectionchange", mousedown);
     document.addEventListener("click", taskNameBlur);
   }, []);
+
+  useImperativeHandle(props.onRef, () => {
+    return {
+      checkTags: checkTags,
+    };
+  });
 
   return (
     <>
