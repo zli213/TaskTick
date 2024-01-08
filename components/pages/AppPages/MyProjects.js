@@ -3,19 +3,16 @@
 import styles from "../../../styles/scss/application.module.scss";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import SettingIcon from "../../../public/icon/setting.svg";
-import HashtagIcon from "../../../public/icon/hashtag.svg";
-import SearchIcon from "../../../public/icon/search.svg";
-import AddIcon from "../../../public/icon/add.svg";
+import Icon from "../../application/widgets/Icon";
 import NewProject from "../../application/widgets/NewProject";
+import MyProjectItem from "../../application/widgets/MyProjectItem";
 
 export default function MyProjects(props) {
   const [showAddCard, setShowAddCard] = useState(false);
 
   const showCardHandler = () => {
     setShowAddCard((preState) => !preState);
-  }
-
+  };
 
   useEffect(() => {
     document.title = "My Projects - Todo";
@@ -31,7 +28,7 @@ export default function MyProjects(props) {
           <h1>My Projects</h1>
           <div>
             <Link href="/application/setting/account" scroll={false}>
-              <SettingIcon />
+              <Icon type="setting" />
               <span>Setting</span>
             </Link>
           </div>
@@ -40,14 +37,14 @@ export default function MyProjects(props) {
 
       <div className={styles.content_box}>
         <div className={styles.searchArea_projects}>
-          <SearchIcon />
+          <Icon type="search" />
           <input placeholder="Search projects"></input>
         </div>
 
         <div className={styles.btn_projects}>
           <div className={styles.active_btn_projects}>Active projects</div>
           <div className={styles.add_btn_projects} onClick={showCardHandler}>
-            <AddIcon />
+            <Icon type="add" />
             <span>Add project</span>
           </div>
         </div>
@@ -57,13 +54,7 @@ export default function MyProjects(props) {
       <div className={styles.content_box}>
         <ul className={styles.project_list}>
           {props.data.map((project) => (
-            <li key={project.projectId}>
-              <Link href={`/application/project/${project.projectId}`}>
-                <HashtagIcon />
-                {project.name}
-              </Link>
-              <div>button</div>
-            </li>
+            <MyProjectItem project={project} />
           ))}
         </ul>
       </div>

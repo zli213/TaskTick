@@ -4,7 +4,7 @@
  */
 
 "use client";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/modal.module.scss";
 
@@ -13,6 +13,20 @@ export default function Modal(props) {
   const containerClickHandler = (event) => {
     event.stopPropagation();
   };
+
+  const disableScroll = (event) => {
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
 
   const onDismiss = useCallback(() => {
     const currentPage = localStorage.getItem("lastPage");
@@ -23,7 +37,7 @@ export default function Modal(props) {
   return (
     <>
       <div className={styles.overlay_styles} onClick={onDismiss}>
-        <div className={styles.modal_container} onClick={containerClickHandler}>
+        <div onClick={containerClickHandler}>
           {props.children}
         </div>
       </div>
