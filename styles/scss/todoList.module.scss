@@ -1,11 +1,7 @@
 @use "./utils/variable" as *;
 
-
-.list_editor {
-  padding: 0 $paddingMd $paddingLg;
-}
-
 .section {
+  width: 100%;
   margin: 0 auto;
   max-width: $maxListWidth;
 }

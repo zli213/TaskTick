@@ -42,9 +42,8 @@ export default function SettingModal({ params }) {
           </li>
         </ul>
       </div>
-      <div>
-        <h2>this is setting modal</h2>
-        <div>{activePage}</div>
+      <div className={styles.setting_right}>
+        {activePage}
       </div>
     </Modal>
   );

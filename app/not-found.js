@@ -1,3 +1,7 @@
+/**
+ * 404 page for menu
+ */
+
 import Link from "next/link";
 import styles from "../styles/scss/notFound.module.scss";
 
