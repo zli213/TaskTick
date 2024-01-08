@@ -34,6 +34,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/components/application/widgets/popupMenu.module.scss";
+import { convertPosition } from "../../../public/CommonFunctions";
 
 //Custom React hook -> useMenu
 export const useMenu = () => {
@@ -77,7 +78,7 @@ export default function PopupMenu(props) {
   }, []);
 
   var position = props.position
-    ? convertPosition(props.position, props.levels)
+    ? convertPosition(props.position, props.levels, 260)
     : null;
   const menuPosition = position
     ? {
@@ -101,37 +102,37 @@ export default function PopupMenu(props) {
 }
 
 //Calculate Position Function
-function convertPosition(position, levels) {
-  var buttonGap = 3;
-  if (position.height < 10) {
-    buttonGap = 12;
-  }
+// function convertPosition(position, levels) {
+//   var buttonGap = 3;
+//   if (position.height < 10) {
+//     buttonGap = 12;
+//   }
 
-  const menuHeight = levels * 38 + 6;
-  var newtop = position.top;
-  var newleft = position.left;
+//   const menuHeight = levels * 38 + 6;
+//   var newtop = position.top;
+//   var newleft = position.left;
 
-  if (window.innerHeight - position.bottom < menuHeight) {
-    newtop = position.bottom - menuHeight - buttonGap * 2.8;
-  }
+//   if (window.innerHeight - position.bottom < menuHeight) {
+//     newtop = position.bottom - menuHeight - buttonGap * 2.8;
+//   }
 
-  if (window.innerWidth - position.right < 130) {
-    if (window.innerHeight - position.top < menuHeight / 2) {
-      newtop = window.innerHeight - menuHeight - buttonGap * 4;
-      newleft = position.left - 150;
-    } else {
-      newtop = position.bottom - menuHeight / 2 + 12;
-      newleft = position.left - 150;
-    }
-  }
+//   if (window.innerWidth - position.right < 130) {
+//     if (window.innerHeight - position.top < menuHeight / 2) {
+//       newtop = window.innerHeight - menuHeight - buttonGap * 4;
+//       newleft = position.left - 150;
+//     } else {
+//       newtop = position.bottom - menuHeight / 2 + 12;
+//       newleft = position.left - 150;
+//     }
+//   }
 
-  if (newtop < 0) {
-    newtop = 10;
-  }
+//   if (newtop < 0) {
+//     newtop = 10;
+//   }
 
-  return {
-    ...position,
-    left: newleft - 130 + position.width / 2,
-    top: newtop + buttonGap,
-  };
-}
+//   return {
+//     ...position,
+//     left: newleft - 130 + position.width / 2,
+//     top: newtop + buttonGap,
+//   };
+// }

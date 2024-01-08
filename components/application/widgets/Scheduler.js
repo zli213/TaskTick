@@ -14,6 +14,7 @@
 import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
+import { convertPosition } from "../../../public/CommonFunctions";
 
 function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   //---------------- variables -----------------
@@ -298,7 +299,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   };
 
   //--------- set position ------------
-  var position = position ? convertPosition(position) : null;
+  var position = position ? convertPosition(position, 10, 230) : null;
   const schedulerStyle = position
     ? {
         position: "fixed",
@@ -461,45 +462,45 @@ export function formatDate(inDate) {
   return dateJson;
 }
 
-function convertPosition(position) {
-  var newtop = position.top;
-  var newleft = position.left;
+// function convertPosition(position) {
+//   var newtop = position.top;
+//   var newleft = position.left;
 
-  if(position.width == 0){
-    return {
-      ...position,
-      left: position.left - 26 ,
+//   if(position.width == 0){
+//     return {
+//       ...position,
+//       left: position.left - 26 ,
       
-    };
-  }
+//     };
+//   }
 
-  if (window.innerHeight - position.bottom < 450) {
-    newtop = position.bottom - 380;
-  }
-  if (window.innerWidth - position.right < 120) {
-    if (window.innerHeight - position.bottom < 200) {
-      newtop = position.bottom - 380;
-      newleft = window.innerWidth - 140;
-    } else {
-      newtop = position.bottom - 190;
-      newleft = position.left - 130;
-    }
-  }
+//   if (window.innerHeight - position.bottom < 450) {
+//     newtop = position.bottom - 380;
+//   }
+//   if (window.innerWidth - position.right < 120) {
+//     if (window.innerHeight - position.bottom < 200) {
+//       newtop = position.bottom - 380;
+//       newleft = window.innerWidth - 140;
+//     } else {
+//       newtop = position.bottom - 190;
+//       newleft = position.left - 130;
+//     }
+//   }
 
-  if (newtop < 0) {
-    newtop = 10;
-  }
+//   if (newtop < 0) {
+//     newtop = 10;
+//   }
 
-  if (newtop - 400 > window.innerHeight) {
-    newtop = window.innerHeight - 410;
-  }
+//   if (newtop - 400 > window.innerHeight) {
+//     newtop = window.innerHeight - 410;
+//   }
 
-  return {
-    ...position,
-    left: newleft - 114 + position.width / 2,
-    top: newtop + 2,
-  };
-}
+//   return {
+//     ...position,
+//     left: newleft - 114 + position.width / 2,
+//     top: newtop + 2,
+//   };
+// }
 
 export default Scheduler;
 
