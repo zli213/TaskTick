@@ -33,42 +33,24 @@ export default function SettingModal({ params }) {
 
   return (
     <Modal>
-      <div className={styles.setting_left}>
-        <h2>Settings</h2>
-        <ul>
-          <li>
-            <div
-              className={`${styles.leftGroup} ${
-                selected === "account" ? styles.selected : ""
-              }`}
-            >
+      <div className={styles.setting_modal_container}>
+        <div className={styles.setting_left}>
+          <h2>Settings</h2>
+          <div>Search</div>
+          <ul>
+            <li>
               <Link href="/application/setting/account" scroll={false}>
-                <span>
-                {selected === "account" ? <AccountSelected /> : <Account />}
-                </span>
-                <span className={styles.list_item_content}>
-                  Account
-                </span>
+                account
               </Link>
-            </div>
-          </li>
-          <li>
-            <div
-            className={`${styles.leftGroup} ${
-              selected === "theme" ? styles.selected : ""
-            }`}>
+            </li>
+            <li>
               <Link href="/application/setting/theme" scroll={false}>
-                <span>
-                {selected === "theme" ? <ThemeSelected/> : <Theme/>}
-                </span>
-                <span className={styles.list_item_content}>Theme</span>
+                theme
               </Link>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div className={styles.setting_right}>
-        {activePage}
+            </li>
+          </ul>
+        </div>
+        <div className={styles.setting_right}>{activePage}</div>
       </div>
     </Modal>
   );

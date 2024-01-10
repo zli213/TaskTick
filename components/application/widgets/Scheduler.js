@@ -14,8 +14,9 @@
 import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
+import { convertPosition } from "../../../public/CommonFunctions";
 
-function Scheduler({ data, onChangeDate, onOverlayClick }) {
+function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
   const today = new Date();
@@ -297,10 +298,20 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
     onChangeDate(dateJson);
   };
 
+  //--------- set position ------------
+  var position = position ? convertPosition(position, 10, 230) : null;
+  const schedulerStyle = position
+    ? {
+        position: "fixed",
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+      }
+    : "";
+
   return (
     <>
       <div className={styles.popup_overlay} onClick={onOverlayClick}></div>
-      <div className={styles.scheduler}>
+      <div className={styles.scheduler} style={position && schedulerStyle}>
         <button
           className={styles.scheduler_quickbutton}
           onClick={() => selectDate(today)}
@@ -438,7 +449,7 @@ function convertSelectedDate(date) {
 
 export function formatDate(inDate) {
   let dateJson = { dateTime: null, dateStr: "" };
-  if (inDate != "") {
+  if (inDate != "" || inDate != null) {
     dateJson.dateTime = inDate;
     dateJson.dateStr =
       inDate.getFullYear() +
@@ -450,6 +461,46 @@ export function formatDate(inDate) {
 
   return dateJson;
 }
+
+// function convertPosition(position) {
+//   var newtop = position.top;
+//   var newleft = position.left;
+
+//   if(position.width == 0){
+//     return {
+//       ...position,
+//       left: position.left - 26 ,
+      
+//     };
+//   }
+
+//   if (window.innerHeight - position.bottom < 450) {
+//     newtop = position.bottom - 380;
+//   }
+//   if (window.innerWidth - position.right < 120) {
+//     if (window.innerHeight - position.bottom < 200) {
+//       newtop = position.bottom - 380;
+//       newleft = window.innerWidth - 140;
+//     } else {
+//       newtop = position.bottom - 190;
+//       newleft = position.left - 130;
+//     }
+//   }
+
+//   if (newtop < 0) {
+//     newtop = 10;
+//   }
+
+//   if (newtop - 400 > window.innerHeight) {
+//     newtop = window.innerHeight - 410;
+//   }
+
+//   return {
+//     ...position,
+//     left: newleft - 114 + position.width / 2,
+//     top: newtop + 2,
+//   };
+// }
 
 export default Scheduler;
 

@@ -2,26 +2,29 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import { useRouter } from "next/navigation";
-import AddTask from "../../application/widgets/AddTask";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
-
+import Icon from "../../application/widgets/Icon";
 
 function Today(props) {
   const router = useRouter();
-  //localStorage.setItem("lastPage", "today");
-
-  if (typeof window !== 'undefined') {
-    localStorage.setItem("lastPage", "today");
-  }
 
   //use timestamp to compare if the item dueDate is today
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const overDueTasks = props.data.filter((task) => {
+    const taskDueDate = new Date(task.dueDate);
+    return taskDueDate.getTime() < today.getTime();
+  });
+
   const todayTasks = props.data.filter((task) => {
-    return task.dueDate?.getTime() <= new Date().getTime();
+    const taskDueDate = new Date(task.dueDate);
+    return taskDueDate.getTime() === today.getTime();
   });
 
   useEffect(() => {
-    document.title = 'Today - Todo';
+    document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
 
     if ("settingMenu" in props) {
@@ -36,14 +39,24 @@ function Today(props) {
   return (
     <>
       <div className={styles.view_header}>
-        <div className={styles.view_header_content}>
-          <h1>Today</h1>
+        <div
+          className={styles.view_header_content}
+        >
+          <div>
+            <h1>Today</h1>
+            {props.num && (
+              <div className={styles.today_task_label}>
+                <Icon type="check_small" />
+                {props.num} tasks
+              </div>
+            )}
+          </div>
           <div>buttons</div>
         </div>
       </div>
       <div className={styles.list_box}>
-        <AddTask />
-        <TodoList tasks={todayTasks} />
+        <TodoList tasks={overDueTasks} title="Overdue" />
+        <TodoList tasks={todayTasks} title="Today" />
       </div>
     </>
   );
