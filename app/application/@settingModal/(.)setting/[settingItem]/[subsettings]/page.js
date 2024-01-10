@@ -38,14 +38,26 @@ export default function SettingModal({ params }) {
           <div>Search</div>
           <ul>
             <li>
-              <Link href="/application/setting/account" scroll={false}>
-                account
-              </Link>
+              <div className={`${styles.leftGroup} ${styles.selected}`}>
+                <Link href="/application/setting/account" scroll={false}>
+                  <span>
+                    <AccountSelected/>
+                  </span>
+                  <span className={styles.list_item_content}>
+                    Account
+                  </span>
+                </Link>
+              </div>
             </li>
             <li>
-              <Link href="/application/setting/theme" scroll={false}>
-                theme
-              </Link>
+              <div
+              className={styles.leftGroup}
+              >
+                <Link href="/application/setting/theme" scroll={false}>
+                  <span><Theme/></span>
+                  <span className={styles.list_item_content}>Theme</span>
+                </Link>
+              </div>
             </li>
           </ul>
         </div>
