@@ -1,4 +1,5 @@
 import "../styles/scss/globals.scss";
+import { ThemeProvider } from "../components/application/widgets/ThemeProvider";
 
 export const metadata = {
   title: "Todo APP",
