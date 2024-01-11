@@ -1,4 +1,4 @@
-export default function TodayIcon({ day }) {
+export default function TodayIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24">
       <g fill="currentColor" fillRule="evenodd">
@@ -13,7 +13,7 @@ export default function TodayIcon({ day }) {
           fontWeight="500"
         >
           <tspan x="8" y="15" textAnchor="middle">
-            {day}
+            {new Date().getDate()}
           </tspan>
         </text>
       </g>

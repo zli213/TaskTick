@@ -2,7 +2,7 @@
 
 .add_project_modal_container {
   position: fixed;
-  top: calc($addProjectWidth / 2);
+  top: 18vh;
   left: calc(50vw - $addProjectWidth / 2);
   background-color: #fff;
   border-radius: $borderRadius;
@@ -132,4 +132,8 @@
   background-color: rgba($color: $primaryColor, $alpha: 1);
     cursor: pointer;
 
+}
+
+.save_wrong{
+  color: $primaryColor;
 }

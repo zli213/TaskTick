@@ -2,8 +2,10 @@
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "../../../(models)/User";
+import connect from "../../../../src/utils/data/db";
+import User from "../../../../src/models/User";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 export const options = {
   providers: [
@@ -22,8 +24,8 @@ export const options = {
           id: profile.id.toString(),
         };
       },
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_Secret,
+      clientId: process.env.GITHUB_ID, // Stored in .env.local, please check the README.md for details. you need to create one in your env but not advisable to commit it to your repo.
+      clientSecret: process.env.GITHUB_Secret, // Same as above
     }),
     GoogleProvider({
       profile(profile) {
@@ -36,8 +38,8 @@ export const options = {
           role: userRole,
         };
       },
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_Secret,
+      clientId: process.env.GOOGLE_ID, // Stored in .env.local, please check the README.md for details. you need to create one in your env but not advisable to commit it to your repo.
+      clientSecret: process.env.GOOGLE_Secret, // Same as above
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -55,6 +57,7 @@ export const options = {
       },
       async authorize(credentials) {
         try {
+          await connect();
           const foundUser = await User.findOne({ email: credentials.email })
             .lean()
             .exec();
@@ -94,28 +97,28 @@ export const options = {
     async signIn({ user, account, profile }) {
       console.log("user", user);
       let userData;
-      if (account.provider === 'github' || account.provider === 'google') {
+      await connect();
+      if (account.provider === "github" || account.provider === "google") {
         userData = {
-          name: user.name,
+          fullName: user.name,
           email: user.email,
-          id: user.id,
-          role: account.provider === 'github' ? 'GitHub User' : 'Google User',
+          _id: new mongoose.Types.ObjectId(),
+          role: account.provider === "github" ? "GitHub User" : "Google User",
           avatar_url: user.image,
-          account_category: account.provider,
+          account_category: "Free",
         };
-      }
-  
-      try {
-        const existingUser = await User.findOne({ email: userData.email });
-        if (!existingUser) {
-          await User.create(userData);
-          return { status: 'created', user: userData };
-        } else {
-          return { status: 'existing_user' };
+        try {
+          const existingUser = await User.findOne({ email: userData.email });
+          if (!existingUser) {
+            await User.create(userData);
+            return { status: "created", user: userData };
+          } else {
+            return { status: "existing_user" };
+          }
+        } catch (error) {
+          console.error(error);
+          throw new Error("User creation failed");
         }
-      } catch (error) {
-        console.error(error);
-        throw new Error('User creation failed');
       }
 
       return true;

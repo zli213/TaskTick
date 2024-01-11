@@ -1,35 +1,76 @@
 /***
  * The card you can add or edit projects
+ * 
+ * Alart: now it only can add now project
  */
 
-// "use client";
+"use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import styles from "../../../styles/scss/newProject.module.scss";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
 import ListIcon from "../../../public/icon/horizon_page.svg";
 import CalenderIcon from "../../../public/icon/upcoming.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
-
+import { useRouter } from "next/navigation";
 
 export default function NewProject(props) {
+  const router = useRouter();
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
+  const [isWrong, setIsWrong] = useState(false);
 
-  if(props.projectname){
-    setEnteredName(props.projectname);
+  const disableScroll = (event) => {
+    event.preventDefault();
+  };
+
+  if (props.projectName) {
+    setEnteredName(props.projectName);
   }
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
     const name = nameInputRef.current.value;
-    console.log(name);
-  }
+
+    try {
+      const res = await fetch("/api/addproject", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+      });
+
+      const result = await res.json();
+      console.log(result.body.projectId);
+
+      if (res.ok) {
+        router.push(`/application/project/${result.body.projectId}`);
+        router.refresh();
+      } else {
+        const data = await res.json();
+        setIsWrong(true);
+      }
+    } catch (error) {
+      console.log("Error occured: ", error);
+    }
+    props.closeHandler();
+  };
+
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
 
   return (
     <div onClick={props.closeHandler}>
@@ -91,6 +132,7 @@ export default function NewProject(props) {
 
             <hr />
             <footer className={styles.footer_btn}>
+              { isWrong && <div className={styles.save_wrong}>Oops, something Wrong</div>}
               <button
                 onClick={props.closeHandler}
                 className={styles.btn_cancel}
@@ -99,10 +141,12 @@ export default function NewProject(props) {
               </button>
               <button
                 type="submit"
-                className={`${styles.btn_add} ${enteredName && styles.named_states} `  }
+                className={`${styles.btn_add} ${
+                  enteredName && styles.named_states
+                } `}
                 disabled={enteredName ? false : true}
               >
-                {props.projectname ? "Save" : "Add"}
+                {props.projectName ? "Save" : "Add"}
               </button>
             </footer>
           </form>

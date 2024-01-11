@@ -1,8 +1,12 @@
-import User from "../../(models)/User";
+import connect from "../../../src/utils/data/db";
+import User from "../../../src/models/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
+
 export async function POST(req) {
   try {
+    await connect();
     const body = await req.json();
     const userData = body.formData;
     //Confirm data exists
@@ -24,6 +28,8 @@ export async function POST(req) {
 
     const hashPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashPassword;
+    userData._id = new mongoose.Types.ObjectId();
+    userData.account_category = "Free";
 
     await User.create(userData);
     return NextResponse.json({ message: "User Created." }, { status: 201 });

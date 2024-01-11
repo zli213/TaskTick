@@ -8,15 +8,14 @@ import AddIcon from "../../../public/icon/add.svg";
 import ArrowIcon from "../../../public/icon/down_arrow.svg";
 import NewProject from "../widgets/NewProject";
 
-function Leftbar({ classes, projects, inboxNum, todayNum }) {
+function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
-  const [showList, setShowList] = useState(true)
+  const [showList, setShowList] = useState(true);
   const [showAddCard, setShowAddCard] = useState(false);
 
   const showCardHandler = () => {
     setShowAddCard((preState) => !preState);
-  }
-
+  };
 
   const handleItemClick = (type) => {
     setSeletedItemType(type);
@@ -24,7 +23,7 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
 
   const clickListHandler = () => {
     setShowList((preState) => !preState);
-  }
+  };
 
   useEffect(() => {
     const current = localStorage.getItem("lastPage");
@@ -32,7 +31,7 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
   }, []);
 
   return (
-    <div className={`${styles.list_sidebar} ${classes}`}>
+    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`}>
       <div>
         <LeftItem
           label="Inbox"
@@ -72,37 +71,45 @@ function Leftbar({ classes, projects, inboxNum, todayNum }) {
           className={`${styles.project_title} ${
             selectedItemType === "projects/active" ? styles.selected_item : ""
           }`}
-         
         >
-          <Link href="/application/projects/active"  onClick={() => handleItemClick("projects/active")}>
+          <Link
+            href="/application/projects/active"
+            onClick={() => handleItemClick("projects/active")}
+          >
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
             <button onClick={showCardHandler}>
               <AddIcon />
             </button>
-            <button onClick={clickListHandler} className={ !showList && styles.show_project_icon } >
+            <button
+              onClick={clickListHandler}
+              className={showList ? "" : styles.show_project_icon}
+            >
               <ArrowIcon />
             </button>
           </div>
         </div>
 
-        { showList && projects.map((project) => (
-          <LeftItem
-            key={project.projectId}
-            label={project.name}
-            link={`/application/project/${project.projectId}`}
-            type="project"
-            num={project.num}
-            onClickHandler={() =>
-              handleItemClick(`project/${project.projectId}`)
-            }
-            isSelected={selectedItemType === `project/${project.projectId}`}
-          />
-        ))}
+        <div className={`${styles.project_list} ${!showList && styles.project_list_hide}`}>
+          {
+            projects.map((project) => (
+              <LeftItem
+                key={project.projectId}
+                label={project.name}
+                link={`/application/project/${project.projectId}`}
+                type="project"
+                num={project.num}
+                onClickHandler={() =>
+                  handleItemClick(`project/${project.projectId}`)
+                }
+                isSelected={selectedItemType === `project/${project.projectId}`}
+              />
+            ))
+              }
+        </div>
       </div>
       {showAddCard && <NewProject closeHandler={showCardHandler} />}
-
     </div>
   );
 }

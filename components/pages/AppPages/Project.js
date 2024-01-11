@@ -2,23 +2,40 @@
 
 import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-export default function Project(props) {
-  const tasks = props.data.filter((task) => {
-    return task.projectId == props.projectId;
+export default function Project({ projectId, projectName, tasks, boards }) {
+  const groupedTasks = {};
+  boards.forEach((boardName) => {
+    if (!groupedTasks[boardName]) {
+      groupedTasks[boardName] = [];
+    }
+  });
+  tasks.forEach((task) => {
+    const boardName = task.board;
+    if (!groupedTasks[boardName]) {
+      groupedTasks[boardName] = [];
+    }
+    groupedTasks[boardName].push(task);
   });
 
-  const projectName =
-    tasks.length > 0 ? tasks[0].projectName : "Unknown Project";
-
   useEffect(() => {
-    if (tasks.length > 0) {
-      document.title = projectName + " - Todo";
-      localStorage.setItem("lastPage", `project/${props.projectId}`);
-    }
-  }, [tasks, props.projectId]);
+    document.title = projectName + " - Todo";
+    localStorage.setItem("lastPage", `project/${projectId}`);
+  }, []);
+
+  const noTasks = (
+    <>
+      <div className={styles.no_tasks}>
+        <img src="/images/startNewTask.jpg" />
+        <h4>Start small (or dream big)...</h4>
+        <div className={styles.no_tasks_content}>
+          Track tasks, follow progress, and discuss details in one central,
+          shared project.
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -29,7 +46,19 @@ export default function Project(props) {
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={tasks} />
+        <TodoList tasks={groupedTasks[undefined]} />
+        {boards
+          ? Object.keys(groupedTasks)
+              .filter((boardName) => boardName != "undefined")
+              .map((boardName) => (
+                <TodoList
+                  key={boardName}
+                  title={boardName}
+                  tasks={groupedTasks[boardName]}
+                />
+              ))
+          : ""}
+        {tasks[0] == null ? noTasks : ""}
       </div>
     </>
   );

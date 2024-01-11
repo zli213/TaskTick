@@ -63,6 +63,9 @@
   }
 
   .task_sidebar_item {
+    display: flex;
+    flex-direction: column;
+    gap: $paddingXsm;
 
     color: $textSecondaryColor;
     h4 {
@@ -160,11 +163,9 @@
 }
 
 .task_sidebar_button {
+  @include flexRowStart();
   width: 100%;
   cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  gap: $paddingsm;
   align-items: center;
   line-height: $lineHeight;
   vertical-align: center;
@@ -173,4 +174,8 @@
 
 .task_sidebar_button:hover {
   background-color: $grayColor;
+}
+
+.flexStart{
+  @include flexRowStart();
 }
