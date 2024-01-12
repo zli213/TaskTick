@@ -9,8 +9,6 @@ import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
-  console.log(status);
   const user = session?.user;
   return (
     <nav className={styles.navbarContainer}>
@@ -22,11 +20,11 @@ const Navbar = () => {
         <Link href="/about">About</Link>
         {!user && (
           <>
-            <Link href="auth/signin">
+            <Link href="/auth/signin">
               <button className={styles.loginButton}>Login</button>
             </Link>
 
-            <Link href="/register">
+            <Link href="/auth/register">
               <button className={styles.loginButton}>Register</button>
             </Link>
           </>

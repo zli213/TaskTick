@@ -10,33 +10,37 @@ const SignupForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ formData }),
-    });
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
 
-    if (!response.ok) {
-      const contentType = response.headers.get("Content-Type");
-      if (contentType && contentType.includes("application/json")) {
-        try {
-          const errorData = await response.json();
-          setErrorMessage(errorData.message);
-        } catch (error) {
+      if (!response.ok) {
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          try {
+            const errorData = await response.json();
+            setErrorMessage(errorData.message);
+          } catch (error) {
+            setErrorMessage(
+              "An error occurred, and the server didn't send any additional information."
+            );
+          }
+        } else {
           setErrorMessage(
-            "An error occurred, and the server didn't send any additional information."
+            "An error occurred, and the server's response was not in JSON format."
           );
         }
       } else {
-        setErrorMessage(
-          "An error occurred, and the server's response was not in JSON format."
-        );
+        router.refresh();
+        router.push("/auth/signin");
       }
-    } else {
-      router.refresh();
-      router.push("/auth/signin");
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again later.");
     }
   };
   const handleChange = (e) => {
