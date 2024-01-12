@@ -229,13 +229,13 @@ function TaskNameInput(
       const range = sel.getRangeAt(0);
 
       // the key arrowUp and arrowDown are used for selecting the tags in the dropdown list.
-      if (e.key == "ArrowUp") {
+      if (e.key === "ArrowUp") {
         e.preventDefault();
         if (isShowTagMatchFlag.current) {
           dropDownRef.current.reduceOnIndex();
         }
       }
-      if (e.key == "ArrowDown") {
+      if (e.key === "ArrowDown") {
         e.preventDefault();
         if (isShowTagMatchFlag.current) {
           dropDownRef.current.increaseOnIndex();
@@ -243,7 +243,7 @@ function TaskNameInput(
       }
 
       // if the range go out of the matching tag span, make the matching tag as a text node.
-      if (e.key == "ArrowLeft") {
+      if (e.key === "ArrowLeft") {
         if (
           sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
           range.startOffset === 1
@@ -254,7 +254,7 @@ function TaskNameInput(
           hideTagMatch();
         }
       }
-      if (e.key == "ArrowRight") {
+      if (e.key === "ArrowRight") {
         if (
           sel.anchorNode.parentNode.getAttribute("match-type") === "matching" &&
           range.startOffset === sel.anchorNode.length

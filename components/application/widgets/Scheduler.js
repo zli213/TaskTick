@@ -24,7 +24,11 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
 
   const weekend = new Date(
     today.getTime() +
-      (6 - today.getDay() + (today.getDay() == 6 ? 7 : 0)) * 24 * 60 * 60 * 1000
+      (6 - today.getDay() + (today.getDay() === 6 ? 7 : 0)) *
+        24 *
+        60 *
+        60 *
+        1000
   );
 
   const nextWeek = new Date(
@@ -40,7 +44,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
 
   /** incoming data, which date should be selected by default. If it is empty, return new Date(), if not, return the date */
   const selectedDate =
-    data.selectedDate == null || data.selectedDate == ""
+    data.selectedDate === null || data.selectedDate === ""
       ? new Date()
       : new Date(data.selectedDate);
 
@@ -88,8 +92,8 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
     /** What is the first week day of the month (Sunday:0)*/
     const firstWeekDay = new Date(month.year, month.month - 1, 1).getDay();
     if (
-      month.year == today.getFullYear() &&
-      month.month == today.getMonth() + 1
+      month.year === today.getFullYear() &&
+      month.month === today.getMonth() + 1
     ) {
       height = Math.ceil((days + firstWeekDay) / 7) * 26;
     } else {
@@ -136,10 +140,10 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
         continue;
       }
 
-      if (data.selectedDate != "") {
+      if (data.selectedDate !== "") {
         if (
-          selectedDate.getFullYear() == monthItem.year &&
-          selectedDate.getMonth() + 1 == monthItem.month
+          selectedDate.getFullYear() === monthItem.year &&
+          selectedDate.getMonth() + 1 === monthItem.month
         ) {
           monthItem.selected = selectedDate.getDate();
         }
@@ -259,7 +263,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
     // set default scroll position by incoming parameter 'data'
     calendarRef.current?.scrollTo(
       0,
-      currentDispMonth.current.top == 0 ? 0 : currentDispMonth.current.top + 32
+      currentDispMonth.current.top === 0 ? 0 : currentDispMonth.current.top + 32
     );
   }, []);
 
@@ -274,8 +278,8 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
   };
   const goToPrevMonth = () => {
     if (
-      currentDispMonth.current.year == thisMonth.year &&
-      currentDispMonth.current.month == thisMonth.month
+      currentDispMonth.current.year === thisMonth.year &&
+      currentDispMonth.current.month === thisMonth.month
     ) {
       return false;
     }
@@ -283,7 +287,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
       currentDispMonth.current.top -
       calcMonthH(monthCalc(currentDispMonth.current, -1)) +
       32;
-    if (top == 32) {
+    if (top === 32) {
       top = 0;
     }
     calendarRef.current?.scrollTo(0, top);
@@ -320,7 +324,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
           className={styles.scheduler_quickbutton}
           onClick={() => selectDate(weekend)}
         >
-          {today.getDay() == 6 || today.getDay() == 0 ? (
+          {today.getDay() === 6 || today.getDay() === 0 ? (
             <>
               Next Weekend
               <div>
@@ -336,7 +340,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
           )}
         </button>
         {/* If today is Sunday, not display. */}
-        {today.getDay() == 0 ? null : (
+        {today.getDay() === 0 ? null : (
           <button
             className={styles.scheduler_quickbutton}
             onClick={() => selectDate(nextWeek)}
@@ -405,14 +409,14 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
 
 // Convert selected date to string [today, tomorrow....]
 function convertSelectedDate(date) {
-  if (date == "") {
+  if (date === "") {
     return "Due date";
   }
   const sameDate = (date1, date2) => {
     if (
-      date1.getFullYear() == date2.getFullYear() &&
-      date1.getMonth() == date2.getMonth() &&
-      date1.getDate() == date2.getDate()
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
     ) {
       return true;
     }
