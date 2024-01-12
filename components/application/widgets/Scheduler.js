@@ -44,7 +44,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
 
   /** incoming data, which date should be selected by default. If it is empty, return new Date(), if not, return the date */
   const selectedDate =
-    data.selectedDate === null || data.selectedDate === ""
+    data.selectedDate == null || data.selectedDate === ""
       ? new Date()
       : new Date(data.selectedDate);
 
@@ -121,7 +121,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick }) {
   const calcTopByMonth = (month) => {
     let top = 0;
     let m = deepClone(month);
-    while (m.year != thisMonth.year && m.month != thisMonth.month) {
+    while (m.year !== thisMonth.year && m.month !== thisMonth.month) {
       top = top + calcMonthH(monthCalc(m, -1));
       m = monthCalc(m, -1);
     }
@@ -442,7 +442,7 @@ function convertSelectedDate(date) {
 
 export function formatDate(inDate) {
   let dateJson = { dateTime: null, dateStr: "" };
-  if (inDate != "") {
+  if (inDate !== "") {
     dateJson.dateTime = inDate;
     dateJson.dateStr =
       inDate.getFullYear() +

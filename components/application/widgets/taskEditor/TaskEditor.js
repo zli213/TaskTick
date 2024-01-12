@@ -34,12 +34,12 @@ function TaskEditor({
   submitCallBack,
 }) {
   // Default values
-  if (formType === null) {
+  if (formType == null) {
     formType = "add";
   }
-  if (taskData === null) {
+  if (taskData == null) {
     taskData = {
-      id: "",
+      _id: "",
       selectedDate: "",
       priority: 4,
       taskName: "",
@@ -47,13 +47,14 @@ function TaskEditor({
       tags: ["Reading1", "Daily"],
     };
   }
-  if (tagList === null) {
+  console.log(taskData);
+  if (tagList == null) {
     tagList = ["Reading1", "Reading2", "Daily", "Weekly"];
   }
-  if (cancelCallBack === null) {
+  if (cancelCallBack == null) {
     cancelCallBack = () => {};
   }
-  if (submitCallBack === null) {
+  if (submitCallBack == null) {
     submitCallBack = () => {};
   }
 
@@ -61,12 +62,12 @@ function TaskEditor({
 
   /** record the editing task */
   let newTaskData = useRef({
-    id: taskData.id === null ? "" : taskData.id,
-    selectedDate: taskData.selectedDate === null ? "" : taskData.selectedDate,
-    priority: taskData.priority === null ? 4 : taskData.priority,
-    taskName: taskData.taskName === null ? "" : taskData.taskName,
-    taskContent: taskData.taskContent === null ? "" : taskData.taskContent,
-    tags: taskData.tags === null ? ["Reading1", "Daily"] : taskData.tags,
+    _id: taskData._id == null ? "" : taskData._id,
+    selectedDate: taskData.selectedDate == null ? "" : taskData.selectedDate,
+    priority: taskData.priority == null ? 4 : taskData.priority,
+    taskName: taskData.taskName == null ? "" : taskData.taskName,
+    taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
+    tags: taskData.tags == null ? ["Reading1", "Daily"] : taskData.tags,
   });
 
   /** update newTaskData */

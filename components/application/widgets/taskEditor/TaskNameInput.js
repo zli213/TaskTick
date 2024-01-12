@@ -133,8 +133,8 @@ function TaskNameInput(
     } else {
       // if the tag node is not the last node, and if no space after it, add a space text node after it.
       if (
-        matchingNode.nextSibling.textContent.charAt(0) != " " &&
-        matchingNode.nextSibling.textContent.charAt(0) != "\u00a0"
+        matchingNode.nextSibling.textContent.charAt(0) !== " " &&
+        matchingNode.nextSibling.textContent.charAt(0) !== "\u00a0"
       ) {
         matchingNode.parentNode.insertBefore(
           textSpace,
@@ -304,7 +304,7 @@ function TaskNameInput(
       const range = sel.getRangeAt(0);
 
       // if it is not in a matching span when comes a new input, make the matching span (if exist) to be a text node.
-      if (sel.anchorNode.parentNode.getAttribute("match-type") != "matching") {
+      if (sel.anchorNode.parentNode.getAttribute("match-type") !== "matching") {
         const root = document.getElementById("taskName");
         const allNodes = root.childNodes;
         for (let key in allNodes) {
@@ -329,7 +329,7 @@ function TaskNameInput(
       if (sel.anchorNode.parentNode.hasAttribute("match-type")) {
         // The range.startOffset === 1 means the range is in the very front of the div,
         // which is the only case that the cursor is in the front and inside a span
-        if (k != "Backspace" && range.startOffset === 1) {
+        if (k !== "Backspace" && range.startOffset === 1) {
           // the new character will be the first character of the span. Delete it and insert a new node before the span
           sel.anchorNode.textContent = sel.anchorNode.textContent.substring(1);
           if (k === "@") {
@@ -425,8 +425,8 @@ function TaskNameInput(
             } else {
               // if the tag node is not the last node, and if no space after it, add a space text node after it.
               if (
-                matchingNode.nextSibling.textContent.charAt(0) != " " &&
-                matchingNode.nextSibling.textContent.charAt(0) != "\u00a0"
+                matchingNode.nextSibling.textContent.charAt(0) !== " " &&
+                matchingNode.nextSibling.textContent.charAt(0) !== "\u00a0"
               ) {
                 matchingNode.parentNode.insertBefore(
                   textSpace,
@@ -517,7 +517,7 @@ function TaskNameInput(
     // when task name div blured (click an other element), hide drop down list.
     // if add blur event listener, the drop down list will hide first so that the btns can not be clicked.
     const taskNameBlur = (e) => {
-      if (document.activeElement.getAttribute("id") != "taskName") {
+      if (document.activeElement.getAttribute("id") !== "taskName") {
         setIsShowTagMatch(false);
       }
       return () => {
