@@ -6,7 +6,7 @@
  *
  */
 
-import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 
 function DatePicker({ onDateSelect, data }) {
   const month = data.month;

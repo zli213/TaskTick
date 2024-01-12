@@ -11,7 +11,7 @@
  * <Scheduler data={selectedDate:"yyyy-mm-dd" onChangeDate={(data)=>{...}} onOverlayClick={()=>{...}} />
  */
 
-import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 

@@ -47,7 +47,6 @@ function TaskEditor({
       tags: ["Reading1", "Daily"],
     };
   }
-  console.log(taskData);
   if (tagList == null) {
     tagList = ["Reading1", "Reading2", "Daily", "Weekly"];
   }
