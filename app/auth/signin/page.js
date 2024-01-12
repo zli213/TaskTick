@@ -8,6 +8,7 @@ import { ChangeEvent, useState } from "react";
 import styles from "../../../styles/scss/signin.module.scss";
 import Link from "next/link";
 import Navbar from "../../../components/pages/Navbar";
+import Icon from "../../../components/application/widgets/Icon";
 
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,6 @@ const SignInPage = () => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
-  const input_style = "p-2 my-2 border border-gray-400 rounded-md";
 
   return (
     <>
@@ -92,7 +92,7 @@ const SignInPage = () => {
               }
               role="button"
             >
-              <img className={styles.icon} src="/images/google.svg" alt="" />
+              <Icon type="google" className={styles.icon} />
               Continue with Google
             </a>
           </div>
@@ -105,7 +105,7 @@ const SignInPage = () => {
               }
               role="button"
             >
-              <img className={styles.icon} src="/images/github.svg" alt="" />
+              <Icon type="github" className={styles.icon} />
               Continue with GitHub
             </a>
           </div>
