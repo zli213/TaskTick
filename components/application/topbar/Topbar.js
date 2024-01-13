@@ -5,7 +5,7 @@ import UserMenu from "./UserMenu";
 import NewTaskCard from "./NewTaskCard";
 import Link from "next/link";
 import styles from "../../../styles/scss/topbar.module.scss";
-import MenuIcon from "../../../public/icon/menu.svg";
+import Icon from "../widgets/Icon";
 
 const Topbar = ({ switchHandler }) => {
   const [showUserMenu, setShowMenu] = useState(false);
@@ -23,10 +23,14 @@ const Topbar = ({ switchHandler }) => {
     <nav className={styles.app_nav}>
       <div className={`${styles.avatar_button} ${styles.flex_center}`}>
         <div onClick={switchHandler} className={styles.flex_center}>
-          <MenuIcon />
+          <Icon type="top_menu" />
         </div>
-        <Link href="/application/today">Home</Link>
-        <div>Search</div>
+        <Link href="/application/today" className={styles.flex_center}>
+          <Icon type="home" />
+        </Link>
+        <div className={styles.flex_center}>
+          <Icon type="search" />
+        </div>
       </div>
       <div className={styles.flex_center}>
         <div onClick={switchAddTaskCard} className={styles.avatar_button}>
