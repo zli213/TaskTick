@@ -39,9 +39,7 @@ function Today(props) {
   return (
     <>
       <div className={styles.view_header}>
-        <div
-          className={styles.view_header_content}
-        >
+        <div className={styles.view_header_content}>
           <div>
             <h1>Today</h1>
             {props.num && (

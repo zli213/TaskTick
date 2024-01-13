@@ -35,7 +35,7 @@ export default async function AppPage({ params }) {
 
     case "setting":
       return <Today data={tasks} settingMenu={"account"} />;
-      
+
     default:
       notFound();
   }
