@@ -1,0 +1,44 @@
+@use "./utils/variable" as *;
+
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  .inputGroup {
+    width: 100%;
+    margin-bottom: 1rem;
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    input {
+      font: inherit;
+      display: block;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0.15rem 0.25rem;
+    }
+    input:focus {
+      outline: none;
+      border-color: #4f005f;
+    }
+  }
+  .submit {
+    background-color: #007bff;
+    &:hover {
+      background-color: #0056b3;
+    }
+    width: 100%;
+    padding: 5px;
+    border-radius: $borderRadius;
+  }
+}

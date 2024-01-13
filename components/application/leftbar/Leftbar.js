@@ -4,9 +4,8 @@ import { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
-import AddIcon from "../../../public/icon/add.svg";
-import ArrowIcon from "../../../public/icon/down_arrow.svg";
 import NewProject from "../widgets/NewProject";
+import Icon from "../widgets/Icon";
 
 function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
@@ -80,33 +79,35 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
           </Link>
           <div className={styles.leftbar_btn}>
             <button onClick={showCardHandler}>
-              <AddIcon />
+              <Icon type="add" />
             </button>
             <button
               onClick={clickListHandler}
               className={showList ? "" : styles.show_project_icon}
             >
-              <ArrowIcon />
+              <Icon type="down_arrow" />
             </button>
           </div>
         </div>
 
-        <div className={`${styles.project_list} ${!showList && styles.project_list_hide}`}>
-          {
-            projects.map((project) => (
-              <LeftItem
-                key={project.projectId}
-                label={project.name}
-                link={`/application/project/${project.projectId}`}
-                type="project"
-                num={project.num}
-                onClickHandler={() =>
-                  handleItemClick(`project/${project.projectId}`)
-                }
-                isSelected={selectedItemType === `project/${project.projectId}`}
-              />
-            ))
+        <div
+          className={`${styles.project_list} ${
+            !showList && styles.project_list_hide
+          }`}
+        >
+          {projects.map((project) => (
+            <LeftItem
+              key={project.projectId}
+              label={project.name}
+              link={`/application/project/${project.projectId}`}
+              type="project"
+              num={project.num}
+              onClickHandler={() =>
+                handleItemClick(`project/${project.projectId}`)
               }
+              isSelected={selectedItemType === `project/${project.projectId}`}
+            />
+          ))}
         </div>
       </div>
       {showAddCard && <NewProject closeHandler={showCardHandler} />}
