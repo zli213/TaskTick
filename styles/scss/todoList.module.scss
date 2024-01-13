@@ -2,6 +2,43 @@
 
 .section {
   width: 100%;
-  margin: 0 auto;
   max-width: $maxListWidth;
+}
+
+.todolist_header{
+  @include flexRowBetween();
+  margin: $marginMd auto 0;
+  position: relative;
+  border-bottom: 1px solid $grayColor;
+  padding: $paddingXsm 0;
+}
+
+.content_wrapper{
+  position: absolute;
+  left: -3rem;
+  color: $textSecondaryColor;
+  width: 24px;
+  height: 24px;
+  border-radius: $borderRadiusXsm;
+  @include flexRowStart();
+
+  svg {
+ 
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $midGrayColor;
+  }
+}
+
+.content_wrapper_rotate {
+  svg {
+    transform: rotate(-90deg) ;    
+    transition: all 0.3s;
+  }
+}
+
+.task_item_action_menu {
+  @include menuItems();
 }

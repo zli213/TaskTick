@@ -10,24 +10,37 @@ import {
   convertDate,
   formatDate,
 } from "../../../application/widgets/Scheduler";
-import CalenderIcon from "../../../../public/icon/calender.svg";
-import FlagIcon from "../../../../public/icon/flag.svg";
 import Scheduler from "../../../application/widgets/Scheduler";
+import Icon from "../../../application/widgets/Icon";
 
 export default function TaskDetailsSidebar({ task }) {
-  const dateJson = formatDate(task.dueDate);
+  const dateJson =  task.dueDate ? formatDate(task.dueDate) : "";
+  const hasDue = task.dueDate == null ? false : true;
+
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
-  
+
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
-  const showScheduler = () => {
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
+
+  const showScheduler = (event) => {
+    const buttonRect = event.target.getBoundingClientRect();
+    setButtonPosition({
+      width: 0,
+      top: buttonRect.bottom,
+      left: buttonRect.left,
+      bottom: buttonRect.top,
+      right: buttonRect.right,
+    });
     setIsShowScheduler(true);
   };
+
+
   const hideScheduler = () => {
     setIsShowScheduler(false);
   };
@@ -46,17 +59,18 @@ export default function TaskDetailsSidebar({ task }) {
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Due date</h4>
-          <button
+          {hasDue && (<button
             className={styles.task_sidebar_button}
             onClick={showScheduler}
           >
-            <div>
-              <CalenderIcon />
+            <div className={styles.flexStart}>
+              <Icon type="calender" />
             </div>
             <span>{convertDate(selectedDate)}</span>
-          </button>
+          </button>)}
           {isShowScheduler && (
             <Scheduler
+              position={buttonPosition}
               data={{ selectedDate: selectedDate }}
               onChangeDate={(dateJson) => {
                 changeSelectedDate(dateJson);
@@ -70,8 +84,8 @@ export default function TaskDetailsSidebar({ task }) {
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
           <button className={styles.task_sidebar_button}>
-            <div>
-              <FlagIcon />
+            <div className={styles.flexStart}>
+              <Icon type="flag" />
             </div>
             <span>{task.priority}</span>
           </button>
@@ -93,8 +107,8 @@ export default function TaskDetailsSidebar({ task }) {
           </div>
           <div className={styles.task_tags_container}>
             {task.tags &&
-              task.tags.map((tag) => (
-                <span className={styles.task_tag_item}>
+              task.tags.map((tag, index) => (
+                <span className={styles.task_tag_item} key={index}>
                   <span>{tag} </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -19,35 +19,37 @@ export default function SettingModal({ params }) {
       case "password":
         setActivePage(<SetPassword />);
         break;
-        case "deleteaccount":
-          setActivePage(<DeleteAccount />);
-          break;  
+      case "deleteaccount":
+        setActivePage(<DeleteAccount />);
+        break;
       default:
         setActivePage(<CatchAll />);
         break;
-      } 
+    }
   }, [params]);
 
   return (
     <Modal>
-      <div className={styles.setting_left}>
-        <h2>Settings</h2>
-        <div>Search</div>
-        <ul>
-          <li>
-            <Link href="/application/setting/account" scroll={false}>
-              account
-            </Link>
-          </li>
-          <li>
-            <Link href="/application/setting/theme" scroll={false}>
-              theme
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div className={styles.setting_right}>
-        <div>{activePage}</div>
+      <div className={styles.setting_modal_container}>
+        <div className={styles.setting_left}>
+          <h2>Settings</h2>
+          <div>Search</div>
+          <ul>
+            <li>
+              <Link href="/application/setting/account" scroll={false}>
+                account
+              </Link>
+            </li>
+            <li>
+              <Link href="/application/setting/theme" scroll={false}>
+                theme
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className={styles.setting_right}>
+          <div>{activePage}</div>
+        </div>
       </div>
     </Modal>
   );

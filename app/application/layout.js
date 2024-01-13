@@ -1,36 +1,23 @@
-// "use client";
-
-// import { useState } from "react";
-import styles from "../../styles/scss/application.module.scss";
-import Leftbar from "../../components/application/leftbar/Leftbar";
-import Topbar from "../../components/application/topbar/Topbar";
 import getProjects from "../../src/utils/data/getProjects";
 import getTodayNum from "../../src/utils/data/getTodayNum";
 import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
+import ClientLayout from "../../components/pages/AppPages/ClientLayout";
 
 export default async function AppLayout(props) {
-  // const [showLeftBar, setShowLeftBar] = useState(false);
-
-  // const switchLeftBar = () => {
-  //   setShowLeftBar((prevState) => !prevState);
-  // };
-
   var projects = await getProjects("johndoe123");
-  projects =  JSON.parse(JSON.stringify( (await updateInfo(projects))));
+  projects = JSON.parse(JSON.stringify(await updateInfo(projects)));
   const inboxNum = await getInboxNum("johndoe123");
   const todayNum = await getTodayNum("johndoe123");
 
   return (
-    <div className={styles.app_layout}>
-      <Topbar /*switchHandler={switchLeftBar} */ />
-      <div id="app-holder" className={styles.app_holder}>
-        <Leftbar projects={projects} inboxNum={inboxNum} todayNum={todayNum} />
-        <div className={styles.content_holder}>{props.children}</div>
-      </div>
+    <>
+      <ClientLayout projects={projects} inboxNum={inboxNum} todayNum={todayNum}>
+        {props.children}
+      </ClientLayout>
       <div id="modal_box">{props.settingModal}</div>
       <div id="task_modal_box">{props.taskModal}</div>
-    </div>
+    </>
   );
 }
 

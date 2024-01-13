@@ -1,4 +1,6 @@
-export default function TodayIconSelected({ day }) {
+export default function TodayIconSelected() {
+
+
   return (
     <svg
       width="24"
@@ -20,7 +22,7 @@ export default function TodayIconSelected({ day }) {
         fontWeight="500"
       >
         <tspan x="8" y="15" textAnchor="middle" fill="white">
-          {day}
+          {new Date().getDate()}
         </tspan>
       </text>
     </svg>

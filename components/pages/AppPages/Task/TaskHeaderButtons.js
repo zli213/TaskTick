@@ -11,9 +11,7 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../../styles/scss/task.module.scss";
-import CloseButton from "../../../../public/icon/close.svg";
-import UpArrow from "../../../../public/icon/up_arrow.svg";
-import DownArrow from "../../../../public/icon/down_arrow.svg";
+import Icon from "../../../application/widgets/Icon";
 
 export default function TaskHeaderButton() {
   const router = useRouter();
@@ -26,10 +24,14 @@ export default function TaskHeaderButton() {
 
   return (
     <div className={styles.task_header_button}>
-      <button><UpArrow /></button>
-      <button><DownArrow /></button>
+      <button>
+        <Icon type="up_arrow" />
+      </button>
+      <button>
+        <Icon type="down_arrow" />
+      </button>
       <button onClick={onDismiss}>
-        <CloseButton />
+        <Icon type="close" />
       </button>
     </div>
   );
