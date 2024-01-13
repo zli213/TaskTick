@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import TaskEditor from "./TaskEditor";
+import TaskEditor from "./taskEditor/TaskEditor";
 
 function AddTask() {
   // Show/Hide add task btn
@@ -20,12 +20,6 @@ function AddTask() {
   const hideTaskEditor = () => {
     setIsShowTaskEditor(false);
   };
-
-  // call showMe function in taskEditor
-  //   const taskEditorRef = useRef();
-  //   const showTaskEditor = () => {
-  //     taskEditorRef.current?.showMe();
-  //   };
 
   return (
     <>
@@ -55,6 +49,7 @@ function AddTask() {
             showAddBtn();
             hideTaskEditor();
           }}
+          submitCallBack={() => {}}
         />
       ) : null}
     </>

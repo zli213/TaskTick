@@ -7,13 +7,14 @@ const nextConfig = {
       includePaths: [path.join(__dirname, "src/styles/scss")],
     },
   },
+  reactStrictMode: false,
   webpack: (config, { isServer }) => {
     // Use @svgr/webpack Handle SVG file
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ["@svgr/webpack"],
     });
-  
+
     // For other picture resourse, use asset/resource
     if (!isServer) {
       config.module.rules.push({
@@ -21,7 +22,7 @@ const nextConfig = {
         type: "asset/resource",
       });
     }
-  
+
     return config;
   },
   // temporary, will be removed when the images are hosted on a local server
