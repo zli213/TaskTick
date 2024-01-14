@@ -1,5 +1,10 @@
 // App.scss
 @use "./utils/" as *;
+@import "./utils/theme";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .homeContainer {
   display: flex;
   flex-direction: column;
@@ -18,4 +23,12 @@
     text-align: center;
     justify-items: center;
   }
+}
+
+.theme--dark {
+  color: map-get(map-get($themes, "dark"), "base1");
+}
+
+.theme--light {
+  color: map-get(map-get($themes, "light"), "base1");
 }

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Navbar from "../components/pages/Navbar";
 import "../styles/scss/globals.scss";
+import ModeToggle from "../components/application/widgets/ToggleButton";
 
 export default function Home() {
   return (
-    <div className="homeContainer">
+    <div className="homeContainer antialiased font-sans text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-900 w-full">
+      <ModeToggle/>
       <div>
         <Navbar />
       </div>

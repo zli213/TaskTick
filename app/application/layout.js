@@ -4,7 +4,6 @@ import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
 import ClientLayout from "../../components/pages/AppPages/ClientLayout";
 import "../../styles/scss/globals.scss";
-import { ThemeProvider } from "../../components/application/widgets/ThemeProvider";
 
 export default async function AppLayout(props) {
   var projects = await getProjects("johndoe123");
@@ -14,14 +13,12 @@ export default async function AppLayout(props) {
 
   return (
     <>
-    <ThemeProvider>
             <ClientLayout projects={projects} inboxNum={inboxNum} todayNum={todayNum}>
         {props.children}
       </ClientLayout>
       <div id="modal_box">{props.settingModal}</div>
       <div id="task_modal_box">{props.taskModal}</div>
 
-    </ThemeProvider>
     </>
   );
 }

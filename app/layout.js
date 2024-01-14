@@ -1,5 +1,5 @@
 import "../styles/scss/globals.scss";
-import { ThemeProvider } from "../components/application/widgets/ThemeProvider";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: "Todo APP",
@@ -9,9 +9,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <ThemeProvider attribute="class">
       <body>
-        <main>{children}</main>
+          <main>{children}</main>
       </body>
+      </ThemeProvider>
     </html>
   );
 }
