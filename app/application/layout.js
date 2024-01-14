@@ -11,7 +11,6 @@ import { redirect } from "next/navigation";
 
 export default async function AppLayout(props) {
   const session = await getServerSession(options);  
-  console.log('ddd', session);
   if(session == null){
     redirect('/auth/signin');
   }
