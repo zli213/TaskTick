@@ -73,7 +73,7 @@ function DatePicker({ onDateSelect, data }) {
         style={{ top: data.top + "px" }}
       >
         {/* Not show the month string of the current month */}
-        {today.getFullYear().toString() + today.getMonth().toString() ==
+        {today.getFullYear().toString() + today.getMonth().toString() ===
         renderdate.getFullYear().toString() +
           renderdate.getMonth().toString() ? null : (
           <div className={styles.datepicker_calendar_header}>{monthString}</div>
@@ -86,7 +86,7 @@ function DatePicker({ onDateSelect, data }) {
               className={styles.datepicker_calendar_week}
             >
               {item.days.map((itemDays) =>
-                itemDays == "" ? (
+                itemDays === "" ? (
                   <div key={tempKey++}></div>
                 ) : (
                   <button
@@ -99,17 +99,17 @@ function DatePicker({ onDateSelect, data }) {
                   >
                     <span
                       className={
-                        selected > 0 && selected == itemDays
+                        selected > 0 && selected === itemDays
                           ? styles.datepicker_selected
                           : styles.datepicker_normal
                       }
                     >
                       <span
                         className={
-                          year == today.getFullYear() &&
-                          month == today.getMonth() + 1 &&
-                          itemDays == today.getDate() &&
-                          itemDays != selected
+                          year === today.getFullYear() &&
+                          month === today.getMonth() + 1 &&
+                          itemDays === today.getDate() &&
+                          itemDays !== selected
                             ? styles.datepicker_today
                             : null
                         }

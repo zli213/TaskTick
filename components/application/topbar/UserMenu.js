@@ -1,5 +1,6 @@
 import styles from "../../../styles/scss/userMenu.module.scss";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function UserMenu({ closeUserMenuHandler }) {
   const containerClickHandler = (event) => {
@@ -14,7 +15,7 @@ export default function UserMenu({ closeUserMenuHandler }) {
           <span onClick={closeUserMenuHandler}>Setting</span>
         </Link>
 
-        <div>Logout</div>
+        <div onClick={()=>signOut()}>Logout</div>
       </div>
     </div>
   );

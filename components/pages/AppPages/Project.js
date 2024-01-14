@@ -4,14 +4,13 @@ import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
 import React, { useEffect } from "react";
 
-
 export default function Project({ projectId, projectName, tasks, boards }) {
   const groupedTasks = {};
   boards.forEach((boardName) => {
     if (!groupedTasks[boardName]) {
       groupedTasks[boardName] = [];
     }
-  })
+  });
   tasks.forEach((task) => {
     const boardName = task.board;
     if (!groupedTasks[boardName]) {
@@ -47,13 +46,18 @@ export default function Project({ projectId, projectName, tasks, boards }) {
         </div>
       </div>
       <div className={styles.list_box}>
-         <TodoList tasks={groupedTasks[undefined]} />
-        {boards ? 
-          Object.keys(groupedTasks)
-            .filter((boardName) => boardName != "undefined")
-            .map((boardName) => (
-              <TodoList key={boardName} title={boardName} tasks={groupedTasks[boardName]} />
-            )) : ""}
+        <TodoList tasks={groupedTasks[undefined]} />
+        {boards
+          ? Object.keys(groupedTasks)
+              .filter((boardName) => boardName != "undefined")
+              .map((boardName) => (
+                <TodoList
+                  key={boardName}
+                  title={boardName}
+                  tasks={groupedTasks[boardName]}
+                />
+              ))
+          : ""}
         {tasks[0] == null ? noTasks : ""}
       </div>
     </>

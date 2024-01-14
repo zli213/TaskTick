@@ -49,6 +49,11 @@ import UnCheckButton from "../../../public/icon/uncheck_grey_button.svg";
 import UpArrowIcon from "../../../public/icon/up_arrow.svg";
 import CheckIcon from "../../../public/icon/check_mark.svg";
 import CheckSmallIcon from "../../../public/icon/check_small.svg";
+import GithubIcon from "../../../public/icon/github.svg";
+import GoogleIcon from "../../../public/icon/google.svg";
+import HorizonPageIcon from "../../../public/icon/horizon_page.svg";
+import BoardIcon from "../../../public/icon/vertical_page.svg";
+import LeftArrow from "../../../public/icon/left_arrow.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -127,6 +132,16 @@ const Icon = ({ type, ...props }) => {
         return <HashtagSmallIcon {...props} />;
       case "setting":
         return <SettingIcon {...props} />;
+      case "github":
+        return <GithubIcon {...props} />;
+      case "google":
+        return <GoogleIcon {...props} />;
+      case "horizon_page":
+        return <HorizonPageIcon {...props} />;
+      case "vertical_page":
+        return <BoardIcon {...props} />;
+      case "left_arrow":
+        return <LeftArrow {...props} />;
 
       default:
         return null;

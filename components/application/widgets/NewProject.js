@@ -1,6 +1,6 @@
 /***
  * The card you can add or edit projects
- * 
+ *
  * Alart: now it only can add now project
  */
 
@@ -9,10 +9,7 @@
 import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import styles from "../../../styles/scss/newProject.module.scss";
-import DownArrowIcon from "../../../public/icon/down_arrow.svg";
-import ListIcon from "../../../public/icon/horizon_page.svg";
-import CalenderIcon from "../../../public/icon/upcoming.svg";
-import BoardIcon from "../../../public/icon/vertical_page.svg";
+import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
 
 export default function NewProject(props) {
@@ -104,7 +101,7 @@ export default function NewProject(props) {
                     <span className={styles.color_dropdown_select_color}></span>
                     <span>Black</span>{" "}
                   </div>
-                  <DownArrowIcon />
+                  <Icon type="down_arrow" />
                 </button>
               </div>
               <div className={styles.form_field}>
@@ -115,15 +112,15 @@ export default function NewProject(props) {
                 <div className={styles.form_field_title}>View</div>
                 <fieldset>
                   <div className={styles.selected_view}>
-                    <ListIcon />
+                    <Icon type="horizon_page" />
                     List
                   </div>
                   <div>
-                    <BoardIcon />
+                    <Icon type="vertical_page" />
                     Board
                   </div>
                   <div>
-                    <CalenderIcon />
+                    <Icon type="upcoming" />
                     Calender
                   </div>
                 </fieldset>
@@ -132,7 +129,9 @@ export default function NewProject(props) {
 
             <hr />
             <footer className={styles.footer_btn}>
-              { isWrong && <div className={styles.save_wrong}>Oops, something Wrong</div>}
+              {isWrong && (
+                <div className={styles.save_wrong}>Oops, something Wrong</div>
+              )}
               <button
                 onClick={props.closeHandler}
                 className={styles.btn_cancel}

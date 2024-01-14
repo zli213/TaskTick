@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/account.module.scss";
 import Link from "next/link";
-import CloseButton from "../../../public/icon/close.svg";
+import Icon from "../../application/widgets/Icon";
 
 const SettingAccount = () => {
   const router = useRouter();
@@ -17,17 +17,17 @@ const SettingAccount = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/account", { method: 'GET' });
+        const response = await fetch("/api/account", { method: "GET" });
 
-          if (response.ok) {
-            const data = await response.json();
-            setUserData(data);
-            setInputValue(data.username);
-            setUsername(data.username);
-          } else {
-            const errorData = await response.json();
-            setError(errorData.message || "Failed to fetch user data");
-          }
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+          setInputValue(data.username);
+          setUsername(data.username);
+        } else {
+          const errorData = await response.json();
+          setError(errorData.message || "Failed to fetch user data");
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setError("Failed to fetch user data. Please try again.");
@@ -37,10 +37,9 @@ const SettingAccount = () => {
     };
     fetchData();
   }, []);
-  
 
   //handle input changes
-  const inputChangeHandler =  (event) => {
+  const inputChangeHandler = (event) => {
     setInputValue(event.target.value);
   };
 
@@ -50,13 +49,13 @@ const SettingAccount = () => {
   }, [inputValue, username]);
 
   //help submit the form
-  async function handleSubmit () {
+  async function handleSubmit() {
     const res = await fetch("/api/account", {
-      method:'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ inputValue })
+      body: JSON.stringify({ inputValue }),
     });
     if (res.ok) {
       setUsername(inputValue);
@@ -77,11 +76,10 @@ const SettingAccount = () => {
       <header>
         <h4>Account Information</h4>
         <button onClick={onDismiss}>
-          <CloseButton/>
+          <Icon type="close" />
         </button>
       </header>
       {userData ? (
-        
         <form>
           <div>
             <label>Avatar</label>
@@ -90,7 +88,11 @@ const SettingAccount = () => {
 
           <div>
             <label>Username</label>
-            <input value={inputValue} type="text" onChange={inputChangeHandler}/>
+            <input
+              value={inputValue}
+              type="text"
+              onChange={inputChangeHandler}
+            />
           </div>
 
           <div>
@@ -98,7 +100,7 @@ const SettingAccount = () => {
             <p>{userData.email}</p>
             <span>
               <Link href="/application/setting/account/email">
-                Change Email Address        
+                Change Email Address
               </Link>
             </span>
           </div>
@@ -119,7 +121,10 @@ const SettingAccount = () => {
 
           <div>
             <label>Delete account</label>
-            <p>This will immediately delete all your data, including tasks, projects, comments, etc.</p>
+            <p>
+              This will immediately delete all your data, including tasks,
+              projects, comments, etc.
+            </p>
             <p>This cannot be undone.</p>
             <span>
               <Link href="/application/setting/account/deleteaccount">
@@ -128,12 +133,18 @@ const SettingAccount = () => {
             </span>
           </div>
 
-          <div className={`${styles.submitButton} ${showButton ? styles.visible : styles.hidden}`}>
-            {showButton && <button onClick={handleSubmit} type="button">Submit</button>}
+          <div
+            className={`${styles.submitButton} ${
+              showButton ? styles.visible : styles.hidden
+            }`}
+          >
+            {showButton && (
+              <button onClick={handleSubmit} type="button">
+                Submit
+              </button>
+            )}
           </div>
-
         </form>
-        
       ) : (
         <p>Loading...</p>
       )}
