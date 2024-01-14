@@ -1,5 +1,4 @@
 import ClientLayout from "../../components/pages/AppPages/ClientLayout";
-import SignInPage from "../auth/signin/page";
 
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
@@ -7,10 +6,15 @@ import getProjects from "../../src/utils/data/getProjects";
 import getTodayNum from "../../src/utils/data/getTodayNum";
 import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
+import { redirect } from "next/navigation";
 
 
 export default async function AppLayout(props) {
   const session = await getServerSession(options);  
+  console.log('ddd', session);
+  if(session == null){
+    redirect('/auth/signin');
+  }
 
   var projects = await getProjects(session.user.userId);
   projects = JSON.parse(JSON.stringify(await updateInfo(projects)));
