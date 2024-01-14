@@ -3,8 +3,8 @@
 import TodoList from "../../application/widgets/TodoList";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import styles from "../../../styles/scss/application.module.scss";
-import Icon from "../../application/widgets/Icon";
+import styles from "/styles/scss/application.module.scss";
+import Icon from "/components/application/widgets/Icon";
 
 function Today(props) {
   const router = useRouter();

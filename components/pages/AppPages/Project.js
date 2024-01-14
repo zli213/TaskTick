@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 
 export default function Project({ projectId, projectName, tasks, boards }) {
   const groupedTasks = {};
-  boards.forEach((boardName) => {
+  !boards ? boards : boards.forEach((boardName) => {
     if (!groupedTasks[boardName]) {
       groupedTasks[boardName] = [];
     }

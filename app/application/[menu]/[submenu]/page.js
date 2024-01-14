@@ -1,6 +1,9 @@
 import Project from "../../../../components/pages/AppPages/Project";
 import Today from "../../../../components/pages/AppPages/Today";
 import { notFound } from "next/navigation";
+
+import { getServerSession } from "next-auth";
+import { options } from "../../../api/auth/[...nextauth]/options";
 import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
 import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import TaskNotFound from "../../../../components/pages/NotFound/TaskNotFound";
@@ -10,6 +13,8 @@ import getProjectName from "../../../../src/utils/data/getProjectName";
 import getBoards from "../../../../src/utils/data/getBoards";
 
 export default async function SubAppPages({ params }) {
+  const session = await getServerSession(options);
+
   //Check if Task exist
   if (params.menu == "task") {
     var ifTaskExist = await checkTaskExist(params.submenu);
@@ -17,12 +22,15 @@ export default async function SubAppPages({ params }) {
       return <TaskNotFound />;
     }
   }
-  const tasks = await getOneUserTasks();
+  const tasks = await getOneUserTasks(session.user.userId);
 
   switch (params.menu) {
     case "project":
-      const projectName = await getProjectName(params.submenu);
-      const boards = await getBoards("johndoe123", params.submenu);
+      const projectName = await getProjectName(
+        session.user.userId,
+        params.submenu
+      );
+      const boards = await getBoards(session.user.userId , params.submenu);
       const projectTasks = tasks.filter((task) => {
         return task.projectId == params.submenu;
       });
@@ -36,7 +44,7 @@ export default async function SubAppPages({ params }) {
       );
 
     case "projects":
-      var projects = await getProjects("johndoe123");
+      var projects = await getProjects(session.user.userId);
       projects = JSON.parse(JSON.stringify(projects));
       return <MyProjects data={projects} />;
 
