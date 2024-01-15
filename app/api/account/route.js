@@ -11,9 +11,8 @@ export const GET = async () => {
   await connect();
   const session = await getServerSession(options);
 
-  const user = await User.findOne({ email: session.user.email });
-
   try {
+    const user = await User.findOne({ email: session.user.email });
     return NextResponse.json(user);
   } catch (error) {
     console.error(error);
