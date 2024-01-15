@@ -99,7 +99,6 @@ const DeleteAccount = () => {
           >
             Cancel
           </button>
-          {/* not working */}
           <button
             type="button"
             onClick={handleDelete}
