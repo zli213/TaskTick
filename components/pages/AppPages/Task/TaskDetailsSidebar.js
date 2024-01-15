@@ -12,11 +12,11 @@ import {
 } from "../../../application/widgets/Scheduler";
 import Scheduler from "../../../application/widgets/Scheduler";
 import Icon from "../../../application/widgets/Icon";
+import Link from "next/link";
 
 export default function TaskDetailsSidebar({ task }) {
-  const dateJson =  task.dueDate ? formatDate(task.dueDate) : "";
+  const dateJson = task.dueDate ? formatDate(task.dueDate) : "";
   const hasDue = task.dueDate == null ? false : true;
-
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
@@ -40,7 +40,6 @@ export default function TaskDetailsSidebar({ task }) {
     setIsShowScheduler(true);
   };
 
-
   const hideScheduler = () => {
     setIsShowScheduler(false);
   };
@@ -59,15 +58,17 @@ export default function TaskDetailsSidebar({ task }) {
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Due date</h4>
-          {hasDue && (<button
-            className={styles.task_sidebar_button}
-            onClick={showScheduler}
-          >
-            <div className={styles.flexStart}>
-              <Icon type="calender" />
-            </div>
-            <span>{convertDate(selectedDate)}</span>
-          </button>)}
+          {hasDue && (
+            <button
+              className={styles.task_sidebar_button}
+              onClick={showScheduler}
+            >
+              <div className={styles.flexStart}>
+                <Icon type="calender" />
+              </div>
+              <span>{convertDate(selectedDate)}</span>
+            </button>
+          )}
           {isShowScheduler && (
             <Scheduler
               position={buttonPosition}
@@ -95,31 +96,18 @@ export default function TaskDetailsSidebar({ task }) {
           <div className={styles.task_sidebar_label_title}>
             <h4>Labels</h4>
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 -960 960 960"
-                width="24"
-              >
-                <path d="M466-466H252v-28h214v-214h28v214h214v28H494v214h-28v-214Z" />
-              </svg>
+              <Icon type="add" />
             </span>
           </div>
           <div className={styles.task_tags_container}>
             {task.tags &&
               task.tags.map((tag, index) => (
-                <span className={styles.task_tag_item} key={index}>
-                  <span>{tag} </span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="20"
-                    viewBox="0 -960 960 960"
-                    width="20"
-                    fill="gray"
-                  >
-                    <path d="m324.154-301.077-23.077-23.077L455.923-480 301.077-634.846l23.077-23.077L480-503.077l154.846-154.846 23.077 23.077L503.077-480l154.846 155.846-23.077 23.077L480-455.923 324.154-301.077Z" />
-                  </svg>
-                </span>
+                <Link href={`/application/label/${tag}`}>
+                  <span className={styles.task_tag_item} key={index}>
+                    <span>{tag} </span>
+                    <Icon type="close_small" />
+                  </span>
+                </Link>
               ))}
           </div>
         </div>

@@ -68,7 +68,7 @@
   padding: 0 $marginLg;
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  margin: $marginXsm auto;
 }
 
 .content_box {
@@ -220,7 +220,7 @@
 //Filters-labels
 .filters_header {
   @include flexRowBetween();
-  margin: $marginMd auto 0;
+  margin: 0 auto ;
   position: relative;
   border-bottom: 1px solid $grayColor;
   padding: $paddingXsm 0;
@@ -234,6 +234,10 @@
   height: 24px;
   border-radius: $borderRadiusXsm;
   @include flexRowStart();
+
+  button svg{
+    @include flexRowBetween();
+  }
 
   svg {
     transition: all 0.3s;
@@ -294,5 +298,23 @@
 
   .right_menu_btn {
     padding-left: 4px;
+  }
+}
+
+.back_to_filter{
+  padding: $marginSm $marginLg 0;
+  z-index: 10;
+  color: $textSecondaryColor;
+  font-weight: 500;
+  font-size: $fontSizeSm;
+  line-height: $fontSizeSm;;
+
+  a{
+    padding: $paddingXsm 0.2rem;
+    border-radius: $borderRadiusSm;
+
+    &:hover{
+      background-color: $lightGrayColor;
+    }
   }
 }

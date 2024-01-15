@@ -3,10 +3,10 @@
 import TodoList from "../../application/widgets/TodoList";
 import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
-import AddTask from "../../application/widgets/AddTask";
+import NoTask from "../../application/widgets/NoTask";
+import Icon from "../../application/widgets/Icon";
 
 export default function Inbox(props) {
-  
   useEffect(() => {
     document.title = "Inbox - Todo";
     localStorage.setItem("lastPage", "inbox");
@@ -19,15 +19,20 @@ export default function Inbox(props) {
   return (
     <>
       <div className={styles.view_header}>
-        <div className={styles.view_header_content}>
+        <div
+          className={`${styles.view_header_content} ${styles.no_bottom_border}`}
+        >
           <h1>Inbox</h1>
-          <div>buttons</div>
+          <div><Icon type="view"/></div>
         </div>
       </div>
-      <div className={styles.list_box}>
-        <TodoList tasks={inBoxTasks} />
-        <AddTask />
-      </div>
+      {props.data.length == 0 ? (
+        <NoTask page="inbox" />
+      ) : (
+        <div className={styles.list_box}>
+          <TodoList tasks={inBoxTasks} />
+        </div>
+      )}
     </>
   );
 }

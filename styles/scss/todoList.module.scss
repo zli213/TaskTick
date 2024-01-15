@@ -3,11 +3,12 @@
 .section {
   width: 100%;
   max-width: $maxListWidth;
+  margin-bottom: $marginSm;
 }
 
 .todolist_header{
   @include flexRowBetween();
-  margin: $marginMd auto 0;
+  margin: $marginXsm auto 0;
   position: relative;
   border-bottom: 1px solid $grayColor;
   padding: $paddingXsm 0;

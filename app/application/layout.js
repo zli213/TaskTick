@@ -8,7 +8,6 @@ import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
 import { redirect } from "next/navigation";
 
-
 export default async function AppLayout(props) {
   const session = await getServerSession(options);  
   if(session == null){

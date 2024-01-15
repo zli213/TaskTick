@@ -86,10 +86,10 @@ export function SingleItems({
                 {selectedDate}
               </button>)}
               {tags.map((tag) => (
-                <span>
+                <Link href={`/application/label/${tag}`}>
                   <Icon type="small_tag" />
                   {tag}
-                </span>
+                </Link>
               ))}
             </div>
           </div>
