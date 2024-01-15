@@ -9,15 +9,18 @@ import connect from "../../../src/utils/data/db";
 import { NextResponse } from "next/server";
 import User from "../../../src/models/User";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
+import { options } from "../auth/[...nextauth]/options";
 
 export const POST = async (req) => {
   await connect();
+  const session = await getServerSession(options);
 
   const param = await req.json();
   const newId = new ObjectId();
 
   try {
-    const user = await User.find({ username: "johndoe123" }); //param need edit
+    const user = await User.find({ email: session.user.email });
 
     const newProjects = [
       ...user[0].projects,
@@ -27,12 +30,9 @@ export const POST = async (req) => {
       },
     ];
 
-    await User.updateOne(
-      { username: "johndoe123" },
-      { projects: newProjects }
-    );
+    await User.updateOne({ email: session.user.email }, { projects: newProjects });
 
-    return NextResponse.json({body: {projectId: newId}},{status:200 });
+    return NextResponse.json({ body: { projectId: newId } }, { status: 200 });
   } catch (error) {
     return new NextResponse(error, {
       status: 500,

@@ -8,12 +8,12 @@
 import connect from "./db";
 import User from "../../models/User";
 
-export default async function getProjectNum(projectId) {
+export default async function getProjectNum(userId, projectId) {
   //Connect to the DB
   await connect();
 
   try {
-    const user = await User.find({ username: "johndoe123" });
+    const user = await User.find({ _id: userId });
     const project = user[0].projects.filter(
       (item) => item.projectId.toString() == projectId
     );

@@ -1,9 +1,5 @@
 /**
  * Get tasks of one user from DB
- *
- * param: userId    //need update
- *
- *
  */
 
 import connect from "./db";
@@ -15,11 +11,11 @@ export default async function getOneUserTasks(userId) {
 
   try {
     //Find the tasks
-    const existingTasks = await Tasks.find({ username: "johndoe123" }); //need edit
+    const existingTasks = await Tasks.find({ userId: userId });
 
     //Transfor the ObjectID to String
     const tasks2 = existingTasks.map((task) => {
-      return transferTask(task);
+      return TransferTask(task);
     });
 
     return tasks2;
@@ -28,9 +24,8 @@ export default async function getOneUserTasks(userId) {
   }
 }
 
-
 //convert ObjectId to String
-export function transferTask(task){
+export function TransferTask(task) {
   return {
     _id: task._id.toString(),
     title: task.title,
