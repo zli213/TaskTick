@@ -4,7 +4,7 @@
 // import CloseButton from "../../../public/icon/close.svg";
 // import styles from "../../../styles/scss/theme.module.scss";
 // import ThemeToggle from "../../application/widgets/ThemeToggle";
-import ModeToggle from "../../application/widgets/ToggleButton";
+import ToggleButton from "../../application/widgets/ToggleButton";
 
 const SettingTheme = () => {
   // const router = useRouter();
@@ -27,7 +27,7 @@ const SettingTheme = () => {
 
   return (
     <>
-    <ModeToggle/>
+    <ToggleButton/>
     {/* <div className={styles.container}>
     <header>
         <h4>Account Information</h4>
