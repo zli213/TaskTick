@@ -1,5 +1,4 @@
-// export default Navbar;
-// components/Navbar/index.js
+
 "use client";
 
 import styles from "../../../styles/scss/navbar.module.scss";
@@ -13,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className={styles.navbarContainer}>
       <div className={styles.logo}>
-        <img className={styles.logoImage} src="./images/logo.png" alt="logo" />
+        <img className={styles.logoImage} src="/images/logo.png" alt="logo" />
       </div>
       <div className={styles.navLinks}>
         <Link href="/">Home</Link>

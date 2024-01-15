@@ -86,10 +86,10 @@ export function SingleItems({
                 {selectedDate}
               </button>)}
               {tags.map((tag) => (
-                <span>
+                <Link href={`/application/label/${tag}`}>
                   <Icon type="small_tag" />
                   {tag}
-                </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -126,7 +126,7 @@ export function SingleItems({
           <PopupMenu
             onOverlayClick={swithMenuHandler}
             position={menuPosition}
-            levels={projectId ? 8 : 7}
+            levels={projectId ? 6 : 5}
           >
             <div className={styles.task_item_action_menu}>
               <button>
@@ -140,10 +140,7 @@ export function SingleItems({
                 </Link>
               )}
               <hr />
-              <div>
-                <div className={styles.menu_title}>Due date</div>
-                <div className={styles.priority_button_list}>icons</div>
-              </div>
+            
               <div>
                 <div className={styles.menu_title}>Priority</div>
                 <div className={styles.priority_button_list}>

@@ -1,36 +1,45 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
 import Tasks from "../../../src/models/Tasks";
 
+import { getServerSession } from "next-auth";
+import { options } from "../auth/[...nextauth]/options";
+
 //retrieve user info
 export const GET = async () => {
-    await connect();
-    const user = await User.findOne({ username: 'johndoe123' });
+  await connect();
+  const session = await getServerSession(options);
 
-    try {
-        return NextResponse.json(user);
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Internal Server Error' }, {status: 500});
+  const user = await User.findOne({ email: session.user.email });
+
+  try {
+    return NextResponse.json(user);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-}
+};
 
 //save new username
 export const POST = async (req) => {
-    await connect();
+  await connect();
+  const session = await getServerSession(options);
 
-    const result = await req.json();
-    const newUsername = result.inputValue;
+  const result = await req.json();
+  const newUsername = result.inputValue;
 
-    const filter = { username: 'johndoe123' };
-    const update = { username: newUsername };
+  const filter = { email: session.user.email };
+  const update = { username: newUsername };
 
-    try {
-        await User.updateOne(filter, update);
-        await Tasks.updateMany(filter, update);    
-        return NextResponse.json({ message: 'Succeed. ', status: 201 });
-    } catch (error) {
-        return NextResponse.json({ message: error, status: 500});
-    }
-}
+  try {
+    await User.updateOne(filter, update);
+    await Tasks.updateMany(filter, update);
+    return NextResponse.json({ message: "Succeed. ", status: 201 });
+  } catch (error) {
+    return NextResponse.json({ message: error, status: 500 });
+  }
+};

@@ -3,7 +3,6 @@
 import styles from "../../../styles/scss/application.module.scss";
 import { useEffect, useState } from "react";
 import Icon from "../../application/widgets/Icon";
-import Link from "next/link";
 import LabelItem from "../../application/widgets/LabelItem";
 
 function FilterPage(props) {
@@ -24,7 +23,7 @@ function FilterPage(props) {
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
-          <h1>Filter Page</h1>
+          <h1>Filters & Labels</h1>
         </div>
       </div>
 
@@ -40,12 +39,13 @@ function FilterPage(props) {
               <Icon type="down_arrow_small" />
             </div>
             <h4>Labels</h4>
+            <button><Icon type="add" /></button>
           </header>
 
           <ul>
             {showList &&
               props.labels.map((label) => (
-                <LabelItem label={label} />
+                <LabelItem label={label.tag} num={label.taskNum} />
               ))}
           </ul>
         </section>

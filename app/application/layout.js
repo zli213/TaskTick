@@ -1,15 +1,23 @@
+import ClientLayout from "../../components/pages/AppPages/ClientLayout";
+
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 import getProjects from "../../src/utils/data/getProjects";
 import getTodayNum from "../../src/utils/data/getTodayNum";
 import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
-import ClientLayout from "../../components/pages/AppPages/ClientLayout";
-import "../../styles/scss/globals.scss";
+import { redirect } from "next/navigation";
 
 export default async function AppLayout(props) {
-  var projects = await getProjects("johndoe123");
+  const session = await getServerSession(options);  
+  if(session == null){
+    redirect('/auth/signin');
+  }
+
+  var projects = await getProjects(session.user.userId);
   projects = JSON.parse(JSON.stringify(await updateInfo(projects)));
-  const inboxNum = await getInboxNum("johndoe123");
-  const todayNum = await getTodayNum("johndoe123");
+  const inboxNum = await getInboxNum(session.user.userId);
+  const todayNum = await getTodayNum(session.user.userId);
 
   return (
     <>
