@@ -6,7 +6,6 @@ import styles from "../../../styles/scss/application.module.scss";
 import AddTask from "../../application/widgets/AddTask";
 
 export default function Inbox(props) {
-  
   useEffect(() => {
     document.title = "Inbox - Todo";
     localStorage.setItem("lastPage", "inbox");
@@ -25,7 +24,7 @@ export default function Inbox(props) {
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={inBoxTasks} />
+        <TodoList tasks={inBoxTasks} alltags={props.alltags} />
         <AddTask />
       </div>
     </>

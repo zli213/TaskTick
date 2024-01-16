@@ -12,10 +12,11 @@ import { notFound } from "next/navigation";
 
 export default async function AppPage({ params }) {
   const tasks = await getAllTasks();
+  const tags = await getLabels();
 
   switch (params.menu) {
     case "inbox":
-      return <Inbox data={tasks} />;
+      return <Inbox data={tasks} alltags={tags} />;
 
     case "today":
       const todayNum = await getTodayNum("johndoe123");

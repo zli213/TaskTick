@@ -54,7 +54,7 @@ function TaskEditor({
     cancelCallBack = () => {};
   }
   if (submitCallBack == null) {
-    submitCallBack = () => {};
+    submitCallBack = (arg) => {};
   }
 
   const taskNameInputRef = useRef(null);
@@ -172,7 +172,9 @@ function TaskEditor({
                 contentEditable="true"
                 placeholder="Task Content"
                 onInput={recordTaskContent}
-              ></div>
+              >
+                {taskData.taskContent}
+              </div>
             </div>
             <div className={styles.task_edit_buttons}>
               <button type="button" onClick={showScheduler}>
@@ -190,7 +192,7 @@ function TaskEditor({
             <button
               type="button"
               onClick={() => {
-                console.log(newTaskData);
+                console.log(newTaskData.current);
               }}
             >
               test
@@ -206,7 +208,9 @@ function TaskEditor({
               <button
                 className={styles.task_footer_submit}
                 type="button"
-                onClick={submitCallBack}
+                onClick={() => {
+                  submitCallBack(newTaskData.current);
+                }}
               >
                 Add
               </button>
@@ -215,7 +219,9 @@ function TaskEditor({
               <button
                 className={styles.task_footer_submit}
                 type="button"
-                onClick={submitCallBack}
+                onClick={() => {
+                  submitCallBack(newTaskData.current);
+                }}
               >
                 Save
               </button>

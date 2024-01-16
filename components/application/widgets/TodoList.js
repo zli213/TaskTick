@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 
-function TodoList({ tasks, title }) {
+function TodoList({ tasks, title, alltags }) {
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
@@ -55,6 +55,7 @@ function TodoList({ tasks, title }) {
                   tags={data.tags}
                   priority={data.priority}
                   completed={data.completed}
+                  alltags={alltags}
                 />
               ))}
         </div>
