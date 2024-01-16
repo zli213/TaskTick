@@ -41,4 +41,53 @@
     padding: 5px;
     border-radius: $borderRadius;
   }
+  .dividerWithText {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $textSecondaryColor; // Text color
+    margin: 20px 0; // Adjust the margin as needed
+    width: 100%;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #060606; // Change the color and thickness as needed
+      margin: 0 10px; // Adjust spacing around the text
+    }
+    .dividerWithText span {
+      padding: 0 5px;
+    }
+  }
+
+  .google,
+  .github {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: $borderRadius;
+    text-align: center;
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .icon {
+    height: 2.2rem;
+  }
+  .signIn {
+    margin: $marginSm 0;
+    width: 80%;
+    .signInLink {
+      color: #007bff;
+
+      &:hover {
+        color: #0056b3;
+      }
+    }
+  }
 }

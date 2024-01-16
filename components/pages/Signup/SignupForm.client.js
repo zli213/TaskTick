@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/form.module.scss";
+import Icon from "../../application/widgets/Icon";
+import Link from "next/link";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({});
@@ -93,6 +95,41 @@ const SignupForm = () => {
         />
       </div>
       <button className={styles.submit}>Sign Up</button>
+      <div className={styles.dividerWithText}>
+        <span>OR</span>
+      </div>
+      <div className={styles.google}>
+        <a
+          className={styles.google}
+          style={{ backgroundColor: "#55acee" }}
+          onClick={() =>
+            signIn("google", { callbackUrl: "/application/today" })
+          }
+          role="button"
+        >
+          <Icon type="google" className={styles.icon} />
+          Continue with Google
+        </a>
+      </div>
+      <div className={styles.github}>
+        <a
+          className={styles.github}
+          style={{ backgroundColor: "#55acee" }}
+          onClick={() =>
+            signIn("github", { callbackUrl: "/application/today" })
+          }
+          role="button"
+        >
+          <Icon type="github" className={styles.icon} />
+          Continue with GitHub
+        </a>
+      </div>
+      <p className={styles.signIn}>
+        Already signed up?{" "}
+        <Link href="/auth/signin" className={styles.signInLink}>
+          Go to sign in
+        </Link>
+      </p>
     </form>
   );
 };
