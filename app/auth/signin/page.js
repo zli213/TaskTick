@@ -110,7 +110,7 @@ const SignInPage = () => {
             </a>
           </div>
           <p className={styles.signUp}>
-            Don’t have an account?{" "}
+            Don't have an account?{"\u00a0"}
             <Link href="/auth/register" className={styles.signUpLink}>
               Sign up
             </Link>
