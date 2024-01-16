@@ -164,7 +164,7 @@ export function SingleItems({
             <PopupMenu
               onOverlayClick={swithMenuHandler}
               position={menuPosition}
-              levels={projectId ? 8 : 7}
+              levels={projectId ? 6 : 5}
             >
               <div className={styles.task_item_action_menu}>
                 <button>

@@ -6,7 +6,7 @@
 
 import connect from "./db";
 import Tasks from "../../models/Tasks";
-import { transferTask } from "./getOneUserTasks";
+import { TransferTask } from "./getOneUserTasks";
 
 export default async function getOneTask(taskId) {
   //Connect to the DB
@@ -21,7 +21,7 @@ export default async function getOneTask(taskId) {
       throw new Error("Task not found");
     }
 
-    return transferTask(task);
+    return TransferTask(task);
   } catch (error) {
     throw new Error("Error getting tasks");
   }

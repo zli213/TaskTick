@@ -14,6 +14,7 @@ import AddIcon from "../../../public/icon/add.svg";
 import CalenderBigIcon from "../../../public/icon/big_calender.svg";
 import CalenderIcon from "../../../public/icon/calender.svg";
 import CloseIcon from "../../../public/icon/close.svg";
+import CloseSmallIcon from "../../../public/icon/close_small.svg";
 import DeleteIcon from "../../../public/icon/delete.svg";
 import DragIcon from "../../../public/icon/drag.svg";
 import DownArrowIcon from "../../../public/icon/down_arrow.svg";
@@ -54,6 +55,7 @@ import GoogleIcon from "../../../public/icon/google.svg";
 import HorizonPageIcon from "../../../public/icon/horizon_page.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
 import LeftArrow from "../../../public/icon/left_arrow.svg";
+import ViewIcon from "../../../public/icon/view_option.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -114,6 +116,9 @@ const Icon = ({ type, ...props }) => {
         return <FlagIcon {...props} />;
       case "close":
         return <CloseIcon {...props} />;
+
+      case "close_small":
+        return <CloseSmallIcon {...props} />;
       case "up_arrow":
         return <UpArrowIcon {...props} />;
       case "down_arrow":
@@ -142,6 +147,8 @@ const Icon = ({ type, ...props }) => {
         return <BoardIcon {...props} />;
       case "left_arrow":
         return <LeftArrow {...props} />;
+      case "view":
+        return <ViewIcon {...props} />;
 
       default:
         return null;

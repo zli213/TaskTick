@@ -90,7 +90,12 @@ export const options = {
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      if (session?.user) {
+        session.user.role = token.role;
+
+        const user = await User.find({ email: session.user.email })
+        session.user.userId = user[0]._id.toString();
+      }
       return session;
     },
     // async signIn with new account of google and github

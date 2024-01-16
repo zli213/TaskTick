@@ -4,17 +4,17 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 import Link from "next/link";
 import Icon from "./Icon";
 
-function LabelItem({ label }) {
+function LabelItem({ label, num }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
   return (
     <div className={styles.labels_item_container}>
       <li key={label}>
-        <Link href="#">
+        <Link href={`/application/label/${label}`}>
           <Icon type="hashtag_big" />
           <span className={styles.labels_item_content}>
             <span>{label}</span>
-            <div>num</div>
+            <div>{num}</div>
           </span>
           <div className={styles.right_menu}>
             <span >
