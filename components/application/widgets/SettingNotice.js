@@ -7,11 +7,11 @@ function Notice ({ isOpen, onClose, onConfirm, promptText}) {
         isOpen && (
             <>
             <div className={styles.mask}></div>
-            <div className={styles.noticeContainer}>
+            <div className={styles.noticeContainer} id="noticeContainer">
                 <header className={styles.noticeHeader}>
                     <label>Discard Changes?</label>
                     <button>
-                        <Close onClick={onClose}/>
+                        <Close id="icon" onClick={onClose}/>
                     </button>
                 </header>
                 <p>{promptText}</p>

@@ -72,7 +72,7 @@ export default function NewProject(props) {
   return (
     <div onClick={props.closeHandler}>
       <Modal>
-        <div className={styles.add_project_modal_container}>
+        <div className={styles.add_project_modal_container} id="addProject">
           <div>
             <h1>Add project</h1>
           </div>

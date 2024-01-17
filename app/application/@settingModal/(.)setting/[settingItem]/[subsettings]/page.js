@@ -33,7 +33,7 @@ export default function SettingModal({ params }) {
   return (
     <Modal>
       <div className={styles.setting_modal_container}>
-        <div className={styles.setting_left}>
+        <div className={styles.setting_left} id="settingLeft">
           <h2>Settings</h2>
           <div>Search</div>
           <ul>
@@ -61,7 +61,7 @@ export default function SettingModal({ params }) {
             </li>
           </ul>
         </div>
-        <div className={styles.setting_right}>
+        <div className={styles.setting_right} id="settingRight">
           <div>{activePage}</div>
         </div>
       </div>

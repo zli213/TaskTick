@@ -19,7 +19,7 @@ function FilterPage(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -27,7 +27,7 @@ function FilterPage(props) {
         </div>
       </div>
 
-      <div className={styles.list_box}>
+      <div className={styles.list_box} id="listBox">
         <section>
           <header className={styles.filters_header}>
             <div

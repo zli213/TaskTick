@@ -102,7 +102,7 @@ const SetPassword = () => {
         </span>
 
         <button onClick={onDismiss}>
-          <Icon type="close" />
+          <Icon type="close"  id="icon"/>
         </button>
       </header>
 

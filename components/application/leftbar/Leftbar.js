@@ -30,7 +30,7 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   }, []);
 
   return (
-    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`}>
+    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`} id="leftbar">
       <div>
         <LeftItem
           label="Inbox"

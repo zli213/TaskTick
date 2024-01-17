@@ -14,13 +14,13 @@ function Upcoming(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div className={styles.view_header_content}>
           <h1>Upcoming</h1>
           <div>buttons</div>
         </div>
       </div>
-      <div className={styles.list_box}>
+      <div className={styles.list_box} id="listBox">
         <TodoList tasks={props.data} />
       </div>
     </>

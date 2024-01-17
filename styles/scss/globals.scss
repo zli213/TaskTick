@@ -23,3 +23,48 @@
     justify-items: center;
   }
 }
+
+//Dark theme
+.dark {
+  background-color: $textPrimaryColor;
+  color: $secondaryColor;
+
+  // not working. Todo: maybe verify session first.
+  #signContainer {
+    background-color: $secondaryColor;
+    color: $textPrimaryColor;
+  }
+  
+  #leftbar,
+  #settingLeft {
+    background-color: $textSecondaryColor;
+    color: $secondaryColor;
+
+    h4 {
+      color: $secondaryColor;
+    }
+  }
+
+  #listBox,
+  #viewHeader,
+  #taskEditor,
+  #menuBox,
+  #settingRight,
+  #addProject,
+  #newTask,
+  #noticeContainer {
+    background-color: $textPrimaryColor;
+    color: $secondaryColor;
+  }
+
+
+  #settingRight {
+    #icon {
+      fill: $secondaryColor;
+    }
+
+    div {
+      border-top: 1px solid $textPrimaryColor;
+    }
+  }
+}

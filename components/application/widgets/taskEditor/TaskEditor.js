@@ -148,7 +148,7 @@ function TaskEditor({
 
   return (
     <>
-      <div className={styles.task_edit_form}>
+      <div className={styles.task_edit_form} id="taskEditor">
         <form>
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">

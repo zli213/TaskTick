@@ -10,6 +10,7 @@ export default function NewTaskCard({ closeCardHandler }) {
       <div
         className={styles.new_task_container}
         onClick={containerClickHandler}
+        id="newTask"
       >
         <div>Task name and description</div>
         <div>Options</div>

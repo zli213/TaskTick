@@ -93,7 +93,7 @@ const SetEmail = () => {
           <label>Modify your email address</label>
         </span>
         <button onClick={onDismiss}>
-          <Icon type="close" />
+          <Icon type="close" id="icon"/>
         </button>
       </header>
 

@@ -21,7 +21,7 @@ export default function MyProjects(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.view_header_project}`}
         >

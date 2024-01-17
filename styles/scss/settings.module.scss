@@ -22,7 +22,7 @@
   min-width: 22rem;
   text-align: left;
   background-color: $lightGrayColor;
-  border-radius: $borderRadius;
+  border-radius: $borderRadius 0 0 $borderRadius;
 
   h2 {
     padding: $paddingsm;
@@ -77,7 +77,7 @@
 .setting_right {
   width: 80%;
   padding: $paddingsm;
-  border-radius: $borderRadius;
+  border-radius: 0 $borderRadius $borderRadius 0;
   text-align: left;
   overflow: hidden;
 }

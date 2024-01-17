@@ -9,7 +9,7 @@ export default function UserMenu({ closeUserMenuHandler }) {
 
   return (
     <div className="click_close_cover" onClick={closeUserMenuHandler}>
-      <div className={styles.menu_box} onClick={containerClickHandler}>
+      <div className={styles.menu_box} onClick={containerClickHandler} id="menuBox">
         <div className="avatar_container">Avatar</div>
         <Link href="/application/setting/account" scroll={false}>
           <span onClick={closeUserMenuHandler}>Setting</span>

@@ -11,14 +11,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <MyThemeContextProvider>
-
-          <html lang="en">
-      <body>
-        <ProviderWrapper>
-          <main>{children}</main>
-        </ProviderWrapper>
-      </body>
-    </html>
+      <html lang="en">
+        <body>
+          <ProviderWrapper>
+            <main>{children}</main>
+          </ProviderWrapper>
+        </body>
+      </html>
     </MyThemeContextProvider>
   );
 }

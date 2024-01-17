@@ -17,7 +17,7 @@ function LabelPage({ tasks, label }) {
       <div className={styles.back_to_filter}>
         <Link href="/application/filters-labels">Filters & Labels</Link>/
       </div>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -25,7 +25,7 @@ function LabelPage({ tasks, label }) {
         </div>
       </div>
 
-      <div className={styles.list_box}>
+      <div className={styles.list_box} id="listBox">
         <TodoList tasks={tasks} />
       </div>
     </>

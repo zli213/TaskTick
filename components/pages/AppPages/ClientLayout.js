@@ -25,7 +25,6 @@ export default function ClientLayout(props) {
         />
         <div className={styles.content_holder}>{props.children}</div>
       </div>
-      
     </div>
   );
 }

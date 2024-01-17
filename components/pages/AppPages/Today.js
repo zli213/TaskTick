@@ -39,7 +39,7 @@ function Today(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -59,7 +59,7 @@ function Today(props) {
       {props.num === 0 ? (
         <NoTask page="today" />
       ) : (
-        <div className={styles.list_box}>
+        <div className={styles.list_box} id="listBox">
           <TodoList tasks={overDueTasks} title="Overdue" />
           <TodoList tasks={todayTasks} title="Today" />
         </div>

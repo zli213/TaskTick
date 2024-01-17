@@ -53,7 +53,7 @@ const DeleteAccount = () => {
       <header>
         <span>
           <button onClick={() => router.push("/application/setting/account")}>
-            <Icon type="left_arrow" />
+            <Icon type="left_arrow" id="icon"/>
           </button>
           <label>Modify your password</label>
         </span>

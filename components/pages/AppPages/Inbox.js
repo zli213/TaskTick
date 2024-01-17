@@ -18,7 +18,7 @@ export default function Inbox(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -29,7 +29,7 @@ export default function Inbox(props) {
       {props.data.length == 0 ? (
         <NoTask page="inbox" />
       ) : (
-        <div className={styles.list_box}>
+        <div className={styles.list_box} id="listBox">
           <TodoList tasks={inBoxTasks} />
         </div>
       )}

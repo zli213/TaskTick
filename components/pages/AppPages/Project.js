@@ -32,7 +32,7 @@ export default function Project({ projectId, projectName, tasks, boards }) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="viewHeader">
         <div className={styles.view_header_content}>
           <h1>{projectName}</h1>
           <div>
@@ -44,7 +44,7 @@ export default function Project({ projectId, projectName, tasks, boards }) {
       {boards.length == 0 && tasks.length == 0 ? (
         <NoTask page="project" />
       ) : (
-        <div className={styles.list_box}>
+        <div className={styles.list_box} id="listBox">
           <TodoList tasks={groupedTasks[undefined]} />
           {boards
             ? Object.keys(groupedTasks)
