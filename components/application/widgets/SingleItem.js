@@ -63,7 +63,7 @@ export function SingleItems({
   };
 
   return (
-    <li key={_id}>
+    <li >
       <div className={styles.task_container}>
         {/* content */}
         <div className={styles.content_container}>

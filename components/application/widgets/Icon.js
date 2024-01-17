@@ -32,6 +32,7 @@ import HomeIcon from "../../../public/icon/home.svg";
 
 import InboxIcon from "../../../public/icon/inbox.svg";
 import InboxSelected from "../../../public/icon/inbox_selected.svg";
+import InfoIcon from "../../../public/icon/info.svg";
 import ListIcon from "../../../public/icon/list.svg";
 import MenuIcon from "../../../public/icon/three_point.svg";
 import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
@@ -149,6 +150,8 @@ const Icon = ({ type, ...props }) => {
         return <LeftArrow {...props} />;
       case "view":
         return <ViewIcon {...props} />;
+      case "info":
+        return <InfoIcon {...props} />;
 
       default:
         return null;

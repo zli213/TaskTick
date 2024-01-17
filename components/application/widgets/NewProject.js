@@ -8,7 +8,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
-import styles from "../../../styles/scss/newProject.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/newProject.module.scss";
 import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
 
@@ -42,9 +42,7 @@ export default function NewProject(props) {
         },
         body: JSON.stringify({ name }),
       });
-
       const result = await res.json();
-      console.log(result.body.projectId);
 
       if (res.ok) {
         router.push(`/application/project/${result.body.projectId}`);

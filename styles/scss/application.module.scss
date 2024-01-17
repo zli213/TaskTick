@@ -121,7 +121,7 @@
   }
 }
 
-.today_task_label{
+.today_task_label {
   padding-top: 0.2rem;
   @include flexRowStart();
   gap: 0.2rem;
@@ -220,10 +220,21 @@
 //Filters-labels
 .filters_header {
   @include flexRowBetween();
-  margin: 0 auto ;
+  margin: 0 auto;
   position: relative;
   border-bottom: 1px solid $grayColor;
   padding: $paddingXsm 0;
+
+  button {
+    width: 2.4rem;
+    height: 2.4rem;
+    cursor: pointer;
+    border-radius: $borderRadiusXsm;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
 }
 
 .content_wrapper {
@@ -235,7 +246,7 @@
   border-radius: $borderRadiusXsm;
   @include flexRowStart();
 
-  button svg{
+  button svg {
     @include flexRowBetween();
   }
 
@@ -257,14 +268,15 @@
 
 .labels_item_container {
   position: relative;
-  padding: $paddingsm 0;
   border-bottom: 1px solid $grayColor;
 
   svg {
     color: $heaveGrayColor;
   }
 
+  
   a {
+    padding: $paddingsm 0;
     @include flexRowStart();
 
     .labels_item_content {
@@ -282,6 +294,7 @@
 
 .right_menu {
   position: absolute;
+  top: $paddingsm;
   right: 0;
   @include flexRowStart();
   opacity: 0;
@@ -301,19 +314,19 @@
   }
 }
 
-.back_to_filter{
+.back_to_filter {
   padding: $marginSm $marginLg 0;
   z-index: 10;
   color: $textSecondaryColor;
   font-weight: 500;
   font-size: $fontSizeSm;
-  line-height: $fontSizeSm;;
+  line-height: $fontSizeSm;
 
-  a{
+  a {
     padding: $paddingXsm 0.2rem;
     border-radius: $borderRadiusSm;
 
-    &:hover{
+    &:hover {
       background-color: $lightGrayColor;
     }
   }
