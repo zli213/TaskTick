@@ -4,6 +4,7 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
 import { useState } from "react";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 
 const LeftbarItem = ({
   label,
@@ -16,11 +17,18 @@ const LeftbarItem = ({
 }) => {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+
   const [showedName, setShowedName] = useState(label);
 
   const menuEditHandler = () => {
     swithMenuHandler(event);
     showProjectCardHandler();
+  };
+
+  const menuDeleteHandler = () => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
   };
 
   const clickHandler = (e) => {
@@ -116,7 +124,10 @@ const LeftbarItem = ({
                 </span>
                 Edit
               </li>
-              <li className={styles.action_btn_menu_item}>
+              <li
+                className={styles.action_btn_menu_item}
+                onClick={menuDeleteHandler}
+              >
                 <span>
                   <Icon type="delete" />
                 </span>
@@ -132,6 +143,14 @@ const LeftbarItem = ({
           projectId={projectId}
           closeHandler={showProjectCardHandler}
           showNameHandler={setShowedName}
+        />
+      )}
+      {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          projectId={projectId}
+          name={label}
+          type="project"
         />
       )}
     </li>

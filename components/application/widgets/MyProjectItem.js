@@ -4,15 +4,23 @@ import Link from "next/link";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 
 function MyProjectItem({ project }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+
   const [showedName, setShowedName] = useState(project.name);
 
   const menuEditHandler = () => {
     swithMenuHandler(event);
     showProjectCardHandler();
+  };
+
+  const menuDeleteHandler = () => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
   };
 
   return (
@@ -36,7 +44,7 @@ function MyProjectItem({ project }) {
               <span>Edit</span>
             </button>
             <hr />
-            <button>
+            <button onClick={menuDeleteHandler}>
               <Icon type="delete" />
               <span>Delete</span>
             </button>
@@ -49,6 +57,14 @@ function MyProjectItem({ project }) {
           projectId={project.projectId}
           closeHandler={showProjectCardHandler}
           showNameHandler={setShowedName}
+        />
+      )}
+       {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          projectId={project.projectId}
+          name={project.name}
+          type="project"
         />
       )}
     </li>

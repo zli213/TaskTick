@@ -145,23 +145,7 @@ export default function NewProject(props) {
                 <div className={styles.form_field_title}>Workspace</div>
                 <button disabled="true">My Projects</button>
               </div>
-              <div className={styles.form_field}>
-                <div className={styles.form_field_title}>View</div>
-                <fieldset>
-                  <div className={styles.selected_view}>
-                    <Icon type="horizon_page" />
-                    List
-                  </div>
-                  <div>
-                    <Icon type="vertical_page" />
-                    Board
-                  </div>
-                  <div>
-                    <Icon type="upcoming" />
-                    Calender
-                  </div>
-                </fieldset>
-              </div>
+             
             </div>
 
             <hr />
