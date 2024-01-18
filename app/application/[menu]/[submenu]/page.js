@@ -21,7 +21,6 @@ export default async function SubAppPages({ params }) {
   if (params.menu == "task") {
     var ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
-      console.log('1111')
       return <TaskNotFound />;
     }
   }

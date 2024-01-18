@@ -29,7 +29,7 @@ export const useProject = () => {
 export default function NewProject(props) {
   const router = useRouter();
   const nameInputRef = useRef();
-  const [enteredName, setEnteredName] = useState(props.name);
+  const [enteredName, setEnteredName] = useState(props.name ? props.name : "");
   const [isWrong, setIsWrong] = useState(false);
 
   const disableScroll = (event) => {
@@ -119,7 +119,6 @@ export default function NewProject(props) {
             <div className={styles.add_project_form}>
               <div className={styles.form_field}>
                 <label
-                  for="edit_project_modal_field_name"
                   className={styles.form_field_title}
                 >
                   Name
@@ -133,7 +132,7 @@ export default function NewProject(props) {
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Color</div>
-                <button disabled="true" className={styles.color_selector}>
+                <button disabled={true} className={styles.color_selector}>
                   <div>
                     <span className={styles.color_dropdown_select_color}></span>
                     <span>Black</span>{" "}
@@ -143,7 +142,7 @@ export default function NewProject(props) {
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Workspace</div>
-                <button disabled="true">My Projects</button>
+                <button disabled={true}>My Projects</button>
               </div>
              
             </div>

@@ -24,7 +24,7 @@ export const useLabel = () => {
 export default function NewLabel(props) {
   const router = useRouter();
   const tagInputRef = useRef();
-  const [enteredTag, setEnteredTag] = useState(props.label);
+  const [enteredTag, setEnteredTag] = useState(props.label ? props.label : "");
   const [isWrong, setIsWrong] = useState(false);
   const [isDuplicate, setIsDuplicate] = useState(false);
 
@@ -137,7 +137,7 @@ export default function NewLabel(props) {
             <div className={styles.add_tag_form}>
               <div className={styles.form_field}>
                 <label
-                  for="edit_tag_modal_field_name"
+                  htmlFor="edit_tag_modal_field_name"
                   className={styles.form_field_title}
                 >
                   <span>Label Name</span>
@@ -156,7 +156,7 @@ export default function NewLabel(props) {
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Label color</div>
-                <button disabled="true" className={styles.color_selector}>
+                <button disabled={true} className={styles.color_selector}>
                   <div>
                     <span className={styles.color_dropdown_select_color}></span>
                     <span>Black</span>{" "}
