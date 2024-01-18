@@ -98,7 +98,7 @@ export function SingleItems({
                   </button>
                 )}
                 {tags.map((tag) => (
-                  <Link href={`/application/label/${tag}`}>
+                  <Link href={`/application/label/${tag}`} key={tag}>
                     <Icon type="small_tag" />
                     {tag}
                   </Link>
