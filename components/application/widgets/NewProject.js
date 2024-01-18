@@ -12,19 +12,29 @@ import styles from "../../../styles/scss/components/application/widgets/newProje
 import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
 
+//Custom React hook -> useProject
+export const useProject = () => {
+  const [showAddProjectCard, setShowProjectAddCard] = useState(false);
+
+  const showProjectCardHandler = () => {
+    setShowProjectAddCard((preState) => !preState);
+  };
+
+  return {
+    showAddProjectCard,
+    showProjectCardHandler,
+  };
+};
+
 export default function NewProject(props) {
   const router = useRouter();
   const nameInputRef = useRef();
-  const [enteredName, setEnteredName] = useState("");
+  const [enteredName, setEnteredName] = useState(props.name);
   const [isWrong, setIsWrong] = useState(false);
 
   const disableScroll = (event) => {
     event.preventDefault();
   };
-
-  if (props.projectName) {
-    setEnteredName(props.projectName);
-  }
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -34,27 +44,56 @@ export default function NewProject(props) {
     event.preventDefault();
     const name = nameInputRef.current.value;
 
-    try {
-      const res = await fetch("/api/addproject", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
-      const result = await res.json();
+    if (props.name) {
 
-      if (res.ok) {
-        router.push(`/application/project/${result.body.projectId}`);
-        router.refresh();
-      } else {
-        const data = await res.json();
-        setIsWrong(true);
+      //Edit project
+      try {
+        const res = await fetch("/api/editproject", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, id: props.projectId , oldName: props.name  }),
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          props.showNameHandler(name);
+          // router.refresh();
+          window.location.reload()
+        } else {
+          setIsWrong(true);
+        }
+      } catch (error) {
+        console.log("Error occured: ", error);
       }
-    } catch (error) {
-      console.log("Error occured: ", error);
+      props.closeHandler();
+
+    } else {
+
+      //Add project
+      try {
+        const res = await fetch("/api/addproject", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name }),
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          router.push(`/application/project/${result.body.projectId}`);
+          router.refresh();
+        } else {
+          const data = await res.json();
+          setIsWrong(true);
+        }
+      } catch (error) {
+        console.log("Error occured: ", error);
+      }
+      props.closeHandler();
     }
-    props.closeHandler();
   };
 
   useEffect(() => {
@@ -72,7 +111,7 @@ export default function NewProject(props) {
       <Modal>
         <div className={styles.add_project_modal_container}>
           <div>
-            <h1>Add project</h1>
+            <h1>{ props.name ? 'Edit' : 'Add'} project</h1>
           </div>
           <hr />
 
@@ -143,7 +182,7 @@ export default function NewProject(props) {
                 } `}
                 disabled={enteredName ? false : true}
               >
-                {props.projectName ? "Save" : "Add"}
+                {props.name ? "Save" : "Add"}
               </button>
             </footer>
           </form>

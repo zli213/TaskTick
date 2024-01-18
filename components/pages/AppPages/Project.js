@@ -8,9 +8,7 @@ import Icon from "../../application/widgets/Icon";
 
 export default function Project({ projectId, projectName, tasks, boards }) {
   const groupedTasks = {};
-  !boards
-    ? boards
-    : boards.forEach((boardName) => {
+  !boards ? boards : boards.forEach((boardName) => {
         if (!groupedTasks[boardName]) {
           groupedTasks[boardName] = [];
         }
@@ -27,8 +25,6 @@ export default function Project({ projectId, projectName, tasks, boards }) {
     document.title = projectName + " - Todo";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
-
-  console.log(boards.length == 0 && tasks.length == 0);
 
   return (
     <>

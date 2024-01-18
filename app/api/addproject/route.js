@@ -1,5 +1,5 @@
 /**
- * Route of add new project(not finish yet)
+ * Route of add new project
  *
  * Method: POST
  *
@@ -30,7 +30,8 @@ export const POST = async (req) => {
       },
     ];
 
-    await User.updateOne({ email: session.user.email }, { projects: newProjects });
+    user[0].projects = newProjects;
+    await user[0].save();
 
     return NextResponse.json({ body: { projectId: newId } }, { status: 200 });
   } catch (error) {

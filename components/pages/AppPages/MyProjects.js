@@ -4,15 +4,12 @@ import styles from "../../../styles/scss/application.module.scss";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Icon from "../../application/widgets/Icon";
-import NewProject from "../../application/widgets/NewProject";
+import NewProject, {useProject} from "../../application/widgets/NewProject";
 import MyProjectItem from "../../application/widgets/MyProjectItem";
 
 export default function MyProjects(props) {
-  const [showAddCard, setShowAddCard] = useState(false);
-
-  const showCardHandler = () => {
-    setShowAddCard((preState) => !preState);
-  };
+  const { showAddProjectCard, showProjectCardHandler } = useProject();
+  
 
   useEffect(() => {
     document.title = "My Projects - Todo";
@@ -43,7 +40,7 @@ export default function MyProjects(props) {
 
         <div className={styles.btn_projects}>
           <div className={styles.active_btn_projects}>Active projects</div>
-          <div className={styles.add_btn_projects} onClick={showCardHandler}>
+          <div className={styles.add_btn_projects} onClick={showProjectCardHandler}>
             <Icon type="add" />
             <span>Add project</span>
           </div>
@@ -58,7 +55,7 @@ export default function MyProjects(props) {
           ))}
         </ul>
       </div>
-      {showAddCard && <NewProject closeHandler={showCardHandler} />}
+      {showAddProjectCard && <NewProject closeHandler={showProjectCardHandler} />}
     </>
   );
 }

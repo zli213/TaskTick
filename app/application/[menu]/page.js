@@ -10,11 +10,15 @@ import getOneUserTasks from "/src/utils/data/getOneUserTasks";
 import getProjects from "../../../src/utils/data/getProjects";
 import getLabels from "../../../src/utils/data/getLabels";
 import getTodayNum from "../../../src/utils/data/getTodayNum";
-
+import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 
 export default async function AppPage({ params }) {
   const session = await getServerSession(options);
+  if (session == null) {
+    redirect("/auth/signin");
+  }
+
   const tasks = await getOneUserTasks(session.user.userId);
 
   switch (params.menu) {
