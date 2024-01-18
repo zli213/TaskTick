@@ -57,8 +57,9 @@ export default async function SubAppPages({ params }) {
       return <Today data={tasks} taskId={params.submenu} />;
 
     case "label":
-      const labelTasks = await getLabelTasks(session.user.userId, params.submenu);
-      return <LabelPage tasks={labelTasks} label={params.submenu} />;
+      console.log(params.submenu)
+      const labelTasks = await getLabelTasks(session.user.userId, decodeURIComponent(params.submenu));
+      return <LabelPage tasks={labelTasks} label={decodeURIComponent(params.submenu)} />;
 
     default:
       notFound();
