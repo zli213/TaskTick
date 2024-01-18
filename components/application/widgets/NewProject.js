@@ -59,7 +59,6 @@ export default function NewProject(props) {
 
         if (res.ok) {
           props.showNameHandler(name);
-          // router.refresh();
           window.location.reload()
         } else {
           setIsWrong(true);

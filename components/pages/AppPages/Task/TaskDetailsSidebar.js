@@ -103,7 +103,7 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
           <div className={styles.task_tags_container}>
             {task.tags &&
               task.tags.map((tag, index) => (
-                <Link href={`/application/label/${tag}`}>
+                <Link href={`/application/label/${tag}`} key={tag}>
                   <span className={styles.task_tag_item} key={index}>
                     <span>{tag} </span>
                     <Icon type="close_small" />

@@ -10,7 +10,6 @@ import MyProjectItem from "../../application/widgets/MyProjectItem";
 export default function MyProjects(props) {
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   
-
   useEffect(() => {
     document.title = "My Projects - Todo";
     localStorage.setItem("lastPage", `projects/active`);
