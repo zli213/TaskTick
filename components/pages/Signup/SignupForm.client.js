@@ -4,11 +4,67 @@ import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/form.module.scss";
 import Icon from "../../application/widgets/Icon";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { set } from "mongoose";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({});
+  const { data: session, status } = useSession();
+  // const [message, setMessage] = useState("");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
+  const [signUpInitiated, setSignUpInitiated] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (status === "authenticated") {
+        const userData = session
+          ? {
+              name: session.user?.name,
+              email: session.user?.email,
+              role: session.user?.role,
+              avatar_url: session.user?.avatar_url,
+            }
+          : status;
+        try {
+          console.log("User Information:", session?.user);
+
+          const response = await fetch("/api/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userData }),
+          });
+
+          if (!response.ok) {
+            const contentType = response.headers.get("Content-Type");
+            if (contentType && contentType.includes("application/json")) {
+              try {
+                const errorData = await response.json();
+                setErrorMessage(errorData.message);
+              } catch (error) {
+                setErrorMessage(
+                  "An error occurred, and the server didn't send any additional information."
+                );
+              }
+            } else {
+              setErrorMessage(
+                "An error occurred, and the server's response was not in JSON format."
+              );
+            }
+          } else {
+            const responseData = await response.json();
+          }
+        } catch (error) {
+          setErrorMessage("An error occurred. Please try again later.");
+        }
+      }
+    };
+
+    fetchData(); // Call the async function
+  }, [status, session, signUpInitiated]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,27 +78,15 @@ const SignupForm = () => {
       });
 
       if (!response.ok) {
-        const contentType = response.headers.get("Content-Type");
-        if (contentType && contentType.includes("application/json")) {
-          try {
-            const errorData = await response.json();
-            setErrorMessage(errorData.message);
-          } catch (error) {
-            setErrorMessage(
-              "An error occurred, and the server didn't send any additional information."
-            );
-          }
-        } else {
-          setErrorMessage(
-            "An error occurred, and the server's response was not in JSON format."
-          );
-        }
+        // Handle error responses
+        console.error("Error response:", await response.json());
       } else {
-        router.refresh();
-        router.push("/auth/signin");
+        // Handle successful response
+        console.log("Successful response:", await response.json());
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again later.");
+      // Handle fetch error
+      console.error("Fetch error:", error);
     }
   };
   const handleChange = (e) => {
@@ -56,11 +100,13 @@ const SignupForm = () => {
           ...prevState,
           name: extractedName,
           [name]: value,
+          role: "Email User",
         }));
       } else {
         setFormData((prevState) => ({
           ...prevState,
           [name]: value,
+          role: "Email User",
         }));
       }
     } else {
@@ -69,6 +115,13 @@ const SignupForm = () => {
         [name]: value,
       }));
     }
+  };
+  const handleSignUp = async (provider) => {
+    signIn(provider, {
+      redirect: false,
+      // callbackUrl: "/auth/signin",
+    });
+    setSignUpInitiated(true);
   };
   return (
     <form className={styles.signupForm} onSubmit={handleSubmit} method="post">
@@ -102,9 +155,7 @@ const SignupForm = () => {
         <a
           className={styles.google}
           style={{ backgroundColor: "#55acee" }}
-          onClick={() =>
-            signIn("google", { callbackUrl: "/application/today" })
-          }
+          onClick={() => handleSignUp("google")}
           role="button"
         >
           <Icon type="google" className={styles.icon} />
@@ -115,9 +166,7 @@ const SignupForm = () => {
         <a
           className={styles.github}
           style={{ backgroundColor: "#55acee" }}
-          onClick={() =>
-            signIn("github", { callbackUrl: "/application/today" })
-          }
+          onClick={() => handleSignUp("github")}
           role="button"
         >
           <Icon type="github" className={styles.icon} />
@@ -130,6 +179,11 @@ const SignupForm = () => {
           Go to sign in
         </Link>
       </p>
+      <h1>Client Session</h1>
+      <pre>{JSON.stringify(session)}</pre>
+      // 显示status
+      <pre>{JSON.stringify(status)}</pre>
+      <pre>{JSON.stringify(formData)}</pre>
     </form>
   );
 };

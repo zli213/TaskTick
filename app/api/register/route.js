@@ -8,9 +8,14 @@ export async function POST(req) {
   try {
     await connect();
     const body = await req.json();
-    const userData = body.formData;
+    console.log("Request Body:", body);
+    const userData = body.formData || body.userData;
+    console.log("User Data:", userData);
     //Confirm data exists
-    if (!userData?.email || !userData.password) {
+    if (
+      userData.role === "Email User" &&
+      (!userData?.email || !userData.password)
+    ) {
       return NextResponse.json(
         { message: "All fields are required." },
         { status: 400 }
@@ -25,13 +30,17 @@ export async function POST(req) {
     if (duplicate) {
       return NextResponse.json({ message: "Duplicate Email" }, { status: 409 });
     }
+    if (userData.role === "Email User") {
+      const hashPassword = await bcrypt.hash(userData.password, 10);
+      userData.password = hashPassword;
+    }
 
-    const hashPassword = await bcrypt.hash(userData.password, 10);
-    userData.password = hashPassword;
     userData._id = new mongoose.Types.ObjectId();
     userData.account_category = "Free";
 
     await User.create(userData);
+    console.log("User Created:", userData);
+
     return NextResponse.json({ message: "User Created." }, { status: 201 });
   } catch (error) {
     console.log(error);
