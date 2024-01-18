@@ -10,10 +10,11 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Scheduler, { formatDate } from "./Scheduler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
+import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 
 export function SingleItems({
   title,
@@ -26,11 +27,16 @@ export function SingleItems({
   tags,
   priority,
   completed,
+  showProject,
 }) {
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
 
-  const { showItemMenu, buttonPosition: menuPosition, swithMenuHandler } = useMenu();
+  const {
+    showItemMenu,
+    buttonPosition: menuPosition,
+    swithMenuHandler,
+  } = useMenu();
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const [selectedPriority, setPriority] = useState(priority);
@@ -63,7 +69,7 @@ export function SingleItems({
   };
 
   return (
-    <li >
+    <li>
       <div className={styles.task_container}>
         {/* content */}
         <div className={styles.content_container}>
@@ -80,17 +86,32 @@ export function SingleItems({
               <div className={styles.task_title}>{title}</div>
               <div className={styles.task_description}>{description}</div>
             </Link>
-            <div className={styles.task_info}>
-              {hasDue && (<button className={styles.task_info_date} onClick={showScheduler}>
-                <Icon type="calender_small" />
-                {selectedDate}
-              </button>)}
-              {tags.map((tag) => (
-                <Link href={`/application/label/${tag}`}>
-                  <Icon type="small_tag" />
-                  {tag}
-                </Link>
-              ))}
+            <div className={styles.task_info_container}>
+              <div className={styles.task_info}>
+                {hasDue && (
+                  <button
+                    className={styles.task_info_date}
+                    onClick={showScheduler}
+                  >
+                    <Icon type="calender_small" />
+                    {selectedDate}
+                  </button>
+                )}
+                {tags.map((tag) => (
+                  <Link href={`/application/label/${tag}`}>
+                    <Icon type="small_tag" />
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+              {showProject && (
+                <TaskHeaderLeft
+                  projectId={projectId}
+                  projectName={projectName}
+                  board={board}
+                  reverse={true}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -140,7 +161,7 @@ export function SingleItems({
                 </Link>
               )}
               <hr />
-            
+
               <div>
                 <div className={styles.menu_title}>Priority</div>
                 <div className={styles.priority_button_list}>

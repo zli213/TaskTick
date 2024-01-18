@@ -19,7 +19,7 @@ export const DELETE = async (req) => {
   console.log("1", param);
 
   try {
-    //update tag in user info
+    //update project in user info
     const user = await User.find({ email: session.user.email });
 
     const newProjects = user[0].projects.filter(

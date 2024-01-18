@@ -70,9 +70,14 @@
   color: $textSecondaryColor;
 }
 
+.task_info_container{
+  @include flexRowBetween();
+  font-size: $fontSizeXsm;
+
+}
+
 .task_info {
   @include flexRowStart();
-  font-size: $fontSizeXsm;
   padding-top: $paddingXsm;
 
   a,
