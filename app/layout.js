@@ -10,14 +10,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <MyThemeContextProvider>
+    
       <html lang="en">
         <body>
           <ProviderWrapper>
+          <MyThemeContextProvider>
             <main>{children}</main>
+            </MyThemeContextProvider>
           </ProviderWrapper>
         </body>
       </html>
-    </MyThemeContextProvider>
+    
   );
 }

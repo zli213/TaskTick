@@ -1,49 +1,36 @@
 "use client";
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect } from 'react';
+import { useSession } from "next-auth/react";
 
 const MyThemeContext = createContext({
-    isDarkTheme: true,
     toggleThemeHandler: () => {},
 });
 
 
 export function MyThemeContextProvider(props) {
-    const [isDarkTheme, setIsDarkTheme] = useState(true);
+    const { data: session } = useSession();
+
     useEffect(() => initialThemeHandler());
 
-    function isLocalStorageEmpty() {
-        return !localStorage.getItem("isDarkTheme");
-    }
-
     function initialThemeHandler() {
-        if (isLocalStorageEmpty()) {
-            localStorage.set("isDarkTheme", `false`);
-            setIsDarkTheme(false);
-        } else {
-            const isDarkTheme = JSON.parse(localStorage.getItem("isDarkTheme"));
-            if (isDarkTheme) {
-                document.querySelector("body").classList.add("dark");
-            };
-            setIsDarkTheme(() => isDarkTheme);
+        if (session) {
+            const theme = session.user.theme;
+            if (theme === "dark") {
+                document.querySelector("main").classList.add("dark");
+            }
         }
     }
 
-    function toggleThemeHandler() {
-        const isDarkTheme = JSON.parse(localStorage.getItem("isDarkTheme"));
-        setIsDarkTheme(!isDarkTheme);
-        toggleDarkTheme();
-        setValueToLocalStorage();
+    function toggleDarkTheme() {
+        document.querySelector("main").classList.add("dark");
     }
 
-    function toggleDarkTheme() {
-        document.querySelector("body").classList.toggle("dark");    }
-
-    function setValueToLocalStorage() {
-        localStorage.setItem("isDarkTheme", `${!isDarkTheme}`);
+    function toggleLightTheme() {
+        document.querySelector("main").classList.remove("dark");
     }
 
     return (
-        <MyThemeContext.Provider value={{ isDarkTheme: true, toggleThemeHandler }}>
+        <MyThemeContext.Provider value={{ toggleDarkTheme, toggleLightTheme }}>
             {props.children}
         </MyThemeContext.Provider>
     );

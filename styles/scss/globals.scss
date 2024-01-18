@@ -28,12 +28,6 @@
 .dark {
   background-color: $textPrimaryColor;
   color: $secondaryColor;
-
-  // not working. Todo: maybe verify session first.
-  #signContainer {
-    background-color: $secondaryColor;
-    color: $textPrimaryColor;
-  }
   
   #leftbar,
   #settingLeft {

@@ -1,0 +1,97 @@
+@use "../../../utils/variable" as *;
+
+.themeButton {
+    --theme--color: $primaryColor;
+    --theme--left--color: $lightGrayColor;
+    --theme--right--color: $secondaryColor;
+    --theme--opposite--color: $textPrimaryColor;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    width: 25rem;
+    height: 15rem;
+    color: var(--theme--color);
+    background-color: var(--theme--left--color);
+}
+
+.leftbarPic {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: $paddingXsm;
+    padding-right: $paddingXsm;
+    padding-top: $paddingsm;
+    padding-bottom: $paddingsm;
+    width: 30%;
+    height: 100%;
+
+    span {
+        width: 100%;
+        height: 10%;
+        border-radius: $borderRadius;
+        background-color: var(--theme--color);
+    }
+}
+
+.leftOne {
+    opacity: 1;
+}
+
+.leftTwo {
+    opacity: 0.8;
+}
+
+.leftThree {
+    opacity: 0.5;
+}
+
+.leftFour {
+    opacity: 0.2;
+}
+
+.mainPic {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    background-color: var(--theme--right--color);
+}
+
+.headerPic {
+    @include flexRowBetween();
+    color: var(--theme--color);
+    height: 20%;
+}
+
+.contentPic {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 5px;
+}
+
+.round {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid var(--theme--opposite--color);
+}
+
+.longSpan {
+    width: 70%;
+    height: 5px;
+    display: inline-block;
+    border-radius: $borderRadius;
+    background-color: $grayColor;
+}
+
+.shortSpan {
+    width: 60%;
+    height: 5px;
+    display: inline-block;
+    border-radius: $borderRadius;
+    background-color: $grayColor;
+}
+

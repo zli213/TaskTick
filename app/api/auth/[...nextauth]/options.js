@@ -95,6 +95,7 @@ export const options = {
 
         const user = await User.find({ email: session.user.email })
         session.user.userId = user[0]._id.toString();
+        session.user.theme = user[0].themes[0];
       }
       return session;
     },
