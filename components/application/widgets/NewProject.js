@@ -48,7 +48,7 @@ export default function NewProject(props) {
 
       //Edit project
       try {
-        const res = await fetch("/api/editproject", {
+        const res = await fetch("/api/editProject", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function NewProject(props) {
 
       //Add project
       try {
-        const res = await fetch("/api/addproject", {
+        const res = await fetch("/api/addProject", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

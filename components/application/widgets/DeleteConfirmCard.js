@@ -90,7 +90,7 @@ export default DeleteConfirmCard;
 
 async function DeleteTag(tag) {
   try {
-    const res = await fetch("/api/deletetag", {
+    const res = await fetch("/api/deleteTag", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ async function DeleteTag(tag) {
 
 async function DeleteProject(projectId) {
   try {
-    const res = await fetch("/api/deleteproject", {
+    const res = await fetch("/api/deleteProject", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

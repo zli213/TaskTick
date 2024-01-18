@@ -40,7 +40,7 @@ export default function NewLabel(props) {
     if (props.label) {
       //Edit label
       try {
-        const res = await fetch("/api/edittag", {
+        const res = await fetch("/api/editTag", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function NewLabel(props) {
     } else {
       //Add new label
       try {
-        const res = await fetch("/api/addtag", {
+        const res = await fetch("/api/addTag", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export default function NewLabel(props) {
     setEnteredTag(tag);
 
     try {
-      const res = await fetch("/api/checktagexist", {
+      const res = await fetch("/api/checkTagExist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
