@@ -19,7 +19,7 @@
 .header {
   height: $fontSizeMd;
   @include flexRowBetween();
-  color: $grayColor;
+  color: $textSecondaryColor;
 }
 
 .content_holder {
