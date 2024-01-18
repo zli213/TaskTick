@@ -24,11 +24,13 @@ const NoTask = (props) => {
         "Track tasks, follow progress, and discuss details in one central, shared project.";
       image = "/images/startNewTask.jpg";
       title = "Start small (or dream big)...";
+      break;
     case "label":
       content =
         "Click the + to add a task and it’ll automatically get the label!";
       image = "/images/notask-label.png";
       title = "Try adding this label to some tasks…";
+      break;
   }
 
   return (
