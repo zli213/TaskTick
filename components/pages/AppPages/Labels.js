@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import Icon from "../../application/widgets/Icon";
 import TodoList from "../../application/widgets/TodoList";
 import Link from "next/link";
+import NoTask from "../../application/widgets/NoTask";
 
 function LabelPage({ tasks, label }) {
   useEffect(() => {
     document.title = "Filters & Labels - Todo";
-    localStorage.setItem("lastPage", "filters-labels");
+    localStorage.setItem("lastPage", `label/${label}`);
   }, []);
 
   return (
@@ -24,10 +25,12 @@ function LabelPage({ tasks, label }) {
           <h1>{label}</h1>
         </div>
       </div>
-
-      <div className={styles.list_box}>
-        <TodoList tasks={tasks} />
-      </div>
+      {tasks.length === 0 && <NoTask page="label" />}
+      {tasks.length !== 0 && (
+        <div className={styles.list_box}>
+          <TodoList tasks={tasks} />
+        </div>
+      )}
     </>
   );
 }

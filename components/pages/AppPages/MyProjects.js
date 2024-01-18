@@ -50,7 +50,7 @@ export default function MyProjects(props) {
       <div className={styles.content_box}>
         <ul className={styles.project_list}>
           {props.data.map((project) => (
-            <MyProjectItem project={project} />
+            <MyProjectItem project={project} key={project.projectId} />
           ))}
         </ul>
       </div>
