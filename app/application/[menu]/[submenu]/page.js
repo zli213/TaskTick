@@ -21,12 +21,12 @@ export default async function SubAppPages({ params }) {
 
   //Check if Task exist
   if (params.menu == "task") {
-    var ifTaskExist = await checkTaskExist(params.submenu);
+    let ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
       return <TaskNotFound />;
     }
   }
-  var tasks = await getOneUserTasks(session.user.userId);
+  let tasks = await getOneUserTasks(session.user.userId);
   tasks = tasks.filter((task) => task.archived !== true);
 
   switch (params.menu) {

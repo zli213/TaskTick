@@ -20,9 +20,7 @@ export default async function AppPage({ params }) {
   }
 
   var tasks = await getOneUserTasks(session.user.userId);
-  console.log('1',tasks);
   tasks = tasks.filter((task) => task.archived != true);
-  console.log('2',tasks);
 
   switch (params.menu) {
     case "inbox":

@@ -14,7 +14,7 @@ export default async function AppLayout(props) {
     redirect("/auth/signin");
   }
 
-  var projects = await getProjects(session.user.userId);
+  let projects = await getProjects(session.user.userId);
   projects= projects.filter((project) => { return project.archived !== true; });
   projects = JSON.parse(JSON.stringify(await updateInfo(projects)));
   const inboxNum = await getInboxNum(session.user.userId);
