@@ -43,6 +43,11 @@ export function SingleItems({
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
   const [isEditing, setIsEditing] = useState(false);
 
+  /** for change the display values when save */
+  const [dispTitle, setDispTitle] = useState(title);
+  const [dispDescription, setDispDescription] = useState(description);
+  const [dispTags, setDispTags] = useState(tags);
+
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
   };
@@ -69,6 +74,30 @@ export function SingleItems({
     setPriority(option);
   };
 
+  const updateTaskHandler = async (task) => {
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+
+      const result = await res.json();
+      setDispTitle(result.body.title);
+      setDispDescription(result.body.description);
+      setPriority(result.body.priority);
+      setDispTags(result.body.tags);
+      setSelectedDate(
+        formatDate(
+          result.body.dueDate == null ? "" : new Date(result.body.dueDate)
+        ).dateStr
+      );
+      setIsEditing(false);
+    } catch (error) {}
+  };
+
   return (
     <li key={_id}>
       {isEditing ? (
@@ -76,20 +105,19 @@ export function SingleItems({
           formType={"edit"}
           taskData={{
             _id: _id,
-            selectedDate: dateJson.dateStr,
-            priority: parseInt(priority[1]),
-            taskName: title,
-            taskContent: description,
-            tags: tags,
+            selectedDate: selectedDate,
+            priority: parseInt(selectedPriority[1]),
+            taskName: dispTitle,
+            taskContent: dispDescription,
+            tags: dispTags,
           }}
           tagList={alltags} // alltags
           cancelCallBack={() => {
             setIsEditing(false);
           }}
           submitCallBack={(newTaskData) => {
-            console.log(1);
-            console.log(newTaskData);
-            setIsEditing(false);
+            // console.log(newTaskData);
+            updateTaskHandler(newTaskData);
           }}
         />
       ) : (
@@ -103,11 +131,11 @@ export function SingleItems({
                 </span>
               </div>
             </div>
-            <CheckBoxButton priority={priority} />
+            <CheckBoxButton priority={selectedPriority} />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
-                <div className={styles.task_title}>{title}</div>
-                <div className={styles.task_description}>{description}</div>
+                <div className={styles.task_title}>{dispTitle}</div>
+                <div className={styles.task_description}>{dispDescription}</div>
               </Link>
               <div className={styles.task_info}>
                 {hasDue && (
@@ -119,7 +147,7 @@ export function SingleItems({
                     {selectedDate}
                   </button>
                 )}
-                {tags.map((tag) => (
+                {dispTags.map((tag) => (
                   <span>
                     <Icon type="small_tag" />
                     {tag}
@@ -167,7 +195,12 @@ export function SingleItems({
               levels={projectId ? 6 : 5}
             >
               <div className={styles.task_item_action_menu}>
-                <button>
+                <button
+                  onClick={() => {
+                    swithMenuHandler();
+                    setIsEditing(true);
+                  }}
+                >
                   <Icon type="edit" />
                   <span>Edit</span>
                 </button>

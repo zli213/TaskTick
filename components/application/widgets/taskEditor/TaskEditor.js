@@ -44,11 +44,11 @@ function TaskEditor({
       priority: 4,
       taskName: "",
       taskContent: "",
-      tags: ["Reading1", "Daily"],
+      tags: [],
     };
   }
   if (tagList == null) {
-    tagList = ["Reading1", "Reading2", "Daily", "Weekly"];
+    tagList = [];
   }
   if (cancelCallBack == null) {
     cancelCallBack = () => {};
@@ -66,7 +66,7 @@ function TaskEditor({
     priority: taskData.priority == null ? 4 : taskData.priority,
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
-    tags: taskData.tags == null ? ["Reading1", "Daily"] : taskData.tags,
+    tags: taskData.tags == null ? [] : taskData.tags,
   });
 
   /** update newTaskData */
