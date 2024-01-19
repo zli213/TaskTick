@@ -464,6 +464,13 @@ function TaskNameInput(
           return;
         }
       }
+      if (k === "Backspace") {
+        sel.removeAllRanges();
+        sel.addRange(range);
+        if (document.getElementById("taskName").textContent === "") {
+          document.getElementById("taskName").innerHTML = null;
+        }
+      }
 
       // if in a matching span, show drop down list and update the list when inputing.
       if (sel.anchorNode.parentNode.getAttribute("match-type") === "matching") {
