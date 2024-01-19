@@ -128,9 +128,9 @@ const SignInPage = () => {
             styles={styles}
           />
           <p className={styles.signUp}>
-            If you don't have an account,plese
-            <Link href="/register" className={styles.signUpLink}>
-              sign up
+            Don't have an account?{"\u00a0"}
+            <Link href="/auth/register" className={styles.signUpLink}>
+              Sign up
             </Link>
           </p>
         </form>
