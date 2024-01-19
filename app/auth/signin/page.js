@@ -2,7 +2,7 @@
 "use client";
 
 import { set } from "mongoose";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/signin.module.scss";
@@ -57,10 +57,10 @@ const SignInPage = () => {
 
   const showNotification = (message) => {
     setNotification(message);
-    // hide notification after 10 seconds
+    // hide notification after 30 seconds
     setTimeout(() => {
       setNotification(null);
-    }, 10000);
+    }, 30000);
   };
 
   const handleSignIn = async (provider) => {
@@ -83,6 +83,10 @@ const SignInPage = () => {
         showNotification(
           "The email address has already been used. Please log in using the corresponding registration information!"
         );
+        // set 3 seconds timeout to allow the sign out process to complete
+        setTimeout(() => {
+          signOut();
+        }, 2000);
       } else {
         showNotification(accountStatus);
       }
