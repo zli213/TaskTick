@@ -35,7 +35,6 @@ export default function SettingModal({ params }) {
       <div className={styles.setting_modal_container}>
         <div className={styles.setting_left} id="settingLeft">
           <h2>Settings</h2>
-          <div>Search</div>
           <ul>
             <li>
               <div className={`${styles.leftGroup} ${styles.selected}`}>

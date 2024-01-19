@@ -17,16 +17,21 @@ export function MyThemeContextProvider(props) {
             const theme = session.user.theme;
             if (theme === "dark") {
                 document.querySelector("main").classList.add("dark");
+                localStorage.setItem("isDark", true);
+            } else {
+                localStorage.setItem("isDark", false);
             }
         }
     }
 
     function toggleDarkTheme() {
         document.querySelector("main").classList.add("dark");
+        localStorage.setItem("isDark", true);
     }
 
     function toggleLightTheme() {
         document.querySelector("main").classList.remove("dark");
+        localStorage.setItem("isDark", false);
     }
 
     return (

@@ -7,25 +7,30 @@
     --theme--opposite--color: $textPrimaryColor;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     border: 1px solid $grayColor;
     border-radius: $borderRadiusSm;
-    width: 25rem;
-    height: 15rem;
+    width: 20rem;
+    height: 12rem;
     color: var(--theme--color);
     background-color: var(--theme--left--color);
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
 .leftbarPic {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: $paddingXsm;
-    padding-right: $paddingXsm;
-    padding-top: $paddingsm;
-    padding-bottom: $paddingsm;
+    padding: $paddingsm $paddingXsm;
     width: 30%;
     height: 100%;
+    gap: 5px;
 
     span {
         width: 100%;
@@ -33,36 +38,43 @@
         border-radius: $borderRadius;
         background-color: var(--theme--color);
     }
-}
 
-.leftOne {
-    opacity: 1;
-}
+    .leftOne {
+        opacity: 1;
+    }
 
-.leftTwo {
-    opacity: 0.8;
-}
+    .leftTwo {
+        opacity: 0.8;
+    }
 
-.leftThree {
-    opacity: 0.5;
-}
+    .leftThree {
+        opacity: 0.5;
+    }
 
-.leftFour {
-    opacity: 0.2;
+    .leftFour {
+        opacity: 0.2;
+    }
 }
 
 .mainPic {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     width: 70%;
     height: 100%;
+    padding: $paddingsm;
     background-color: var(--theme--right--color);
+    border-radius: 0 $borderRadius $borderRadius 0;
 }
 
+// not working
 .headerPic {
-    @include flexRowBetween();
+    // @include flexRowBetween();
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     color: var(--theme--color);
-    height: 20%;
+    max-height: 20%;
 }
 
 .contentPic {
@@ -72,8 +84,8 @@
 }
 
 .round {
-    width: 5px;
-    height: 5px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     display: inline-block;
     border: 1px solid var(--theme--opposite--color);
