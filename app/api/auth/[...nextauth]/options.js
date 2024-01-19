@@ -85,8 +85,41 @@ export const options = {
     }),
   ],
   callbacks: {
+    // async signIn with new account of google and github
+    async signIn({ user, account, profile }) {
+      let userData;
+      console.log("User: ", user);
+      await connect();
+      if (account.provider === "github" || account.provider === "google") {
+        try {
+          const existingUser = await User.findOne({ email: user.email });
+          if (!existingUser) {
+            userData = {
+              fullName: user.name,
+              email: user.email,
+              _id: new mongoose.Types.ObjectId(),
+              role:
+                account.provider === "github" ? "GitHub User" : "Google User",
+              avatar_url:
+                account.provider === "github" ? user.avatar_url : user.picture,
+              account_category: "Free",
+            };
+            await User.create(userData);
+            user.accountStatus = "created";
+          } else if (existingUser.role !== user.role) {
+            // if user exists but role is different, notify user to use the other provider
+            user.accountStatus = "existing_user_different_provider";
+          } else {
+            user.accountStatus = "existing_user";
+          }
+        } catch (error) {
+          user.accountStatus = "error";
+          throw new Error("User creation failed");
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
-      console.log("JWT user: ", user);
       if (user) {
         token.role = user.role;
         if (user.role === "GitHub User") {
@@ -98,6 +131,7 @@ export const options = {
         } else {
           token.avatar_url = null;
         }
+        token.accountStatus = user.accountStatus;
       }
       return token;
     },
@@ -114,40 +148,12 @@ export const options = {
         } else {
           session.user.userId = null;
         }
+        session.user.accountStatus = token.accountStatus;
       }
       return session;
     },
-    // async signIn with new account of google and github
-    // async signIn({ user, account, profile }) {
-    //   console.log("user", user);
-    //   let userData;
-    //   await connect();
-    //   if (account.provider === "github" || account.provider === "google") {
-    //     userData = {
-    //       fullName: user.name,
-    //       email: user.email,
-    //       _id: new mongoose.Types.ObjectId(),
-    //       role: account.provider === "github" ? "GitHub User" : "Google User",
-    //       avatar_url: user.image,
-    //       account_category: "Free",
-    //     };
-    //     try {
-    //       const existingUser = await User.findOne({ email: userData.email });
-    //       if (!existingUser) {
-    //         await User.create(userData);
-    //         return { status: "created", user: userData };
-    //       } else {
-    //         return { status: "existing_user" };
-    //       }
-    //     } catch (error) {
-    //       console.error(error);
-    //       throw new Error("User creation failed");
-    //     }
-    //   }
-
-    //   return true;
-    // },
   },
+
   pages: {
     signIn: "/auth/signin",
     register: "/auth/signup",

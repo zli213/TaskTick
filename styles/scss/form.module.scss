@@ -32,6 +32,10 @@
       border-color: #4f005f;
     }
   }
+  .error {
+    color: $errorColor;
+    margin-bottom: 10px;
+  }
   .submit {
     background-color: #007bff;
     &:hover {
