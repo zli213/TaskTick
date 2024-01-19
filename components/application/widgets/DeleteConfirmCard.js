@@ -11,11 +11,7 @@ import Modal from "./Modal";
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
 
-import {
-  DeleteTag,
-  DeleteProject,
-  ArchiveProject,
-} from "../../../public/CommonFunctions";
+import { DeleteTag, DeleteProject, ArchiveProject,} from "../../../public/CommonFunctions";
 
 //Custom React hook -> useDelete
 export const useDelete = () => {
@@ -62,9 +58,11 @@ function DeleteConfirmCard(props) {
         if (props.ifArchive) {
           (await ArchiveProject(props.projectId)) && props.closeHandler();
           const lastPage = localStorage.getItem("lastPage");
-          lastPage.includes( props.projectId) && router.push("/application/inbox");
+          lastPage.includes(props.projectId) && router.push("/application/inbox");
         } else {
           await DeleteProject(props.projectId);
+          const lastPage = localStorage.getItem("lastPage");
+          lastPage.includes(props.projectId) && router.push("/application/inbox");
         }
         break;
     }

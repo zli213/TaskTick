@@ -10,8 +10,6 @@ import { options } from "../../../api/auth/[...nextauth]/options";
 import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
 import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import getProjects from "../../../../src/utils/data/getProjects";
-import getProjectName from "../../../../src/utils/data/getProjectName";
-import getBoards from "../../../../src/utils/data/getBoards";
 import getLabelTasks from "../../../../src/utils/data/getLabelTasks";
 import getSingleProject from "../../../../src/utils/data/getSingleProject";
 
@@ -28,7 +26,8 @@ export default async function SubAppPages({ params }) {
       return <TaskNotFound />;
     }
   }
-  const tasks = await getOneUserTasks(session.user.userId);
+  var tasks = await getOneUserTasks(session.user.userId);
+  tasks = tasks.filter((task) => task.archived !== true);
 
   switch (params.menu) {
     case "project":
@@ -36,7 +35,7 @@ export default async function SubAppPages({ params }) {
         session.user.userId,
         params.submenu
       );
-     
+
       const projectTasks = tasks.filter((task) => {
         return task.projectId == params.submenu;
       });

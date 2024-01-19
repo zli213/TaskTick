@@ -19,7 +19,8 @@ export default async function AppPage({ params }) {
     redirect("/auth/signin");
   }
 
-  const tasks = await getOneUserTasks(session.user.userId);
+  var tasks = await getOneUserTasks(session.user.userId);
+  tasks = tasks.filter((task) => task.archived !== true);
 
   switch (params.menu) {
     case "inbox":
@@ -34,7 +35,7 @@ export default async function AppPage({ params }) {
 
     case "filters-labels":
       var labels = await getLabels(session.user.userId);
-      return <FilterPage labels={labels} />; //need edit
+      return <FilterPage labels={labels} />;
 
     case "projects":
       var projects = await getProjects(session.user.userId);
