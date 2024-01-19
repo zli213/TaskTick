@@ -5,12 +5,20 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import { UnarchiveProject } from "../../../public/CommonFunctions";
+import { useRouter } from "next/navigation";
 
-function MyProjectItem({ project }) {
+function MyProjectItem({ project, type }) {
+  const router = useRouter();
+
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
-  const { showDeleteCard, showDeleteCardHandler } = useDelete();
-
+  const {
+    ifArchive,
+    showArchiveCardHandler,
+    showDeleteCard,
+    showDeleteCardHandler,
+  } = useDelete();
   const [showedName, setShowedName] = useState(project.name);
 
   const menuEditHandler = () => {
@@ -21,6 +29,16 @@ function MyProjectItem({ project }) {
   const menuDeleteHandler = () => {
     swithMenuHandler(event);
     showDeleteCardHandler();
+  };
+
+  const menuArchiveHandler = async () => {
+    swithMenuHandler(event);
+    if (type == "active") {
+      showArchiveCardHandler();
+    } else {
+      await UnarchiveProject(project.projectId);
+      router.refresh();
+    }
   };
 
   return (
@@ -44,6 +62,10 @@ function MyProjectItem({ project }) {
               <span>Edit</span>
             </button>
             <hr />
+            <button onClick={menuArchiveHandler}>
+              <Icon type={type == "active" ? "archive" : "unarchive"} />
+              <span>{type == "active" ? "Archive" : "Unarchive"}</span>
+            </button>
             <button onClick={menuDeleteHandler}>
               <Icon type="delete" />
               <span>Delete</span>
@@ -59,12 +81,13 @@ function MyProjectItem({ project }) {
           showNameHandler={setShowedName}
         />
       )}
-       {showDeleteCard && (
+      {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
           projectId={project.projectId}
           name={project.name}
           type="project"
+          ifArchive={ifArchive}
         />
       )}
     </li>

@@ -27,6 +27,7 @@ export const POST = async (req) => {
       {
         projectId: newId,
         name: param.name,
+        archived: false,
       },
     ];
 

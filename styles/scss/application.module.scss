@@ -139,16 +139,16 @@
     border-radius: $borderRadiusSm;
     padding: $paddingXsm $paddingsm;
     gap: $paddingXsm;
-  }
-
-  .add_btn_projects {
-    background-color: $lightGrayColor;
-    font-weight: 500;
     cursor: pointer;
 
     &:hover {
       background-color: $grayColor;
     }
+  }
+
+  .add_btn_projects {
+    background-color: $lightGrayColor;
+    font-weight: 500;
   }
 
   .active_btn_projects {
@@ -194,6 +194,19 @@
 
 .task_item_action_menu {
   @include menuItems();
+
+  h4 {
+    padding: $paddingsm ;
+    font-weight: 500
+  }
+
+  a {
+    @include flexRowBetween();
+
+    div {
+      @include flexRowStart();
+    }
+  }
 }
 
 .no_tasks {
@@ -274,7 +287,6 @@
     color: $heaveGrayColor;
   }
 
-  
   a {
     padding: $paddingsm 0;
     @include flexRowStart();
@@ -329,5 +341,19 @@
     &:hover {
       background-color: $lightGrayColor;
     }
+  }
+}
+
+.archived_project{
+  @include flexRowBetween();
+  align-items: flex-start;
+  margin-top: $marginSm;
+
+  button{
+    background-color: $primaryColor;
+    border-radius: $borderRadiusSm;
+    color: #fff;
+    padding: $paddingsm $paddingMd;
+    cursor: pointer;
   }
 }

@@ -39,7 +39,7 @@ export default async function AppPage({ params }) {
     case "projects":
       var projects = await getProjects(session.user.userId);
       projects = JSON.parse(JSON.stringify(projects));
-      return <MyProjects data={projects} />;
+      return <MyProjects data={projects} type={"active"} />;
 
     case "setting":
       return <Today data={tasks} settingMenu={"account"} />;

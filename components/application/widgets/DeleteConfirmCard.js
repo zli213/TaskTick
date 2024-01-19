@@ -1,5 +1,5 @@
 /**
- * Delete confirm popup card.
+ * Delete confirmation popup card, with archive project comfirmation.
  * Author: Ryan
  */
 
@@ -11,17 +11,32 @@ import Modal from "./Modal";
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
 
+import {
+  DeleteTag,
+  DeleteProject,
+  ArchiveProject,
+} from "../../../public/CommonFunctions";
+
 //Custom React hook -> useDelete
 export const useDelete = () => {
   const [showDeleteCard, setShowDeleteCard] = useState(false);
+  const [ifArchive, setIfArchive] = useState(false);
 
   const showDeleteCardHandler = () => {
+    setIfArchive(false);
+    setShowDeleteCard((preState) => !preState);
+  };
+
+  const showArchiveCardHandler = () => {
+    setIfArchive(true);
     setShowDeleteCard((preState) => !preState);
   };
 
   return {
+    ifArchive,
     showDeleteCard,
     showDeleteCardHandler,
+    showArchiveCardHandler,
   };
 };
 
@@ -31,16 +46,26 @@ function DeleteConfirmCard(props) {
 
   const content1 = "Are you sure you want to delete ";
   const content2 = "?";
-  const content3 = 'This will permanently delete "';
-  const content4 = "\" and all of its tasks. This can't be undone.";
+  const content3 = props.ifArchive
+    ? "Are you sure you want to archive "
+    : 'This will permanently delete "';
+  const content4 = props.ifArchive
+    ? "?"
+    : "\" and all of its tasks. This can't be undone.";
 
   const deleteHandler = async () => {
     switch (props.type) {
       case "label":
-        await DeleteTag(props.name) && props.closeHandler();
+        (await DeleteTag(props.name)) && props.closeHandler();
         break;
       case "project":
-        await DeleteProject(props.projectId) && props.closeHandler();
+        if (props.ifArchive) {
+          (await ArchiveProject(props.projectId)) && props.closeHandler();
+          const lastPage = localStorage.getItem("lastPage");
+          lastPage.includes( props.projectId) && router.push("/application/inbox");
+        } else {
+          await DeleteProject(props.projectId);
+        }
         break;
     }
     router.refresh();
@@ -74,7 +99,7 @@ function DeleteConfirmCard(props) {
               className={styles.btn_delete}
               onClick={deleteHandler}
             >
-              Delete
+              {props.ifArchive ? "Archive" : "Delete"}
             </button>
           </footer>
         </div>
@@ -84,46 +109,3 @@ function DeleteConfirmCard(props) {
 }
 
 export default DeleteConfirmCard;
-
-
-//Delete functions
-
-async function DeleteTag(tag) {
-  try {
-    const res = await fetch("/api/deleteTag", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ tag }),
-    });
-
-    if (res.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.log("Error occured: ", error);
-  }
-}
-
-async function DeleteProject(projectId) {
-  try {
-    const res = await fetch("/api/deleteProject", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ projectId }),
-    });
-
-    if (res.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.log("Error occured: ", error);
-  }
-}

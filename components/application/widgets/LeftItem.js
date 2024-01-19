@@ -17,13 +17,23 @@ const LeftbarItem = ({
 }) => {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
-  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+  const {
+    ifArchive,
+    showArchiveCardHandler,
+    showDeleteCard,
+    showDeleteCardHandler,
+  } = useDelete();
 
   const [showedName, setShowedName] = useState(label);
 
   const menuEditHandler = () => {
     swithMenuHandler(event);
     showProjectCardHandler();
+  };
+
+  const menuArchiveHandler =  () => {
+    swithMenuHandler(event);
+    showArchiveCardHandler();
   };
 
   const menuDeleteHandler = () => {
@@ -112,7 +122,7 @@ const LeftbarItem = ({
           <PopupMenu
             onOverlayClick={swithMenuHandler}
             position={buttonPosition}
-            levels="2"
+            levels="3"
           >
             <ul>
               <li
@@ -123,6 +133,15 @@ const LeftbarItem = ({
                   <Icon type="edit" />
                 </span>
                 Edit
+              </li>
+              <li
+                className={styles.action_btn_menu_item}
+                onClick={menuArchiveHandler}
+              >
+                <span>
+                  <Icon type="archive" />
+                </span>
+                Archive
               </li>
               <li
                 className={styles.action_btn_menu_item}
@@ -151,6 +170,7 @@ const LeftbarItem = ({
           projectId={projectId}
           name={label}
           type="project"
+          ifArchive={ifArchive}
         />
       )}
     </li>

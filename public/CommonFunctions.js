@@ -41,3 +41,84 @@ export function convertPosition(position, levels, componentWidth) {
     top: newtop + buttonGap,
   };
 }
+
+
+export async function DeleteTag(tag) {
+  try {
+    const res = await fetch("/api/deleteTag", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tag }),
+    });
+
+    if (res.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Error occured: ", error);
+  }
+}
+
+export async function DeleteProject(projectId) {
+  try {
+    const res = await fetch("/api/deleteProject", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ projectId }),
+    });
+
+    if (res.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Error occured: ", error);
+  }
+}
+
+export async function ArchiveProject(projectId) {
+  try {
+    const res = await fetch("/api/archiveProject", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ projectId }),
+    });
+
+    if (res.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Error occured: ", error);
+  }
+}
+
+export async function UnarchiveProject(projectId) {
+  try {
+    const res = await fetch("/api/unarchiveProject", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ projectId }),
+    });
+
+    if (res.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Error occured: ", error);
+  }
+}

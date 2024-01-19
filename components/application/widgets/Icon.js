@@ -11,6 +11,8 @@ import React from "react";
 
 // Import SVG icons
 import AddIcon from "../../../public/icon/add.svg";
+import ArchiveIcon from "../../../public/icon/archive.svg";
+import UnarchiveIcon from "../../../public/icon/unarchive.svg";
 import CalenderBigIcon from "../../../public/icon/big_calender.svg";
 import CalenderIcon from "../../../public/icon/calender.svg";
 import CloseIcon from "../../../public/icon/close.svg";
@@ -152,6 +154,10 @@ const Icon = ({ type, ...props }) => {
         return <ViewIcon {...props} />;
       case "info":
         return <InfoIcon {...props} />;
+      case "archive":
+        return <ArchiveIcon {...props} />;
+      case "unarchive":
+        return <UnarchiveIcon {...props} />;
 
       default:
         return null;
