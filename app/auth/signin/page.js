@@ -3,7 +3,7 @@
 
 import { set } from "mongoose";
 import { signIn, signOut } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/signin.module.scss";
 import Link from "next/link";
@@ -22,10 +22,7 @@ const SignInPage = () => {
   });
   const [error, setError] = useState("");
   const [notification, setNotification] = useState(null);
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const router = useRouter();
-  const [result, setResult] = useState(null); // 初始化 result 状态
 
   const onSubmit = async (e) => {
     e.preventDefault();
