@@ -93,8 +93,9 @@ export const options = {
       if (session?.user) {
         session.user.role = token.role;
 
-        const user = await User.find({ email: session.user.email })
+        const user = await User.find({ email: session.user.email });
         session.user.userId = user[0]._id.toString();
+        session.user.username = user[0].username;
       }
       return session;
     },

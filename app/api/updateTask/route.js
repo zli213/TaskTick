@@ -21,8 +21,10 @@ export const POST = async (req) => {
         priority: "P" + param.priority,
         tags: param.tags,
         dueDate:
-          param.selectedDate == null ? null : new Date(param.selectedDate),
-        projectId: param.projectId,
+          param.selectedDate === (null || "")
+            ? null
+            : new Date(param.selectedDate),
+        projectId: param.projectId === "" ? null : param.projectId,
         projectName: param.projectName,
         board: param.board,
       },

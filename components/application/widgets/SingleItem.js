@@ -89,7 +89,9 @@ export function SingleItems({
       });
 
       const result = await res.json();
-      console.log(result.body);
+
+      //console.log(result.body);
+      setIsEditing(false);
       setDispTitle(result.body.title);
       setDispDescription(result.body.description);
       setPriority(result.body.priority);
@@ -102,7 +104,6 @@ export function SingleItems({
       setDispProjectId(result.body.projectId);
       setDispProjectName(result.body.projectName);
       setDispBoard(result.body.board);
-      setIsEditing(false);
     } catch (error) {}
   };
 

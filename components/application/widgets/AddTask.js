@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
+import { useSession } from "next-auth/react";
 
 /**
  * @param
@@ -8,6 +9,7 @@ import TaskEditor from "./taskEditor/TaskEditor";
  * fromBoard
  */
 function AddTask(props) {
+  const { data: session } = useSession();
   // Show/Hide add task btn
   const [isShowAddBtn, setIsShowAddBtn] = useState(true);
   const showAddBtn = () => {
@@ -24,6 +26,29 @@ function AddTask(props) {
   };
   const hideTaskEditor = () => {
     setIsShowTaskEditor(false);
+  };
+
+  const saveNewTask = async (newtask) => {
+    console.log(session.user);
+    const newTaskWithUser = {
+      ...newtask,
+      userId: session.user.userId,
+      username: session.user.username,
+    };
+    delete newTaskWithUser._id;
+    try {
+      const res = await fetch("/api/addTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTaskWithUser),
+      });
+      console.log(res);
+      showAddBtn();
+      hideTaskEditor();
+    } catch (err) {}
+    // console.log(newTaskWithUser);
   };
 
   return (
@@ -57,7 +82,9 @@ function AddTask(props) {
             showAddBtn();
             hideTaskEditor();
           }}
-          submitCallBack={() => {}}
+          submitCallBack={(newtask) => {
+            saveNewTask(newtask);
+          }}
         />
       ) : null}
     </>
