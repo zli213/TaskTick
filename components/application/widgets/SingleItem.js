@@ -107,6 +107,22 @@ export function SingleItems({
     } catch (error) {}
   };
 
+  const deleteTaskHandler = async (task) => {
+    try {
+      const res = await fetch("/api/deleteTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+
+      const result = await res.json();
+      console.log(result);
+    } catch (error) {}
+    swithMenuHandler();
+  };
+
   return (
     <li key={_id}>
       {isEditing ? (
@@ -270,7 +286,12 @@ export function SingleItems({
                   <span>Move to...</span>
                 </button>
                 <hr />
-                <button className={styles.button_delete}>
+                <button
+                  className={styles.button_delete}
+                  onClick={() => {
+                    deleteTaskHandler({ _id: _id });
+                  }}
+                >
                   <Icon type="delete" />
                   <span>Delete</span>
                 </button>

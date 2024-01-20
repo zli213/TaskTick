@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 export const POST = async (req) => {
   await connect();
   const param = await req.json();
-  console.log(param);
+
   const newtask = await new Tasks({
     _id: new ObjectId(),
     title: param.taskName,
@@ -22,10 +22,7 @@ export const POST = async (req) => {
     username: param.username,
     completed: false,
   });
-  if (newtask.projectId === undefined) {
-    delete newtask.projectId;
-  }
-  console.log(newtask);
+
   try {
     const res = await newtask
       .save()
