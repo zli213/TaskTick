@@ -14,7 +14,6 @@ export default async function getProjectNum(projectId) {
 
   try {
     const tasks = await Tasks.find({ projectId: projectId , completed: false }); 
-    console.log()
     return  tasks.length;
     
   } catch (error) {
