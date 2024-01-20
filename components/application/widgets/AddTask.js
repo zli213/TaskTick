@@ -2,7 +2,12 @@
 import { useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
 
-function AddTask() {
+/**
+ * @param
+ * fromProject
+ * fromBoard
+ */
+function AddTask(props) {
   // Show/Hide add task btn
   const [isShowAddBtn, setIsShowAddBtn] = useState(true);
   const showAddBtn = () => {
@@ -43,8 +48,11 @@ function AddTask() {
       ) : null}
       {isShowTaskEditor ? (
         <TaskEditor
-          //   onRef={taskEditorRef}
           formType="add"
+          tagList={props.allTags}
+          allProjects={props.allProjects}
+          fromProject={props.fromProject}
+          fromBoard={props.fromBoard}
           cancelCallBack={() => {
             showAddBtn();
             hideTaskEditor();

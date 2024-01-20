@@ -28,7 +28,12 @@ const NoTask = (props) => {
 
   return (
     <div className={styles.list_box}>
-      <AddTask />
+      <AddTask
+        allTags={props.allTags}
+        allProjects={props.allProjects}
+        fromProject={props.fromProject}
+        fromBoard={props.fromBoard}
+      />
       <div className={styles.no_tasks}>
         <img src={image} />
         <h4>{title}</h4>

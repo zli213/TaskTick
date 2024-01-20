@@ -5,7 +5,20 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 
-function TodoList({ tasks, title, allTags, allProjects }) {
+function TodoList({
+  tasks,
+  title,
+  allTags,
+  allProjects,
+  fromProject,
+  fromBoard,
+}) {
+  if (fromProject == null) {
+    fromProject = { projectId: "", projectName: "" };
+  }
+  if (fromBoard == null) {
+    fromBoard = "";
+  }
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
@@ -61,7 +74,14 @@ function TodoList({ tasks, title, allTags, allProjects }) {
               ))}
         </div>
       )}
-      {title != "Overdue" && <AddTask />}
+      {title != "Overdue" && (
+        <AddTask
+          allTags={allTags}
+          allProjects={allProjects}
+          fromProject={fromProject}
+          fromBoard={fromBoard}
+        />
+      )}
       {showItemMenu && (
         <PopupMenu
           onOverlayClick={swithMenuHandler}

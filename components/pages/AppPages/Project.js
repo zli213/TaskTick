@@ -49,13 +49,21 @@ export default function Project({
       </div>
 
       {boards.length == 0 && tasks.length == 0 ? (
-        <NoTask page="project" />
+        <NoTask
+          page="project"
+          allTags={allTags}
+          allProjects={allProjects}
+          fromProject={{ projectId: projectId, projectName: projectName }}
+          fromBoard={""}
+        />
       ) : (
         <div className={styles.list_box}>
           <TodoList
             tasks={groupedTasks[undefined]}
             allTags={allTags}
             allProjects={allProjects}
+            fromProject={{ projectId: projectId, projectName: projectName }}
+            fromBoard={""}
           />
           {boards
             ? Object.keys(groupedTasks)
@@ -67,6 +75,11 @@ export default function Project({
                     tasks={groupedTasks[boardName]}
                     allTags={allTags}
                     allProjects={allProjects}
+                    fromProject={{
+                      projectId: projectId,
+                      projectName: projectName,
+                    }}
+                    fromBoard={boardName}
                   />
                 ))
             : ""}

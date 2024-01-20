@@ -32,6 +32,8 @@ function TaskEditor({
   taskData,
   tagList,
   allProjects,
+  fromProject,
+  fromBoard,
   cancelCallBack,
   submitCallBack,
 }) {
@@ -55,6 +57,12 @@ function TaskEditor({
   if (tagList == null) {
     tagList = [];
   }
+  if (fromProject == null) {
+    fromProject = { projectId: "", projectName: "" };
+  }
+  if (fromBoard == null) {
+    fromBoard = "";
+  }
   if (cancelCallBack == null) {
     cancelCallBack = () => {};
   }
@@ -72,9 +80,24 @@ function TaskEditor({
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
     tags: taskData.tags == null ? [] : taskData.tags,
-    projectId: taskData.projectId == null ? "" : taskData.projectId,
-    projectName: taskData.projectName == null ? "" : taskData.projectName,
-    board: taskData.board == null ? "" : taskData.board,
+    projectId:
+      formType === "add"
+        ? fromProject.projectId
+        : taskData.projectId == null
+        ? ""
+        : taskData.projectId,
+    projectName:
+      formType === "add"
+        ? fromProject.projectName
+        : taskData.projectName == null
+        ? ""
+        : taskData.projectName,
+    board:
+      formType === "add"
+        ? fromBoard
+        : taskData.board == null
+        ? ""
+        : taskData.board,
   });
 
   /** update newTaskData */
