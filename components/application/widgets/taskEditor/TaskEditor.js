@@ -25,11 +25,13 @@ import Scheduler, { convertDate } from "../Scheduler";
 import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
+import ProjectSelector from "./ProjectSelector";
 
 function TaskEditor({
   formType,
   taskData,
   tagList,
+  allProjects,
   cancelCallBack,
   submitCallBack,
 }) {
@@ -45,6 +47,9 @@ function TaskEditor({
       taskName: "",
       taskContent: "",
       tags: [],
+      projectId: "",
+      projectName: "",
+      board: "",
     };
   }
   if (tagList == null) {
@@ -67,6 +72,9 @@ function TaskEditor({
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
     tags: taskData.tags == null ? [] : taskData.tags,
+    projectId: taskData.projectId == null ? "" : taskData.projectId,
+    projectName: taskData.projectName == null ? "" : taskData.projectName,
+    board: taskData.board == null ? "" : taskData.board,
   });
 
   /** update newTaskData */
@@ -98,6 +106,36 @@ function TaskEditor({
     setAllTags(taglist);
   };
 
+  const [dispProjectId, setDispProjectId] = useState(
+    newTaskData.current.projectId
+  );
+  const changeDispProjectId = (id) => {
+    setDispProjectId(id);
+    setNewTaskData("projectId", id);
+  };
+
+  const [dispProjectName, setDispProjectName] = useState(
+    newTaskData.current.projectName
+  );
+  const changeDispProjectName = (name) => {
+    setDispProjectName(name);
+    setNewTaskData("projectName", name);
+  };
+
+  const [dispBoard, setDispBoard] = useState(newTaskData.current.board);
+  const changeDispBoard = (name) => {
+    setDispBoard(name);
+    setNewTaskData("board", name);
+  };
+
+  const projSelectHandler = (projId, projName, board) => {
+    changeDispProjectId(projId);
+    changeDispProjectName(projName);
+    changeDispBoard(board);
+    hideProjectSel();
+    //console.log({ id: projId, name: projName, board: board });
+  };
+
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const showScheduler = () => {
@@ -123,6 +161,15 @@ function TaskEditor({
   };
   const hideTagCheck = () => {
     setIsShowTagCheck(false);
+  };
+
+  // Show/Hide ProjectSelector
+  const [isShowProjectSel, setIsShowProjectSel] = useState(false);
+  const showProjectSel = () => {
+    setIsShowProjectSel(true);
+  };
+  const hideProjectSel = () => {
+    setIsShowProjectSel(false);
   };
 
   const recordTaskContent = () => {
@@ -189,43 +236,42 @@ function TaskEditor({
             </div>
           </div>
           <div className={styles.task_footer}>
-            <button
-              type="button"
-              onClick={() => {
-                console.log(newTaskData.current);
-              }}
-            >
-              test
-            </button>
-            <button
-              className={styles.task_footer_cancel}
-              type="button"
-              onClick={cancelCallBack}
-            >
-              Cancel
-            </button>
-            {formType === "add" ? (
+            {/* project / board */}
+            <div className={styles.project_board} onClick={showProjectSel}>
+              {dispProjectId === "" ? "Inbox" : dispProjectName}
+              {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+            </div>
+            <div className={styles.task_footer_btns}>
               <button
-                className={styles.task_footer_submit}
+                className={styles.task_footer_cancel}
                 type="button"
-                onClick={() => {
-                  submitCallBack(newTaskData.current);
-                }}
+                onClick={cancelCallBack}
               >
-                Add
+                Cancel
               </button>
-            ) : null}
-            {formType === "edit" ? (
-              <button
-                className={styles.task_footer_submit}
-                type="button"
-                onClick={() => {
-                  submitCallBack(newTaskData.current);
-                }}
-              >
-                Save
-              </button>
-            ) : null}
+              {formType === "add" ? (
+                <button
+                  className={styles.task_footer_submit}
+                  type="button"
+                  onClick={() => {
+                    submitCallBack(newTaskData.current);
+                  }}
+                >
+                  Add
+                </button>
+              ) : null}
+              {formType === "edit" ? (
+                <button
+                  className={styles.task_footer_submit}
+                  type="button"
+                  onClick={() => {
+                    submitCallBack(newTaskData.current);
+                  }}
+                >
+                  Save
+                </button>
+              ) : null}
+            </div>
           </div>
         </form>
       </div>
@@ -258,6 +304,13 @@ function TaskEditor({
             taskNameInputRef.current.checkTags(tags);
           }}
           onOverlayClick={hideTagCheck}
+        />
+      ) : null}
+      {isShowProjectSel ? (
+        <ProjectSelector
+          allProjects={allProjects}
+          onProjSelect={projSelectHandler}
+          onOverlayClick={hideProjectSel}
         />
       ) : null}
     </>

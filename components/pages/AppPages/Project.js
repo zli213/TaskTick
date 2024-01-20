@@ -6,7 +6,14 @@ import React, { useEffect } from "react";
 import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
 
-export default function Project({ projectId, projectName, tasks, boards }) {
+export default function Project({
+  projectId,
+  projectName,
+  tasks,
+  boards,
+  allTags,
+  allProjects,
+}) {
   const groupedTasks = {};
   !boards
     ? boards
@@ -45,7 +52,11 @@ export default function Project({ projectId, projectName, tasks, boards }) {
         <NoTask page="project" />
       ) : (
         <div className={styles.list_box}>
-          <TodoList tasks={groupedTasks[undefined]} />
+          <TodoList
+            tasks={groupedTasks[undefined]}
+            allTags={allTags}
+            allProjects={allProjects}
+          />
           {boards
             ? Object.keys(groupedTasks)
                 .filter((boardName) => boardName != "undefined")
@@ -54,6 +65,8 @@ export default function Project({ projectId, projectName, tasks, boards }) {
                     key={boardName}
                     title={boardName}
                     tasks={groupedTasks[boardName]}
+                    allTags={allTags}
+                    allProjects={allProjects}
                   />
                 ))
             : ""}

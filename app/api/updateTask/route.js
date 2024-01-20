@@ -22,6 +22,9 @@ export const POST = async (req) => {
         tags: param.tags,
         dueDate:
           param.selectedDate == null ? null : new Date(param.selectedDate),
+        projectId: param.projectId,
+        projectName: param.projectName,
+        board: param.board,
       },
       { new: true }
     );

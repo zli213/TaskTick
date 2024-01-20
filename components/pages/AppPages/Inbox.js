@@ -32,7 +32,11 @@ export default function Inbox(props) {
         <NoTask page="inbox" />
       ) : (
         <div className={styles.list_box}>
-          <TodoList tasks={inBoxTasks} alltags={props.alltags} />
+          <TodoList
+            tasks={inBoxTasks}
+            allTags={props.allTags}
+            allProjects={props.allProjects}
+          />
         </div>
       )}
     </>

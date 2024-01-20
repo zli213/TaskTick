@@ -27,7 +27,8 @@ export function SingleItems({
   tags,
   priority,
   completed,
-  alltags,
+  allTags,
+  allProjects,
 }) {
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
@@ -47,6 +48,9 @@ export function SingleItems({
   const [dispTitle, setDispTitle] = useState(title);
   const [dispDescription, setDispDescription] = useState(description);
   const [dispTags, setDispTags] = useState(tags);
+  const [dispProjectId, setDispProjectId] = useState(projectId);
+  const [dispProjectName, setDispProjectName] = useState(projectName);
+  const [dispBoard, setDispBoard] = useState(board);
 
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
@@ -85,6 +89,7 @@ export function SingleItems({
       });
 
       const result = await res.json();
+      console.log(result.body);
       setDispTitle(result.body.title);
       setDispDescription(result.body.description);
       setPriority(result.body.priority);
@@ -94,6 +99,9 @@ export function SingleItems({
           result.body.dueDate == null ? "" : new Date(result.body.dueDate)
         ).dateStr
       );
+      setDispProjectId(result.body.projectId);
+      setDispProjectName(result.body.projectName);
+      setDispBoard(result.body.board);
       setIsEditing(false);
     } catch (error) {}
   };
@@ -110,8 +118,12 @@ export function SingleItems({
             taskName: dispTitle,
             taskContent: dispDescription,
             tags: dispTags,
+            projectId: dispProjectId,
+            projectName: dispProjectName,
+            board: dispBoard,
           }}
-          tagList={alltags} // alltags
+          tagList={allTags} // alltags
+          allProjects={allProjects}
           cancelCallBack={() => {
             setIsEditing(false);
           }}

@@ -63,9 +63,10 @@ function Today(props) {
           <TodoList
             tasks={overDueTasks}
             title="Overdue"
-            alltags={props.alltags}
+            allTags={props.allTags}
+            allProjects={props.allProjects}
           />
-          <TodoList tasks={todayTasks} title="Today" alltags={props.alltags} />
+          <TodoList tasks={todayTasks} title="Today" allTags={props.allTags} />
         </div>
       )}
     </>

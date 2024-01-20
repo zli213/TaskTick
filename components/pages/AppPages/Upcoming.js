@@ -20,7 +20,11 @@ function Upcoming(props) {
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={props.data} alltags={props.alltags} />
+        <TodoList
+          tasks={props.data}
+          allTags={props.allTags}
+          allProjects={props.allProjects}
+        />
       </div>
     </>
   );

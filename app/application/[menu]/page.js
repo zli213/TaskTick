@@ -19,29 +19,43 @@ export default async function AppPage({ params }) {
   const tasks = await getOneUserTasks(session.user.userId);
 
   let tags = await getUserTags(session.user.userId);
+  let projects = await getProjects(session.user.userId);
+  projects = JSON.parse(JSON.stringify(projects));
 
   switch (params.menu) {
     case "inbox":
-      return <Inbox data={tasks} alltags={tags} />;
+      return <Inbox data={tasks} allTags={tags} allProjects={projects} />;
 
     case "today":
       const todayNum = await getTodayNum(session.user.userId);
-      return <Today data={tasks} num={todayNum} alltags={tags} />;
+      return (
+        <Today
+          data={tasks}
+          num={todayNum}
+          alltags={tags}
+          allProjects={projects}
+        />
+      );
 
     case "upcoming":
-      return <Upcoming data={tasks} alltags={tags} />;
+      return <Upcoming data={tasks} alltags={tags} allProjects={projects} />;
 
     case "filters-labels":
       var labels = await getLabels(session.user.userId);
       return <FilterPage labels={labels} />; //need edit
 
     case "projects":
-      var projects = await getProjects(session.user.userId);
-      projects = JSON.parse(JSON.stringify(projects));
       return <MyProjects data={projects} />;
 
     case "setting":
-      return <Today data={tasks} settingMenu={"account"} alltags={tags} />;
+      return (
+        <Today
+          data={tasks}
+          settingMenu={"account"}
+          alltags={tags}
+          allProjects={projects}
+        />
+      );
 
     default:
       notFound();
