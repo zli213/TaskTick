@@ -8,7 +8,6 @@ import Icon from "../../application/widgets/Icon";
 import { UnarchiveProject } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 
-
 export default function Project({
   projectId,
   projectName,
@@ -17,21 +16,7 @@ export default function Project({
   archived,
 }) {
   const router = useRouter();
-  const groupedTasks = {};
-  !boards
-    ? boards
-    : boards.forEach((boardName) => {
-        if (!groupedTasks[boardName]) {
-          groupedTasks[boardName] = [];
-        }
-      });
-  tasks.forEach((task) => {
-    const boardName = task.board;
-    if (!groupedTasks[boardName]) {
-      groupedTasks[boardName] = [];
-    }
-    groupedTasks[boardName].push(task);
-  });
+  const groupedTasks = groupTasks(boards, tasks);
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) && router.refresh();
@@ -58,19 +43,19 @@ export default function Project({
       {archived && (
         <div className={`${styles.list_box} ${styles.archived_project} `}>
           <p>This project is archived</p>
-          <button onClick={unarchiveHandler} >Unarchive</button>
+          <button onClick={unarchiveHandler}>Unarchive</button>
         </div>
       )}
 
       {!archived &&
-        (boards.length == 0 && tasks.length == 0 ? (
+        (boards.length === 0 && tasks.length === 0 ? (
           <NoTask page="project" />
         ) : (
           <div className={styles.list_box}>
             <TodoList tasks={groupedTasks[undefined]} />
             {boards
               ? Object.keys(groupedTasks)
-                  .filter((boardName) => boardName != "undefined")
+                  .filter((boardName) => boardName !== "undefined")
                   .map((boardName) => (
                     <TodoList
                       key={boardName}
@@ -84,3 +69,25 @@ export default function Project({
     </>
   );
 }
+
+const groupTasks = ( boards ,tasks) =>{
+  const tasksGroup = {};
+  tasksGroup['']= [];
+
+  if(boards.length > 0){
+    tasks.forEach((task) => {
+      const boardName = task.board;
+      if (!tasksGroup[boardName]) {
+        tasksGroup[boardName] = [];
+      }
+      tasksGroup[boardName].push(task);
+    });
+  } else {
+    tasks.forEach((task) => {
+      tasksGroup[''].push(task);
+    })
+  }
+  
+  return tasksGroup;
+};
+
