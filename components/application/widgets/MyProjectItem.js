@@ -5,40 +5,85 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
-import { UnarchiveProject } from "../../../public/CommonFunctions";
+import {
+  ArchiveProject,
+  DeleteProject,
+  UnarchiveProject,
+} from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 
+//Custom React hook -> useProjectMenu, use for Delete and archive project
+export const useProjectMenu = () => {
+  const [contents, setContents] = useState({
+    content1: 'This will permanently delete "',
+    content2: "\" and all of its tasks. This can't be undone.",
+  });
+  const [actionType, setActionType] = useState("Delete");
+
+  const setDeleteHandler = () => {
+    setContents({
+      content1: 'This will permanently delete "',
+      content2: "\" and all of its tasks. This can't be undone.",
+    });
+    setActionType("Delete");
+  };
+
+  const setArchiveHandler = () => {
+    setContents({
+      content1: "Are you sure you want to archive ",
+      content2: "?",
+    });
+    setActionType("Archive");
+  };
+
+  return {
+    contents,
+    actionType,
+    setDeleteHandler,
+    setArchiveHandler,
+  };
+};
+
+//MyProject Item
 function MyProjectItem({ project, type }) {
   const router = useRouter();
 
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
-  const {
-    ifArchive,
-    showArchiveCardHandler,
-    showDeleteCard,
-    showDeleteCardHandler,
-  } = useDelete();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const [showedName, setShowedName] = useState(project.name);
+  const { contents, actionType, setDeleteHandler, setArchiveHandler } = useProjectMenu();
 
-  const menuEditHandler = () => {
+  const menuEditHandler = (event) => {
     swithMenuHandler(event);
     showProjectCardHandler();
   };
 
-  const menuDeleteHandler = () => {
+  const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
+    setDeleteHandler();
     showDeleteCardHandler();
   };
 
-  const menuArchiveHandler = async () => {
+  const menuArchiveHandler = async (event) => {
     swithMenuHandler(event);
-    if (type == "active") {
-      showArchiveCardHandler();
+    if (type === "active") {
+      setArchiveHandler();
+      showDeleteCardHandler();
     } else {
       await UnarchiveProject(project.projectId);
       router.refresh();
     }
+  };
+
+  const changeProjectHandler = () => {
+    if (actionType === "Delete") {
+      DeleteProject(project.projectId);
+    } else {
+      ArchiveProject(project.projectId);
+    }
+    const lastPage = localStorage.getItem("lastPage");
+    lastPage.includes(project.projectId) && router.push("/application/inbox");
   };
 
   return (
@@ -84,10 +129,11 @@ function MyProjectItem({ project, type }) {
       {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
-          projectId={project.projectId}
+          actionFunction={changeProjectHandler}
           name={project.name}
-          type="project"
-          ifArchive={ifArchive}
+          content1={contents.content1}
+          content2={contents.content2}
+          type={actionType}
         />
       )}
     </li>

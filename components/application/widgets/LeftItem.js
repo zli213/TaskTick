@@ -5,6 +5,9 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
 import { useState } from "react";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import { ArchiveProject, DeleteProject } from "../../../public/CommonFunctions";
+import { useProjectMenu } from "./MyProjectItem";
+import { useRouter } from "next/navigation";
 
 const LeftbarItem = ({
   label,
@@ -15,30 +18,42 @@ const LeftbarItem = ({
   isSelected,
   projectId,
 }) => {
+  const router = useRouter();
+
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
-  const {
-    ifArchive,
-    showArchiveCardHandler,
-    showDeleteCard,
-    showDeleteCardHandler,
-  } = useDelete();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+  const { contents, actionType, setDeleteHandler, setArchiveHandler } =
+    useProjectMenu();
 
   const [showedName, setShowedName] = useState(label);
 
-  const menuEditHandler = () => {
+  const menuEditHandler = (event) => {
     swithMenuHandler(event);
     showProjectCardHandler();
   };
 
-  const menuArchiveHandler =  () => {
+  const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
-    showArchiveCardHandler();
+    setDeleteHandler();
+    showDeleteCardHandler();
   };
 
-  const menuDeleteHandler = () => {
+  const menuArchiveHandler = async (event) => {
     swithMenuHandler(event);
+    setArchiveHandler();
     showDeleteCardHandler();
+  };
+
+  const changeProjectHandler = () => {
+    if (actionType === "Delete") {
+      DeleteProject(projectId);
+    } else {
+      ArchiveProject(projectId);
+    }
+    const lastPage = localStorage.getItem("lastPage");
+    lastPage.includes(projectId) && router.push("/application/inbox");
+    router.refresh();
   };
 
   const clickHandler = (e) => {
@@ -80,6 +95,9 @@ const LeftbarItem = ({
     case "project":
       icon = <Icon type="hashtag" />;
       break;
+
+    default:
+      <Icon type="inbox" />;
   }
 
   return (
@@ -167,10 +185,11 @@ const LeftbarItem = ({
       {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
-          projectId={projectId}
+          actionFunction={changeProjectHandler}
           name={label}
-          type="project"
-          ifArchive={ifArchive}
+          content1={contents.content1}
+          content2={contents.content2}
+          type={actionType}
         />
       )}
     </li>

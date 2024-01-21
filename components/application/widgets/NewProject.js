@@ -55,7 +55,6 @@ export default function NewProject(props) {
           },
           body: JSON.stringify({ name, id: props.projectId , oldName: props.name  }),
         });
-        const result = await res.json();
 
         if (res.ok) {
           props.showNameHandler(name);
@@ -85,7 +84,6 @@ export default function NewProject(props) {
           router.push(`/application/project/${result.body.projectId}`);
           router.refresh();
         } else {
-          const data = await res.json();
           setIsWrong(true);
         }
       } catch (error) {

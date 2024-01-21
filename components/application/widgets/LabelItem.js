@@ -6,6 +6,7 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import { DeleteTag } from "../../../public/CommonFunctions";
 
 function LabelItem({ label, num }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
@@ -13,14 +14,18 @@ function LabelItem({ label, num }) {
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const [showLabel, setShowLabel] = useState(label);
 
-  const menuEditHandler = () => {
+  const menuEditHandler = (event) => {
     swithMenuHandler(event);
     showCardHandler();
   };
 
-  const menuDeleteHandler = () => {
+  const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
     showDeleteCardHandler();
+  };
+
+  const deleteTagHandler = () => {
+    DeleteTag(label);
   };
 
   return (
@@ -71,8 +76,9 @@ function LabelItem({ label, num }) {
       {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
+          actionFunction={deleteTagHandler}
           name={label}
-          type="label"
+          type="Delete"
         />
       )}
     </div>

@@ -1,6 +1,29 @@
 /**
  * Delete confirmation popup card, with archive project comfirmation.
  * Author: Ryan
+ *
+ * @param
+ * - closeHandler
+ * - actionFunction
+ * - name
+ * - type
+ * - content1 (optional)
+ * - content2 (optional)
+ *
+ * @Usage
+ * Like this:
+ *     const { showDeleteCard, showDeleteCardHandler } = useDelete();
+ *
+ *  {showDeleteCard && (
+ *     <DeleteConfirmCard
+ *           closeHandler={showDeleteCardHandler}
+ *           actionFunction={deleteTagHandler}
+ *           name={label}
+ *           type="Delete"
+ *     />
+ *   )}
+ * If you want to change the content, use fields pass it in the compoment. Example is MyProjectItem.js
+ * If you don't need to change the content, example is LabelItem.js
  */
 
 "use client";
@@ -11,28 +34,17 @@ import Modal from "./Modal";
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
 
-import { DeleteTag, DeleteProject, ArchiveProject,} from "../../../public/CommonFunctions";
-
 //Custom React hook -> useDelete
 export const useDelete = () => {
   const [showDeleteCard, setShowDeleteCard] = useState(false);
-  const [ifArchive, setIfArchive] = useState(false);
 
   const showDeleteCardHandler = () => {
-    setIfArchive(false);
-    setShowDeleteCard((preState) => !preState);
-  };
-
-  const showArchiveCardHandler = () => {
-    setIfArchive(true);
     setShowDeleteCard((preState) => !preState);
   };
 
   return {
-    ifArchive,
     showDeleteCard,
     showDeleteCardHandler,
-    showArchiveCardHandler,
   };
 };
 
@@ -40,32 +52,13 @@ export const useDelete = () => {
 function DeleteConfirmCard(props) {
   const router = useRouter();
 
-  const content1 = "Are you sure you want to delete ";
-  const content2 = "?";
-  const content3 = props.ifArchive
-    ? "Are you sure you want to archive "
-    : 'This will permanently delete "';
-  const content4 = props.ifArchive
-    ? "?"
-    : "\" and all of its tasks. This can't be undone.";
+  const content1 = props.content1
+    ? props.content1
+    : "Are you sure you want to delete ";
+  const content2 = props.content2 ? props.content2 : "?";
 
-  const deleteHandler = async () => {
-    switch (props.type) {
-      case "label":
-        (await DeleteTag(props.name)) && props.closeHandler();
-        break;
-      case "project":
-        if (props.ifArchive) {
-          (await ArchiveProject(props.projectId)) && props.closeHandler();
-          const lastPage = localStorage.getItem("lastPage");
-          lastPage.includes(props.projectId) && router.push("/application/inbox");
-        } else {
-          await DeleteProject(props.projectId);
-          const lastPage = localStorage.getItem("lastPage");
-          lastPage.includes(props.projectId) && router.push("/application/inbox");
-        }
-        break;
-    }
+  const actionHandler = () => {
+    props.actionFunction();
     router.refresh();
   };
 
@@ -83,9 +76,9 @@ function DeleteConfirmCard(props) {
           </div>
           <div className={styles.content_holder}>
             <p>
-              {props.type != "project" ? content1 : content3}
+              {content1}
               <span className={styles.name}>{props.name}</span>
-              {props.type != "project" ? content2 : content4}
+              {content2}
             </p>
           </div>
           <footer className={styles.footer_btn}>
@@ -95,9 +88,9 @@ function DeleteConfirmCard(props) {
             <button
               type="button"
               className={styles.btn_delete}
-              onClick={deleteHandler}
+              onClick={actionHandler}
             >
-              {props.ifArchive ? "Archive" : "Delete"}
+              {props.type}
             </button>
           </footer>
         </div>
