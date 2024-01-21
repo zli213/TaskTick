@@ -124,7 +124,7 @@ export function SingleItems({
   };
 
   return (
-    <li key={_id}>
+    <li>
       {isEditing ? (
         <TaskEditor
           formType={"edit"}
