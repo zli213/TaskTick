@@ -16,14 +16,13 @@
     align-items: center;
     width: 50rem;
     height: auto;
-    // border-style: solid;
     border-radius: $borderRadius;
-    padding: 20px;
+    padding: $paddingMd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     .error {
       color: $errorColor;
-      margin-bottom: 10px;
+      margin-bottom: $marginXsm;
     }
 
     .input_style {
@@ -31,29 +30,28 @@
       margin: $marginXsm;
       input {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 10px; // Space between inputs
-        border: 1px solid #ccc;
+        padding: $paddingXsm;
+        margin-bottom: $marginXsm; // Space between inputs
+        border: 1px solid $midGrayColor;
         border-radius: $borderRadius;
       }
     }
 
     .submit {
-      background-color: #007bff;
+      background-color: $buttonLightBlue;
       &:hover {
-        background-color: #0056b3;
+        background-color: $buttonDarkBlue;
       }
       width: 100%;
-      padding: 10px;
+      padding: $paddingXsm;
       border-radius: $borderRadius;
     }
-
     .dividerWithText {
       display: flex;
       align-items: center;
       text-align: center;
       color: $textSecondaryColor; // Text color
-      margin: 20px 0; // Adjust the margin as needed
+      margin: $marginXsm 0; // Adjust the margin as needed
       width: 100%;
 
       &::before,
@@ -61,13 +59,12 @@
         content: "";
         flex: 1;
         border-bottom: 1px solid #060606; // Change the color and thickness as needed
-        margin: 0 10px; // Adjust spacing around the text
+        margin: 0 $marginXsm; // Adjust spacing around the text
       }
       .dividerWithText span {
         padding: 0 5px;
       }
     }
-
     .google,
     .github {
       display: flex;
@@ -75,26 +72,29 @@
       align-items: center;
       gap: 10px;
       width: 100%;
-      padding: 10px;
+      padding: $paddingXsm;
+      margin: $marginXsm;
       border-radius: $borderRadius;
       text-align: center;
+      background-color: $buttonLightBlue;
       &:hover {
-        color: #0056b3;
+        background-color: $buttonDarkBlue;
       }
     }
 
     .icon {
       height: 2.2rem;
     }
+
     .signUp {
       margin: $marginSm 0;
       width: 80%;
       text-align: center;
       .signUpLink {
-        color: #007bff;
+        color: $buttonDarkBlue;
 
         &:hover {
-          color: #0056b3;
+          color: $priorityBlue;
         }
       }
     }

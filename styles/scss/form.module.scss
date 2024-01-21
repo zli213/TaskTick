@@ -73,10 +73,12 @@
     gap: 10px;
     width: 100%;
     padding: 10px;
+    margin: 10px;
     border-radius: $borderRadius;
     text-align: center;
+    background-color: #55acee;
     &:hover {
-      color: #0056b3;
+      background-color: #007bff;
     }
   }
 
