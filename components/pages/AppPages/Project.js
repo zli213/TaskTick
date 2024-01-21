@@ -87,7 +87,6 @@ const groupTasks = ( boards ,tasks) =>{
       tasksGroup[''].push(task);
     })
   }
-  
   return tasksGroup;
 };
 
