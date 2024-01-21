@@ -4,7 +4,7 @@
 
 //Calculate Position Function
 export function convertPosition(position, levels, componentWidth) {
-  console.log(position);
+  // console.log(position);
   var buttonGap = 0;
 
   if (position.height < 20) {
@@ -13,11 +13,11 @@ export function convertPosition(position, levels, componentWidth) {
   if (position.height < 10) {
     buttonGap = 13;
   }
-  const menuHeight = levels * 39 + 8;
+  const menuHeight = levels * 40 + 20;
   var newtop = position.top;
   var newleft = position.left;
 
-  if (window.innerHeight - position.bottom < menuHeight) {
+  if (window.innerHeight - position.top < menuHeight) {
     newtop = position.bottom - menuHeight - buttonGap * 2;
   }
 

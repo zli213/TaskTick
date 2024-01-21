@@ -10,7 +10,7 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Scheduler, { formatDate } from "./Scheduler";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
@@ -167,28 +167,28 @@ export function SingleItems({
                 <div className={styles.priority_button_list}>
                   <button
                     className={
-                      selectedPriority == "P1" ? styles.button_selected : ""
+                      selectedPriority === "P1" ? styles.button_selected : ""
                     }
                   >
                     <Icon type="flag_filled" className={styles.button_red} />
                   </button>
                   <button
                     className={
-                      selectedPriority == "P2" ? styles.button_selected : ""
+                      selectedPriority === "P2" ? styles.button_selected : ""
                     }
                   >
                     <Icon type="flag_filled" className={styles.button_yellow} />
                   </button>
                   <button
                     className={
-                      selectedPriority == "P3" ? styles.button_selected : ""
+                      selectedPriority === "P3" ? styles.button_selected : ""
                     }
                   >
                     <Icon type="flag_filled" className={styles.button_blue} />
                   </button>
                   <button
                     className={
-                      selectedPriority == "P4" ? styles.button_selected : ""
+                      selectedPriority === "P4" ? styles.button_selected : ""
                     }
                   >
                     <Icon type="flag_big" className={styles.button_gray} />
