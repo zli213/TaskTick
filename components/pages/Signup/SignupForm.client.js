@@ -5,13 +5,12 @@ import styles from "../../../styles/scss/form.module.scss";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import { set } from "mongoose";
 import ThirdPartySignInButtons from "../Signin/ThirdPartySignInButtons";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({});
   const [notification, setNotification] = useState(null);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [signUpInitiated, setSignUpInitiated] = useState(false);
