@@ -78,6 +78,7 @@ function AddTask(props) {
           allProjects={props.allProjects}
           fromProject={props.fromProject}
           fromBoard={props.fromBoard}
+          fromTag={props.fromTag}
           cancelCallBack={() => {
             showAddBtn();
             hideTaskEditor();

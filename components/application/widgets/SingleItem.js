@@ -177,10 +177,10 @@ export function SingleItems({
                   </button>
                 )}
                 {dispTags.map((tag) => (
-                  <span>
+                  <Link href={`/application/label/${tag}`}>
                     <Icon type="small_tag" />
                     {tag}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </div>

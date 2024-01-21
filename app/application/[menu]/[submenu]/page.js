@@ -56,16 +56,37 @@ export default async function SubAppPages({ params }) {
       return <MyProjects data={projects} />;
 
     case "setting":
-      return <Today data={tasks} settingMenu={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          settingMenu={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
     case "task":
-      return <Today data={tasks} taskId={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          taskId={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     case "label":
       const labelTasks = await getLabelTasks(
         session.user.userId,
         params.submenu
       );
-      return <LabelPage tasks={labelTasks} label={params.submenu} />;
+      return (
+        <LabelPage
+          tasks={labelTasks}
+          label={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     default:
       notFound();

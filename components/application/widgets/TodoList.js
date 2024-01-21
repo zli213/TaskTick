@@ -12,6 +12,7 @@ function TodoList({
   allProjects,
   fromProject,
   fromBoard,
+  fromTag,
 }) {
   if (fromProject == null) {
     fromProject = { projectId: "", projectName: "" };
@@ -80,6 +81,7 @@ function TodoList({
           allProjects={allProjects}
           fromProject={fromProject}
           fromBoard={fromBoard}
+          fromTag={fromTag}
         />
       )}
       {showItemMenu && (

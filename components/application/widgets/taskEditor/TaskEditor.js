@@ -34,6 +34,7 @@ function TaskEditor({
   allProjects,
   fromProject,
   fromBoard,
+  fromTag,
   cancelCallBack,
   submitCallBack,
 }) {
@@ -79,7 +80,14 @@ function TaskEditor({
     priority: taskData.priority == null ? 4 : taskData.priority,
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
-    tags: taskData.tags == null ? [] : taskData.tags,
+    tags:
+      formType === "add"
+        ? fromTag == null
+          ? []
+          : [fromTag]
+        : taskData.tags == null
+        ? []
+        : taskData.tags,
     projectId:
       formType === "add"
         ? fromProject.projectId
@@ -99,6 +107,7 @@ function TaskEditor({
         ? ""
         : taskData.board,
   });
+  console.log(newTaskData.current);
 
   /** update newTaskData */
   const setNewTaskData = (key, value) => {
@@ -222,8 +231,8 @@ function TaskEditor({
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">
               <TaskNameInput
-                tags={taskData.tags}
-                taskName={taskData.taskName}
+                tags={newTaskData.current.tags}
+                taskName={newTaskData.current.taskName}
                 allTags={tagList}
                 createNewTag={(newTag) => {
                   createNewTag(newTag);
@@ -243,7 +252,7 @@ function TaskEditor({
                 placeholder="Task Content"
                 onInput={recordTaskContent}
               >
-                {taskData.taskContent}
+                {newTaskData.current.taskContent}
               </div>
             </div>
             <div className={styles.task_edit_buttons}>

@@ -32,13 +32,13 @@ export default async function AppPage({ params }) {
         <Today
           data={tasks}
           num={todayNum}
-          alltags={tags}
+          allTags={tags}
           allProjects={projects}
         />
       );
 
     case "upcoming":
-      return <Upcoming data={tasks} alltags={tags} allProjects={projects} />;
+      return <Upcoming data={tasks} allTags={tags} allProjects={projects} />;
 
     case "filters-labels":
       var labels = await getLabels(session.user.userId);
@@ -52,7 +52,7 @@ export default async function AppPage({ params }) {
         <Today
           data={tasks}
           settingMenu={"account"}
-          alltags={tags}
+          allTags={tags}
           allProjects={projects}
         />
       );
