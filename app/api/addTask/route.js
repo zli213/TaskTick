@@ -24,14 +24,13 @@ export const POST = async (req) => {
   });
 
   try {
-    const res = await newtask
-      .save()
-      .then((savedData) => {
-        console.log("新增成功", savedData);
-      })
-      .catch((error) => {
-        console.error("新增失败", error);
-      });
+    const res = await newtask.save();
+    //   .then((savedData) => {
+    //     console.log("Success", savedData);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Fail", error);
+    //   });
     return NextResponse.json({ body: res }, { status: 200 });
   } catch (error) {
     return new NextResponse(error, {
