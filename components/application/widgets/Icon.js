@@ -57,6 +57,8 @@ import HorizonPageIcon from "../../../public/icon/horizon_page.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
 import LeftArrow from "../../../public/icon/left_arrow.svg";
 import ViewIcon from "../../../public/icon/view_option.svg";
+import EyeOnIcon from "../../../public/icon/eye_on.svg";
+import EyeOffIcon from "../../../public/icon/eye_off.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -152,6 +154,10 @@ const Icon = ({ type, ...props }) => {
         return <ViewIcon {...props} />;
       case "info":
         return <InfoIcon {...props} />;
+      case "eye_on":
+        return <EyeOnIcon {...props} />;
+      case "eye_off":
+        return <EyeOffIcon {...props} />;
 
       default:
         return null;

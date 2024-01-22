@@ -10,6 +10,8 @@ import Link from "next/link";
 import Navbar from "../../../components/pages/Navbar";
 import { useSession } from "next-auth/react";
 import ThirdPartySignInButtons from "../../../components/pages/Signin/ThirdPartySignInButtons";
+import EmailInputField from "../../../components/pages/Signin/EmailInputField";
+import PasswordInputField from "../../../components/pages/Signin/PasswordInputField";
 
 const SignInPage = () => {
   const { data: session } = useSession();
@@ -22,6 +24,11 @@ const SignInPage = () => {
   });
   const [error, setError] = useState("");
   const [notification, setNotification] = useState(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleVisibilityToggle = () => {
+    setIsPasswordVisible((prevVisibility) => !prevVisibility);
+  };
   const router = useRouter();
 
   const onSubmit = async (e) => {
@@ -100,26 +107,20 @@ const SignInPage = () => {
             <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
           )}
           {error && <p className={styles.error}>{error}</p>}
-          <div className={styles.input_style}>
-            <input
-              required
-              type="email"
-              name="email"
-              value={formValues.email}
-              onChange={handleChange}
-              placeholder="Email address"
-            />
-          </div>
-          <div className={styles.input_style}>
-            <input
-              required
-              type="password"
-              name="password"
-              value={formValues.password}
-              onChange={handleChange}
-              placeholder="Password"
-            />
-          </div>
+
+          <EmailInputField
+            formValues={formValues}
+            handleChange={handleChange}
+            styles={styles}
+          />
+
+          <PasswordInputField
+            formValues={formValues}
+            handleChange={handleChange}
+            isPasswordVisible={isPasswordVisible}
+            handleVisibilityToggle={handleVisibilityToggle}
+            styles={styles}
+          />
           <button type="submit" className={styles.submit} disabled={loading}>
             {loading ? "loading..." : "Sign In"}
           </button>
@@ -135,6 +136,9 @@ const SignInPage = () => {
             </Link>
           </p>
         </form>
+        <div className={styles.image}>
+          <img src="/images/right_img.png" alt="signin" />
+        </div>
       </div>
     </>
   );
