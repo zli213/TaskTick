@@ -2,23 +2,26 @@
 "use client";
 
 import { set } from "mongoose";
-import { signIn } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/signin.module.scss";
 import Link from "next/link";
 import Navbar from "../../../components/pages/Navbar";
-import Icon from "../../../components/application/widgets/Icon";
+import { useSession } from "next-auth/react";
+import ThirdPartySignInButtons from "../../../components/pages/Signin/ThirdPartySignInButtons";
 
 const SignInPage = () => {
+  const { data: session } = useSession();
+  const [signUpInitiated, setSignUpInitiated] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const [notification, setNotification] = useState(null);
   const router = useRouter();
 
   const onSubmit = async (e) => {
@@ -36,12 +39,11 @@ const SignInPage = () => {
       if (!res?.error) {
         router.push("/application/today");
       } else {
-        setError("invalid email or password1");
+        setError("invalid email or password.");
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
-      setError("invalid email or password2");
+      setError("invalid email or password:" + error);
     }
   };
 
@@ -50,11 +52,53 @@ const SignInPage = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const showNotification = (message) => {
+    setNotification(message);
+    // hide notification after 30 seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 30000);
+  };
+
+  const handleSignIn = async (provider) => {
+    await signIn(provider, {
+      redirect: false,
+    });
+    setSignUpInitiated(true);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const accountStatus = session?.user?.accountStatus;
+      console.log("accountStatus: ", accountStatus);
+      if (accountStatus === "created") {
+        console.log("User created successfully!");
+        router.push("/application/today");
+      } else if (accountStatus === "existing_user") {
+        router.push("/application/today");
+      } else if (accountStatus === "existing_user_different_provider") {
+        showNotification(
+          "The email address has already been used. Please log in using the corresponding registration information!"
+        );
+        // set 3 seconds timeout to allow the sign out process to complete
+        setTimeout(() => {
+          signOut();
+        }, 2000);
+      } else {
+        showNotification(accountStatus);
+      }
+    };
+    fetchData();
+  }, [session, signUpInitiated]);
+
   return (
     <>
       <Navbar />
       <div className={styles.container}>
         <form className={styles.form} onSubmit={onSubmit}>
+          {notification && (
+            <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
+          )}
           {error && <p className={styles.error}>{error}</p>}
           <div className={styles.input_style}>
             <input
@@ -80,39 +124,14 @@ const SignInPage = () => {
             {loading ? "loading..." : "Sign In"}
           </button>
 
-          <div className={styles.dividerWithText}>
-            <span>OR</span>
-          </div>
-          <div className={styles.google}>
-            <a
-              className={styles.google}
-              style={{ backgroundColor: "#55acee" }}
-              onClick={() =>
-                signIn("google", { callbackUrl: "/application/today" })
-              }
-              role="button"
-            >
-              <Icon type="google" className={styles.icon} />
-              Continue with Google
-            </a>
-          </div>
-          <div className={styles.github}>
-            <a
-              className={styles.github}
-              style={{ backgroundColor: "#55acee" }}
-              onClick={() =>
-                signIn("github", { callbackUrl: "/application/today" })
-              }
-              role="button"
-            >
-              <Icon type="github" className={styles.icon} />
-              Continue with GitHub
-            </a>
-          </div>
+          <ThirdPartySignInButtons
+            handleSignIn={handleSignIn}
+            styles={styles}
+          />
           <p className={styles.signUp}>
-            If you don't have an account,plese
-            <Link href="/register" className={styles.signUpLink}>
-              sign up
+            Don't have an account?{"\u00a0"}
+            <Link href="/auth/register" className={styles.signUpLink}>
+              Sign up
             </Link>
           </p>
         </form>

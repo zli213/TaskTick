@@ -13,7 +13,7 @@ export default function Home() {
             Become focused, organized, and calm with Todoist. The world’s #1
           </p>
           <p className="slogan_p">task manager and to-do list app.</p>
-          <Link href="/api/auth/register">
+          <Link href="/auth/register">
             <button className="standard-button">Start for free</button>
           </Link>
           <div className="background">
