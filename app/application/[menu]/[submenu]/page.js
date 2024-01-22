@@ -13,15 +13,19 @@ import getProjects from "../../../../src/utils/data/getProjects";
 import getProjectName from "../../../../src/utils/data/getProjectName";
 import getBoards from "../../../../src/utils/data/getBoards";
 import getLabelTasks from "../../../../src/utils/data/getLabelTasks";
+import getUserTags from "../../../../src/utils/data/getUserTags";
 
 export default async function SubAppPages({ params }) {
   const session = await getServerSession(options);
+
+  let tags = await getUserTags(session.user.userId);
+  let projects = await getProjects(session.user.userId);
+  projects = JSON.parse(JSON.stringify(projects));
 
   //Check if Task exist
   if (params.menu == "task") {
     var ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
-      console.log('1111')
       return <TaskNotFound />;
     }
   }
@@ -43,22 +47,46 @@ export default async function SubAppPages({ params }) {
           projectName={projectName}
           tasks={projectTasks}
           boards={boards}
+          allTags={tags}
+          allProjects={projects}
         />
       );
 
     case "projects":
-      var projects = await getProjects(session.user.userId);
-      projects = JSON.parse(JSON.stringify(projects));
       return <MyProjects data={projects} />;
 
     case "setting":
-      return <Today data={tasks} settingMenu={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          settingMenu={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
     case "task":
-      return <Today data={tasks} taskId={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          taskId={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     case "label":
-      const labelTasks = await getLabelTasks(session.user.userId, params.submenu);
-      return <LabelPage tasks={labelTasks} label={params.submenu} />;
+      const labelTasks = await getLabelTasks(
+        session.user.userId,
+        params.submenu
+      );
+      return (
+        <LabelPage
+          tasks={labelTasks}
+          label={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     default:
       notFound();

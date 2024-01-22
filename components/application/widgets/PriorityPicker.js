@@ -6,7 +6,7 @@
  *
  */
 
-import styles from "../../../styles/scss/components/application/widgets/priorityPicker.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 
 function PriorityPicker({ data, onPrioritySelect, onOverlayClick }) {
   const priorities = [{ p: 1 }, { p: 2 }, { p: 3 }, { p: 4 }];

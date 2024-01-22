@@ -57,6 +57,7 @@ import HorizonPageIcon from "../../../public/icon/horizon_page.svg";
 import BoardIcon from "../../../public/icon/vertical_page.svg";
 import LeftArrow from "../../../public/icon/left_arrow.svg";
 import ViewIcon from "../../../public/icon/view_option.svg";
+import Board from "../../../public/icon/board.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -150,6 +151,8 @@ const Icon = ({ type, ...props }) => {
         return <LeftArrow {...props} />;
       case "view":
         return <ViewIcon {...props} />;
+      case "board":
+        return <Board {...props} />;
       case "info":
         return <InfoIcon {...props} />;
 

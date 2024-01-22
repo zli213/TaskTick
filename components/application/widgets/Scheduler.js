@@ -11,7 +11,7 @@
  * <Scheduler data={selectedDate:"yyyy-mm-dd" onChangeDate={(data)=>{...}} onOverlayClick={()=>{...}} />
  */
 
-import styles from "../../../styles/scss/components/application/widgets/scheduler.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
@@ -303,7 +303,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   };
 
   //--------- set position ------------
-  var position = position ? convertPosition(position, 10, 230) : null;
+  position = position ? convertPosition(position, 10, 230) : null;
   const schedulerStyle = position
     ? {
         position: "fixed",
@@ -453,7 +453,7 @@ function convertSelectedDate(date) {
 
 export function formatDate(inDate) {
   let dateJson = { dateTime: null, dateStr: "" };
-  if (inDate != "" || inDate != null) {
+  if (inDate !== "" || inDate != null) {
     dateJson.dateTime = inDate;
     dateJson.dateStr =
       inDate.getFullYear() +
@@ -474,7 +474,7 @@ export function formatDate(inDate) {
 //     return {
 //       ...position,
 //       left: position.left - 26 ,
-      
+
 //     };
 //   }
 
