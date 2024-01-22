@@ -10,7 +10,7 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Scheduler, { formatDate } from "./Scheduler";
-import {  useState } from "react";
+import { useState } from "react";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
@@ -117,7 +117,10 @@ export function SingleItems({
         </div>
 
         {/* right buttons */}
-        <div className={styles.task_list_action}>
+        <div
+          className={styles.task_list_action}
+          style={{ opacity: showItemMenu && 1 }}
+        >
           <div>
             <button>
               <Icon type="edit" />
@@ -127,9 +130,95 @@ export function SingleItems({
             </button>
           </div>
           <div className={styles.task_list_action_last}>
-            <button onClick={swithMenuHandler}>
+            <button
+              onClick={swithMenuHandler}
+              className={styles.menu_button}
+              style={{ backgroundColor: showItemMenu && "#eeeeee"  }}
+            >
               <Icon type="menu_unfill" />
             </button>
+            {showItemMenu && (
+              <PopupMenu
+                onOverlayClick={swithMenuHandler}
+                position={menuPosition}
+                levels={projectId ? 6 : 5}
+              >
+                <div className={styles.task_item_action_menu}>
+                  <button>
+                    <Icon type="edit" />
+                    <span>Edit</span>
+                  </button>
+                  {projectName && (
+                    <Link href={`/application/project/${projectId}`}>
+                      <Icon type="list" />
+                      <span>Go to Project</span>
+                    </Link>
+                  )}
+                  <hr />
+
+                  <div>
+                    <div className={styles.menu_title}>Priority</div>
+                    <div className={styles.priority_button_list}>
+                      <button
+                        className={
+                          selectedPriority === "P1"
+                            ? styles.button_selected
+                            : ""
+                        }
+                      >
+                        <Icon
+                          type="flag_filled"
+                          className={styles.button_red}
+                        />
+                      </button>
+                      <button
+                        className={
+                          selectedPriority === "P2"
+                            ? styles.button_selected
+                            : ""
+                        }
+                      >
+                        <Icon
+                          type="flag_filled"
+                          className={styles.button_yellow}
+                        />
+                      </button>
+                      <button
+                        className={
+                          selectedPriority === "P3"
+                            ? styles.button_selected
+                            : ""
+                        }
+                      >
+                        <Icon
+                          type="flag_filled"
+                          className={styles.button_blue}
+                        />
+                      </button>
+                      <button
+                        className={
+                          selectedPriority === "P4"
+                            ? styles.button_selected
+                            : ""
+                        }
+                      >
+                        <Icon type="flag_big" className={styles.button_gray} />
+                      </button>
+                    </div>
+                  </div>
+                  <hr />
+                  <button>
+                    <Icon type="move_list" />
+                    <span>Move to...</span>
+                  </button>
+                  <hr />
+                  <button className={styles.button_delete}>
+                    <Icon type="delete" />
+                    <span>Delete</span>
+                  </button>
+                </div>
+              </PopupMenu>
+            )}
           </div>
         </div>
         {isShowScheduler && (
@@ -142,71 +231,6 @@ export function SingleItems({
             }}
             onOverlayClick={hideScheduler}
           />
-        )}
-        {showItemMenu && (
-          <PopupMenu
-            onOverlayClick={swithMenuHandler}
-            position={menuPosition}
-            levels={projectId ? 6 : 5}
-          >
-            <div className={styles.task_item_action_menu}>
-              <button>
-                <Icon type="edit" />
-                <span>Edit</span>
-              </button>
-              {projectName && (
-                <Link href={`/application/project/${projectId}`}>
-                  <Icon type="list" />
-                  <span>Go to Project</span>
-                </Link>
-              )}
-              <hr />
-
-              <div>
-                <div className={styles.menu_title}>Priority</div>
-                <div className={styles.priority_button_list}>
-                  <button
-                    className={
-                      selectedPriority === "P1" ? styles.button_selected : ""
-                    }
-                  >
-                    <Icon type="flag_filled" className={styles.button_red} />
-                  </button>
-                  <button
-                    className={
-                      selectedPriority === "P2" ? styles.button_selected : ""
-                    }
-                  >
-                    <Icon type="flag_filled" className={styles.button_yellow} />
-                  </button>
-                  <button
-                    className={
-                      selectedPriority === "P3" ? styles.button_selected : ""
-                    }
-                  >
-                    <Icon type="flag_filled" className={styles.button_blue} />
-                  </button>
-                  <button
-                    className={
-                      selectedPriority === "P4" ? styles.button_selected : ""
-                    }
-                  >
-                    <Icon type="flag_big" className={styles.button_gray} />
-                  </button>
-                </div>
-              </div>
-              <hr />
-              <button>
-                <Icon type="move_list" />
-                <span>Move to...</span>
-              </button>
-              <hr />
-              <button className={styles.button_delete}>
-                <Icon type="delete" />
-                <span>Delete</span>
-              </button>
-            </div>
-          </PopupMenu>
         )}
       </div>
     </li>

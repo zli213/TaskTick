@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 
-function TodoList({ tasks, title , showProject}) {
+function TodoList({ tasks, title, showProject }) {
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
@@ -30,9 +30,34 @@ function TodoList({ tasks, title , showProject}) {
           </div>
           <h4>{title}</h4>
           {title != "Today" && (
-            <button onClick={swithMenuHandler}>
-              <Icon type="menu_unfill" />
-            </button>
+            <div className={styles.menu_btn_container}>
+              <button
+                onClick={swithMenuHandler}
+                className={styles.menu_btn}
+                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+              >
+                <Icon type="menu_unfill" />
+              </button>
+              {showItemMenu && (
+                <PopupMenu
+                  onOverlayClick={swithMenuHandler}
+                  position={buttonPosition}
+                  levels="2"
+                >
+                  <div className={styles.task_item_action_menu}>
+                    <button>
+                      <Icon type="edit" />
+                      <span>Edit</span>
+                    </button>
+                    <hr />
+                    <button>
+                      <Icon type="delete" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </PopupMenu>
+              )}
+            </div>
           )}
         </header>
       )}
@@ -61,25 +86,6 @@ function TodoList({ tasks, title , showProject}) {
         </div>
       )}
       {title != "Overdue" && <AddTask />}
-      {showItemMenu && (
-        <PopupMenu
-          onOverlayClick={swithMenuHandler}
-          position={buttonPosition}
-          levels="2"
-        >
-          <div className={styles.task_item_action_menu}>
-            <button>
-              <Icon type="edit" />
-              <span>Edit</span>
-            </button>
-            <hr />
-            <button>
-              <Icon type="delete" />
-              <span>Delete</span>
-            </button>
-          </div>
-        </PopupMenu>
-      )}
     </section>
   );
 }

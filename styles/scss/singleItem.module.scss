@@ -52,10 +52,12 @@
 
   .task_list_action_last {
     position: absolute;
-    left: 6rem;
+    left: 5rem;
+    width: $fontSizeMd;
+    
   }
 
-  button {
+  .menu_button {
    @include menuButton();
   }
 }
@@ -99,10 +101,9 @@
 }
 
 .menu_title {
-  padding: $paddingXsm $paddingsm;
-
-  font-weight: 500;
+  padding: 0 $paddingsm;
 }
+
 .priority_button_list {
   @include flexRowStart();
   padding: $paddingXsm $paddingsm;
@@ -110,8 +111,8 @@
   button {
     @include flexRowBetween();
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     border-radius: $borderRadiusXsm;
   }

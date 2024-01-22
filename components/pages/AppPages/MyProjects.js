@@ -54,15 +54,44 @@ export default function MyProjects(props) {
         </div>
 
         <div className={styles.btn_projects}>
-          <div
-            className={styles.active_btn_projects}
-            onClick={swithMenuHandler}
-          >
-            {props.type === "active" ? "Active projects" : "Archived projects"}{" "}
-            <Icon type="down_arrow_small" />
+          <div className={styles.menu_btn_container}>
+            <div
+              className={`${styles.active_btn_projects} ${styles.project_btn}`}
+              onClick={swithMenuHandler}
+            >
+              {props.type === "active"
+                ? "Active projects"
+                : "Archived projects"}{" "}
+              <Icon type="down_arrow_small"/>
+            </div>
+            {showItemMenu && (
+              <PopupMenu
+                onOverlayClick={swithMenuHandler}
+                position={buttonPosition}
+                levels="3"
+              >
+                <div className={`${styles.task_item_action_menu}`}>
+                  <h4>Project type</h4>
+                  <Link href="/application/projects/active">
+                    <div>
+                      <Icon type="list" />
+                      <span>Active project</span>
+                    </div>
+                    {props.type === "active" && <Icon type="check" />}
+                  </Link>
+                  <Link href="/application/projects/archived">
+                    <div>
+                      <Icon type="archive" />
+                      <span>Archived project</span>
+                    </div>
+                    {props.type === "archived" && <Icon type="check" />}
+                  </Link>
+                </div>
+              </PopupMenu>
+            )}
           </div>
           <div
-            className={styles.add_btn_projects}
+            className={`${styles.add_btn_projects} ${styles.project_btn}`}
             onClick={showProjectCardHandler}
           >
             <Icon type="add" />
@@ -83,31 +112,7 @@ export default function MyProjects(props) {
           ))}
         </ul>
       </div>
-      {showItemMenu && (
-        <PopupMenu
-          onOverlayClick={swithMenuHandler}
-          position={buttonPosition}
-          levels="3"
-        >
-          <div className={`${styles.task_item_action_menu}`}>
-            <h4>Project type</h4>
-            <Link href="/application/projects/active">
-              <div>
-                <Icon type="list" />
-                <span>Active project</span>
-              </div>
-              {props.type === "active" && <Icon type="check" />}
-            </Link>
-            <Link href="/application/projects/archived">
-              <div>
-                <Icon type="archive" />
-                <span>Archived project</span>
-              </div>
-              {props.type === "archived" && <Icon type="check" />}
-            </Link>
-          </div>
-        </PopupMenu>
-      )}
+
       {showAddProjectCard && (
         <NewProject closeHandler={showProjectCardHandler} />
       )}

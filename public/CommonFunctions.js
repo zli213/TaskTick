@@ -42,6 +42,39 @@ export function convertPosition(position, levels, componentWidth) {
   };
 }
 
+export function convertPosition2(position, levels, componentWidth) {
+  console.log(position);
+
+  // console.log("1", position.left);
+  let left2 = (window.innerWidth - 280 - 800) / 2 + 280 + 800 - 33;
+  // console.log("2", left2);
+
+  const menuHeight = levels * 38 + 17;
+  console.log("menuHeight: ", menuHeight);
+
+  var newtop = position.height + 2;
+  var newleft = -componentWidth * 0.5 + position.width / 2;
+
+  if (window.innerHeight - position.top < menuHeight) {
+    newtop = -menuHeight;
+  }
+
+  if (window.innerWidth - position.right < componentWidth / 2) {
+    if (window.innerHeight - position.top < menuHeight / 2) {
+      newtop = -menuHeight + window.innerHeight - position.bottom - 10;
+      newleft = -componentWidth - 2;
+    } else {
+      newtop = -menuHeight / 2;
+      newleft = -componentWidth - 2;
+    }
+  }
+
+  return {
+    ...position,
+    pX: newleft,
+    pY: newtop,
+  };
+}
 
 export async function DeleteTag(tag) {
   try {

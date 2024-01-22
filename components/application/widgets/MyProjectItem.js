@@ -52,7 +52,8 @@ function MyProjectItem({ project, type }) {
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const [showedName, setShowedName] = useState(project.name);
-  const { contents, actionType, setDeleteHandler, setArchiveHandler } = useProjectMenu();
+  const { contents, actionType, setDeleteHandler, setArchiveHandler } =
+    useProjectMenu();
 
   const menuEditHandler = (event) => {
     swithMenuHandler(event);
@@ -87,37 +88,46 @@ function MyProjectItem({ project, type }) {
   };
 
   return (
-    <li key={project.projectId}>
+    <li
+      key={project.projectId}
+      style={{ backgroundColor: showItemMenu && "#f5f5f5" }}
+    >
       <Link href={`/application/project/${project.projectId}`}>
         <Icon type="hashtag" />
         {showedName}
       </Link>
-      <span className={styles.project_item_menu} onClick={swithMenuHandler}>
-        <Icon type="menu_unfill" />
-      </span>
-      {showItemMenu && (
-        <PopupMenu
-          onOverlayClick={swithMenuHandler}
-          position={buttonPosition}
-          levels="2"
+      <div className={styles.menu_btn_container}>
+        <span
+          className={styles.project_item_menu}
+          onClick={swithMenuHandler}
+          style={{ opacity: showItemMenu && 1 }}
         >
-          <div className={`${styles.task_item_action_menu}`}>
-            <button onClick={menuEditHandler}>
-              <Icon type="edit" />
-              <span>Edit</span>
-            </button>
-            <hr />
-            <button onClick={menuArchiveHandler}>
-              <Icon type={type == "active" ? "archive" : "unarchive"} />
-              <span>{type == "active" ? "Archive" : "Unarchive"}</span>
-            </button>
-            <button onClick={menuDeleteHandler}>
-              <Icon type="delete" />
-              <span>Delete</span>
-            </button>
-          </div>
-        </PopupMenu>
-      )}
+          <Icon type="menu_unfill" />
+        </span>
+        {showItemMenu && (
+          <PopupMenu
+            onOverlayClick={swithMenuHandler}
+            position={buttonPosition}
+            levels="3"
+          >
+            <div className={`${styles.task_item_action_menu}`}>
+              <button onClick={menuEditHandler}>
+                <Icon type="edit" />
+                <span>Edit</span>
+              </button>
+              <hr />
+              <button onClick={menuArchiveHandler}>
+                <Icon type={type == "active" ? "archive" : "unarchive"} />
+                <span>{type == "active" ? "Archive" : "Unarchive"}</span>
+              </button>
+              <button onClick={menuDeleteHandler}>
+                <Icon type="delete" />
+                <span>Delete</span>
+              </button>
+            </div>
+          </PopupMenu>
+        )}
+      </div>
       {showAddProjectCard && (
         <NewProject
           name={project.name}
