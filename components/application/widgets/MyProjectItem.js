@@ -117,8 +117,8 @@ function MyProjectItem({ project, type }) {
               </button>
               <hr />
               <button onClick={menuArchiveHandler}>
-                <Icon type={type == "active" ? "archive" : "unarchive"} />
-                <span>{type == "active" ? "Archive" : "Unarchive"}</span>
+                <Icon type={type === "active" ? "archive" : "unarchive"} />
+                <span>{type === "active" ? "Archive" : "Unarchive"}</span>
               </button>
               <button onClick={menuDeleteHandler}>
                 <Icon type="delete" />

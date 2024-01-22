@@ -39,7 +39,7 @@ import { convertPosition2 } from "../../../public/CommonFunctions";
 //Custom React hook -> useMenu
 export const useMenu = () => {
   const [showItemMenu, setShowItemMenu] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
+  const [buttonPosition, setButtonPosition] = useState({});
 
   const swithMenuHandler = (event) => {
     const buttonRect = event.currentTarget.getBoundingClientRect();
@@ -50,8 +50,8 @@ export const useMenu = () => {
       left: buttonRect.left,
       bottom: buttonRect.top,
       right: buttonRect.right,
-      pX: 24,
-      pY: 115,
+      pX: 0,
+      pY: 0,
     });
     setShowItemMenu((preState) => !preState);
   };
@@ -73,14 +73,12 @@ export default function PopupMenu(props) {
       left: `${newPostion.pX}px`,
     }
   });
+  
   const disableScroll = (event) => {
     event.preventDefault();
   };
 
   const updateWindowSize = () => {
-    console.log("width: ", window.innerWidth);
-    console.log("height: ", window.innerHeight);
-
     const newPostion = convertPosition2(props.position, props.levels, 260);
     setMenuPosition( {
       position: "absolute",
