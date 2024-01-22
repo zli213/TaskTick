@@ -7,7 +7,7 @@ import TodoList from "../../application/widgets/TodoList";
 import Link from "next/link";
 import NoTask from "../../application/widgets/NoTask";
 
-function LabelPage({ tasks, label }) {
+function LabelPage({ tasks, label, allTags, allProjects }) {
   useEffect(() => {
     document.title = "Filters & Labels - Todo";
     localStorage.setItem("lastPage", `label/${label}`);
@@ -28,7 +28,12 @@ function LabelPage({ tasks, label }) {
       {tasks.length === 0 && <NoTask page="label" />}
       {tasks.length !== 0 && (
         <div className={styles.list_box}>
-          <TodoList tasks={tasks} />
+          <TodoList
+          tasks={tasks}
+          allTags={allTags}
+          allProjects={allProjects}
+          fromTag={label}
+        />
         </div>
       )}
     </>

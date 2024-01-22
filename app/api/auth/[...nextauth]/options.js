@@ -145,6 +145,7 @@ export const options = {
         const user = await User.find({ email: session.user.email });
         if (user[0]) {
           session.user.userId = user[0]._id.toString();
+          session.user.username = user[0].username;
         } else {
           session.user.userId = null;
         }

@@ -11,16 +11,18 @@ import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
 import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import getProjects from "../../../../src/utils/data/getProjects";
 import getLabelTasks from "../../../../src/utils/data/getLabelTasks";
+import getUserTags from "../../../../src/utils/data/getUserTags";
 import getSingleProject from "../../../../src/utils/data/getSingleProject";
 
 export default async function SubAppPages({ params }) {
   const session = await getServerSession(options);
-  if (session == null) {
-    redirect("/auth/signin");
-  }
+
+  let tags = await getUserTags(session.user.userId);
+  let projects = await getProjects(session.user.userId);
+  projects = JSON.parse(JSON.stringify(projects));
 
   //Check if Task exist
-  if (params.menu == "task") {
+  if (params.menu === "task") {
     let ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
       return <TaskNotFound />;
@@ -46,30 +48,48 @@ export default async function SubAppPages({ params }) {
           tasks={projectTasks}
           boards={project.boards}
           archived={project.archived}
+          allTags={tags}
+          allProjects={projects}
         />
       );
 
     case "projects":
-      var projects = await getProjects(session.user.userId);
-      projects = JSON.parse(JSON.stringify(projects));
       return <MyProjects data={projects} type={params.submenu} />;
 
     case "setting":
-      return <Today data={tasks} settingMenu={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          settingMenu={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
     case "task":
-      return <Today data={tasks} taskId={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          taskId={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     case "label":
-      console.log(params.submenu);
       const labelTasks = await getLabelTasks(
         session.user.userId,
         decodeURIComponent(params.submenu)
+      
       );
       return (
+        (
         <LabelPage
           tasks={labelTasks}
           label={decodeURIComponent(params.submenu)}
+          allTags={tags}
+          allProjects={projects}
         />
+      )
       );
 
     default:

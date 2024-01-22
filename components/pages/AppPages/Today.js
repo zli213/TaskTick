@@ -60,8 +60,13 @@ function Today(props) {
         <NoTask page="today" />
       ) : (
         <div className={styles.list_box}>
-          <TodoList tasks={overDueTasks} showProject={true}  title="Overdue" />
-          <TodoList tasks={todayTasks} showProject={true} title="Today" />
+          <TodoList
+            tasks={overDueTasks}
+            showProject={true}  title="Overdue"
+            allTags={props.allTags}
+            allProjects={props.allProjects}
+          />
+          <TodoList tasks={todayTasks} showProject={true} title="Today" allTags={props.allTags} />
         </div>
       )}
     </>

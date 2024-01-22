@@ -42,17 +42,22 @@ export const useMenu = () => {
   const [buttonPosition, setButtonPosition] = useState({});
 
   const swithMenuHandler = (event) => {
-    const buttonRect = event.currentTarget.getBoundingClientRect();
-    setButtonPosition({
-      width: buttonRect.width,
-      height: buttonRect.height,
-      top: buttonRect.bottom,
-      left: buttonRect.left,
-      bottom: buttonRect.top,
-      right: buttonRect.right,
+    /** event will be undefined when the internal btn is clicked.
+     *  the menu need to be hide if some btns such as edit is clicked.
+     */
+    if (event) {
+      const buttonRect = event.currentTarget.getBoundingClientRect();
+      setButtonPosition({
+        width: buttonRect.width,
+        height: buttonRect.height,
+        top: buttonRect.bottom,
+        left: buttonRect.left,
+        bottom: buttonRect.top,
+        right: buttonRect.right,
       pX: 0,
       pY: 0,
-    });
+      });
+    }
     setShowItemMenu((preState) => !preState);
   };
 

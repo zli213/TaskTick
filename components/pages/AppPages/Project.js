@@ -14,6 +14,8 @@ export default function Project({
   tasks,
   boards,
   archived,
+  allTags,
+  allProjects,
 }) {
   const router = useRouter();
   const groupedTasks = groupTasks(boards, tasks);
@@ -49,32 +51,42 @@ export default function Project({
 
       {!archived &&
         (boards.length === 0 && tasks.length === 0 ? (
-          <NoTask page="project" />
+          <NoTask
+            page="project"
+            allTags={allTags}
+            allProjects={allProjects}
+            fromProject={{ projectId: projectId, projectName: projectName }}
+            fromBoard={""}
+          />
         ) : (
           <div className={styles.list_box}>
-            <TodoList tasks={groupedTasks[undefined]} />
-            {boards
-              ? Object.keys(groupedTasks)
-                  .filter((boardName) => boardName !== "undefined")
-                  .map((boardName) => (
-                    <TodoList
-                      key={boardName}
-                      title={boardName}
-                      tasks={groupedTasks[boardName]}
-                    />
-                  ))
-              : ""}
+            {Object.keys(groupedTasks)
+              .filter((boardName) => boardName !== "undefined")
+              .map((boardName) => (
+                <TodoList
+                  key={boardName}
+                  title={boardName}
+                  tasks={groupedTasks[boardName]}
+                  allTags={allTags}
+                  allProjects={allProjects}
+                  fromProject={{
+                    projectId: projectId,
+                    projectName: projectName,
+                  }}
+                  fromBoard={boardName}
+                />
+              ))}
           </div>
         ))}
     </>
   );
 }
 
-const groupTasks = ( boards ,tasks) =>{
+const groupTasks = (boards, tasks) => {
   const tasksGroup = {};
-  tasksGroup['']= [];
+  tasksGroup[""] = [];
 
-  if(boards.length > 0){
+  if (boards.length > 0) {
     tasks.forEach((task) => {
       const boardName = task.board;
       if (!tasksGroup[boardName]) {
@@ -84,9 +96,8 @@ const groupTasks = ( boards ,tasks) =>{
     });
   } else {
     tasks.forEach((task) => {
-      tasksGroup[''].push(task);
-    })
+      tasksGroup[""].push(task);
+    });
   }
   return tasksGroup;
 };
-

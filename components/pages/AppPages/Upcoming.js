@@ -7,9 +7,8 @@ import { useEffect } from "react";
 
 function Upcoming(props) {
   useEffect(() => {
-    document.title = 'Upcoming - Todo';
+    document.title = "Upcoming - Todo";
     localStorage.setItem("lastPage", "upcoming");
-
   }, []);
 
   return (
@@ -21,7 +20,11 @@ function Upcoming(props) {
         </div>
       </div>
       <div className={styles.list_box}>
-        <TodoList tasks={props.data} />
+        <TodoList
+          tasks={props.data}
+          allTags={props.allTags}
+          allProjects={props.allProjects}
+        />
       </div>
     </>
   );
