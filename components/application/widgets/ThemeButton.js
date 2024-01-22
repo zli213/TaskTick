@@ -23,7 +23,7 @@ export default function ThemeButton ({ onClick, themeName, isSelected, isDisable
         {/* main pages pic */}
         <span className={styles.mainPic}>
 
-          <span classname={styles.headerPic}>
+          <span className={styles.headerPic}>
             <label>{themeName}</label>
             {isSelected && <Tick/>}
           </span>

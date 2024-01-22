@@ -51,12 +51,11 @@
     color: $secondaryColor;
   }
 
+  #icon {
+    fill: $secondaryColor;
+  }
 
   #settingRight {
-    #icon {
-      fill: $secondaryColor;
-    }
-
     div {
       border-top: 1px solid $textPrimaryColor;
     }

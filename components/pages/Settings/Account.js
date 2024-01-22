@@ -76,7 +76,7 @@ const SettingAccount = () => {
       <header>
         <h4>Account Information</h4>
         <button onClick={onDismiss}>
-          <Icon type="close"  id="icon"/>
+          <Icon type="close" id="icon"/>
         </button>
       </header>
       {userData ? (

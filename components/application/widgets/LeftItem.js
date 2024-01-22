@@ -50,7 +50,7 @@ const LeftbarItem = ({
     >
       <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>
-          <span>{icon}</span>
+          <span id="icon">{icon}</span>
           <span className={styles.list_item_content}>{label}</span>
         </Link>
       </div>

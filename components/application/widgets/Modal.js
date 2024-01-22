@@ -37,7 +37,7 @@ export default function Modal(props) {
   return (
     <>
       <div className={styles.overlay_styles} onClick={onDismiss}>
-        <div onClick={containerClickHandler} className={styles.modal_container}>
+        <div onClick={containerClickHandler}>
           {props.children}
         </div>
       </div>
