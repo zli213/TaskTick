@@ -16,6 +16,8 @@ import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
 import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 import TaskEditor from "./taskEditor/TaskEditor";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+
 
 export function SingleItems({
   title,
@@ -40,6 +42,8 @@ export function SingleItems({
     buttonPosition: menuPosition,
     swithMenuHandler,
   } = useMenu();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+
 
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
@@ -77,9 +81,9 @@ export function SingleItems({
     setIsShowScheduler(false);
   };
 
-  const priorityChangeHandler = (option) => {
-    setPriority(option);
-  };
+  // const priorityChangeHandler = (option) => {
+  //   setPriority(option);
+  // };
 
   const updateTaskHandler = async (task) => {
     try {
@@ -110,20 +114,24 @@ export function SingleItems({
     } catch (error) {}
   };
 
-  const deleteTaskHandler = async (task) => {
+  const deleteTaskHandler = async () => {
     try {
       const res = await fetch("/api/deleteTask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify({ _id: _id }),
       });
 
       const result = await res.json();
       console.log(result);
     } catch (error) {}
-    swithMenuHandler();
+  };
+
+  const menuDeleteHandler = (event) => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
   };
 
   return (
@@ -219,6 +227,7 @@ export function SingleItems({
             <div className={styles.task_list_action_last}>
               <button
                 onClick={swithMenuHandler}
+                className={styles.menu_button}
                 style={{ backgroundColor: showItemMenu && "#eeeeee" }}
               >
                 <Icon type="menu_unfill" />
@@ -247,15 +256,11 @@ export function SingleItems({
                     )}
                     <hr />
                     <div>
-                      <div className={styles.menu_title}>Due date</div>
-                      <div className={styles.priority_button_list}>icons</div>
-                    </div>
-                    <div>
                       <div className={styles.menu_title}>Priority</div>
                       <div className={styles.priority_button_list}>
                         <button
                           className={
-                            selectedPriority == "P1"
+                            selectedPriority === "P1"
                               ? styles.button_selected
                               : ""
                           }
@@ -267,7 +272,7 @@ export function SingleItems({
                         </button>
                         <button
                           className={
-                            selectedPriority == "P2"
+                            selectedPriority === "P2"
                               ? styles.button_selected
                               : ""
                           }
@@ -279,7 +284,7 @@ export function SingleItems({
                         </button>
                         <button
                           className={
-                            selectedPriority == "P3"
+                            selectedPriority === "P3"
                               ? styles.button_selected
                               : ""
                           }
@@ -291,7 +296,7 @@ export function SingleItems({
                         </button>
                         <button
                           className={
-                            selectedPriority == "P4"
+                            selectedPriority === "P4"
                               ? styles.button_selected
                               : ""
                           }
@@ -311,9 +316,7 @@ export function SingleItems({
                     <hr />
                     <button
                       className={styles.button_delete}
-                      onClick={() => {
-                        deleteTaskHandler({ _id: _id });
-                      }}
+                      onClick={menuDeleteHandler}
                     >
                       <Icon type="delete" />
                       <span>Delete</span>
@@ -335,6 +338,14 @@ export function SingleItems({
             />
           )}
         </div>
+      )}
+        {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          actionFunction={deleteTaskHandler}
+          name={title}
+          type="Delete"
+        />
       )}
     </li>
   );

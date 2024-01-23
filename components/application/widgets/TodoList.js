@@ -23,8 +23,8 @@ function TodoList({
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  const haveTasks = tasks != "" && tasks != "undefined" && tasks != null;
-  const haveTitle = title != "" && title != "undefined" && title != null;
+  const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
+  const haveTitle = title !== "" && title !== "undefined" && title != null;
 
   const switchListHandler = () => {
     setShowList((preState) => !preState);
@@ -43,7 +43,7 @@ function TodoList({
             <Icon type="down_arrow_small" />
           </div>
           <h4>{title}</h4>
-          {title != "Today" && (
+          {title !== "Today" && (
             <div className={styles.menu_btn_container}>
               <button
                 onClick={swithMenuHandler}
@@ -80,7 +80,7 @@ function TodoList({
         <div>
           {haveTasks &&
             tasks
-              .filter((data) => data.completed == false)
+              .filter((data) => data.completed === false)
               .map((data) => (
                 <SingleItems
                   key={data._id}
@@ -101,7 +101,7 @@ function TodoList({
               ))}
         </div>
       )}
-      {title != "Overdue" && (
+      {title !== "Overdue" && (
         <AddTask
           allTags={allTags}
           allProjects={allProjects}
