@@ -45,7 +45,6 @@ export default function NewProject(props) {
     const name = nameInputRef.current.value;
 
     if (props.name) {
-
       //Edit project
       try {
         const res = await fetch("/api/editProject", {
@@ -53,22 +52,24 @@ export default function NewProject(props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, id: props.projectId , oldName: props.name  }),
+          body: JSON.stringify({
+            name,
+            id: props.projectId,
+            oldName: props.name,
+          }),
         });
 
         if (res.ok) {
           props.showNameHandler(name);
-          window.location.reload()
+          window.location.reload();
         } else {
           setIsWrong(true);
         }
       } catch (error) {
-        console.log("Error occured: ", error);
+        throw error;
       }
       props.closeHandler();
-
     } else {
-
       //Add project
       try {
         const res = await fetch("/api/addProject", {
@@ -87,7 +88,7 @@ export default function NewProject(props) {
           setIsWrong(true);
         }
       } catch (error) {
-        console.log("Error occured: ", error);
+        throw error;
       }
       props.closeHandler();
     }
@@ -108,18 +109,14 @@ export default function NewProject(props) {
       <Modal>
         <div className={styles.add_project_modal_container}>
           <div>
-            <h1>{ props.name ? 'Edit' : 'Add'} project</h1>
+            <h1>{props.name ? "Edit" : "Add"} project</h1>
           </div>
           <hr />
 
           <form onSubmit={formSubmitHandler}>
             <div className={styles.add_project_form}>
               <div className={styles.form_field}>
-                <label
-                  className={styles.form_field_title}
-                >
-                  Name
-                </label>
+                <label className={styles.form_field_title}>Name</label>
                 <input
                   ref={nameInputRef}
                   id="edit_project_modal_field_name"
@@ -141,7 +138,6 @@ export default function NewProject(props) {
                 <div className={styles.form_field_title}>Workspace</div>
                 <button disabled={true}>My Projects</button>
               </div>
-             
             </div>
 
             <hr />

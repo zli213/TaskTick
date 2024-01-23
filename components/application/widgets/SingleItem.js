@@ -18,7 +18,6 @@ import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 import TaskEditor from "./taskEditor/TaskEditor";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 
-
 export function SingleItems({
   title,
   _id,
@@ -43,7 +42,6 @@ export function SingleItems({
     swithMenuHandler,
   } = useMenu();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
-
 
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
@@ -111,7 +109,9 @@ export function SingleItems({
       setDispProjectId(result.body.projectId);
       setDispProjectName(result.body.projectName);
       setDispBoard(result.body.board);
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   };
 
   const deleteTaskHandler = async () => {
@@ -126,7 +126,9 @@ export function SingleItems({
 
       const result = await res.json();
       console.log(result);
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   };
 
   const menuDeleteHandler = (event) => {
@@ -339,7 +341,7 @@ export function SingleItems({
           )}
         </div>
       )}
-        {showDeleteCard && (
+      {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
           actionFunction={deleteTaskHandler}

@@ -22,8 +22,8 @@ export const PUT = async (req) => {
     const user = await User.find({ email: session.user.email });
 
     // Update project status
-    var projects = user[0].projects;
-    for (var project of projects) {
+    let projects = user[0].projects;
+    for (let project of projects) {
       if (project.projectId.toString() == param.projectId) {
         project.archived = true;
       }

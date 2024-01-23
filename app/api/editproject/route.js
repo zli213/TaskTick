@@ -16,9 +16,7 @@ import Tasks from "../../../src/models/Tasks";
 export const POST = async (req) => {
   await connect();
   const session = await getServerSession(options);
-
   const param = await req.json();
-  console.log(param);
 
   try {
     const user = await User.find({ email: session.user.email });

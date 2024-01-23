@@ -20,6 +20,6 @@ export default async function getBoards(userId, projectId) {
 
     return project[0].boards;
   } catch (error) {
-    return null;
+    throw new Error("Error get boards");
   }
 }

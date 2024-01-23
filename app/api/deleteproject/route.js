@@ -16,7 +16,6 @@ export const DELETE = async (req) => {
   await connect();
   const session = await getServerSession(options);
   const param = await req.json();
-  console.log("1", param);
 
   try {
     //update project in user info
