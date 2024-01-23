@@ -5,8 +5,21 @@ import { useEffect, useState } from "react";
 import Icon from "../../application/widgets/Icon";
 import LabelItem from "../../application/widgets/LabelItem";
 import NewLabel, { useLabel } from "../../application/widgets/NewLabel";
+import { useSelector } from "react-redux";
 
-function FilterPage(props) {
+function FilterPage() {
+  const tags = useSelector((state) => state.userInfo.tags);
+  const tasks = useSelector((state) => state.tasks.tasks);
+  let labels = [];
+
+  for (const tag of tags) {
+    const tasksWithTag = tasks.filter((task) => {
+      return task.tags.includes(tag);
+    });
+
+    labels.push({ tag: tag, taskNum: tasksWithTag.length });
+  }
+
   const [showList, setShowList] = useState(true);
   const { showAddCard, showCardHandler } = useLabel();
 
@@ -48,8 +61,12 @@ function FilterPage(props) {
 
           <ul>
             {showList &&
-              props.labels.map((label) => (
-                <LabelItem label={label.tag} num={label.taskNum} key={label.tag} />
+              labels.map((label) => (
+                <LabelItem
+                  label={label.tag}
+                  num={label.taskNum}
+                  key={label.tag}
+                />
               ))}
           </ul>
         </section>

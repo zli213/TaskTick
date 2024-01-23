@@ -8,19 +8,20 @@ import NewProject, { useProject } from "../../application/widgets/NewProject";
 import MyProjectItem from "../../application/widgets/MyProjectItem";
 import { notFound } from "next/navigation";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
+import { useSelector } from "react-redux";
 
 export default function MyProjects(props) {
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  var tasks = props.data;
+  var projects = useSelector((state) => state.userInfo.projects);
   if (props.type === "active") {
-    tasks = tasks.filter(
-      (task) => task.archived !== true || task.archived === undefined
+    projects = projects.filter(
+      (project) => project.archived !== true || project.archived === undefined
     );
   } else if (props.type === "archived") {
-    tasks = tasks.filter(
-      (task) => task.archived === true && task.archived !== undefined
+    projects = projects.filter(
+      (project) => project.archived === true && project.archived !== undefined
     );
   } else {
     notFound();
@@ -98,12 +99,12 @@ export default function MyProjects(props) {
             <span>Add project</span>
           </div>
         </div>
-        <h4>{tasks.length} projects</h4>
+        <h4>{projects.length} projects</h4>
       </div>
 
       <div className={styles.content_box}>
         <ul className={styles.project_list}>
-          {tasks.map((project) => (
+          {projects.map((project) => (
             <MyProjectItem
               project={project}
               key={project.projectId}

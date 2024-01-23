@@ -26,18 +26,20 @@ import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
+import { useSelector } from "react-redux";
 
 function TaskEditor({
   formType,
   taskData,
-  tagList,
-  allProjects,
   fromProject,
   fromBoard,
   fromTag,
   cancelCallBack,
   submitCallBack,
 }) {
+  let tagList = useSelector((state) => state.projects.tags);
+  let allProjects = useSelector((state) => state.projects.projects);
+
   // Default values
   if (formType == null) {
     formType = "add";

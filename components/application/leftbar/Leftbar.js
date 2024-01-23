@@ -6,8 +6,14 @@ import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
 import NewProject, { useProject } from "../widgets/NewProject";
 import Icon from "../widgets/Icon";
+import { useSelector } from "react-redux";
 
-function Leftbar({ showClass, projects, inboxNum, todayNum }) {
+function Leftbar({ showClass }) {
+  let projects = useSelector((state) => state.userInfo.projects);
+  projects = projects.filter((project) => project.archived !== true);
+  const inboxNum = useSelector((state) => state.tasks.inboxNum);
+  const todayNum = useSelector((state) => state.tasks.todayNum);
+
   const [selectedItemType, setSeletedItemType] = useState("");
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const [showList, setShowList] = useState(true);

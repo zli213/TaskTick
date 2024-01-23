@@ -452,15 +452,17 @@ function convertSelectedDate(date) {
 }
 
 export function formatDate(inDate) {
+  const indate = new Date(inDate);
+
   let dateJson = { dateTime: null, dateStr: "" };
-  if (inDate !== "" || inDate != null) {
-    dateJson.dateTime = inDate;
+  if (indate !== "" || indate != null) {
+    dateJson.dateTime = indate;
     dateJson.dateStr =
-      inDate.getFullYear() +
+    indate.getFullYear() +
       "-" +
-      (inDate.getMonth() + 1) +
+      (indate.getMonth() + 1) +
       "-" +
-      inDate.getDate();
+      indate.getDate();
   }
 
   return dateJson;

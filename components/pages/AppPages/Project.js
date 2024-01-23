@@ -7,17 +7,19 @@ import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
 import { UnarchiveProject } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Project({
   projectId,
-  projectName,
-  tasks,
-  boards,
-  archived,
-  allTags,
-  allProjects,
 }) {
   const router = useRouter();
+  const projects = useSelector((state) => state.userInfo.projects);
+  const project = projects.find((project) => project.projectId === projectId);
+  const boards = project.boards;
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.projectId === projectId);
+
+
   const groupedTasks = groupTasks(boards, tasks);
 
   const unarchiveHandler = async () => {
@@ -25,7 +27,7 @@ export default function Project({
   };
 
   useEffect(() => {
-    document.title = projectName + " - Todo";
+    document.title = project.projectName + " - Todo";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 
@@ -33,8 +35,8 @@ export default function Project({
     <>
       <div className={styles.view_header}>
         <div className={styles.view_header_content}>
-          <h1>{projectName}</h1>
-          {!archived && (
+          <h1>{project.name}</h1>
+          {!project.archived && (
             <div>
               <Icon type="view" />
             </div>
@@ -42,19 +44,17 @@ export default function Project({
         </div>
       </div>
 
-      {archived && (
+      {project.archived && (
         <div className={`${styles.list_box} ${styles.archived_project} `}>
           <p>This project is archived</p>
           <button onClick={unarchiveHandler}>Unarchive</button>
         </div>
       )}
 
-      {!archived &&
+      {!project.archived &&
         (boards.length === 0 && tasks.length === 0 ? (
           <NoTask
             page="project"
-            allTags={allTags}
-            allProjects={allProjects}
             fromProject={{ projectId: projectId, projectName: projectName }}
             fromBoard={""}
           />
@@ -67,11 +67,9 @@ export default function Project({
                   key={boardName}
                   title={boardName}
                   tasks={groupedTasks[boardName]}
-                  allTags={allTags}
-                  allProjects={allProjects}
                   fromProject={{
                     projectId: projectId,
-                    projectName: projectName,
+                    projectName: project.name,
                   }}
                   fromBoard={boardName}
                 />
