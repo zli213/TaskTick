@@ -1,11 +1,10 @@
 // app/auth/signin/page.js
 "use client";
 
-import { set } from "mongoose";
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import styles from "../../../styles/scss/signin.module.scss";
+import styles from "../../../styles/scss/form.module.scss";
 import Link from "next/link";
 import Navbar from "../../../components/pages/Navbar";
 import { useSession } from "next-auth/react";
@@ -137,7 +136,7 @@ const SignInPage = () => {
           </p>
         </form>
         <div className={styles.image}>
-          <img src="/images/right_img.png" alt="signin" />
+          <img src="/images/signIn.jpg" className={styles.ri} alt="signin" />
         </div>
       </div>
     </>

@@ -6,6 +6,8 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import ThirdPartySignInButtons from "../Signin/ThirdPartySignInButtons";
+import EmailInputField from "../Signin/EmailInputField";
+import PasswordInputField from "../Signin/PasswordInputField";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({});
@@ -15,6 +17,10 @@ const SignupForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [signUpInitiated, setSignUpInitiated] = useState(false);
   const [error, setError] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const handleVisibilityToggle = () => {
+    setIsPasswordVisible((prevVisibility) => !prevVisibility);
+  };
   const handleSubmit = async (event) => {
     // clear any previous errors
     setError("");
@@ -105,42 +111,39 @@ const SignupForm = () => {
     fetchData();
   }, [session, signUpInitiated]);
   return (
-    <form className={styles.signupForm} onSubmit={handleSubmit} method="post">
-      {error && <p className={styles.error}>{error}</p>}
-      {notification && (
-        <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
-      )}
-      <div className={styles.inputGroup}>
-        <label>Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          onChange={handleChange}
-          value={formData.email}
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={handleSubmit} method="post">
+        {error && <p className={styles.error}>{error}</p>}
+        {notification && (
+          <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
+        )}
+
+        <EmailInputField
+          formValues={formData}
+          handleChange={handleChange}
+          styles={styles}
         />
-      </div>
-      <div className={styles.inputGroup}>
-        <label>Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          onChange={handleChange}
-          value={formData.password}
+
+        <PasswordInputField
+          formValues={formData}
+          handleChange={handleChange}
+          isPasswordVisible={isPasswordVisible}
+          handleVisibilityToggle={handleVisibilityToggle}
+          styles={styles}
         />
+        <button className={styles.submit}>Sign Up</button>
+        <ThirdPartySignInButtons handleSignIn={handleSignUp} styles={styles} />
+        <p className={styles.signIn}>
+          Already signed up?{"\u00a0"}
+          <Link href="/auth/signin" className={styles.signInLink}>
+            Go to sign in
+          </Link>
+        </p>
+      </form>
+      <div className={styles.image}>
+        <img src="/images/signUp.png" className={styles.ri} alt="signin" />
       </div>
-      <button className={styles.submit}>Sign Up</button>
-      <ThirdPartySignInButtons handleSignIn={handleSignUp} styles={styles} />
-      <p className={styles.signIn}>
-        Already signed up?{" "}
-        <Link href="/auth/signin" className={styles.signInLink}>
-          Go to sign in
-        </Link>
-      </p>
-    </form>
+    </div>
   );
 };
 
