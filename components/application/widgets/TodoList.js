@@ -7,7 +7,8 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 
 function TodoList({
   tasks,
-  title, showProject,
+  title,
+  showProject,
   allTags,
   allProjects,
   fromProject,

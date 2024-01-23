@@ -20,6 +20,6 @@ export default async function getSingleProject(userId, projectId) {
 
     return project[0];
   } catch (error) {
-    return null;
+    throw new Error("Error get project detail");
   }
 }

@@ -4,7 +4,6 @@
 
 //Calculate Position Function
 export function convertPosition(position, levels, componentWidth) {
-  // console.log(position);
   var buttonGap = 0;
 
   if (position.height < 20) {
@@ -45,12 +44,9 @@ export function convertPosition(position, levels, componentWidth) {
 export function convertPosition2(position, levels, componentWidth) {
   console.log(position);
 
-  // console.log("1", position.left);
   let left2 = (window.innerWidth - 280 - 800) / 2 + 280 + 800 - 33;
-  // console.log("2", left2);
 
   const menuHeight = levels * 38 + 17;
-  console.log("menuHeight: ", menuHeight);
 
   var newtop = position.height + 2;
   var newleft = -componentWidth * 0.5 + position.width / 2;
@@ -92,7 +88,9 @@ export async function DeleteTag(tag) {
       return false;
     }
   } catch (error) {
-    console.log("Error occured: ", error);
+    return new NextResponse(error, {
+      status: 500,
+    });
   }
 }
 
@@ -112,7 +110,9 @@ export async function DeleteProject(projectId) {
       return false;
     }
   } catch (error) {
-    console.log("Error occured: ", error);
+    return new NextResponse(error, {
+      status: 500,
+    });
   }
 }
 
@@ -132,7 +132,9 @@ export async function ArchiveProject(projectId) {
       return false;
     }
   } catch (error) {
-    console.log("Error occured: ", error);
+    return new NextResponse(error, {
+      status: 500,
+    });
   }
 }
 
@@ -152,6 +154,8 @@ export async function UnarchiveProject(projectId) {
       return false;
     }
   } catch (error) {
-    console.log("Error occured: ", error);
+    return new NextResponse(error, {
+      status: 500,
+    });
   }
 }
