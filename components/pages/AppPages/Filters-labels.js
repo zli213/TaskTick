@@ -8,7 +8,7 @@ import NewLabel, { useLabel } from "../../application/widgets/NewLabel";
 import { useSelector } from "react-redux";
 
 function FilterPage() {
-  const tags = useSelector((state) => state.userInfo.tags);
+  const tags = useSelector((state) => state.tasks.tags);
   const tasks = useSelector((state) => state.tasks.tasks);
   let labels = [];
 

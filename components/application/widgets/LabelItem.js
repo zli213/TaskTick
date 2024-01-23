@@ -7,8 +7,11 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { DeleteTag } from "../../../public/CommonFunctions";
+import { useDispatch } from "react-redux";
+import { deleteOneTagState } from "../../../store/tasks";
 
 function LabelItem({ label, num }) {
+  const dispacth = useDispatch();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddCard, showCardHandler } = useLabel();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
@@ -25,7 +28,8 @@ function LabelItem({ label, num }) {
   };
 
   const deleteTagHandler = () => {
-    DeleteTag(label);
+    const result = DeleteTag(label);
+    result && dispacth(deleteOneTagState(label));
   };
 
   return (

@@ -13,7 +13,7 @@ export default function Project({
   projectId,
 }) {
   const router = useRouter();
-  const projects = useSelector((state) => state.userInfo.projects);
+  const projects = useSelector((state) => state.tasks.projects);
   const project = projects.find((project) => project.projectId === projectId);
   const boards = project.boards;
   let tasks = useSelector((state) => state.tasks.tasks);

@@ -13,15 +13,14 @@ export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
 
   const dispatch = useDispatch();
-  dispatch(
-    initialInfo({ projects: props.projects, tags: props.allTags })
-  );
 
   dispatch(
     initialTasksState({
       tasks: JSON.stringify(props.tasks),
       inboxNum: props.inboxNum,
       todayNum: props.todayNum,
+      projects: props.projects,
+      tags: props.allTags,
     })
   );
 

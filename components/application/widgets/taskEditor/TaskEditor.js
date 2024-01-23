@@ -37,8 +37,8 @@ function TaskEditor({
   cancelCallBack,
   submitCallBack,
 }) {
-  let tagList = useSelector((state) => state.projects.tags);
-  let allProjects = useSelector((state) => state.projects.projects);
+  let tagList = useSelector((state) => state.tasks.tags);
+  let allProjects = useSelector((state) => state.tasks.projects);
 
   // Default values
   if (formType == null) {

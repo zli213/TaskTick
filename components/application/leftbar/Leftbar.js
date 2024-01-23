@@ -9,7 +9,7 @@ import Icon from "../widgets/Icon";
 import { useSelector } from "react-redux";
 
 function Leftbar({ showClass }) {
-  let projects = useSelector((state) => state.userInfo.projects);
+  let projects = useSelector((state) => state.tasks.projects);
   projects = projects.filter((project) => project.archived !== true);
   const inboxNum = useSelector((state) => state.tasks.inboxNum);
   const todayNum = useSelector((state) => state.tasks.todayNum);
