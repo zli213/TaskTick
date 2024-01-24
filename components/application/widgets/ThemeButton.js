@@ -10,8 +10,10 @@ export default function ThemeButton ({ onClick, themeName, isSelected, isDisable
         '--theme--opposite--color': oppositeColor
     }
 
+    const buttonClassName = isDisabled ? `${styles.disabled} ${styles.themeButton}` : styles.themeButton;
+
     return (
-        <button onClick={onClick} disabled={isDisabled} className={styles.themeButton} style={dynamicStyle} type="button" >
+        <button onClick={onClick} disabled={isDisabled} className={buttonClassName} style={dynamicStyle} type="button" >
         {/* leftbar pic */}
         <span className={styles.leftbarPic}>
           <span className={styles.leftOne}></span>

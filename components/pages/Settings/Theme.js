@@ -8,24 +8,39 @@ import styles from "../../../styles/scss/theme.module.scss";
 const SettingTheme = () => {
   const router = useRouter();
   const themeCtx = useContext(MyThemeContext);
+  const [isSystem, setIsSystem] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const flag = localStorage.getItem("isDark") === "true";
     console.log("Get from localStorage: ", flag);
     setIsDark(flag);
-  }, []);
 
-  function toggleDarkTheme() {
-    themeCtx.toggleDarkTheme();
-    saveChange("dark");
+    const flag2 = themeCtx.isSystemTheme;
+    console.log("is system theme?", flag2);
+    setIsSystem(flag2);
+  }, [themeCtx.isSystemTheme]);
+
+  async function applyDarkTheme() {
+    themeCtx.applyDarkTheme();
     setIsDark(true);
+    await saveChange("dark");
   }
 
-  function toggleLightTheme() {
-    themeCtx.toggleLightTheme();
-    saveChange("light");
+  async function applyLightTheme() {
+    themeCtx.applyLightTheme();
     setIsDark(false);
+    await saveChange("light");
+  }
+
+  async function handleCheckboxChange () {
+    setIsSystem(prev => !prev);
+    console.log("Change checkbox: ", isSystem);
+    if (isSystem) {
+      await saveChange("system");
+    } else {
+      await applyLightTheme();
+    }
   }
 
   const button1Colors = {
@@ -83,7 +98,7 @@ const SettingTheme = () => {
       <label className={styles.switchContainer}>
         <div>
           <label className={styles.switch}>
-            <input type="checkbox"></input>
+            <input type="checkbox" checked={isSystem} onChange={handleCheckboxChange}></input>
             <span></span>
           </label>
         </div>
@@ -95,18 +110,18 @@ const SettingTheme = () => {
       <div className={styles.themeButtons}>
           {/* default light theme*/}
           <ThemeButton
-          onClick={toggleLightTheme}
+          onClick={applyLightTheme}
           themeName={"Light"}
           isSelected={!isDark}
-          isDisabled={!isDark}
+          isDisabled={isSystem || !isDark}
           {...button1Colors}/>
 
           {/* dark theme */}
           <ThemeButton
-          onClick={toggleDarkTheme}
+          onClick={applyDarkTheme}
           themeName={"Dark"}
           isSelected={isDark}
-          isDisabled={isDark}
+          isDisabled={isSystem || isDark}
           {...button2Colors}/>
       </div>
 

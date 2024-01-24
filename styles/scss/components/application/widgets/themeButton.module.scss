@@ -1,4 +1,7 @@
 @use "../../../utils/variable" as *;
+.disabled {
+    cursor:not-allowed;
+}
 
 .themeButton {
     --theme--color: $primaryColor;
