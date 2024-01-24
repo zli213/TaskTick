@@ -29,7 +29,6 @@ function AddTask(props) {
   };
 
   const saveNewTask = async (newtask) => {
-    console.log(session.user);
     const newTaskWithUser = {
       ...newtask,
       userId: session.user.userId,
@@ -37,14 +36,14 @@ function AddTask(props) {
     };
     delete newTaskWithUser._id;
     try {
-      const res = await fetch("/api/addTask", {
+      await fetch("/api/addTask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newTaskWithUser),
       });
-      console.log(res);
+      // console.log(res);
       showAddBtn();
       hideTaskEditor();
     } catch (err) {}

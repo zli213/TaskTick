@@ -9,8 +9,14 @@
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import Icon from "../Icon";
 
+/**
+ *
+ * @param {*} onProjSelect fn(id, name, board)
+ * @param {*} onOverlayClick fn()
+ * @returns
+ */
 function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
-  console.log(allProjects);
+  //console.log(allProjects);
   return (
     <>
       <div

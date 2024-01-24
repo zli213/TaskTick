@@ -107,7 +107,6 @@ function TaskEditor({
         ? ""
         : taskData.board,
   });
-  console.log(newTaskData.current);
 
   /** update newTaskData */
   const setNewTaskData = (key, value) => {
