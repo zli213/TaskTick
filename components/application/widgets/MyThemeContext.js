@@ -1,14 +1,17 @@
 "use client";
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useSession } from "next-auth/react";
 
 const MyThemeContext = createContext({
-    toggleThemeHandler: () => {},
+    isDarkTheme: false,
+    toggleDarkTheme: () => {},
+    toggleLightTheme: () => {},
 });
 
 
 export function MyThemeContextProvider(props) {
     const { data: session } = useSession();
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
 
     useEffect(() => initialThemeHandler());
 
@@ -17,25 +20,29 @@ export function MyThemeContextProvider(props) {
             const theme = session.user.theme;
             if (theme === "dark") {
                 document.querySelector("main").classList.add("dark");
-                localStorage.setItem("isDark", true);
+                localStorage.setItem("isDark", "true");
+                setIsDarkTheme(true);
             } else {
-                localStorage.setItem("isDark", false);
+                localStorage.setItem("isDark", "false");
+                setIsDarkTheme(false);
             }
         }
     }
 
     function toggleDarkTheme() {
         document.querySelector("main").classList.add("dark");
-        localStorage.setItem("isDark", true);
+        localStorage.setItem("isDark", "true");
+        setIsDarkTheme(true);
     }
 
     function toggleLightTheme() {
         document.querySelector("main").classList.remove("dark");
-        localStorage.setItem("isDark", false);
+        localStorage.setItem("isDark", "false");
+        setIsDarkTheme(false);
     }
 
     return (
-        <MyThemeContext.Provider value={{ toggleDarkTheme, toggleLightTheme }}>
+        <MyThemeContext.Provider value={{ isDarkTheme: false ,toggleDarkTheme, toggleLightTheme }}>
             {props.children}
         </MyThemeContext.Provider>
     );

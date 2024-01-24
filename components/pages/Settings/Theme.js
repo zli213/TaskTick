@@ -11,7 +11,7 @@ const SettingTheme = () => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const flag = localStorage.getItem("isDark");
+    const flag = localStorage.getItem("isDark") === "true";
     console.log("Get from localStorage: ", flag);
     setIsDark(flag);
   }, []);
@@ -76,7 +76,7 @@ const SettingTheme = () => {
       <header>
         <h4>Theme</h4>
         <button onClick={onDismiss}>
-          <Icon type="close"/>
+          <Icon type="close" id="icon"/>
         </button>
       </header>
       <p>Personalize your Todoist with colors to match your style, mood, and personality.</p>

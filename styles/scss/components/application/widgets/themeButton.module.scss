@@ -57,8 +57,6 @@
 }
 
 .mainPic {
-    // display: flex;
-    // flex-direction: column;
     width: 70%;
     height: 100%;
     padding: $paddingsm;
@@ -66,9 +64,7 @@
     border-radius: 0 $borderRadius $borderRadius 0;
 }
 
-// not working
 .headerPic {
-    // @include flexRowBetween();
     display: inline-flex;
     flex-direction: row;
     align-items: center;
