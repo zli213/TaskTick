@@ -8,7 +8,7 @@ import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { DeleteTag } from "../../../public/CommonFunctions";
 import { useDispatch } from "react-redux";
-import { deleteOneTagState } from "../../../store/tasks";
+import { deleteOneTagAction } from "../../../store/tasks";
 
 function LabelItem({ label, num }) {
   const dispacth = useDispatch();
@@ -29,7 +29,7 @@ function LabelItem({ label, num }) {
 
   const deleteTagHandler = () => {
     const result = DeleteTag(label);
-    result && dispacth(deleteOneTagState(label));
+    result && dispacth(deleteOneTagAction(label));
   };
 
   return (

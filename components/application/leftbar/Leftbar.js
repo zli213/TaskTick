@@ -10,7 +10,9 @@ import { useSelector } from "react-redux";
 
 function Leftbar({ showClass }) {
   let projects = useSelector((state) => state.tasks.projects);
-  projects = projects.filter((project) => project.archived !== true);
+  projects = projects
+    .filter((project) => project.archived !== true)
+    .filter((project) => project.state !== "deleted");
   const inboxNum = useSelector((state) => state.tasks.inboxNum);
   const todayNum = useSelector((state) => state.tasks.todayNum);
 
@@ -114,7 +116,7 @@ function Leftbar({ showClass }) {
         </div>
       </div>
       {showAddProjectCard && (
-        <NewProject closeHandler={showProjectCardHandler}  />
+        <NewProject closeHandler={showProjectCardHandler} />
       )}
     </div>
   );

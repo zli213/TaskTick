@@ -3,11 +3,15 @@ import styles from "../../../styles/scss/leftbar.module.scss";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewProject, { useProject } from "./NewProject";
-import { useState } from "react";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { ArchiveProject, DeleteProject } from "../../../public/CommonFunctions";
 import { useProjectMenu } from "./MyProjectItem";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import {
+  deleteProjectAction,
+  archiveProjectAction,
+} from "../../../store/tasks";
 
 const LeftbarItem = ({
   label,
@@ -19,14 +23,13 @@ const LeftbarItem = ({
   projectId,
 }) => {
   const router = useRouter();
+  const dispacth = useDispatch();
 
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const { contents, actionType, setDeleteHandler, setArchiveHandler } =
     useProjectMenu();
-
-  const [showedName, setShowedName] = useState(label);
 
   const menuEditHandler = (event) => {
     swithMenuHandler(event);
@@ -45,15 +48,25 @@ const LeftbarItem = ({
     showDeleteCardHandler();
   };
 
-  const changeProjectHandler = () => {
+  const changeProjectHandler = async () => {
     if (actionType === "Delete") {
-      DeleteProject(projectId);
+      const result = await DeleteProject(projectId);
+      console.log("1", result);
+      if (result) {
+        // const lastPage = localStorage.getItem("lastPage");
+        // if (lastPage.includes(projectId)) {
+          showDeleteCardHandler();
+        //   // router.replace("/application/inbox");
+        //   dispacth(deleteProjectAction(projectId));
+        // } else {
+          dispacth(deleteProjectAction(projectId));
+        // }
+      }
     } else {
       ArchiveProject(projectId);
+      dispacth(archiveProjectAction(projectId));
+      router.replace("/application/inbox");
     }
-    const lastPage = localStorage.getItem("lastPage");
-    lastPage.includes(projectId) && router.push("/application/inbox");
-    router.refresh();
   };
 
   const clickHandler = (e) => {
@@ -109,7 +122,7 @@ const LeftbarItem = ({
       <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>
           <span>{icon}</span>
-          <span className={styles.list_item_content}>{showedName}</span>
+          <span className={styles.list_item_content}>{label}</span>
         </Link>
       </div>
       <div className={styles.item_btn}>
@@ -179,7 +192,6 @@ const LeftbarItem = ({
           name={label}
           projectId={projectId}
           closeHandler={showProjectCardHandler}
-          showNameHandler={setShowedName}
         />
       )}
       {showDeleteCard && (

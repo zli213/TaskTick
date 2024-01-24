@@ -39,6 +39,7 @@ function TaskEditor({
 }) {
   let tagList = useSelector((state) => state.tasks.tags);
   let allProjects = useSelector((state) => state.tasks.projects);
+  allProjects = allProjects.filter((project) => project.state !== "deleted");
 
   // Default values
   if (formType == null) {

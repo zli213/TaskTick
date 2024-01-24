@@ -11,6 +11,8 @@ import Modal from "./Modal";
 import styles from "../../../styles/scss/components/application/widgets/newProject.module.scss";
 import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addProjectAction, updateProjectAction } from "../../../store/tasks";
 
 //Custom React hook -> useProject
 export const useProject = () => {
@@ -27,6 +29,7 @@ export const useProject = () => {
 };
 
 export default function NewProject(props) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState(props.name ? props.name : "");
@@ -55,20 +58,18 @@ export default function NewProject(props) {
           body: JSON.stringify({
             name,
             id: props.projectId,
-            oldName: props.name,
+          
           }),
         });
 
         if (res.ok) {
-          props.showNameHandler(name);
-          window.location.reload();
+          dispatch(updateProjectAction({ id: props.projectId, newName: name }));
         } else {
           setIsWrong(true);
         }
       } catch (error) {
         throw error;
       }
-      props.closeHandler();
     } else {
       //Add project
       try {
@@ -82,16 +83,16 @@ export default function NewProject(props) {
         const result = await res.json();
 
         if (res.ok) {
+          dispatch(addProjectAction(result.body));
           router.push(`/application/project/${result.body.projectId}`);
-          router.refresh();
         } else {
           setIsWrong(true);
         }
       } catch (error) {
         throw error;
       }
-      props.closeHandler();
     }
+    props.closeHandler();
   };
 
   useEffect(() => {

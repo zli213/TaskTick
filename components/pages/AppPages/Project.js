@@ -7,27 +7,32 @@ import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
 import { UnarchiveProject } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { unarchiveProjectAction } from "../../../store/tasks";
 
-export default function Project({
-  projectId,
-}) {
+export default function Project({ projectId }) {
+  const dispacth = useDispatch();
   const router = useRouter();
   const projects = useSelector((state) => state.tasks.projects);
   const project = projects.find((project) => project.projectId === projectId);
-  const boards = project.boards;
+
+  if (project.state === 'deleted') {
+    router.push("/application/inbox");
+  }
+
+  const boards = project.boards !== undefined ? project.boards : [];
   let tasks = useSelector((state) => state.tasks.tasks);
   tasks = tasks.filter((task) => task.projectId === projectId);
-
 
   const groupedTasks = groupTasks(boards, tasks);
 
   const unarchiveHandler = async () => {
-    (await UnarchiveProject(projectId)) && router.refresh();
+    (await UnarchiveProject(projectId)) &&
+      dispacth(unarchiveProjectAction(projectId));
   };
 
   useEffect(() => {
-    document.title = project.projectName + " - Todo";
+    document.title = project.name + " - Todo";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 
@@ -55,7 +60,7 @@ export default function Project({
         (boards.length === 0 && tasks.length === 0 ? (
           <NoTask
             page="project"
-            fromProject={{ projectId: projectId, projectName: projectName }}
+            fromProject={{ projectId: projectId, projectName: project.name }}
             fromBoard={""}
           />
         ) : (

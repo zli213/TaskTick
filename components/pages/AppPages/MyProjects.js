@@ -14,7 +14,8 @@ export default function MyProjects(props) {
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  var projects = useSelector((state) => state.userInfo.projects);
+  let projects = useSelector((state) => state.tasks.projects);
+  projects = projects.filter((project) => project.state !== "deleted");
   if (props.type === "active") {
     projects = projects.filter(
       (project) => project.archived !== true || project.archived === undefined

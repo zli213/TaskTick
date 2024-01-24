@@ -25,7 +25,7 @@ export const tasksSlice = createSlice({
     },
 
     //tasks
-    addTaskState: (state, action) => {
+    addTaskAction: (state, action) => {
       const task = action.payload;
       state.tasks = [...state.tasks, task];
       if (task.projectId == "" || task.projectId == null) {
@@ -40,24 +40,143 @@ export const tasksSlice = createSlice({
           state.todayNum = state.todayNum + 1;
         }
       }
+
+      //update projects
+      if (task.projectId !== "" && task.projectId !== null) {
+        state.projects = state.projects.map((project) => {
+          if (project.projectId === task.projectId) {
+            return { ...project, num: project.num + 1 };
+          }
+          return project;
+        });
+      }
     },
 
     //projects
-    addProjectState: (state, action) => {
-      //
+    addProjectAction: (state, action) => {
+      state.projects = [...state.projects, { ...action.payload, num: 0 }];
     },
-    deleteProjectState: (state, action) => {
-      //   state.value += action.payload
+    deleteProjectAction: (state, action) => {
+      // state.projects = state.projects.filter(
+      //   (project) => project.projectId !== action.payload
+      // );
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload) {
+          return { ...project, state: 'deleted' };
+        }
+        return project;
+      });
+
+      //update tasks
+      state.tasks = state.tasks.filter(
+        (task) => task.projectId !== action.payload
+      );
+
+      const todayTasks = state.tasks
+        .filter((task) => task.dueDate !== null && task.dueDate !== "")
+        .filter((task) => {
+          return task.archived !== true;
+        })
+        .filter((task) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const taskDueDate = new Date(task.dueDate);
+          return taskDueDate.getTime() <= today.getTime();
+        });
+      state.todayNum = todayTasks.length;
     },
-    updateProjectState: (state, action) => {
-      //   state.value += action.payload
+    updateProjectAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload.id) {
+          return { ...project, name: action.payload.newName };
+        }
+        return project;
+      });
+
+      //update tasks
+      state.tasks = state.tasks.map((task) => {
+        if (task.projectId === action.payload.id) {
+          return {
+            ...task,
+            projectName: action.payload.newName,
+          };
+        } else {
+          return task;
+        }
+      });
+    },
+    archiveProjectAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload) {
+          return { ...project, archived: true };
+        }
+        return project;
+      });
+
+      //update tasks
+      state.tasks = state.tasks.map((task) => {
+        if (task.projectId === action.payload) {
+          return {
+            ...task,
+            archived: true,
+          };
+        } else {
+          return task;
+        }
+      });
+
+      const todayTasks = state.tasks
+        .filter((task) => task.dueDate !== null && task.dueDate !== "")
+        .filter((task) => {
+          return task.archived !== true;
+        })
+        .filter((task) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const taskDueDate = new Date(task.dueDate);
+          return taskDueDate.getTime() <= today.getTime();
+        });
+      state.todayNum = todayTasks.length;
+    },
+    unarchiveProjectAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload) {
+          return { ...project, archived: false };
+        }
+        return project;
+      });
+
+      //update tasks
+      state.tasks = state.tasks.map((task) => {
+        if (task.projectId === action.payload) {
+          return {
+            ...task,
+            archived: false,
+          };
+        } else {
+          return task;
+        }
+      });
+
+      const todayTasks = state.tasks
+        .filter((task) => task.dueDate !== null && task.dueDate !== "")
+        .filter((task) => {
+          return task.archived !== true;
+        })
+        .filter((task) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const taskDueDate = new Date(task.dueDate);
+          return taskDueDate.getTime() <= today.getTime();
+        });
+      state.todayNum = todayTasks.length;
     },
 
     //tags
-    addTagState: (state, action) => {
+    addTagAction: (state, action) => {
       state.tags = [...state.tags, action.payload];
     },
-    editOneTagState: (state, action) => {
+    editOneTagAction: (state, action) => {
       const { oldTag, newTag } = action.payload;
       const index = state.tags.indexOf(oldTag);
       state.tags = [
@@ -72,14 +191,18 @@ export const tasksSlice = createSlice({
           const index = task.tags.indexOf(oldTag);
           return {
             ...task,
-            tags: [...task.tags.slice(0, index), newTag, ...task.tags.slice(index + 1)],
+            tags: [
+              ...task.tags.slice(0, index),
+              newTag,
+              ...task.tags.slice(index + 1),
+            ],
           };
         } else {
           return task;
         }
       });
     },
-    deleteOneTagState: (state, action) => {
+    deleteOneTagAction: (state, action) => {
       const index = state.tags.indexOf(action.payload);
       state.tags = [
         ...state.tags.slice(0, index),
@@ -105,14 +228,18 @@ export const tasksSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   initialTasksState,
-  addTaskState,
-  incrementByAmount,
-  addProjectState,
-  deleteProjectState,
-  updateProjectState,
-  addTagState,
-  editOneTagState,
-  deleteOneTagState,
+
+  addTaskAction,
+
+  addProjectAction,
+  deleteProjectAction,
+  updateProjectAction,
+  archiveProjectAction,
+  unarchiveProjectAction,
+
+  addTagAction,
+  editOneTagAction,
+  deleteOneTagAction,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
