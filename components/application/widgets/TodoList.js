@@ -8,6 +8,7 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 function TodoList({
   tasks,
   title,
+  showProject,
   allTags,
   allProjects,
   fromProject,
@@ -23,15 +24,15 @@ function TodoList({
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  const haveTasks = tasks != "" && tasks != "undefined" && tasks != null;
-  const haveTitle = title != "" && title != "undefined" && title != null;
+  const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
+  const haveTitle = title !== "" && title !== "undefined" && title != null;
 
   const switchListHandler = () => {
     setShowList((preState) => !preState);
   };
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id={title}>
       {haveTitle && (
         <header className={styles.todolist_header}>
           <div
@@ -43,10 +44,35 @@ function TodoList({
             <Icon type="down_arrow_small" />
           </div>
           <h4>{title}</h4>
-          {title != "Today" && (
-            <button onClick={swithMenuHandler}>
-              <Icon type="menu_unfill" />
-            </button>
+          {title !== "Today" && (
+            <div className={styles.menu_btn_container}>
+              <button
+                onClick={swithMenuHandler}
+                className={styles.menu_btn}
+                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+              >
+                <Icon type="menu_unfill" />
+              </button>
+              {showItemMenu && (
+                <PopupMenu
+                  onOverlayClick={swithMenuHandler}
+                  position={buttonPosition}
+                  levels="2"
+                >
+                  <div className={styles.task_item_action_menu}>
+                    <button>
+                      <Icon type="edit" />
+                      <span>Edit</span>
+                    </button>
+                    <hr />
+                    <button>
+                      <Icon type="delete" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </PopupMenu>
+              )}
+            </div>
           )}
         </header>
       )}
@@ -55,7 +81,7 @@ function TodoList({
         <div>
           {haveTasks &&
             tasks
-              .filter((data) => data.completed == false)
+              .filter((data) => data.completed === false)
               .map((data) => (
                 <SingleItems
                   key={data._id}
@@ -69,13 +95,14 @@ function TodoList({
                   tags={data.tags}
                   priority={data.priority}
                   completed={data.completed}
+                  showProject={showProject}
                   allTags={allTags}
                   allProjects={allProjects}
                 />
               ))}
         </div>
       )}
-      {title != "Overdue" && (
+      {title !== "Overdue" && (
         <AddTask
           allTags={allTags}
           allProjects={allProjects}
@@ -83,25 +110,6 @@ function TodoList({
           fromBoard={fromBoard}
           fromTag={fromTag}
         />
-      )}
-      {showItemMenu && (
-        <PopupMenu
-          onOverlayClick={swithMenuHandler}
-          position={buttonPosition}
-          levels="2"
-        >
-          <div className={styles.task_item_action_menu}>
-            <button>
-              <Icon type="edit" />
-              <span>Edit</span>
-            </button>
-            <hr />
-            <button>
-              <Icon type="delete" />
-              <span>Delete</span>
-            </button>
-          </div>
-        </PopupMenu>
       )}
     </section>
   );

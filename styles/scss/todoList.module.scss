@@ -12,6 +12,16 @@
   position: relative;
   border-bottom: 1px solid $grayColor;
   padding: $paddingXsm 0;
+
+  .menu_btn_container{
+    position: relative;
+    
+    .menu_btn{
+      @include menuButton();
+    }
+
+
+  }
 }
 
 .content_wrapper{

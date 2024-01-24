@@ -16,7 +16,9 @@ import { notFound } from "next/navigation";
 
 export default async function AppPage({ params }) {
   const session = await getServerSession(options);
-  const tasks = await getOneUserTasks(session.user.userId);
+
+  var tasks = await getOneUserTasks(session.user.userId);
+  tasks = tasks.filter((task) => task.archived != true);
 
   let tags = await getUserTags(session.user.userId);
   let projects = await getProjects(session.user.userId);
@@ -42,7 +44,7 @@ export default async function AppPage({ params }) {
 
     case "filters-labels":
       var labels = await getLabels(session.user.userId);
-      return <FilterPage labels={labels} />; //need edit
+      return <FilterPage labels={labels} />;
 
     case "projects":
       return <MyProjects data={projects} />;

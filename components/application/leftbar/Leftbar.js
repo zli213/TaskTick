@@ -4,17 +4,13 @@ import { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
-import NewProject from "../widgets/NewProject";
+import NewProject, { useProject } from "../widgets/NewProject";
 import Icon from "../widgets/Icon";
 
 function Leftbar({ showClass, projects, inboxNum, todayNum }) {
   const [selectedItemType, setSeletedItemType] = useState("");
+  const { showAddProjectCard, showProjectCardHandler } = useProject();
   const [showList, setShowList] = useState(true);
-  const [showAddCard, setShowAddCard] = useState(false);
-
-  const showCardHandler = () => {
-    setShowAddCard((preState) => !preState);
-  };
 
   const handleItemClick = (type) => {
     setSeletedItemType(type);
@@ -78,7 +74,7 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
-            <button onClick={showCardHandler}>
+            <button onClick={showProjectCardHandler}>
               <Icon type="add" />
             </button>
             <button
@@ -100,6 +96,7 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
               key={project.projectId}
               label={project.name}
               link={`/application/project/${project.projectId}`}
+              projectId={project.projectId}
               type="project"
               num={project.num}
               onClickHandler={() =>
@@ -110,7 +107,9 @@ function Leftbar({ showClass, projects, inboxNum, todayNum }) {
           ))}
         </div>
       </div>
-      {showAddCard && <NewProject closeHandler={showCardHandler} />}
+      {showAddProjectCard && (
+        <NewProject closeHandler={showProjectCardHandler}  />
+      )}
     </div>
   );
 }

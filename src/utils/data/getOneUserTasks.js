@@ -40,5 +40,6 @@ export function TransferTask(task) {
     userId: task.userId.toString(),
     username: task.username,
     completed: task.completed,
+    archived: task.archived,
   };
 }

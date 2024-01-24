@@ -14,15 +14,25 @@ import styles from "../../../../styles/scss/task.module.scss";
 import Link from "next/link";
 import Icon from "../../../application/widgets/Icon";
 
-export default function TaskHeaderLeft({ projectId, projectName, board }) {
+export default function TaskHeaderLeft({
+  projectId,
+  projectName,
+  board,
+  showInbox,
+  reverse,
+}) {
   return (
     <div className={styles.task_header_title}>
-      {!projectId ? (
+      {!projectId && showInbox  ? (
         <Link href="application/inbox">
-          <Icon type="hashtag_small"/>&nbsp; Inbox
+          <Icon type="hashtag_small" />
+          &nbsp; Inbox
         </Link>
       ) : (
-        <Link href={`/application/project/${projectId}`}><Icon type="hashtag_small"/>&nbsp;{projectName}</Link>
+        <Link href={`/application/project/${projectId}`}>
+         {projectName && !reverse && <Icon type="hashtag_small" />} 
+          &nbsp;{projectName}
+        </Link>
       )}
       {board && (
         <>
@@ -30,6 +40,7 @@ export default function TaskHeaderLeft({ projectId, projectName, board }) {
           <Link href={`/application/project/${projectId}`}>{board}</Link>
         </>
       )}
+       {projectName && reverse && <Icon type="hashtag_small" />} 
     </div>
   );
 }
