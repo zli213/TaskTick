@@ -51,6 +51,85 @@ export const tasksSlice = createSlice({
         });
       }
     },
+    deleteTaskAction: (state, action) => {
+      console.log(action.payload);
+      state.tasks = state.tasks.filter((task) => {
+        return task._id !== action.payload._id;
+      });
+
+      //update counters
+      if (
+        action.payload.projectId !== "" &&
+        action.payload.projectId !== null
+      ) {
+        const num = state.projects.filter(
+          (project) => project.projectId === action.payload.projectId
+        )[0].num;
+        state.projects = state.projects.map((project) => {
+          if (project.projectId === action.payload.projectId) {
+            return { ...project, num: num - 1 };
+          }
+          return project;
+        });
+      }
+
+      if (
+        action.payload.projectId === "" ||
+        action.payload.projectId === null
+      ) {
+        state.inboxNum = state.inboxNum - 1;
+      }
+
+      if (action.payload.dueDate !== null && action.payload.dueDate !== "") {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const taskDueDate = new Date(action.payload.dueDate);
+        if (taskDueDate.getTime() <= today.getTime()) {
+          state.todayNum = state.todayNum - 1;
+        }
+      }
+    },
+    updateTaskAction: (state, action) => {
+      // state.tasks = state.tasks.map((task) => {
+      //   if (task._id === action.payload._id) {
+      //     return { ...task, ...action.payload.task };
+      //   }
+      //   return task;
+      // });
+
+      //  //update counters
+      //  if (
+      //   action.payload.projectId !== "" &&
+      //   action.payload.projectId !== null
+      // ) {
+      //   const num = state.projects.filter(
+      //     (project) => project.projectId === action.payload.projectId
+      //   )[0].num;
+      //   state.projects = state.projects.map((project) => {
+      //     if (project.projectId === action.payload.projectId) {
+      //       return { ...project, num: num - 1 };
+      //     }
+      //     return project;
+      //   });
+      // }
+
+      // if (
+      //   action.payload.projectId === "" ||
+      //   action.payload.projectId === null
+      // ) {
+      //   state.inboxNum = state.inboxNum - 1;
+      // }
+
+      // if (action.payload.dueDate !== null && action.payload.dueDate !== "") {
+      //   const today = new Date();
+      //   today.setHours(0, 0, 0, 0);
+      //   const taskDueDate = new Date(action.payload.dueDate);
+      //   if (taskDueDate.getTime() <= today.getTime()) {
+      //     state.todayNum = state.todayNum - 1;
+      //   }
+      // }
+
+    },
 
     //projects
     addProjectAction: (state, action) => {
@@ -62,7 +141,7 @@ export const tasksSlice = createSlice({
       // );
       state.projects = state.projects.map((project) => {
         if (project.projectId === action.payload) {
-          return { ...project, state: 'deleted' };
+          return { ...project, state: "deleted" };
         }
         return project;
       });
@@ -230,6 +309,8 @@ export const {
   initialTasksState,
 
   addTaskAction,
+  deleteTaskAction,
+  updateTaskAction,
 
   addProjectAction,
   deleteProjectAction,
