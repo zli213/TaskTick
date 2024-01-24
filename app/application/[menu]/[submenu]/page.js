@@ -17,7 +17,7 @@ export default async function SubAppPages({ params }) {
   if (params.menu === "task") {
     let ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
-      return <TaskNotFound />;
+      return <TaskNotFound title="Task" />;
     }
   }
 
@@ -25,7 +25,7 @@ export default async function SubAppPages({ params }) {
   if (params.menu === "project") {
     let ifProjectExist = await checkProjectExist(session.user.userId, params.submenu);
     if (!ifProjectExist) {
-      return <TaskNotFound />;
+      return <TaskNotFound title="Project" />;
     }
   }
 

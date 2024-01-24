@@ -97,7 +97,13 @@ export function SingleItems({
       });
 
       const result = await res.json();
-      dispatch(updateTaskAction(result.body));
+      dispatch(
+        updateTaskAction({
+          task: result.body,
+          oldDue: dueDate,
+          oldProjectId: projectId,
+        })
+      );
 
       //console.log(result.body);
       setIsEditing(false);
@@ -130,7 +136,7 @@ export function SingleItems({
 
       const result = await res.json();
       // console.log(result);
-      dispatch(deleteTaskAction({_id, dueDate, projectId}));
+      dispatch(deleteTaskAction({ _id, dueDate, projectId }));
     } catch (error) {
       throw error;
     }

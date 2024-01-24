@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, unwrapResult } from "@reduxjs/toolkit";
 
 const initialState = {
   tasks: [],
@@ -52,7 +52,6 @@ export const tasksSlice = createSlice({
       }
     },
     deleteTaskAction: (state, action) => {
-      console.log(action.payload);
       state.tasks = state.tasks.filter((task) => {
         return task._id !== action.payload._id;
       });
@@ -90,45 +89,82 @@ export const tasksSlice = createSlice({
       }
     },
     updateTaskAction: (state, action) => {
-      // state.tasks = state.tasks.map((task) => {
-      //   if (task._id === action.payload._id) {
-      //     return { ...task, ...action.payload.task };
-      //   }
-      //   return task;
-      // });
+      const oldDue = action.payload.oldDue;
+      const oldProjectId = action.payload.oldProjectId;
+      const newTask = action.payload.task;
+
+      state.tasks = state.tasks.map((task) => {
+        if (task._id === newTask._id) {
+          return { ...task, ...newTask };
+        }
+        return task;
+      });
 
       //  //update counters
-      //  if (
-      //   action.payload.projectId !== "" &&
-      //   action.payload.projectId !== null
-      // ) {
-      //   const num = state.projects.filter(
-      //     (project) => project.projectId === action.payload.projectId
-      //   )[0].num;
-      //   state.projects = state.projects.map((project) => {
-      //     if (project.projectId === action.payload.projectId) {
-      //       return { ...project, num: num - 1 };
-      //     }
-      //     return project;
-      //   });
-      // }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const taskDueDate = new Date(newTask.dueDate);
+      const oldDueDate = new Date(oldDue);
 
-      // if (
-      //   action.payload.projectId === "" ||
-      //   action.payload.projectId === null
-      // ) {
-      //   state.inboxNum = state.inboxNum - 1;
-      // }
+      if (oldDue !== newTask.dueDate) {
+        if (oldDue == null || oldDue == "") {
+          if (newTask.dueDate !== null && newTask.dueDate !== "") {
+            if (taskDueDate.getTime() <= today.getTime()) {
+              state.todayNum = state.todayNum + 1;
+            }
+          }
+        } else {
+          if (newTask.dueDate == null || newTask.dueDate == "") {
+            if (oldDueDate.getTime() <= today.getTime()) {
+              state.todayNum = state.todayNum - 1;
+            }
+          } else {
+            if (
+              oldDueDate.getTime() <= today.getTime() &&
+              taskDueDate.getTime() > today.getTime()
+            ) {
+              state.todayNum = state.todayNum - 1;
+            } else if (
+              oldDueDate.getTime() > today.getTime() &&
+              taskDueDate.getTime() <= today.getTime()
+            ) {
+              state.todayNum = state.todayNum + 1;
+            }
+          }
+        }
+      }
 
-      // if (action.payload.dueDate !== null && action.payload.dueDate !== "") {
-      //   const today = new Date();
-      //   today.setHours(0, 0, 0, 0);
-      //   const taskDueDate = new Date(action.payload.dueDate);
-      //   if (taskDueDate.getTime() <= today.getTime()) {
-      //     state.todayNum = state.todayNum - 1;
-      //   }
-      // }
-
+      if (oldProjectId !== newTask.projectId) {
+        if (oldProjectId === "" || oldProjectId === null) {
+          state.projects = state.projects.map((project) => {
+            if (project.projectId === newTask.projectId) {
+              return { ...project, num: project.num + 1 };
+            }
+            return project;
+          });
+          state.inboxNum = state.inboxNum - 1;
+        } else {
+          if (newTask.projectId === "" || newTask.projectId === null) {
+            state.projects = state.projects.map((project) => {
+              if (project.projectId === oldProjectId) {
+                return { ...project, num: project.num - 1 };
+              }
+              return project;
+            });
+            state.inboxNum = state.inboxNum + 1;
+          } else {
+            state.projects = state.projects.map((project) => {
+              if (project.projectId === oldProjectId) {
+                return { ...project, num: project.num - 1 };
+              }
+              if (project.projectId === newTask.projectId) {
+                return { ...project, num: project.num + 1 };
+              }
+              return project;
+            });
+          }
+        }
+      }
     },
 
     //projects
