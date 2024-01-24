@@ -1,9 +1,9 @@
 /**
  * Get number of uncomplete tasks of Today
  * include overdue tasks
- * 
+ *
  * param: userId
- * 
+ *
  */
 
 import connect from "./db";
@@ -14,11 +14,14 @@ export default async function getTodayNum(userId) {
   await connect();
 
   try {
-    const tasks = await Tasks.find({ userId: userId , completed: false, dueDate: { $lt: new Date()} }); 
-    return  tasks.length;
-    
+    const tasks = await Tasks.find({
+      userId: userId,
+      archived: { $ne: true },
+      completed: false,
+      dueDate: { $lt: new Date() },
+    });
+    return tasks.length;
   } catch (error) {
     throw new Error("Error get Num");
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

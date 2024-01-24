@@ -1,14 +1,14 @@
 /**
- * Get boards of One project
+ * Get detail of a Project
  *
- * param: username, projectId
+ * param: projectId
  *
  */
 
 import connect from "./db";
 import User from "../../models/User";
 
-export default async function getBoards(userId, projectId) {
+export default async function getSingleProject(userId, projectId) {
   //Connect to the DB
   await connect();
 
@@ -18,8 +18,8 @@ export default async function getBoards(userId, projectId) {
       (item) => item.projectId.toString() == projectId
     );
 
-    return project[0].boards;
+    return project[0];
   } catch (error) {
-    throw new Error("Error get boards");
+    throw new Error("Error get project detail");
   }
 }

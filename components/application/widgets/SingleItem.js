@@ -14,7 +14,9 @@ import { useState } from "react";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
+import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 import TaskEditor from "./taskEditor/TaskEditor";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 
 export function SingleItems({
   title,
@@ -27,6 +29,7 @@ export function SingleItems({
   tags,
   priority,
   completed,
+  showProject,
   allTags,
   allProjects,
 }) {
@@ -38,6 +41,8 @@ export function SingleItems({
     buttonPosition: menuPosition,
     swithMenuHandler,
   } = useMenu();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const [selectedPriority, setPriority] = useState(priority);
@@ -74,9 +79,9 @@ export function SingleItems({
     setIsShowScheduler(false);
   };
 
-  const priorityChangeHandler = (option) => {
-    setPriority(option);
-  };
+  // const priorityChangeHandler = (option) => {
+  //   setPriority(option);
+  // };
 
   const updateTaskHandler = async (task) => {
     try {
@@ -104,23 +109,31 @@ export function SingleItems({
       setDispProjectId(result.body.projectId);
       setDispProjectName(result.body.projectName);
       setDispBoard(result.body.board);
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const deleteTaskHandler = async (task) => {
+  const deleteTaskHandler = async () => {
     try {
       const res = await fetch("/api/deleteTask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify({ _id: _id }),
       });
 
       const result = await res.json();
       console.log(result);
-    } catch (error) {}
-    swithMenuHandler();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const menuDeleteHandler = (event) => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
   };
 
   return (
@@ -166,28 +179,41 @@ export function SingleItems({
                 <div className={styles.task_title}>{dispTitle}</div>
                 <div className={styles.task_description}>{dispDescription}</div>
               </Link>
-              <div className={styles.task_info}>
-                {hasDue && (
-                  <button
-                    className={styles.task_info_date}
-                    onClick={showScheduler}
-                  >
-                    <Icon type="calender_small" />
-                    {selectedDate}
-                  </button>
+              <div className={styles.task_info_container}>
+                <div className={styles.task_info}>
+                  {hasDue && (
+                    <button
+                      className={styles.task_info_date}
+                      onClick={showScheduler}
+                    >
+                      <Icon type="calender_small" />
+                      {selectedDate}
+                    </button>
+                  )}
+                  {dispTags.map((tag) => (
+                    <Link href={`/application/label/${tag}`} key={tag}>
+                      <Icon type="small_tag" />
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+                {showProject && (
+                  <TaskHeaderLeft
+                    projectId={projectId}
+                    projectName={projectName}
+                    board={board}
+                    reverse={true}
+                  />
                 )}
-                {dispTags.map((tag) => (
-                  <Link href={`/application/label/${tag}`}>
-                    <Icon type="small_tag" />
-                    {tag}
-                  </Link>
-                ))}
               </div>
             </div>
           </div>
 
           {/* right buttons */}
-          <div className={styles.task_list_action}>
+          <div
+            className={styles.task_list_action}
+            style={{ opacity: showItemMenu && 1 }}
+          >
             <div>
               <button
                 onClick={() => {
@@ -201,9 +227,105 @@ export function SingleItems({
               </button>
             </div>
             <div className={styles.task_list_action_last}>
-              <button onClick={swithMenuHandler}>
+              <button
+                onClick={swithMenuHandler}
+                className={styles.menu_button}
+                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+              >
                 <Icon type="menu_unfill" />
               </button>
+              {showItemMenu && (
+                <PopupMenu
+                  onOverlayClick={swithMenuHandler}
+                  position={menuPosition}
+                  levels={projectId ? 6 : 5}
+                >
+                  <div className={styles.task_item_action_menu}>
+                    <button
+                      onClick={() => {
+                        swithMenuHandler();
+                        setIsEditing(true);
+                      }}
+                    >
+                      <Icon type="edit" />
+                      <span>Edit</span>
+                    </button>
+                    {projectName && (
+                      <Link href={`/application/project/${projectId}`}>
+                        <Icon type="list" />
+                        <span>Go to Project</span>
+                      </Link>
+                    )}
+                    <hr />
+                    <div>
+                      <div className={styles.menu_title}>Priority</div>
+                      <div className={styles.priority_button_list}>
+                        <button
+                          className={
+                            selectedPriority === "P1"
+                              ? styles.button_selected
+                              : ""
+                          }
+                        >
+                          <Icon
+                            type="flag_filled"
+                            className={styles.button_red}
+                          />
+                        </button>
+                        <button
+                          className={
+                            selectedPriority === "P2"
+                              ? styles.button_selected
+                              : ""
+                          }
+                        >
+                          <Icon
+                            type="flag_filled"
+                            className={styles.button_yellow}
+                          />
+                        </button>
+                        <button
+                          className={
+                            selectedPriority === "P3"
+                              ? styles.button_selected
+                              : ""
+                          }
+                        >
+                          <Icon
+                            type="flag_filled"
+                            className={styles.button_blue}
+                          />
+                        </button>
+                        <button
+                          className={
+                            selectedPriority === "P4"
+                              ? styles.button_selected
+                              : ""
+                          }
+                        >
+                          <Icon
+                            type="flag_big"
+                            className={styles.button_gray}
+                          />
+                        </button>
+                      </div>
+                    </div>
+                    <hr />
+                    <button>
+                      <Icon type="move_list" />
+                      <span>Move to...</span>
+                    </button>
+                    <hr />
+                    <button
+                      className={styles.button_delete}
+                      onClick={menuDeleteHandler}
+                    >
+                      <Icon type="delete" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </PopupMenu>
+              )}
             </div>
           </div>
           {isShowScheduler && (
@@ -217,88 +339,15 @@ export function SingleItems({
               onOverlayClick={hideScheduler}
             />
           )}
-          {showItemMenu && (
-            <PopupMenu
-              onOverlayClick={swithMenuHandler}
-              position={menuPosition}
-              levels={projectId ? 6 : 5}
-            >
-              <div className={styles.task_item_action_menu}>
-                <button
-                  onClick={() => {
-                    swithMenuHandler();
-                    setIsEditing(true);
-                  }}
-                >
-                  <Icon type="edit" />
-                  <span>Edit</span>
-                </button>
-                {projectName && (
-                  <Link href={`/application/project/${projectId}`}>
-                    <Icon type="list" />
-                    <span>Go to Project</span>
-                  </Link>
-                )}
-                <hr />
-                <div>
-                  <div className={styles.menu_title}>Due date</div>
-                  <div className={styles.priority_button_list}>icons</div>
-                </div>
-                <div>
-                  <div className={styles.menu_title}>Priority</div>
-                  <div className={styles.priority_button_list}>
-                    <button
-                      className={
-                        selectedPriority == "P1" ? styles.button_selected : ""
-                      }
-                    >
-                      <Icon type="flag_filled" className={styles.button_red} />
-                    </button>
-                    <button
-                      className={
-                        selectedPriority == "P2" ? styles.button_selected : ""
-                      }
-                    >
-                      <Icon
-                        type="flag_filled"
-                        className={styles.button_yellow}
-                      />
-                    </button>
-                    <button
-                      className={
-                        selectedPriority == "P3" ? styles.button_selected : ""
-                      }
-                    >
-                      <Icon type="flag_filled" className={styles.button_blue} />
-                    </button>
-                    <button
-                      className={
-                        selectedPriority == "P4" ? styles.button_selected : ""
-                      }
-                    >
-                      <Icon type="flag_big" className={styles.button_gray} />
-                    </button>
-                  </div>
-                </div>
-                <hr />
-                <button>
-                  <Icon type="move_list" />
-                  <span>Move to...</span>
-                </button>
-                <hr />
-                <button
-                  className={styles.button_delete}
-                  onClick={() => {
-                    deleteTaskHandler({ _id: _id });
-                  }}
-                >
-                  <Icon type="delete" />
-                  <span>Delete</span>
-                </button>
-              </div>
-            </PopupMenu>
-          )}
         </div>
+      )}
+      {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          actionFunction={deleteTaskHandler}
+          name={title}
+          type="Delete"
+        />
       )}
     </li>
   );

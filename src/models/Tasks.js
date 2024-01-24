@@ -12,12 +12,13 @@ const tasksSchema = new Schema(
     projectId: ObjectId,
     projectName: String,
     board: String,
-    priority: {type: String, default: "P4"},
+    priority: { type: String, default: "P4" },
     dueDate: Date,
     time: String,
     userId: ObjectId,
     username: String,
     completed: Boolean,
+    archived: Boolean,
   },
 
   {

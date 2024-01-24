@@ -27,6 +27,7 @@ export default async function TaskModal({ params }) {
                 projectId={task.projectId}
                 projectName={task.projectName}
                 board={task.board}
+                showInbox={true}
               />
               <TaskHeaderButtons />
             </div>
@@ -39,7 +40,7 @@ export default async function TaskModal({ params }) {
               taskCompleted={task.completed}
               taskPriority={task.priority}
             />
-            <TaskDetailsSidebar task={task} />
+            <TaskDetailsSidebar task={task} showInbox={true} />
           </div>
         </div>
       </Modal>
