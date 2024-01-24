@@ -44,6 +44,9 @@ function TaskNameInput(
   /** used for record the tags changed by the check boxes that called by tag btn*/
   let newTags = useRef([...props.tags]);
 
+  const originalTaskName = useRef(props.taskName);
+  const originalTags = useRef(props.tags);
+
   //------------- common functions ---------------
   /** Return the tags in the user tag list that are matched by inputing string. */
   const matchValue = (str) => {
@@ -553,7 +556,7 @@ function TaskNameInput(
         ref={taskNameRef}
         placeholder="Task Name"
       >
-        {props.tags.map((item) => (
+        {originalTags.current.map((item) => (
           <>
             <span key={item} match-type="matched">
               {"@" + item}
@@ -561,7 +564,7 @@ function TaskNameInput(
             {"\u00a0"}
           </>
         ))}
-        {props.taskName}
+        {originalTaskName.current}
       </div>
       {isShowTagMatch ? (
         <TaskTagDropDown
