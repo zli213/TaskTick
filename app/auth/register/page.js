@@ -6,10 +6,7 @@ const Signup = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <h1>Sign up</h1>
-        <SignupForm />
-      </div>
+      <SignupForm />
     </>
   );
 };
