@@ -101,42 +101,49 @@ const SignInPage = () => {
     <>
       <Navbar />
       <div className={styles.container}>
-        <form className={styles.form} onSubmit={onSubmit}>
-          {notification && (
-            <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
-          )}
-          {error && <p className={styles.error}>{error}</p>}
+        <div className={styles.title}>
+          <h1>Sign In</h1>
+        </div>
+        <div className={styles.main}>
+          <form className={styles.form} onSubmit={onSubmit}>
+            {notification && (
+              <div style={{ color: "red", margin: "10px 0" }}>
+                {notification}
+              </div>
+            )}
+            {error && <p className={styles.error}>{error}</p>}
 
-          <EmailInputField
-            formValues={formValues}
-            handleChange={handleChange}
-            styles={styles}
-          />
+            <EmailInputField
+              formValues={formValues}
+              handleChange={handleChange}
+              styles={styles}
+            />
 
-          <PasswordInputField
-            formValues={formValues}
-            handleChange={handleChange}
-            isPasswordVisible={isPasswordVisible}
-            handleVisibilityToggle={handleVisibilityToggle}
-            styles={styles}
-          />
-          <button type="submit" className={styles.submit} disabled={loading}>
-            {loading ? "loading..." : "Sign In"}
-          </button>
+            <PasswordInputField
+              formValues={formValues}
+              handleChange={handleChange}
+              isPasswordVisible={isPasswordVisible}
+              handleVisibilityToggle={handleVisibilityToggle}
+              styles={styles}
+            />
+            <button type="submit" className={styles.submit} disabled={loading}>
+              {loading ? "loading..." : "Sign In"}
+            </button>
 
-          <ThirdPartySignInButtons
-            handleSignIn={handleSignIn}
-            styles={styles}
-          />
-          <p className={styles.signUp}>
-            Don't have an account?{"\u00a0"}
-            <Link href="/auth/register" className={styles.signUpLink}>
-              Sign up
-            </Link>
-          </p>
-        </form>
-        <div className={styles.image}>
-          <img src="/images/signIn.jpg" className={styles.ri} alt="signin" />
+            <ThirdPartySignInButtons
+              handleSignIn={handleSignIn}
+              styles={styles}
+            />
+            <p className={styles.signUp}>
+              Don't have an account?{"\u00a0"}
+              <Link href="/auth/register" className={styles.signUpLink}>
+                Sign up
+              </Link>
+            </p>
+          </form>
+          <div className={styles.image}>
+            <img src="/images/signIn.jpg" className={styles.ri} alt="signin" />
+          </div>
         </div>
       </div>
     </>

@@ -112,36 +112,44 @@ const SignupForm = () => {
   }, [session, signUpInitiated]);
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit} method="post">
-        {error && <p className={styles.error}>{error}</p>}
-        {notification && (
-          <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
-        )}
+      <div className={styles.title}>
+        <h1>Sign Up</h1>
+      </div>
+      <div className={styles.main}>
+        <form className={styles.form} onSubmit={handleSubmit} method="post">
+          {error && <p className={styles.error}>{error}</p>}
+          {notification && (
+            <div style={{ color: "red", margin: "10px 0" }}>{notification}</div>
+          )}
 
-        <EmailInputField
-          formValues={formData}
-          handleChange={handleChange}
-          styles={styles}
-        />
+          <EmailInputField
+            formValues={formData}
+            handleChange={handleChange}
+            styles={styles}
+          />
 
-        <PasswordInputField
-          formValues={formData}
-          handleChange={handleChange}
-          isPasswordVisible={isPasswordVisible}
-          handleVisibilityToggle={handleVisibilityToggle}
-          styles={styles}
-        />
-        <button className={styles.submit}>Sign Up</button>
-        <ThirdPartySignInButtons handleSignIn={handleSignUp} styles={styles} />
-        <p className={styles.signIn}>
-          Already signed up?{"\u00a0"}
-          <Link href="/auth/signin" className={styles.signInLink}>
-            Go to sign in
-          </Link>
-        </p>
-      </form>
-      <div className={styles.image}>
-        <img src="/images/signUp.png" className={styles.ri} alt="signin" />
+          <PasswordInputField
+            formValues={formData}
+            handleChange={handleChange}
+            isPasswordVisible={isPasswordVisible}
+            handleVisibilityToggle={handleVisibilityToggle}
+            styles={styles}
+          />
+          <button className={styles.submit}>Sign Up</button>
+          <ThirdPartySignInButtons
+            handleSignIn={handleSignUp}
+            styles={styles}
+          />
+          <p className={styles.signIn}>
+            Already signed up?{"\u00a0"}
+            <Link href="/auth/signin" className={styles.signInLink}>
+              Go to sign in
+            </Link>
+          </p>
+        </form>
+        <div className={styles.image}>
+          <img src="/images/signUp.png" className={styles.ri} alt="signin" />
+        </div>
       </div>
     </div>
   );
