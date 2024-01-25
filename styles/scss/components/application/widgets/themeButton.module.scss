@@ -3,6 +3,10 @@
     cursor:not-allowed;
 }
 
+.abled {
+    cursor: pointer;
+}
+
 .themeButton {
     --theme--color: $primaryColor;
     --theme--left--color: $lightGrayColor;
@@ -13,7 +17,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
     border: 1px solid $grayColor;
     border-radius: $borderRadiusSm;
     width: 20rem;
