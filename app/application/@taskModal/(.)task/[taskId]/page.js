@@ -27,7 +27,7 @@ export default async function TaskModal({ params }) {
                 projectId={task.projectId}
                 projectName={task.projectName}
                 board={task.board}
-                showInbox='1'
+                showInbox={true}
               />
               <TaskHeaderButtons />
             </div>
