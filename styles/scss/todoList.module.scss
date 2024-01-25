@@ -89,11 +89,13 @@
   }
 
   .add_btn {
+    min-width: 12%;
     cursor: not-allowed;
     background-color: rgba($primaryColor, 0.5);
     color: $lightGrayColor;
     margin-right: 1rem;
     margin-bottom: $marginSm;
+    text-align: center;
     transition: all 0.3s;
   }
 

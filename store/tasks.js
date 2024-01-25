@@ -401,6 +401,37 @@ export const tasksSlice = createSlice({
         });
       state.todayNum = todayTasks.length;
     },
+    editBoardAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload.projectId) {
+          const index = project.boards.indexOf(action.payload.oldBoard);
+          return {
+            ...project,
+            boards: [
+              ...project.boards.slice(0, index),
+              action.payload.board,
+              ...project.boards.slice(index + 1),
+            ],
+          };
+        }
+        return project;
+      });
+
+      //update tasks
+      state.tasks = state.tasks.map((task) => {
+        if (
+          task.projectId === action.payload.projectId &&
+          task.board === action.payload.oldBoard
+        ) {
+          return {
+            ...task,
+            board: action.payload.board,
+          };
+        } else {
+          return task;
+        }
+      });
+    },
 
     // ----- tags -----
     addTagAction: (state, action) => {
@@ -471,6 +502,7 @@ export const {
   unarchiveProjectAction,
   addBoardAction,
   deleteBoardAction,
+  editBoardAction,
 
   addTagAction,
   editOneTagAction,
