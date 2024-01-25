@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
-import { addBoardAction, deleteBoardAction } from "../../../store/tasks";
+import { addBoardAction, deleteBoardAction, editBoardAction } from "../../../store/tasks";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import AddBoard, { useBoard } from "./AddBoard";
 
@@ -33,14 +33,14 @@ function TodoList({
     nameChangeHandler,
   } = useBoard();
   const {
-    sectionInputRef: sectionInputRef2,
-    showAddSection: showAddSection2,
+    sectionInputRef: sectionEditRef,
+    showAddSection: showEditSection,
     sectionName: sectionName2,
     placeholder: placeholder2,
-    switchAddSectionHandler: switchAddSectionHandler2,
-    failHandler: failHandler2,
-    nameChangeHandler: nameChangeHandler2,
-    setSectionName: setSectionName2,
+    switchAddSectionHandler: switchEditSectionHandler,
+    failHandler: failEditHandler,
+    nameChangeHandler: nameEditHandler,
+    setSectionName: setEditSectionName,
   } = useBoard();
 
   if (fromProject == null) {
@@ -59,6 +59,12 @@ function TodoList({
   const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
     showDeleteCardHandler();
+  };
+
+  const menuEditHandler = (event) => {
+    swithMenuHandler(event);
+    setEditSectionName(title);
+    switchEditSectionHandler();
   };
 
   const addBoardformHandler = async (event) => {
@@ -119,21 +125,59 @@ function TodoList({
     }
   };
 
+  const editBoardHandler = async (event) => {
+    event.preventDefault();
+    const board = sectionEditRef.current.value.trim();
+
+    if (board === title) {
+      switchEditSectionHandler();
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/editBoard", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board,
+          projectId: fromProject.projectId,
+          oldBoard: title,
+        }),
+      });
+      const result = await res.json();
+      console.log(result)
+
+      if (result.body === "success") {
+        dispatch(
+          editBoardAction({ board, projectId: fromProject.projectId, oldBoard: title })
+        );
+        switchEditSectionHandler();
+      } else if (result.body === "exist") {
+        failEditHandler();
+      }
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
   return (
     <>
       <section className={styles.section} id={title}>
-        {showAddSection2 && (
+        {showEditSection && (
           <AddBoard
-            refSection={sectionInputRef2}
+            refSection={sectionEditRef}
             type="edit"
             sectionName={sectionName2}
             placeholder={placeholder2}
-            submitHandler={addBoardformHandler}
-            nameChangeHandler={nameChangeHandler2}
-            closeHandler={switchAddSectionHandler2}
+            submitHandler={editBoardHandler}
+            nameChangeHandler={nameEditHandler}
+            closeHandler={switchEditSectionHandler}
           />
         )}
-        {(!showAddSection2 && haveTitle) && (
+        {(!showEditSection && haveTitle) && (
           <header className={styles.todolist_header}>
             <div
               className={`${styles.content_wrapper} ${
@@ -160,7 +204,7 @@ function TodoList({
                     levels="2"
                   >
                     <div className={styles.task_item_action_menu}>
-                      <button onClick={switchAddSectionHandler2}>
+                      <button onClick={menuEditHandler}>
                         <Icon type="edit" />
                         <span>Edit</span>
                       </button>

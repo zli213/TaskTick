@@ -45,7 +45,7 @@ export default function NewProject(props) {
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    const name = nameInputRef.current.value;
+    const name = nameInputRef.current.value.trim();
 
     if (props.name) {
       //Edit project
