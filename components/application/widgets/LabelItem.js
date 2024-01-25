@@ -6,6 +6,7 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import { DeleteTag } from "../../../public/CommonFunctions";
 
 function LabelItem({ label, num }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
@@ -13,14 +14,18 @@ function LabelItem({ label, num }) {
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const [showLabel, setShowLabel] = useState(label);
 
-  const menuEditHandler = () => {
+  const menuEditHandler = (event) => {
     swithMenuHandler(event);
     showCardHandler();
   };
 
-  const menuDeleteHandler = () => {
+  const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
     showDeleteCardHandler();
+  };
+
+  const deleteTagHandler = () => {
+    DeleteTag(label);
   };
 
   return (
@@ -33,33 +38,45 @@ function LabelItem({ label, num }) {
             <div>{num}</div>
           </span>
         </Link>
-        <div className={styles.right_menu}>
-          <span onClick={showCardHandler}>
+        <div
+          className={styles.right_menu}
+          style={{ opacity: showItemMenu && 1 }}
+        >
+          <span onClick={showCardHandler} className={styles.right_menu_btn}>
             <Icon type="edit" />
           </span>
-          <button onClick={swithMenuHandler} className={styles.right_menu_btn}>
-            <Icon type="menu_filled" />
-          </button>
+          <div className={styles.menu_btn_container}>
+            <button
+              onClick={swithMenuHandler}
+              className={styles.right_menu_btn}
+              style={{
+                backgroundColor: showItemMenu && "#eeeeee",
+                paddingLeft: "4px",
+              }}
+            >
+              <Icon type="menu_filled" />
+            </button>
+            {showItemMenu && (
+              <PopupMenu
+                onOverlayClick={swithMenuHandler}
+                position={buttonPosition}
+                levels="2"
+              >
+                <div className={styles.task_item_action_menu}>
+                  <button onClick={menuEditHandler}>
+                    <Icon type="edit" />
+                    <span>Edit label</span>
+                  </button>
+                  <hr />
+                  <button onClick={menuDeleteHandler}>
+                    <Icon type="delete" />
+                    <span>Delete label</span>
+                  </button>
+                </div>
+              </PopupMenu>
+            )}
+          </div>
         </div>
-        {showItemMenu && (
-          <PopupMenu
-            onOverlayClick={swithMenuHandler}
-            position={buttonPosition}
-            levels="2"
-          >
-            <div className={styles.task_item_action_menu}>
-              <button onClick={menuEditHandler}>
-                <Icon type="edit" />
-                <span>Edit label</span>
-              </button>
-              <hr />
-              <button onClick={menuDeleteHandler}>
-                <Icon type="delete" />
-                <span>Delete label</span>
-              </button>
-            </div>
-          </PopupMenu>
-        )}
       </li>
       {showAddCard && (
         <NewLabel
@@ -71,8 +88,9 @@ function LabelItem({ label, num }) {
       {showDeleteCard && (
         <DeleteConfirmCard
           closeHandler={showDeleteCardHandler}
+          actionFunction={deleteTagHandler}
           name={label}
-          type="label"
+          type="Delete"
         />
       )}
     </div>

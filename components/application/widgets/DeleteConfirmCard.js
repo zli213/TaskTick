@@ -1,6 +1,29 @@
 /**
- * Delete confirm popup card.
+ * Delete confirmation popup card, with archive project comfirmation.
  * Author: Ryan
+ *
+ * @param
+ * - closeHandler
+ * - actionFunction
+ * - name
+ * - type
+ * - content1 (optional)
+ * - content2 (optional)
+ *
+ * @Usage
+ * Like this:
+ *     const { showDeleteCard, showDeleteCardHandler } = useDelete();
+ *
+ *  {showDeleteCard && (
+ *     <DeleteConfirmCard
+ *           closeHandler={showDeleteCardHandler}
+ *           actionFunction={deleteTagHandler}
+ *           name={label}
+ *           type="Delete"
+ *     />
+ *   )}
+ * If you want to change the content, use fields pass it in the compoment. Example is MyProjectItem.js
+ * If you don't need to change the content, example is LabelItem.js
  */
 
 "use client";
@@ -11,7 +34,7 @@ import Modal from "./Modal";
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
 
-//Custom React hook -> useLabel
+//Custom React hook -> useDelete
 export const useDelete = () => {
   const [showDeleteCard, setShowDeleteCard] = useState(false);
 
@@ -29,12 +52,13 @@ export const useDelete = () => {
 function DeleteConfirmCard(props) {
   const router = useRouter();
 
-  const deleteHandler = async () => {
-    switch (props.type) {
-      case "label":
-        (await DeleteTag(props.name)) && props.closeHandler();
-        break;
-    }
+  const content1 = props.content1
+    ? props.content1
+    : "Are you sure you want to delete ";
+  const content2 = props.content2 ? props.content2 : "?";
+
+  const actionHandler = () => {
+    props.actionFunction();
     router.refresh();
   };
 
@@ -52,8 +76,9 @@ function DeleteConfirmCard(props) {
           </div>
           <div className={styles.content_holder}>
             <p>
-              Are you sure you want to delete{" "}
-              <span className={styles.name}>{props.name}</span>?
+              {content1}
+              <span className={styles.name}>{props.name}</span>
+              {content2}
             </p>
           </div>
           <footer className={styles.footer_btn}>
@@ -63,9 +88,9 @@ function DeleteConfirmCard(props) {
             <button
               type="button"
               className={styles.btn_delete}
-              onClick={deleteHandler}
+              onClick={actionHandler}
             >
-              Delete
+              {props.type}
             </button>
           </footer>
         </div>
@@ -75,25 +100,3 @@ function DeleteConfirmCard(props) {
 }
 
 export default DeleteConfirmCard;
-
-async function DeleteTag(tag) {
-  try {
-    const res = await fetch("/api/deletetag", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ tag }),
-    });
-    const result = await res.json();
-    console.log(result);
-
-    if (res.ok) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.log("Error occured: ", error);
-  }
-}

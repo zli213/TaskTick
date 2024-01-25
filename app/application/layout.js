@@ -9,12 +9,13 @@ import getProjectNum from "../../src/utils/data/getProjectNum";
 import { redirect } from "next/navigation";
 
 export default async function AppLayout(props) {
-  const session = await getServerSession(options);  
-  if(session == null){
-    redirect('/auth/signin');
+  const session = await getServerSession(options);
+  if (session == null) {
+    redirect("/auth/signin");
   }
 
-  var projects = await getProjects(session.user.userId);
+  let projects = await getProjects(session.user.userId);
+  projects= projects.filter((project) => { return project.archived !== true; });
   projects = JSON.parse(JSON.stringify(await updateInfo(projects)));
   const inboxNum = await getInboxNum(session.user.userId);
   const todayNum = await getTodayNum(session.user.userId);
@@ -32,10 +33,14 @@ export default async function AppLayout(props) {
 
 async function updateInfo(list) {
   const newList = [];
-  for (let i = 0; i < list.length; i++) {
+  for (let i = 0, j = 0; i < list.length; i++, j++) {
+    if (list[i].archived === true) {
+      --j;
+      continue;
+    }
     const number = await getProjectNum(list[i].projectId);
 
-    newList[i] = {
+    newList[j] = {
       projectId: list[i].projectId,
       name: list[i].name,
       num: number,

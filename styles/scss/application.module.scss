@@ -129,26 +129,33 @@
   color: $textSecondaryColor;
 }
 
+.menu_btn_container {
+  @include flexRowStart();
+  position: relative;
+}
+
 .btn_projects {
   @include flexRowBetween();
 
-  div {
+  
+
+  .project_btn {
     display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: $borderRadiusSm;
     padding: $paddingXsm $paddingsm;
     gap: $paddingXsm;
-  }
-
-  .add_btn_projects {
-    background-color: $lightGrayColor;
-    font-weight: 500;
     cursor: pointer;
 
     &:hover {
       background-color: $grayColor;
     }
+  }
+
+  .add_btn_projects {
+    background-color: $lightGrayColor;
+    font-weight: 500;
   }
 
   .active_btn_projects {
@@ -172,14 +179,17 @@
   }
 
   a {
-    padding: $paddingMd $paddingXsm;
+    box-sizing: content-box;
+    padding: $paddingsm $paddingXsm;
+    height: 4rem;
     @include flexRowStart();
     width: 100%;
   }
 
   .project_item_menu {
-    width: 2.4rem;
-    height: 2.4rem;
+    @include flexRowStart();
+    width: $fontSizeMd;
+    height: 2.8rem;
     background-color: $lightGrayColor;
     border-radius: $borderRadiusXsm;
     opacity: 0;
@@ -194,6 +204,19 @@
 
 .task_item_action_menu {
   @include menuItems();
+
+  h4 {
+    padding: $paddingsm;
+    font-weight: 500;
+  }
+
+  a {
+    @include flexRowBetween();
+
+    div {
+      @include flexRowStart();
+    }
+  }
 }
 
 .no_tasks {
@@ -274,7 +297,6 @@
     color: $heaveGrayColor;
   }
 
-  
   a {
     padding: $paddingsm 0;
     @include flexRowStart();
@@ -301,16 +323,13 @@
   background-color: #fff;
   z-index: 1;
 
-  span,
-  button {
+  .right_menu_btn {
+    position: relative;
+    // padding-left: 4px;
     @include menuButton();
-    @include flexRowStart();
+    @include flexRowBetween();
     align-items: center;
     margin-left: 0;
-  }
-
-  .right_menu_btn {
-    padding-left: 4px;
   }
 }
 
@@ -329,5 +348,19 @@
     &:hover {
       background-color: $lightGrayColor;
     }
+  }
+}
+
+.archived_project {
+  @include flexRowBetween();
+  align-items: flex-start;
+  margin-top: $marginSm;
+
+  button {
+    background-color: $primaryColor;
+    border-radius: $borderRadiusSm;
+    color: #fff;
+    padding: $paddingsm $paddingMd;
+    cursor: pointer;
   }
 }
