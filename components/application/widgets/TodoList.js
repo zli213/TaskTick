@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createRef, useImperativeHandle, useRef, useState } from "react";
 import { SingleItems } from "./SingleItem";
 import styles from "../../../styles/scss/todoList.module.scss";
 import AddTask from "./AddTask";
@@ -13,6 +13,8 @@ function TodoList({
   fromProject,
   fromBoard,
   fromTag,
+  onRef,
+  cancelAllEditorsInPage,
 }) {
   if (fromProject == null) {
     fromProject = { projectId: "", projectName: "" };
@@ -20,6 +22,11 @@ function TodoList({
   if (fromBoard == null) {
     fromBoard = "";
   }
+  //ref of each single item, used for close editor when another editor is called.
+  // const itemRef = useRef([...new Array(tasks.length)].map(() => createRef()));
+  const itemRef = useRef(tasks == null ? null : tasks.map(() => createRef()));
+  const additemRef = useRef(null);
+
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
@@ -29,6 +36,20 @@ function TodoList({
   const switchListHandler = () => {
     setShowList((preState) => !preState);
   };
+  const cancelAllEditorInTodolist = () => {
+    if (itemRef.current != null) {
+      itemRef.current.forEach((singleitem) => {
+        singleitem.current.cancelEditor();
+      });
+    }
+    additemRef.current.cancelEditor();
+  };
+
+  useImperativeHandle(onRef, () => {
+    return {
+      cancelAllEditorInTodolist: cancelAllEditorInTodolist,
+    };
+  });
 
   return (
     <section className={styles.section}>
@@ -56,7 +77,7 @@ function TodoList({
           {haveTasks &&
             tasks
               .filter((data) => data.completed == false)
-              .map((data) => (
+              .map((data, i) => (
                 <SingleItems
                   key={data._id}
                   _id={data._id}
@@ -71,6 +92,8 @@ function TodoList({
                   completed={data.completed}
                   allTags={allTags}
                   allProjects={allProjects}
+                  onRef={itemRef.current[i]}
+                  cancelAllEditor={cancelAllEditorsInPage}
                 />
               ))}
         </div>
@@ -82,6 +105,8 @@ function TodoList({
           fromProject={fromProject}
           fromBoard={fromBoard}
           fromTag={fromTag}
+          onRef={additemRef}
+          cancelAllEditor={cancelAllEditorsInPage}
         />
       )}
       {showItemMenu && (

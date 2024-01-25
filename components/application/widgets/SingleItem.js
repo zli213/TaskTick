@@ -10,7 +10,7 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Scheduler, { formatDate } from "./Scheduler";
-import { useState } from "react";
+import { useImperativeHandle, useState } from "react";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import Icon from "./Icon";
 import CheckBoxButton from "./CheckBoxButton";
@@ -30,6 +30,8 @@ export function SingleItems({
   completed,
   allTags,
   allProjects,
+  onRef,
+  cancelAllEditor,
 }) {
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
@@ -154,6 +156,15 @@ export function SingleItems({
     swithMenuHandler();
   };
 
+  const cancelEditor = () => {
+    setIsEditing(false);
+  };
+  useImperativeHandle(onRef, () => {
+    return {
+      cancelEditor: cancelEditor,
+    };
+  });
+
   return (
     <li>
       {isEditing ? (
@@ -208,7 +219,7 @@ export function SingleItems({
                   </button>
                 )}
                 {dispTags.map((tag) => (
-                  <Link href={`/application/label/${tag}`}>
+                  <Link key={tag} href={`/application/label/${tag}`}>
                     <Icon type="small_tag" />
                     {tag}
                   </Link>
@@ -222,6 +233,7 @@ export function SingleItems({
             <div>
               <button
                 onClick={() => {
+                  cancelAllEditor();
                   setIsEditing(true);
                 }}
               >
@@ -258,7 +270,9 @@ export function SingleItems({
                 <div className={styles.task_item_action_menu}>
                   <button
                     onClick={() => {
+                      cancelAllEditor();
                       swithMenuHandler();
+
                       setIsEditing(true);
                     }}
                   >

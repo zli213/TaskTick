@@ -453,7 +453,6 @@ function convertSelectedDate(date) {
 
 export function formatDate(inDate) {
   let dateJson = { dateTime: null, dateStr: "" };
-  console.log(inDate);
   if (inDate !== "" && inDate != null) {
     dateJson.dateTime = inDate;
     dateJson.dateStr =

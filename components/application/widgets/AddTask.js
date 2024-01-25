@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useImperativeHandle, useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
 
@@ -28,6 +28,17 @@ function AddTask(props) {
     setIsShowTaskEditor(false);
   };
 
+  const cancelEditor = () => {
+    hideTaskEditor();
+    showAddBtn();
+  };
+
+  useImperativeHandle(props.onRef, () => {
+    return {
+      cancelEditor: cancelEditor,
+    };
+  });
+
   const saveNewTask = async (newtask) => {
     const newTaskWithUser = {
       ...newtask,
@@ -46,8 +57,9 @@ function AddTask(props) {
       // console.log(res);
       showAddBtn();
       hideTaskEditor();
-    } catch (err) {}
-    // console.log(newTaskWithUser);
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (
@@ -55,6 +67,9 @@ function AddTask(props) {
       {isShowAddBtn ? (
         <button
           onClick={() => {
+            if (props.cancelAllEditor != null) {
+              props.cancelAllEditor();
+            }
             showTaskEditor();
             hideAddBtn();
           }}

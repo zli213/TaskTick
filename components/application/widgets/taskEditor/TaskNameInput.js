@@ -21,7 +21,13 @@
  *  />
  */
 
-import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import {
+  Fragment,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import TaskTagDropDown from "./TaskTagDropDown";
 
@@ -557,12 +563,10 @@ function TaskNameInput(
         placeholder="Task Name"
       >
         {originalTags.current.map((item) => (
-          <>
-            <span key={item} match-type="matched">
-              {"@" + item}
-            </span>
+          <Fragment key={item}>
+            <span match-type="matched">{"@" + item}</span>
             {"\u00a0"}
-          </>
+          </Fragment>
         ))}
         {originalTaskName.current}
       </div>
