@@ -16,31 +16,26 @@ const SettingTheme = () => {
     console.log("Get from localStorage: ", flag);
     setIsDark(flag);
 
-    const flag2 = themeCtx.isSystemTheme;
+    const flag2 = localStorage.getItem("isSystem") === "true";
     console.log("is system theme?", flag2);
     setIsSystem(flag2);
-  }, [themeCtx.isSystemTheme]);
+  }, []);
 
-  async function applyDarkTheme() {
+  function applyDarkTheme() {
     themeCtx.applyDarkTheme();
     setIsDark(true);
-    await saveChange("dark");
+    saveChange("dark");
   }
 
-  async function applyLightTheme() {
+  function applyLightTheme() {
     themeCtx.applyLightTheme();
     setIsDark(false);
-    await saveChange("light");
+    saveChange("light");
   }
 
-  async function handleCheckboxChange () {
+  function handleCheckboxChange () {
     setIsSystem(prev => !prev);
-    console.log("Change checkbox: ", isSystem);
-    if (isSystem) {
-      await saveChange("system");
-    } else {
-      await applyLightTheme();
-    }
+    themeCtx.applySystemTheme();
   }
 
   const button1Colors = {
