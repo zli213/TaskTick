@@ -4,7 +4,7 @@ import ThemeButton from "../../application/widgets/ThemeButton";
 import MyThemeContext from "../../application/widgets/MyThemeContext";
 import Icon from "../../../components/application/widgets/Icon"; 
 import styles from "../../../styles/scss/theme.module.scss";
-
+//todo: checkbox cannot refresh when changing from system to no system themes.
 const SettingTheme = () => {
   const router = useRouter();
   const themeCtx = useContext(MyThemeContext);
@@ -12,30 +12,38 @@ const SettingTheme = () => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const flag = localStorage.getItem("isDark") === "true";
-    console.log("Get from localStorage: ", flag);
+    const flag = themeCtx.isDarkTheme;
+    console.log("Get isDarkTheme: ", flag);
     setIsDark(flag);
 
-    const flag2 = localStorage.getItem("isSystem") === "true";
+    const flag2 = themeCtx.isSystemTheme;
     console.log("is system theme?", flag2);
     setIsSystem(flag2);
-  }, []);
+
+    
+  }, [themeCtx]);
 
   function applyDarkTheme() {
-    themeCtx.applyDarkTheme();
+    themeCtx.toggleDark();
     setIsDark(true);
     saveChange("dark");
   }
 
   function applyLightTheme() {
-    themeCtx.applyLightTheme();
+    themeCtx.toggleLight();
     setIsDark(false);
     saveChange("light");
   }
 
-  function handleCheckboxChange () {
+  function handleCheckboxChange (event) {
     setIsSystem(prev => !prev);
-    themeCtx.applySystemTheme();
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      themeCtx.matchSystem();
+      saveChange("system");
+    } else {
+      applyLightTheme();
+    }
   }
 
   const button1Colors = {
