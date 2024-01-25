@@ -107,18 +107,18 @@ export function SingleItems({
 
       //console.log(result.body);
       setIsEditing(false);
-      setDispTitle(result.body.title);
-      setDispDescription(result.body.description);
-      setPriority(result.body.priority);
-      setDispTags(result.body.tags);
-      setSelectedDate(
-        formatDate(
-          result.body.dueDate == null ? "" : new Date(result.body.dueDate)
-        ).dateStr
-      );
-      setDispProjectId(result.body.projectId);
-      setDispProjectName(result.body.projectName);
-      setDispBoard(result.body.board);
+      // setDispTitle(result.body.title);
+      // setDispDescription(result.body.description);
+      // setPriority(result.body.priority);
+      // setDispTags(result.body.tags);
+      // setSelectedDate(
+      //   formatDate(
+      //     result.body.dueDate == null ? "" : new Date(result.body.dueDate)
+      //   ).dateStr
+      // );
+      // setDispProjectId(result.body.projectId);
+      // setDispProjectName(result.body.projectName);
+      // setDispBoard(result.body.board);
     } catch (error) {
       throw error;
     }

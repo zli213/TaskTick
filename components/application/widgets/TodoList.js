@@ -7,6 +7,7 @@ import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
 import { addBoardAction, deleteBoardAction } from "../../../store/tasks";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import AddBoard, { useBoard } from "./AddBoard";
 
 function TodoList({
   tasks,
@@ -19,40 +20,40 @@ function TodoList({
   fromTag,
 }) {
   const dispatch = useDispatch();
+  const [showList, setShowList] = useState(true);
+  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+  const {
+    sectionInputRef,
+    showAddSection,
+    sectionName,
+    placeholder,
+    switchAddSectionHandler,
+    failHandler,
+    nameChangeHandler,
+  } = useBoard();
+  const {
+    sectionInputRef: sectionInputRef2,
+    showAddSection: showAddSection2,
+    sectionName: sectionName2,
+    placeholder: placeholder2,
+    switchAddSectionHandler: switchAddSectionHandler2,
+    failHandler: failHandler2,
+    nameChangeHandler: nameChangeHandler2,
+    setSectionName: setSectionName2,
+  } = useBoard();
+
   if (fromProject == null) {
     fromProject = { projectId: "", projectName: "" };
   }
-
   if (fromBoard == null) {
     fromBoard = "";
   }
-  const [showList, setShowList] = useState(true);
-  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
-  const [showAddSection, setShowAddSection] = useState(false);
-  const [sectionName, setSectionName] = useState("");
-  const [placeholder, setPlaceholder] = useState("Name this section");
-  const sectionInputRef = useRef();
-  const { showDeleteCard, showDeleteCardHandler } = useDelete();
-
   const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
   const haveTitle = title !== "" && title !== "undefined" && title != null;
 
   const switchListHandler = () => {
     setShowList((preState) => !preState);
-  };
-
-  const switchAddSectionHandler = () => {
-    setShowAddSection((preState) => {
-      if (preState) {
-        setSectionName("");
-        setPlaceholder("Name this section");
-      }
-      return !preState;
-    });
-  };
-
-  const nameChangeHandler = (event) => {
-    setSectionName(event.target.value);
   };
 
   const menuDeleteHandler = (event) => {
@@ -62,7 +63,7 @@ function TodoList({
 
   const addBoardformHandler = async (event) => {
     event.preventDefault();
-    const board = sectionInputRef.current.value;
+    const board = sectionInputRef.current.value.trim();
 
     try {
       const res = await fetch("/api/addBoard", {
@@ -82,11 +83,9 @@ function TodoList({
         dispatch(
           addBoardAction({ board, projectId: fromProject.projectId, fromBoard })
         );
-        setSectionName("");
-        setShowAddSection(false);
+        switchAddSectionHandler();
       } else if (result.body === "exist") {
-        setSectionName("");
-        setPlaceholder("This board already exists, please try another name");
+        failHandler();
       }
     } catch (error) {
       throw error;
@@ -123,7 +122,18 @@ function TodoList({
   return (
     <>
       <section className={styles.section} id={title}>
-        {haveTitle && (
+        {showAddSection2 && (
+          <AddBoard
+            refSection={sectionInputRef2}
+            type="edit"
+            sectionName={sectionName2}
+            placeholder={placeholder2}
+            submitHandler={addBoardformHandler}
+            nameChangeHandler={nameChangeHandler2}
+            closeHandler={switchAddSectionHandler2}
+          />
+        )}
+        {(!showAddSection2 && haveTitle) && (
           <header className={styles.todolist_header}>
             <div
               className={`${styles.content_wrapper} ${
@@ -150,7 +160,7 @@ function TodoList({
                     levels="2"
                   >
                     <div className={styles.task_item_action_menu}>
-                      <button>
+                      <button onClick={switchAddSectionHandler2}>
                         <Icon type="edit" />
                         <span>Edit</span>
                       </button>
@@ -216,35 +226,15 @@ function TodoList({
         </button>
       )}
       {showAddSection && (
-        <form
-          className={styles.add_section_form}
-          onSubmit={addBoardformHandler}
-        >
-          <input
-            type="text"
-            placeholder={placeholder}
-            ref={sectionInputRef}
-            value={sectionName}
-            onChange={nameChangeHandler}
-          />
-          <div>
-            <button
-              type="submit"
-              className={`${styles.add_btn}  ${sectionName && styles.valid}`}
-              disabled={!sectionName}
-              style={{ cursor: sectionName && "pointer" }}
-            >
-              Add section
-            </button>
-            <button
-              type="button"
-              className={styles.cancel_btn}
-              onClick={switchAddSectionHandler}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+        <AddBoard
+          refSection={sectionInputRef}
+          type="add"
+          sectionName={sectionName}
+          placeholder={placeholder}
+          submitHandler={addBoardformHandler}
+          nameChangeHandler={nameChangeHandler}
+          closeHandler={switchAddSectionHandler}
+        />
       )}
       {showDeleteCard && (
         <DeleteConfirmCard
