@@ -26,6 +26,7 @@ import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
+import { toast, ToastContainer } from "react-toastify";
 
 function TaskEditor({
   formType,
@@ -123,6 +124,7 @@ function TaskEditor({
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
+    toast.info("Task scheduled on " + date.dateStr);
   };
 
   const [selectedPriority, setSelectedPriority] = useState(
@@ -307,6 +309,7 @@ function TaskEditor({
           </div>
         </form>
       </div>
+      <ToastContainer />
       {isShowScheduler ? (
         <Scheduler
           data={{ selectedDate: selectedDate }}
