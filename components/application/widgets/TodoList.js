@@ -29,6 +29,7 @@ function TodoList({
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const [showAddSection, setShowAddSection] = useState(false);
   const [sectionName, setSectionName] = useState("");
+  const [placeholder, setPlaceholder] = useState("Name this section");
   const sectionInputRef = useRef();
 
   const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
@@ -39,18 +40,23 @@ function TodoList({
   };
 
   const switchAddSectionHandler = () => {
-    setShowAddSection((preState) => !preState);
+    setShowAddSection((preState) => {
+      if (preState) {
+        setSectionName("");
+        setPlaceholder("Name this section");
+      }
+      return !preState;
+    });
   };
 
   const nameChangeHandler = (event) => {
     setSectionName(event.target.value);
   };
 
-  const formSubmitHandler = async (event) => {
+  const addBoardformHandler = async (event) => {
     event.preventDefault();
     const board = sectionInputRef.current.value;
 
-    //edit project
     try {
       const res = await fetch("/api/addBoard", {
         method: "POST",
@@ -63,13 +69,17 @@ function TodoList({
           fromBoard,
         }),
       });
+      const result = await res.json();
 
-      if (res.ok) {
+      if (result.body === "success") {
         dispatch(
           addBoardAction({ board, projectId: fromProject.projectId, fromBoard })
         );
         setSectionName("");
         setShowAddSection(false);
+      } else if (result.body === "exist") {
+        setSectionName('');
+        setPlaceholder("This board already exists, please try another name");
       }
     } catch (error) {
       throw error;
@@ -170,10 +180,10 @@ function TodoList({
         <span className={styles.line} />
       </button>}
       {showAddSection && (
-        <form className={styles.add_section_form} onSubmit={formSubmitHandler}>
+        <form className={styles.add_section_form} onSubmit={addBoardformHandler}>
           <input
             type="text"
-            placeholder="Name this section"
+            placeholder={placeholder}
             ref={sectionInputRef}
             value={sectionName}
             onChange={nameChangeHandler}

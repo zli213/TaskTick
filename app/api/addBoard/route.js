@@ -25,20 +25,25 @@ export const POST = async (req) => {
     );
 
     if (param.fromBoard == null || param.fromBoard == "") {
-        newProject.boards = [param.board, ...newProject.boards];
+      newProject.boards = [param.board, ...newProject.boards];
     } else {
+
+      if (newProject.boards.indexOf(param.board) > -1) {
+        return NextResponse.json({body: 'exist'},{ status: 200 });
+      }
+
       const preIndex = newProject.boards.indexOf(param.fromBoard);
       newProject.boards.splice(preIndex + 1, 0, param.board);
     }
 
     const projectIndex = user[0].projects.findIndex(
-        (project) => project.projectId == param.projectId
-      );
+      (project) => project.projectId == param.projectId
+    );
 
     user[0].projects[projectIndex] = newProject;
     await user[0].save();
 
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json({body: 'success'},{ status: 200 });
   } catch (error) {
     return new NextResponse(error, {
       status: 500,
