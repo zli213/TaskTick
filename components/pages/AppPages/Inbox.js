@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 export default function Inbox(props) {
   let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
 
   useEffect(() => {
     document.title = "Inbox - Todo";

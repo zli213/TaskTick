@@ -166,6 +166,38 @@ export const tasksSlice = createSlice({
         }
       }
     },
+    completeTaskAction: (state, action) => {
+      const dueDate = action.payload.dueDate;
+      const projectId = action.payload.projectId;
+
+      state.tasks = state.tasks.map((task) => {
+        if (task._id === action.payload.taskId) {
+          return { ...task, completed: true };
+        }
+        return task;
+      });
+
+      //update counters
+      if (projectId !== "" && projectId !== null) {
+        state.projects = state.projects.map((project) => {
+          if (project.projectId === projectId) {
+            return { ...project, num: project.num - 1 };
+          }
+          return project;
+        });
+      } else {
+        state.inboxNum = state.inboxNum - 1;
+      }
+
+      if (dueDate !== null && dueDate !== "") {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const taskDueDate = new Date(dueDate);
+        if (taskDueDate.getTime() <= today.getTime()) {
+          state.todayNum = state.todayNum - 1;
+        }
+      }
+    },
 
     //projects
     addProjectAction: (state, action) => {
@@ -191,6 +223,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
+        }).filter((task) => {
+          return task.completed !== true;
         })
         .filter((task) => {
           const today = new Date();
@@ -244,6 +278,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
+        }).filter((task) => {
+          return task.completed !== true;
         })
         .filter((task) => {
           const today = new Date();
@@ -277,6 +313,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
+        }).filter((task) => {
+          return task.completed !== true;
         })
         .filter((task) => {
           const today = new Date();
@@ -347,6 +385,7 @@ export const {
   addTaskAction,
   deleteTaskAction,
   updateTaskAction,
+  completeTaskAction,
 
   addProjectAction,
   deleteProjectAction,

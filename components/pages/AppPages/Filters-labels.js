@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 
 function FilterPage() {
   const tags = useSelector((state) => state.tasks.tags);
-  const tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
   let labels = [];
 
   for (const tag of tags) {

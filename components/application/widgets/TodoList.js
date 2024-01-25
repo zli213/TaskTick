@@ -80,26 +80,24 @@ function TodoList({
       {showList && (
         <div>
           {haveTasks &&
-            tasks
-              .filter((data) => data.completed === false)
-              .map((data) => (
-                <SingleItems
-                  key={data._id}
-                  _id={data._id}
-                  title={data.title}
-                  dueDate={data.dueDate}
-                  description={data.description}
-                  projectName={data.projectName}
-                  projectId={data.projectId}
-                  board={data.board}
-                  tags={data.tags}
-                  priority={data.priority}
-                  completed={data.completed}
-                  showProject={showProject}
-                  allTags={allTags}
-                  allProjects={allProjects}
-                />
-              ))}
+            tasks.map((data) => (
+              <SingleItems
+                key={data._id}
+                _id={data._id}
+                title={data.title}
+                dueDate={data.dueDate}
+                description={data.description}
+                projectName={data.projectName}
+                projectId={data.projectId}
+                board={data.board}
+                tags={data.tags}
+                priority={data.priority}
+                completed={data.completed}
+                showProject={showProject}
+                allTags={allTags}
+                allProjects={allProjects}
+              />
+            ))}
         </div>
       )}
       {title !== "Overdue" && (

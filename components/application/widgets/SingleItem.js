@@ -184,7 +184,7 @@ export function SingleItems({
                 </span>
               </div>
             </div>
-            <CheckBoxButton priority={selectedPriority} />
+            <CheckBoxButton priority={selectedPriority} taskId={_id} dueDate={dueDate} projectId={projectId} />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>

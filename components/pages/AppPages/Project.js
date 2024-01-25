@@ -16,13 +16,15 @@ export default function Project({ projectId }) {
   const projects = useSelector((state) => state.tasks.projects);
   const project = projects.find((project) => project.projectId === projectId);
 
-  if (project.state === 'deleted') {
+  if (project.state === "deleted") {
     router.push("/application/inbox");
   }
 
   const boards = project.boards !== undefined ? project.boards : [];
   let tasks = useSelector((state) => state.tasks.tasks);
-  tasks = tasks.filter((task) => task.projectId === projectId);
+  tasks = tasks
+    .filter((task) => task.projectId === projectId)
+    .filter((task) => task.completed !== true);
 
   const groupedTasks = groupTasks(boards, tasks);
 

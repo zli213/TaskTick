@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function Upcoming() {
-  const tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
 
   useEffect(() => {
     document.title = "Upcoming - Todo";

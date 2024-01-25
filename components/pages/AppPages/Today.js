@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 function Today(props) {
   let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
   const todayNum = useSelector((state) => state.tasks.todayNum);
   const router = useRouter();
 
@@ -63,11 +64,13 @@ function Today(props) {
           </div>
         </div>
       </div>
-      {props.num === 0 ? (
+      {todayNum === 0 ? (
         <NoTask page="today" />
       ) : (
         <div className={styles.list_box}>
-          <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+          {overDueTasks.length !== 0 && (
+            <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+          )}
           <TodoList tasks={todayTasks} showProject={true} title="Today" />
         </div>
       )}
