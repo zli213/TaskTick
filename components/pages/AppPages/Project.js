@@ -25,7 +25,6 @@ export default function Project({ projectId }) {
   tasks = tasks
     .filter((task) => task.projectId === projectId)
     .filter((task) => task.completed !== true);
-
   const groupedTasks = groupTasks(boards, tasks);
 
   const unarchiveHandler = async () => {
@@ -67,20 +66,18 @@ export default function Project({ projectId }) {
           />
         ) : (
           <div className={styles.list_box}>
-            {Object.keys(groupedTasks)
-              .filter((boardName) => boardName !== "undefined")
-              .map((boardName) => (
-                <TodoList
-                  key={boardName}
-                  title={boardName}
-                  tasks={groupedTasks[boardName]}
-                  fromProject={{
-                    projectId: projectId,
-                    projectName: project.name,
-                  }}
-                  fromBoard={boardName}
-                />
-              ))}
+            {groupedTasks.map((group) => (
+              <TodoList
+                key={group.name}
+                title={group.name}
+                tasks={group.tasks}
+                fromProject={{
+                  projectId: projectId,
+                  projectName: project.name,
+                }}
+                fromBoard={group.name}
+              />
+            ))}
           </div>
         ))}
     </>
@@ -88,21 +85,27 @@ export default function Project({ projectId }) {
 }
 
 const groupTasks = (boards, tasks) => {
-  const tasksGroup = {};
-  tasksGroup[""] = [];
+  const tasksGroup = [];
+  tasksGroup[0] = { name: "", tasks: [] };
+
+  boards.forEach((board, index) => {
+    tasksGroup[index + 1] = { name: board, tasks: [] };
+  });
 
   if (boards.length > 0) {
     tasks.forEach((task) => {
       const boardName = task.board;
-      if (!tasksGroup[boardName]) {
-        tasksGroup[boardName] = [];
-      }
-      tasksGroup[boardName].push(task);
+      tasksGroup.forEach((group, index) => {
+        if (group.name === boardName) {
+          tasksGroup[index].tasks.push(task);
+        }
+      });
     });
   } else {
     tasks.forEach((task) => {
-      tasksGroup[""].push(task);
+      tasksGroup[0].tasks.push(task);
     });
   }
+
   return tasksGroup;
 };

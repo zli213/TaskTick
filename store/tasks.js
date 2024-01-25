@@ -223,7 +223,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
-        }).filter((task) => {
+        })
+        .filter((task) => {
           return task.completed !== true;
         })
         .filter((task) => {
@@ -278,7 +279,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
-        }).filter((task) => {
+        })
+        .filter((task) => {
           return task.completed !== true;
         })
         .filter((task) => {
@@ -313,7 +315,8 @@ export const tasksSlice = createSlice({
         .filter((task) => task.dueDate !== null && task.dueDate !== "")
         .filter((task) => {
           return task.archived !== true;
-        }).filter((task) => {
+        })
+        .filter((task) => {
           return task.completed !== true;
         })
         .filter((task) => {
@@ -323,6 +326,29 @@ export const tasksSlice = createSlice({
           return taskDueDate.getTime() <= today.getTime();
         });
       state.todayNum = todayTasks.length;
+    },
+    addBoardAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload.projectId) {
+          if (
+            action.payload.fromBoard == null ||
+            action.payload.fromBoard == ""
+          ) {
+            return { ...project, boards: [action.payload.board, ...project.boards] };
+          } else {
+            const preIndex = project.boards.indexOf(action.payload.fromBoard);
+            return {
+              ...project,
+              boards: [
+                ...project.boards.slice(0, preIndex+1),
+                action.payload.board,
+                ...project.boards.slice(preIndex + 1),
+              ],
+            };
+          }
+        }
+        return project;
+      });
     },
 
     //tags
@@ -392,6 +418,7 @@ export const {
   updateProjectAction,
   archiveProjectAction,
   unarchiveProjectAction,
+  addBoardAction,
 
   addTagAction,
   editOneTagAction,
