@@ -5,7 +5,8 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
-import { addBoardAction } from "../../../store/tasks";
+import { addBoardAction, deleteBoardAction } from "../../../store/tasks";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 
 function TodoList({
   tasks,
@@ -31,6 +32,7 @@ function TodoList({
   const [sectionName, setSectionName] = useState("");
   const [placeholder, setPlaceholder] = useState("Name this section");
   const sectionInputRef = useRef();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
 
   const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
   const haveTitle = title !== "" && title !== "undefined" && title != null;
@@ -51,6 +53,11 @@ function TodoList({
 
   const nameChangeHandler = (event) => {
     setSectionName(event.target.value);
+  };
+
+  const menuDeleteHandler = (event) => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
   };
 
   const addBoardformHandler = async (event) => {
@@ -78,8 +85,35 @@ function TodoList({
         setSectionName("");
         setShowAddSection(false);
       } else if (result.body === "exist") {
-        setSectionName('');
+        setSectionName("");
         setPlaceholder("This board already exists, please try another name");
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const deleteBoardHandler = async () => {
+    const board = title;
+
+    try {
+      const res = await fetch("/api/deleteBoard", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board,
+          projectId: fromProject.projectId,
+        }),
+      });
+      const result = await res.json();
+
+      if (result.body === "success") {
+        dispatch(
+          deleteBoardAction({ board, projectId: fromProject.projectId })
+        );
+        showDeleteCardHandler(false);
       }
     } catch (error) {
       throw error;
@@ -121,7 +155,7 @@ function TodoList({
                         <span>Edit</span>
                       </button>
                       <hr />
-                      <button>
+                      <button onClick={menuDeleteHandler}>
                         <Icon type="delete" />
                         <span>Delete</span>
                       </button>
@@ -166,21 +200,26 @@ function TodoList({
           />
         )}
       </section>
-      {fromProject.projectId !=='' && <button
-        className={styles.add_section_btn}
-        onClick={switchAddSectionHandler}
-        style={{
-          opacity: showAddSection && 0,
-          cursor: showAddSection && "auto",
-        }}
-        disabled={showAddSection}
-      >
-        <span className={styles.line} />
-        <span>Add Section</span>
-        <span className={styles.line} />
-      </button>}
+      {fromProject.projectId !== "" && (
+        <button
+          className={styles.add_section_btn}
+          onClick={switchAddSectionHandler}
+          style={{
+            opacity: showAddSection && 0,
+            cursor: showAddSection && "auto",
+          }}
+          disabled={showAddSection}
+        >
+          <span className={styles.line} />
+          <span>Add Section</span>
+          <span className={styles.line} />
+        </button>
+      )}
       {showAddSection && (
-        <form className={styles.add_section_form} onSubmit={addBoardformHandler}>
+        <form
+          className={styles.add_section_form}
+          onSubmit={addBoardformHandler}
+        >
           <input
             type="text"
             placeholder={placeholder}
@@ -206,6 +245,15 @@ function TodoList({
             </button>
           </div>
         </form>
+      )}
+      {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          actionFunction={deleteBoardHandler}
+          content2={" with its " + tasks.length + " tasks?"}
+          name={title}
+          type="Delete"
+        />
       )}
     </>
   );

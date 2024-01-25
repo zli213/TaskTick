@@ -24,7 +24,7 @@ export const tasksSlice = createSlice({
       state.tags = action.payload.tags;
     },
 
-    //tasks
+    // ----- tasks -----
     addTaskAction: (state, action) => {
       const task = action.payload;
       state.tasks = [...state.tasks, task];
@@ -100,7 +100,7 @@ export const tasksSlice = createSlice({
         return task;
       });
 
-      //  //update counters
+      //  update counters
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const taskDueDate = new Date(newTask.dueDate);
@@ -199,14 +199,11 @@ export const tasksSlice = createSlice({
       }
     },
 
-    //projects
+    // ----- projects -----
     addProjectAction: (state, action) => {
       state.projects = [...state.projects, { ...action.payload, num: 0 }];
     },
     deleteProjectAction: (state, action) => {
-      // state.projects = state.projects.filter(
-      //   (project) => project.projectId !== action.payload
-      // );
       state.projects = state.projects.map((project) => {
         if (project.projectId === action.payload) {
           return { ...project, state: "deleted" };
@@ -327,6 +324,8 @@ export const tasksSlice = createSlice({
         });
       state.todayNum = todayTasks.length;
     },
+
+    // ----- boards -----
     addBoardAction: (state, action) => {
       state.projects = state.projects.map((project) => {
         if (project.projectId === action.payload.projectId) {
@@ -334,13 +333,16 @@ export const tasksSlice = createSlice({
             action.payload.fromBoard == null ||
             action.payload.fromBoard == ""
           ) {
-            return { ...project, boards: [action.payload.board, ...project.boards] };
+            return {
+              ...project,
+              boards: [action.payload.board, ...project.boards],
+            };
           } else {
             const preIndex = project.boards.indexOf(action.payload.fromBoard);
             return {
               ...project,
               boards: [
-                ...project.boards.slice(0, preIndex+1),
+                ...project.boards.slice(0, preIndex + 1),
                 action.payload.board,
                 ...project.boards.slice(preIndex + 1),
               ],
@@ -350,8 +352,57 @@ export const tasksSlice = createSlice({
         return project;
       });
     },
+    deleteBoardAction: (state, action) => {
+      state.projects = state.projects.map((project) => {
+        if (project.projectId === action.payload.projectId) {
+          return {
+            ...project,
+            boards: project.boards.filter(
+              (board) => board !== action.payload.board
+            ),
+            num:
+              project.num -
+              state.tasks.filter(
+                (task) =>
+                  task.projectId === action.payload.projectId &&
+                  task.board === action.payload.board &&
+                  task.archived !== true &&
+                  task.completed !== true
+              ).length,
+          };
+        }
+        return project;
+      });
 
-    //tags
+      //update tasks
+      state.tasks = state.tasks.filter((task) => {
+        if (task.projectId !== action.payload.projectId) {
+          return true;
+        } else {
+          if (task.board !== action.payload.board) {
+            return true;
+          }
+        }
+      });
+
+      const todayTasks = state.tasks
+        .filter((task) => task.dueDate !== null && task.dueDate !== "")
+        .filter((task) => {
+          return task.archived !== true;
+        })
+        .filter((task) => {
+          return task.completed !== true;
+        })
+        .filter((task) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const taskDueDate = new Date(task.dueDate);
+          return taskDueDate.getTime() <= today.getTime();
+        });
+      state.todayNum = todayTasks.length;
+    },
+
+    // ----- tags -----
     addTagAction: (state, action) => {
       state.tags = [...state.tags, action.payload];
     },
@@ -419,6 +470,7 @@ export const {
   archiveProjectAction,
   unarchiveProjectAction,
   addBoardAction,
+  deleteBoardAction,
 
   addTagAction,
   editOneTagAction,
