@@ -3,9 +3,13 @@ import { createContext, useEffect, useState } from 'react';
 import { useSession } from "next-auth/react";
 
 const MyThemeContext = createContext({
-    applyDarkTheme:() => {},
-    applyLightTheme: () => {},
-    applySystemTheme: () => {}
+    isDarkTheme: false,
+    isSystemTheme: false,
+    setIsDarkTheme: () => {},
+    setIsSystemTheme: () => {},
+    toggleDark:() => {},
+    toggleLight: () => {},
+    matchSystem: () => {}
 });
 
 
@@ -60,6 +64,7 @@ export function MyThemeContextProvider(props) {
 
     function matchSystem () {
         setIsSystemTheme(true);
+        console.log("in context, isSystem: ", isSystemTheme);
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (isSystemDark) {
             toggleDark();
@@ -69,7 +74,17 @@ export function MyThemeContextProvider(props) {
     }
 
     return (
-        <MyThemeContext.Provider value={{isDarkTheme, isSystemTheme, toggleDark, toggleLight, matchSystem}}>
+        <MyThemeContext.Provider
+            value={{
+                isDarkTheme,
+                isSystemTheme,
+                setIsDarkTheme,
+                setIsSystemTheme,
+                toggleDark,
+                toggleLight,
+                matchSystem
+            }}
+        >
             {props.children}
         </MyThemeContext.Provider>
     )

@@ -1,48 +1,57 @@
-import React, {useState, useEffect, useCallback, useContext}from "react";
+import React, {useEffect, useCallback, useContext}from "react";
 import { useRouter } from "next/navigation";
 import ThemeButton from "../../application/widgets/ThemeButton";
 import MyThemeContext from "../../application/widgets/MyThemeContext";
 import Icon from "../../../components/application/widgets/Icon"; 
 import styles from "../../../styles/scss/theme.module.scss";
-//todo: checkbox cannot refresh when changing from system to no system themes.
+
 const SettingTheme = () => {
   const router = useRouter();
-  const themeCtx = useContext(MyThemeContext);
-  const [isSystem, setIsSystem] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const {
+    isDarkTheme,
+    isSystemTheme,
+    setIsDarkTheme,
+    setIsSystemTheme,
+    toggleDark,
+    toggleLight,
+    matchSystem} = useContext(MyThemeContext);
 
   useEffect(() => {
-    const flag = themeCtx.isDarkTheme;
-    console.log("Get isDarkTheme: ", flag);
-    setIsDark(flag);
-
-    const flag2 = themeCtx.isSystemTheme;
-    console.log("is system theme?", flag2);
-    setIsSystem(flag2);
-
-    
-  }, [themeCtx]);
+    const checkbox = document.querySelector('input[type="checkbox"]');
+    checkbox.checked = isSystemTheme ? true : false;
+  }, [isDarkTheme, isSystemTheme]);
 
   function applyDarkTheme() {
-    themeCtx.toggleDark();
-    setIsDark(true);
+    toggleDark();
+    setIsDarkTheme(true);
     saveChange("dark");
   }
 
   function applyLightTheme() {
-    themeCtx.toggleLight();
-    setIsDark(false);
+    toggleLight();
+    setIsDarkTheme(false);
+    saveChange("light");
+  }
+
+  function applySystemTheme() {
+    matchSystem();
+    setIsSystemTheme(true);
+    saveChange("system");
+  }
+
+  function applydefault() {
+    toggleLight();
+    setIsDarkTheme(false);
+    setIsSystemTheme(false);
     saveChange("light");
   }
 
   function handleCheckboxChange (event) {
-    setIsSystem(prev => !prev);
     const isChecked = event.target.checked;
     if (isChecked) {
-      themeCtx.matchSystem();
-      saveChange("system");
+      applySystemTheme();
     } else {
-      applyLightTheme();
+      applydefault();
     }
   }
 
@@ -101,7 +110,7 @@ const SettingTheme = () => {
       <label className={styles.switchContainer}>
         <div>
           <label className={styles.switch}>
-            <input type="checkbox" checked={isSystem} onChange={handleCheckboxChange}></input>
+            <input type="checkbox" onChange={handleCheckboxChange}></input>
             <span></span>
           </label>
         </div>
@@ -115,16 +124,16 @@ const SettingTheme = () => {
           <ThemeButton
           onClick={applyLightTheme}
           themeName={"Light"}
-          isSelected={!isDark}
-          isDisabled={isSystem || !isDark}
+          isSelected={!isDarkTheme}
+          isDisabled={isSystemTheme || !isDarkTheme}
           {...button1Colors}/>
 
           {/* dark theme */}
           <ThemeButton
           onClick={applyDarkTheme}
           themeName={"Dark"}
-          isSelected={isDark}
-          isDisabled={isSystem || isDark}
+          isSelected={isDarkTheme}
+          isDisabled={isSystemTheme || isDarkTheme}
           {...button2Colors}/>
       </div>
 
