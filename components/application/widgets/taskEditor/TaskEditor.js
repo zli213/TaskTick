@@ -124,7 +124,11 @@ function TaskEditor({
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
-    toast.info("Task scheduled on " + date.dateStr);
+    toast.info(
+      <div>
+        Task scheduled on <u>{date.dateStr}</u>
+      </div>
+    );
   };
 
   const [selectedPriority, setSelectedPriority] = useState(
@@ -309,7 +313,6 @@ function TaskEditor({
           </div>
         </form>
       </div>
-      <ToastContainer />
       {isShowScheduler ? (
         <Scheduler
           data={{ selectedDate: selectedDate }}

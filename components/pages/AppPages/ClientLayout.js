@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
 import Topbar from "../../application/topbar/Topbar";
+import { ToastContainer } from "react-toastify";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
@@ -25,7 +26,19 @@ export default function ClientLayout(props) {
         />
         <div className={styles.content_holder}>{props.children}</div>
       </div>
-      
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition="Bounce"
+      />
     </div>
   );
 }

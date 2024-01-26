@@ -2,6 +2,7 @@
 import { useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
 
 /**
  * @param
