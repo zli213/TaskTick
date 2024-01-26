@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Navbar from "../components/pages/Navbar";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   return (

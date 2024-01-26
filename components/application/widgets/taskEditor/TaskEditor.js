@@ -26,7 +26,7 @@ import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 function TaskEditor({
   formType,
@@ -124,11 +124,6 @@ function TaskEditor({
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
-    toast.info(
-      <div>
-        Task scheduled on <u>{date.dateStr}</u>
-      </div>
-    );
   };
 
   const [selectedPriority, setSelectedPriority] = useState(
@@ -229,6 +224,17 @@ function TaskEditor({
      * updateAllTags(newAllTags)
      */
   };
+  // handle submit
+  const handleSubmit = () => {
+    if (newTaskData.current.selectedDate) {
+      toast.success(
+        <div>
+          Task scheduled on <u>{newTaskData.current.selectedDate}</u>
+        </div>
+      );
+    }
+    submitCallBack(newTaskData.current);
+  };
 
   return (
     <>
@@ -292,7 +298,7 @@ function TaskEditor({
                   className={styles.task_footer_submit}
                   type="button"
                   onClick={() => {
-                    submitCallBack(newTaskData.current);
+                    handleSubmit();
                   }}
                 >
                   Add
@@ -303,7 +309,7 @@ function TaskEditor({
                   className={styles.task_footer_submit}
                   type="button"
                   onClick={() => {
-                    submitCallBack(newTaskData.current);
+                    handleSubmit();
                   }}
                 >
                   Save

@@ -26,19 +26,7 @@ export default function ClientLayout(props) {
         />
         <div className={styles.content_holder}>{props.children}</div>
       </div>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition="Bounce"
-      />
+      <ToastContainer position="bottom-left" autoClose={5000} />
     </div>
   );
 }
