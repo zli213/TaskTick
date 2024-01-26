@@ -5,7 +5,11 @@ import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
-import { addBoardAction, deleteBoardAction, editBoardAction } from "../../../store/tasks";
+import {
+  addBoard,
+  deleteBoardAction,
+  editBoardAction,
+} from "../../../store/projects";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import AddBoard, { useBoard } from "./AddBoard";
 
@@ -87,7 +91,7 @@ function TodoList({
 
       if (result.body === "success") {
         dispatch(
-          addBoardAction({ board, projectId: fromProject.projectId, fromBoard })
+          addBoard({ projectId: fromProject.projectId, board, fromBoard })
         );
         switchAddSectionHandler();
       } else if (result.body === "exist") {
@@ -115,9 +119,7 @@ function TodoList({
       const result = await res.json();
 
       if (result.body === "success") {
-        dispatch(
-          deleteBoardAction({ board, projectId: fromProject.projectId })
-        );
+        dispatch(deleteBoardAction(fromProject.projectId, board));
         showDeleteCardHandler(false);
       }
     } catch (error) {
@@ -147,12 +149,10 @@ function TodoList({
         }),
       });
       const result = await res.json();
-      console.log(result)
+      console.log(result);
 
       if (result.body === "success") {
-        dispatch(
-          editBoardAction({ board, projectId: fromProject.projectId, oldBoard: title })
-        );
+        dispatch(editBoardAction(fromProject.projectId, board, title));
         switchEditSectionHandler();
       } else if (result.body === "exist") {
         failEditHandler();
@@ -160,8 +160,7 @@ function TodoList({
     } catch (error) {
       throw error;
     }
-
-  }
+  };
 
   return (
     <>
@@ -177,7 +176,7 @@ function TodoList({
             closeHandler={switchEditSectionHandler}
           />
         )}
-        {(!showEditSection && haveTitle) && (
+        {!showEditSection && haveTitle && (
           <header className={styles.todolist_header}>
             <div
               className={`${styles.content_wrapper} ${

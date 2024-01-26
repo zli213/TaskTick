@@ -8,20 +8,20 @@ import Icon from "../../application/widgets/Icon";
 import { UnarchiveProject } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { unarchiveProjectAction } from "../../../store/tasks";
+import { unarchiveProjectAction } from "../../../store/projects";
 
 export default function Project({ projectId }) {
   const dispacth = useDispatch();
   const router = useRouter();
-  const projects = useSelector((state) => state.tasks.projects);
-  const project = projects.find((project) => project.projectId === projectId);
+  const projects = useSelector((state) => state.projects);
+  const project = projects[projectId];
 
   if (project.state === "deleted") {
     router.push("/application/inbox");
   }
 
   const boards = project.boards !== undefined ? project.boards : [];
-  let tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks
     .filter((task) => task.projectId === projectId)
     .filter((task) => task.completed !== true);

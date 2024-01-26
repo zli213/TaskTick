@@ -37,11 +37,11 @@ function TaskEditor({
   cancelCallBack,
   submitCallBack,
 }) {
-  let tagList = useSelector((state) => state.tasks.tags);
-  let allProjects = useSelector((state) => state.tasks.projects);
+  let tagList = useSelector((state) => state.labels.tags);
+  let allProjects = Object.values(useSelector((state) => state.projects));
   allProjects = allProjects
     .filter((project) => project.archived !== true)
-    .filter((project) => project.state !== "deleted");
+    .filter((project) => project.isDeleted !== true);
 
   // Default values
   if (formType == null) {
@@ -112,7 +112,6 @@ function TaskEditor({
         ? ""
         : taskData.board,
   });
-  console.log(newTaskData.current);
 
   /** update newTaskData */
   const setNewTaskData = (key, value) => {

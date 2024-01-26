@@ -38,7 +38,7 @@ export default function NewLabel(props) {
   //Add or edit label
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    const tag = tagInputRef.current.value;
+    const tag = tagInputRef.current.value.trim();
 
     if (props.label) {
       //Edit label

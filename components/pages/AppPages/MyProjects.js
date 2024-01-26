@@ -14,8 +14,8 @@ export default function MyProjects(props) {
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  let projects = useSelector((state) => state.tasks.projects);
-  projects = projects.filter((project) => project.state !== "deleted");
+  let projects = Object.values(useSelector((state) => state.projects));
+  projects = projects.filter((project) => project.isDeleted !== true);
   if (props.type === "active") {
     projects = projects.filter(
       (project) => project.archived !== true || project.archived === undefined
@@ -64,7 +64,7 @@ export default function MyProjects(props) {
               {props.type === "active"
                 ? "Active projects"
                 : "Archived projects"}{" "}
-              <Icon type="down_arrow_small"/>
+              <Icon type="down_arrow_small" />
             </div>
             {showItemMenu && (
               <PopupMenu

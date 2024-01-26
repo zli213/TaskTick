@@ -8,7 +8,7 @@ import Icon from "../../application/widgets/Icon";
 import { useSelector } from "react-redux";
 
 export default function Inbox(props) {
-  let tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => task.completed !== true);
 
   useEffect(() => {

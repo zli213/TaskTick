@@ -42,9 +42,8 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
       });
 
       const result = await res.json();
-      console.log(result);
       result.ifComplete &&
-        dispatch(completeTaskAction({ taskId, dueDate, projectId }));
+        dispatch(completeTaskAction( taskId ));
     } catch (error) {
       throw error;
     }

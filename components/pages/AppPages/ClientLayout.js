@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
 import Topbar from "../../application/topbar/Topbar";
-import { initialTasksState } from "../../../store/tasks";
-import { initialInfo } from "../../../store/userInfo";
+import { initialAllState } from "../../../store/tasks";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
@@ -15,13 +14,13 @@ export default function ClientLayout(props) {
   const dispatch = useDispatch();
 
   dispatch(
-    initialTasksState({
-      tasks: JSON.stringify(props.tasks),
-      inboxNum: props.inboxNum,
-      todayNum: props.todayNum,
-      projects: props.projects,
-      tags: props.allTags,
-    })
+    initialAllState(
+      JSON.stringify(props.tasks),
+      props.projects,
+      props.inboxNum,
+      props.todayNum,
+      props.allTags
+    )
   );
 
   const switchLeftBar = () => {

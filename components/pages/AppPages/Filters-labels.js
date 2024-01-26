@@ -8,8 +8,8 @@ import NewLabel, { useLabel } from "../../application/widgets/NewLabel";
 import { useSelector } from "react-redux";
 
 function FilterPage() {
-  const tags = useSelector((state) => state.tasks.tags);
-  let tasks = useSelector((state) => state.tasks.tasks);
+  const tags = useSelector((state) => state.labels.tags);
+  let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => task.completed !== true);
   let labels = [];
 

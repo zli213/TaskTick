@@ -9,9 +9,9 @@ import NoTask from "../../application/widgets/NoTask";
 import { useSelector } from "react-redux";
 
 function Today(props) {
-  let tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => task.completed !== true);
-  const todayNum = useSelector((state) => state.tasks.todayNum);
+  const todayNum = useSelector((state) => state.num.todayNum);
   const router = useRouter();
 
   //use timestamp to compare if the item dueDate is today

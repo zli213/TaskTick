@@ -12,7 +12,7 @@ import {
 } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { deleteProjectAction, archiveProjectAction, unarchiveProjectAction} from "../../../store/tasks";
+import { deleteProjectAction, archiveProjectAction,unarchiveProjectAction } from "../../../store/projects";
 
 //Custom React hook -> useProjectMenu, use for Delete and archive project
 export const useProjectMenu = () => {
