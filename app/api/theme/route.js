@@ -12,8 +12,7 @@ export const POST = async (req) =>  {
         const result = await req.json();
         const theme = result.cur;
 
-        const updateTheme = await User.findOneAndUpdate({ email: session.user.email }, {themes: [theme]}, { new: true });
-        console.log("Update result: ", updateTheme);
+        await User.findOneAndUpdate({ email: session.user.email }, {themes: [theme]}, { new: true });
         return NextResponse.json({ message: "Succeed. "}, {status: 201});
     } catch (error) {
         return NextResponse.json({ message: "Fail to save : ", error}, {status: 500});

@@ -5,8 +5,6 @@ import { useSession } from "next-auth/react";
 const MyThemeContext = createContext({
     isDarkTheme: false,
     isSystemTheme: false,
-    setIsDarkTheme: () => {},
-    setIsSystemTheme: () => {},
     toggleDark:() => {},
     toggleLight: () => {},
     matchSystem: () => {}
@@ -78,8 +76,6 @@ export function MyThemeContextProvider(props) {
             value={{
                 isDarkTheme,
                 isSystemTheme,
-                setIsDarkTheme,
-                setIsSystemTheme,
                 toggleDark,
                 toggleLight,
                 matchSystem
