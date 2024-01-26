@@ -4,9 +4,11 @@ import styles from "../../../styles/scss/application.module.scss";
 import { useEffect, useState } from "react";
 import Icon from "../../application/widgets/Icon";
 import LabelItem from "../../application/widgets/LabelItem";
+import NewLabel, { useLabel } from "../../application/widgets/NewLabel";
 
 function FilterPage(props) {
   const [showList, setShowList] = useState(true);
+  const { showAddCard, showCardHandler } = useLabel();
 
   const switchListHandler = () => {
     setShowList((preState) => !preState);
@@ -39,17 +41,20 @@ function FilterPage(props) {
               <Icon type="down_arrow_small" />
             </div>
             <h4>Labels</h4>
-            <button><Icon type="add" /></button>
+            <button onClick={showCardHandler}>
+              <Icon type="add" />
+            </button>
           </header>
 
           <ul>
             {showList &&
               props.labels.map((label) => (
-                <LabelItem label={label.tag} num={label.taskNum} />
+                <LabelItem label={label.tag} num={label.taskNum} key={label.tag} />
               ))}
           </ul>
         </section>
       </div>
+      {showAddCard && <NewLabel closeHandler={showCardHandler} />}
     </>
   );
 }

@@ -23,14 +23,20 @@ export default function Inbox(props) {
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
           <h1>Inbox</h1>
-          <div><Icon type="view"/></div>
+          <div>
+            <Icon type="view" />
+          </div>
         </div>
       </div>
       {props.data.length == 0 ? (
         <NoTask page="inbox" />
       ) : (
         <div className={styles.list_box} id="listBox">
-          <TodoList tasks={inBoxTasks} />
+          <TodoList
+            tasks={inBoxTasks}
+            allTags={props.allTags}
+            allProjects={props.allProjects}
+          />
         </div>
       )}
     </>

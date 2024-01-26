@@ -1,18 +1,30 @@
 "use client";
 
 import styles from "../../../styles/scss/application.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Icon from "../../application/widgets/Icon";
-import NewProject from "../../application/widgets/NewProject";
+import NewProject, { useProject } from "../../application/widgets/NewProject";
 import MyProjectItem from "../../application/widgets/MyProjectItem";
+import { notFound } from "next/navigation";
+import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 
 export default function MyProjects(props) {
-  const [showAddCard, setShowAddCard] = useState(false);
+  const { showAddProjectCard, showProjectCardHandler } = useProject();
+  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  const showCardHandler = () => {
-    setShowAddCard((preState) => !preState);
-  };
+  var tasks = props.data;
+  if (props.type === "active") {
+    tasks = tasks.filter(
+      (task) => task.archived !== true || task.archived === undefined
+    );
+  } else if (props.type === "archived") {
+    tasks = tasks.filter(
+      (task) => task.archived === true && task.archived !== undefined
+    );
+  } else {
+    notFound();
+  }
 
   useEffect(() => {
     document.title = "My Projects - Todo";
@@ -42,23 +54,68 @@ export default function MyProjects(props) {
         </div>
 
         <div className={styles.btn_projects}>
-          <div className={styles.active_btn_projects}>Active projects</div>
-          <div className={styles.add_btn_projects} onClick={showCardHandler}>
+          <div className={styles.menu_btn_container}>
+            <div
+              className={`${styles.active_btn_projects} ${styles.project_btn}`}
+              onClick={swithMenuHandler}
+            >
+              {props.type === "active"
+                ? "Active projects"
+                : "Archived projects"}{" "}
+              <Icon type="down_arrow_small"/>
+            </div>
+            {showItemMenu && (
+              <PopupMenu
+                onOverlayClick={swithMenuHandler}
+                position={buttonPosition}
+                levels="3"
+              >
+                <div className={`${styles.task_item_action_menu}`}>
+                  <h4>Project type</h4>
+                  <Link href="/application/projects/active">
+                    <div>
+                      <Icon type="list" />
+                      <span>Active project</span>
+                    </div>
+                    {props.type === "active" && <Icon type="check" />}
+                  </Link>
+                  <Link href="/application/projects/archived">
+                    <div>
+                      <Icon type="archive" />
+                      <span>Archived project</span>
+                    </div>
+                    {props.type === "archived" && <Icon type="check" />}
+                  </Link>
+                </div>
+              </PopupMenu>
+            )}
+          </div>
+          <div
+            className={`${styles.add_btn_projects} ${styles.project_btn}`}
+            onClick={showProjectCardHandler}
+          >
             <Icon type="add" />
             <span>Add project</span>
           </div>
         </div>
-        <h4>{props.data.length} projects</h4>
+        <h4>{tasks.length} projects</h4>
       </div>
 
       <div className={styles.content_box}>
         <ul className={styles.project_list}>
-          {props.data.map((project) => (
-            <MyProjectItem project={project} />
+          {tasks.map((project) => (
+            <MyProjectItem
+              project={project}
+              key={project.projectId}
+              type={props.type}
+            />
           ))}
         </ul>
       </div>
-      {showAddCard && <NewProject closeHandler={showCardHandler} />}
+
+      {showAddProjectCard && (
+        <NewProject closeHandler={showProjectCardHandler} />
+      )}
     </>
   );
 }

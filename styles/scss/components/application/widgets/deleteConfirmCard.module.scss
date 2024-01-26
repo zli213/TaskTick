@@ -1,0 +1,82 @@
+@use "../../../../scss/utils/variable" as *;
+
+.delete_container {
+  position: fixed;
+  padding: $fontSizeSm;
+  top: 18vh;
+  left: calc(50vw - $addProjectWidth / 2);
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: $addProjectWidth;
+  // height: $addProjectHeight;
+  overflow: hidden;
+  box-shadow: 0px 0px 4px 4px rgba($color: black, $alpha: 0.1);
+  z-index: 1000;
+  white-space: normal;
+}
+
+.header {
+  height: $fontSizeMd;
+  @include flexRowBetween();
+  color: $textSecondaryColor;
+}
+
+.content_holder {
+  height: 12rem;
+  padding: $paddingMd 0;
+  font-size: $fontSizeSm;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.close {
+  cursor: pointer;
+  border-radius: $borderRadiusXsm;
+  width: 3rem;
+  height: 3rem;
+
+  &:hover {
+    background-color: $lightGrayColor;
+    color: black;
+  }
+}
+
+.footer_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: $gap;
+  align-items: center;
+
+  button {
+    // cursor: pointer;
+    border-radius: $borderRadius;
+    padding: $paddingsm;
+    width: 7.5rem;
+    font-weight: 500;
+  }
+}
+
+.btn_cancel {
+  background-color: $lightGrayColor;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background-color: $grayColor;
+  }
+}
+
+.btn_delete {
+  background-color: $primaryColor;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #c73f33;
+  }
+}

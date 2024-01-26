@@ -21,7 +21,7 @@ function TaskTagCheckList({
   let newCheckedTags = useRef([...checkedTags]);
   const updateNewCheckedTags = (tag, ele) => {
     // change the checkbox to checked/unchecked
-    const ele_i = ele.target.getElementsByTagName("i")[0];
+    const ele_i = ele.getElementsByTagName("i")[0];
     if (ele_i.classList.contains(styles.tag_checkbox_on)) {
       ele_i.classList.remove(styles.tag_checkbox_on);
     } else {
@@ -50,7 +50,11 @@ function TaskTagCheckList({
           <div
             className={styles.tag_check_list_dropdown_btn}
             onClick={(e) => {
-              updateNewCheckedTags(item, e);
+              let ele = e.target;
+              if (e.target.tagName === "I") {
+                ele = e.target.parentNode;
+              }
+              updateNewCheckedTags(item, ele);
               onTagCheckClick(newCheckedTags.current);
             }}
           >

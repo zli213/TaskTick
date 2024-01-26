@@ -10,55 +10,87 @@ import { options } from "../../../api/auth/[...nextauth]/options";
 import getOneUserTasks from "../../../../src/utils/data/getOneUserTasks";
 import checkTaskExist from "../../../../src/utils/data/checkTaskExist";
 import getProjects from "../../../../src/utils/data/getProjects";
-import getProjectName from "../../../../src/utils/data/getProjectName";
-import getBoards from "../../../../src/utils/data/getBoards";
 import getLabelTasks from "../../../../src/utils/data/getLabelTasks";
+import getUserTags from "../../../../src/utils/data/getUserTags";
+import getSingleProject from "../../../../src/utils/data/getSingleProject";
 
 export default async function SubAppPages({ params }) {
   const session = await getServerSession(options);
 
+  let tags = await getUserTags(session.user.userId);
+  let projects = await getProjects(session.user.userId);
+  projects = JSON.parse(JSON.stringify(projects));
+
   //Check if Task exist
-  if (params.menu == "task") {
-    var ifTaskExist = await checkTaskExist(params.submenu);
+  if (params.menu === "task") {
+    let ifTaskExist = await checkTaskExist(params.submenu);
     if (!ifTaskExist) {
-      console.log('1111')
       return <TaskNotFound />;
     }
   }
-  const tasks = await getOneUserTasks(session.user.userId);
+  let tasks = await getOneUserTasks(session.user.userId);
+  tasks = tasks.filter((task) => task.archived !== true);
 
   switch (params.menu) {
     case "project":
-      const projectName = await getProjectName(
+      const project = await getSingleProject(
         session.user.userId,
         params.submenu
       );
-      const boards = await getBoards(session.user.userId, params.submenu);
+
       const projectTasks = tasks.filter((task) => {
         return task.projectId == params.submenu;
       });
       return (
         <Project
           projectId={params.submenu}
-          projectName={projectName}
+          projectName={project.name}
           tasks={projectTasks}
-          boards={boards}
+          boards={project.boards}
+          archived={project.archived}
+          allTags={tags}
+          allProjects={projects}
         />
       );
 
     case "projects":
-      var projects = await getProjects(session.user.userId);
-      projects = JSON.parse(JSON.stringify(projects));
-      return <MyProjects data={projects} />;
+      return <MyProjects data={projects} type={params.submenu} />;
 
     case "setting":
-      return <Today data={tasks} settingMenu={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          settingMenu={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
     case "task":
-      return <Today data={tasks} taskId={params.submenu} />;
+      return (
+        <Today
+          data={tasks}
+          taskId={params.submenu}
+          allTags={tags}
+          allProjects={projects}
+        />
+      );
 
     case "label":
-      const labelTasks = await getLabelTasks(session.user.userId, params.submenu);
-      return <LabelPage tasks={labelTasks} label={params.submenu} />;
+      const labelTasks = await getLabelTasks(
+        session.user.userId,
+        decodeURIComponent(params.submenu)
+      
+      );
+      return (
+        (
+        <LabelPage
+          tasks={labelTasks}
+          label={decodeURIComponent(params.submenu)}
+          allTags={tags}
+          allProjects={projects}
+        />
+      )
+      );
 
     default:
       notFound();

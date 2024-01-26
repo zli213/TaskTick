@@ -8,23 +8,33 @@
 
 import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
-import styles from "../../../styles/scss/newProject.module.scss";
+import styles from "../../../styles/scss/components/application/widgets/newProject.module.scss";
 import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
+
+//Custom React hook -> useProject
+export const useProject = () => {
+  const [showAddProjectCard, setShowProjectAddCard] = useState(false);
+
+  const showProjectCardHandler = () => {
+    setShowProjectAddCard((preState) => !preState);
+  };
+
+  return {
+    showAddProjectCard,
+    showProjectCardHandler,
+  };
+};
 
 export default function NewProject(props) {
   const router = useRouter();
   const nameInputRef = useRef();
-  const [enteredName, setEnteredName] = useState("");
+  const [enteredName, setEnteredName] = useState(props.name ? props.name : "");
   const [isWrong, setIsWrong] = useState(false);
 
   const disableScroll = (event) => {
     event.preventDefault();
   };
-
-  if (props.projectName) {
-    setEnteredName(props.projectName);
-  }
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -34,29 +44,54 @@ export default function NewProject(props) {
     event.preventDefault();
     const name = nameInputRef.current.value;
 
-    try {
-      const res = await fetch("/api/addproject", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
+    if (props.name) {
+      //Edit project
+      try {
+        const res = await fetch("/api/editProject", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            id: props.projectId,
+            oldName: props.name,
+          }),
+        });
 
-      const result = await res.json();
-      console.log(result.body.projectId);
-
-      if (res.ok) {
-        router.push(`/application/project/${result.body.projectId}`);
-        router.refresh();
-      } else {
-        const data = await res.json();
-        setIsWrong(true);
+        if (res.ok) {
+          props.showNameHandler(name);
+          window.location.reload();
+        } else {
+          setIsWrong(true);
+        }
+      } catch (error) {
+        throw error;
       }
-    } catch (error) {
-      console.log("Error occured: ", error);
+      props.closeHandler();
+    } else {
+      //Add project
+      try {
+        const res = await fetch("/api/addProject", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name }),
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          router.push(`/application/project/${result.body.projectId}`);
+          router.refresh();
+        } else {
+          setIsWrong(true);
+        }
+      } catch (error) {
+        throw error;
+      }
+      props.closeHandler();
     }
-    props.closeHandler();
   };
 
   useEffect(() => {
@@ -74,19 +109,14 @@ export default function NewProject(props) {
       <Modal>
         <div className={styles.add_project_modal_container} id="addProject">
           <div>
-            <h1>Add project</h1>
+            <h1>{props.name ? "Edit" : "Add"} project</h1>
           </div>
           <hr />
 
           <form onSubmit={formSubmitHandler}>
             <div className={styles.add_project_form}>
               <div className={styles.form_field}>
-                <label
-                  for="edit_project_modal_field_name"
-                  className={styles.form_field_title}
-                >
-                  Name
-                </label>
+                <label className={styles.form_field_title}>Name</label>
                 <input
                   ref={nameInputRef}
                   id="edit_project_modal_field_name"
@@ -96,7 +126,7 @@ export default function NewProject(props) {
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Color</div>
-                <button disabled="true" className={styles.color_selector}>
+                <button disabled={true} className={styles.color_selector}>
                   <div>
                     <span className={styles.color_dropdown_select_color}></span>
                     <span>Black</span>{" "}
@@ -106,24 +136,7 @@ export default function NewProject(props) {
               </div>
               <div className={styles.form_field}>
                 <div className={styles.form_field_title}>Workspace</div>
-                <button disabled="true">My Projects</button>
-              </div>
-              <div className={styles.form_field}>
-                <div className={styles.form_field_title}>View</div>
-                <fieldset>
-                  <div className={styles.selected_view}>
-                    <Icon type="horizon_page" />
-                    List
-                  </div>
-                  <div>
-                    <Icon type="vertical_page" />
-                    Board
-                  </div>
-                  <div>
-                    <Icon type="upcoming" />
-                    Calender
-                  </div>
-                </fieldset>
+                <button disabled={true}>My Projects</button>
               </div>
             </div>
 
@@ -145,7 +158,7 @@ export default function NewProject(props) {
                 } `}
                 disabled={enteredName ? false : true}
               >
-                {props.projectName ? "Save" : "Add"}
+                {props.name ? "Save" : "Add"}
               </button>
             </footer>
           </form>

@@ -14,10 +14,14 @@ function Today(props) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const overDueTasks = props.data.filter((task) => {
-    const taskDueDate = new Date(task.dueDate);
-    return taskDueDate.getTime() < today.getTime();
-  });
+  const overDueTasks = props.data
+    .filter((task) => {
+      return task.dueDate !== null;
+    })
+    .filter((task) => {
+      const taskDueDate = new Date(task.dueDate);
+      return taskDueDate.getTime() < today.getTime();
+    });
 
   const todayTasks = props.data.filter((task) => {
     const taskDueDate = new Date(task.dueDate);
@@ -45,7 +49,7 @@ function Today(props) {
         >
           <div>
             <h1>Today</h1>
-            {props.num == 0 ? (
+            {props.num === 0 ? (
               ""
             ) : (
               <div className={styles.today_task_label}>
@@ -60,8 +64,20 @@ function Today(props) {
         <NoTask page="today" />
       ) : (
         <div className={styles.list_box} id="listBox">
-          <TodoList tasks={overDueTasks} title="Overdue" />
-          <TodoList tasks={todayTasks} title="Today" />
+          <TodoList
+            tasks={overDueTasks}
+            showProject={true}
+            title="Overdue"
+            allTags={props.allTags}
+            allProjects={props.allProjects}
+          />
+          <TodoList
+            tasks={todayTasks}
+            showProject={true}
+            title="Today"
+            allTags={props.allTags}
+            allProjects={props.allProjects}
+          />
         </div>
       )}
     </>

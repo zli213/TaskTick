@@ -1,24 +1,33 @@
 // app/auth/signin/page.js
 "use client";
 
-import { set } from "mongoose";
-import { signIn } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
-import styles from "../../../styles/scss/signin.module.scss";
+import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import styles from "../../../styles/scss/form.module.scss";
 import Link from "next/link";
 import Navbar from "../../../components/pages/Navbar";
-import Icon from "../../../components/application/widgets/Icon";
+import { useSession } from "next-auth/react";
+import ThirdPartySignInButtons from "../../../components/pages/Signin/ThirdPartySignInButtons";
+import EmailInputField from "../../../components/pages/Signin/EmailInputField";
+import PasswordInputField from "../../../components/pages/Signin/PasswordInputField";
 
 const SignInPage = () => {
+  const { data: session } = useSession();
+  const [signUpInitiated, setSignUpInitiated] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const [notification, setNotification] = useState(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleVisibilityToggle = () => {
+    setIsPasswordVisible((prevVisibility) => !prevVisibility);
+  };
   const router = useRouter();
 
   const onSubmit = async (e) => {
@@ -36,12 +45,11 @@ const SignInPage = () => {
       if (!res?.error) {
         router.push("/application/today");
       } else {
-        setError("invalid email or password1");
+        setError("invalid email or password.");
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
-      setError("invalid email or password2");
+      setError("invalid email or password:" + error);
     }
   };
 
@@ -50,72 +58,93 @@ const SignInPage = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const showNotification = (message) => {
+    setNotification(message);
+    // hide notification after 30 seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 30000);
+  };
+
+  const handleSignIn = async (provider) => {
+    await signIn(provider, {
+      redirect: false,
+    });
+    setSignUpInitiated(true);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const accountStatus = session?.user?.accountStatus;
+      console.log("accountStatus: ", accountStatus);
+      if (accountStatus === "created") {
+        console.log("User created successfully!");
+        router.push("/application/today");
+      } else if (accountStatus === "existing_user") {
+        router.push("/application/today");
+      } else if (accountStatus === "existing_user_different_provider") {
+        showNotification(
+          "The email address has already been used. Please log in using the corresponding registration information!"
+        );
+        // set 3 seconds timeout to allow the sign out process to complete
+        setTimeout(() => {
+          signOut();
+        }, 2000);
+      } else {
+        showNotification(accountStatus);
+      }
+    };
+    fetchData();
+  }, [session, signUpInitiated]);
+
   return (
     <>
       <Navbar />
-      <div className={styles.container} id="signContainer">
-        <form className={styles.form} onSubmit={onSubmit}>
-          {error && <p className={styles.error}>{error}</p>}
-          <div className={styles.input_style}>
-            <input
-              required
-              type="email"
-              name="email"
-              value={formValues.email}
-              onChange={handleChange}
-              placeholder="Email address"
-            />
-          </div>
-          <div className={styles.input_style}>
-            <input
-              required
-              type="password"
-              name="password"
-              value={formValues.password}
-              onChange={handleChange}
-              placeholder="Password"
-            />
-          </div>
-          <button type="submit" className={styles.submit} disabled={loading}>
-            {loading ? "loading..." : "Sign In"}
-          </button>
+      <div className={styles.container}>
+        <div className={styles.title}>
+          <h1>Sign In</h1>
+        </div>
+        <div className={styles.main}>
+          <form className={styles.form} onSubmit={onSubmit}>
+            {notification && (
+              <div style={{ color: "red", margin: "10px 0" }}>
+                {notification}
+              </div>
+            )}
+            {error && <p className={styles.error}>{error}</p>}
 
-          <div className={styles.dividerWithText}>
-            <span>OR</span>
+            <EmailInputField
+              formValues={formValues}
+              handleChange={handleChange}
+              styles={styles}
+            />
+
+            <PasswordInputField
+              formValues={formValues}
+              handleChange={handleChange}
+              isPasswordVisible={isPasswordVisible}
+              handleVisibilityToggle={handleVisibilityToggle}
+              styles={styles}
+            />
+            <button type="submit" className={styles.submit} disabled={loading}>
+              {loading ? "loading..." : "Sign In"}
+            </button>
+
+            <ThirdPartySignInButtons
+              handleSignIn={handleSignIn}
+              styles={styles}
+            />
+            <p className={styles.signUp}>
+              Don't have an account?{"\u00a0"}
+              <Link href="/auth/register" className={styles.signUpLink}>
+                Sign up
+              </Link>
+            </p>
+          </form>
+          <div className={styles.image}>
+            <img src="/images/signIn.jpg" className={styles.ri} alt="signin" />
           </div>
-          <div className={styles.google}>
-            <a
-              className={styles.google}
-              style={{ backgroundColor: "#55acee" }}
-              onClick={() =>
-                signIn("google", { callbackUrl: "/application/today" })
-              }
-              role="button"
-            >
-              <Icon type="google" className={styles.icon} />
-              Continue with Google
-            </a>
-          </div>
-          <div className={styles.github}>
-            <a
-              className={styles.github}
-              style={{ backgroundColor: "#55acee" }}
-              onClick={() =>
-                signIn("github", { callbackUrl: "/application/today" })
-              }
-              role="button"
-            >
-              <Icon type="github" className={styles.icon} />
-              Continue with GitHub
-            </a>
-          </div>
-          <p className={styles.signUp}>
-            If you don't have an account,plese
-            <Link href="/register" className={styles.signUpLink}>
-              sign up
-            </Link>
-          </p>
-        </form>
+        </div>
       </div>
     </>
   );

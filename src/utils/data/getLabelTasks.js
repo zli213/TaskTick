@@ -1,12 +1,11 @@
 /**
- * Get list of labels of one tag
+ * Get list of tasks of one tag
  *
  * param: tag
  *
  */
 
 import connect from "./db";
-import User from "../../models/User";
 import getOneUserTasks from "./getOneUserTasks";
 
 export default async function getLabelTasks(userId, tag) {

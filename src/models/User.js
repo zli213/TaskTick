@@ -7,6 +7,7 @@ const projectSchema = new Schema({
   projectId: ObjectId,
   name: String,
   boards: [String],
+  archived: Boolean,
 });
 
 const userSchema = new Schema(

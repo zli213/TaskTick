@@ -14,7 +14,7 @@ export const options = {
         console.log("Profile GitHub: ", profile);
 
         let userRole = "GitHub User";
-        if (profile?.email == "jake@claritycoders.com") {
+        if (profile?.email == "admin@admin.com") {
           userRole = "admin";
         }
 
@@ -73,7 +73,7 @@ export const options = {
               console.log("Good Pass");
               delete foundUser.password;
 
-              foundUser["role"] = "Unverified Email";
+              foundUser["role"] = "Email user";
               return foundUser;
             }
           }
@@ -101,36 +101,76 @@ export const options = {
     },
     // async signIn with new account of google and github
     async signIn({ user, account, profile }) {
-      console.log("user", user);
       let userData;
+      console.log("User: ", user);
       await connect();
       if (account.provider === "github" || account.provider === "google") {
-        userData = {
-          fullName: user.name,
-          email: user.email,
-          _id: new mongoose.Types.ObjectId(),
-          role: account.provider === "github" ? "GitHub User" : "Google User",
-          avatar_url: user.image,
-          account_category: "Free",
-        };
         try {
-          const existingUser = await User.findOne({ email: userData.email });
+          const existingUser = await User.findOne({ email: user.email });
           if (!existingUser) {
+            userData = {
+              fullName: user.name,
+              email: user.email,
+              _id: new mongoose.Types.ObjectId(),
+              role:
+                account.provider === "github" ? "GitHub User" : "Google User",
+              avatar_url:
+                account.provider === "github" ? user.avatar_url : user.picture,
+              account_category: "Free",
+            };
             await User.create(userData);
-            return { status: "created", user: userData };
+            user.accountStatus = "created";
+          } else if (existingUser.role !== user.role) {
+            // if user exists but role is different, notify user to use the other provider
+            user.accountStatus = "existing_user_different_provider";
           } else {
-            return { status: "existing_user" };
+            user.accountStatus = "existing_user";
           }
         } catch (error) {
-          console.error(error);
+          user.accountStatus = "error";
           throw new Error("User creation failed");
         }
       }
-
       return true;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        if (user.role === "GitHub User") {
+          token.avatar_url = user.avatar_url;
+          token.name = user.name;
+        } else if (user.role === "Google User") {
+          token.avatar_url = user.picture;
+          token.name = user.name;
+        } else {
+          token.avatar_url = null;
+        }
+        token.accountStatus = user.accountStatus;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) {
+        session.user.role = token.role;
+        session.user.avatar_url = token.avatar_url;
+        session.user.name = token.name;
+
+        await connect();
+        const user = await User.find({ email: session.user.email });
+        if (user[0]) {
+          session.user.userId = user[0]._id.toString();
+          session.user.username = user[0].username;
+        } else {
+          session.user.userId = null;
+        }
+        session.user.accountStatus = token.accountStatus;
+      }
+      return session;
+    },
   },
+
   pages: {
     signIn: "/auth/signin",
+    register: "/auth/signup",
   },
 };

@@ -14,7 +14,7 @@ import Scheduler from "../../../application/widgets/Scheduler";
 import Icon from "../../../application/widgets/Icon";
 import Link from "next/link";
 
-export default function TaskDetailsSidebar({ task }) {
+export default function TaskDetailsSidebar({ task, showInbox }) {
   const dateJson = task.dueDate ? formatDate(task.dueDate) : "";
   const hasDue = task.dueDate == null ? false : true;
 
@@ -53,6 +53,7 @@ export default function TaskDetailsSidebar({ task }) {
             projectId={task.projectId}
             projectName={task.projectName}
             board={task.board}
+            showInbox={showInbox}
           />
         </div>
         <hr />
@@ -102,7 +103,7 @@ export default function TaskDetailsSidebar({ task }) {
           <div className={styles.task_tags_container}>
             {task.tags &&
               task.tags.map((tag, index) => (
-                <Link href={`/application/label/${tag}`}>
+                <Link href={`/application/label/${tag}`} key={tag}>
                   <span className={styles.task_tag_item} key={index}>
                     <span>{tag} </span>
                     <Icon type="close_small" />
