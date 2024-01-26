@@ -7,11 +7,12 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "leaflet": "^1.9.4",
+    "aws4": "^1.12.0",
     "bcrypt": "^5.1.1",
+    "leaflet": "^1.9.4",
     "mongodb": "^6.3.0",
     "mongodb-client-encryption": "^6.0.0",
-    "mongoose": "^8.0.2",
+    "mongoose": "^8.1.1",
     "next": "^14.0.2",
     "next-auth": "^4.24.5",
     "react": "^18.2.0",
@@ -44,8 +45,10 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.17",
     "eslint": "^8.54.0",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1"
   }
 }

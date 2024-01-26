@@ -14,7 +14,7 @@ export const options = {
         console.log("Profile GitHub: ", profile);
 
         let userRole = "GitHub User";
-        if (profile?.email == "admin@admin.com") {
+        if (profile?.email === "admin@admin.com") {
           userRole = "admin";
         }
 
@@ -85,20 +85,6 @@ export const options = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
-      return token;
-    },
-    async session({ session, token }) {
-      if (session?.user) {
-        session.user.role = token.role;
-
-        const user = await User.find({ email: session.user.email })
-        session.user.userId = user[0]._id.toString();
-        session.user.theme = user[0].themes[0];
-      }
-      return session;
-    },
     // async signIn with new account of google and github
     async signIn({ user, account, profile }) {
       let userData;
@@ -160,6 +146,7 @@ export const options = {
         if (user[0]) {
           session.user.userId = user[0]._id.toString();
           session.user.username = user[0].username;
+          session.user.theme = user[0].themes[0];
         } else {
           session.user.userId = null;
         }
