@@ -17,6 +17,8 @@ import CheckBoxButton from "./CheckBoxButton";
 import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 import TaskEditor from "./taskEditor/TaskEditor";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import { useDispatch } from "react-redux";
+import { deleteTaskAction, updateTaskAction } from "../../../store/tasks";
 
 export function SingleItems({
   title,
@@ -33,6 +35,7 @@ export function SingleItems({
   allTags,
   allProjects,
 }) {
+  const dispatch = useDispatch();
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
 
@@ -94,21 +97,28 @@ export function SingleItems({
       });
 
       const result = await res.json();
+      dispatch(
+        updateTaskAction({
+          task: result.body,
+          oldDue: dueDate,
+          oldProjectId: projectId,
+        })
+      );
 
       //console.log(result.body);
       setIsEditing(false);
-      setDispTitle(result.body.title);
-      setDispDescription(result.body.description);
-      setPriority(result.body.priority);
-      setDispTags(result.body.tags);
-      setSelectedDate(
-        formatDate(
-          result.body.dueDate == null ? "" : new Date(result.body.dueDate)
-        ).dateStr
-      );
-      setDispProjectId(result.body.projectId);
-      setDispProjectName(result.body.projectName);
-      setDispBoard(result.body.board);
+      // setDispTitle(result.body.title);
+      // setDispDescription(result.body.description);
+      // setPriority(result.body.priority);
+      // setDispTags(result.body.tags);
+      // setSelectedDate(
+      //   formatDate(
+      //     result.body.dueDate == null ? "" : new Date(result.body.dueDate)
+      //   ).dateStr
+      // );
+      // setDispProjectId(result.body.projectId);
+      // setDispProjectName(result.body.projectName);
+      // setDispBoard(result.body.board);
     } catch (error) {
       throw error;
     }
@@ -125,7 +135,8 @@ export function SingleItems({
       });
 
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
+      dispatch(deleteTaskAction({ _id, dueDate, projectId }));
     } catch (error) {
       throw error;
     }
@@ -173,7 +184,7 @@ export function SingleItems({
                 </span>
               </div>
             </div>
-            <CheckBoxButton priority={selectedPriority} />
+            <CheckBoxButton priority={selectedPriority} taskId={_id} dueDate={dueDate} projectId={projectId} />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>

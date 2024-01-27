@@ -59,7 +59,6 @@ function DeleteConfirmCard(props) {
 
   const actionHandler = () => {
     props.actionFunction();
-    router.refresh();
   };
 
   return (

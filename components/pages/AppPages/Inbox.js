@@ -5,15 +5,19 @@ import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
+import { useSelector } from "react-redux";
 
 export default function Inbox(props) {
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
+
   useEffect(() => {
     document.title = "Inbox - Todo";
     localStorage.setItem("lastPage", "inbox");
   }, []);
 
-  const inBoxTasks = props.data.filter((task) => {
-    return task.projectId == "";
+  const inBoxTasks = tasks.filter((task) => {
+    return task.projectId == "" || task.projectId == null;
   });
 
   return (
@@ -28,15 +32,11 @@ export default function Inbox(props) {
           </div>
         </div>
       </div>
-      {props.data.length == 0 ? (
+      {tasks.length == 0 ? (
         <NoTask page="inbox" />
       ) : (
         <div className={styles.list_box}>
-          <TodoList
-            tasks={inBoxTasks}
-            allTags={props.allTags}
-            allProjects={props.allProjects}
-          />
+          <TodoList tasks={inBoxTasks} />
         </div>
       )}
     </>

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { SingleItems } from "./SingleItem";
 import styles from "../../../styles/scss/todoList.module.scss";
 import AddTask from "./AddTask";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
+import { useDispatch } from "react-redux";
+import { addBoardAction, deleteBoardAction, editBoardAction } from "../../../store/tasks";
+import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
+import AddBoard, { useBoard } from "./AddBoard";
 
 function TodoList({
   tasks,
@@ -15,15 +19,36 @@ function TodoList({
   fromBoard,
   fromTag,
 }) {
+  const dispatch = useDispatch();
+  const [showList, setShowList] = useState(true);
+  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
+  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+  const {
+    sectionInputRef,
+    showAddSection,
+    sectionName,
+    placeholder,
+    switchAddSectionHandler,
+    failHandler,
+    nameChangeHandler,
+  } = useBoard();
+  const {
+    sectionInputRef: sectionEditRef,
+    showAddSection: showEditSection,
+    sectionName: sectionName2,
+    placeholder: placeholder2,
+    switchAddSectionHandler: switchEditSectionHandler,
+    failHandler: failEditHandler,
+    nameChangeHandler: nameEditHandler,
+    setSectionName: setEditSectionName,
+  } = useBoard();
+
   if (fromProject == null) {
     fromProject = { projectId: "", projectName: "" };
   }
   if (fromBoard == null) {
     fromBoard = "";
   }
-  const [showList, setShowList] = useState(true);
-  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
-
   const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
   const haveTitle = title !== "" && title !== "undefined" && title != null;
 
@@ -31,58 +56,175 @@ function TodoList({
     setShowList((preState) => !preState);
   };
 
-  return (
-    <section className={styles.section} id={title}>
-      {haveTitle && (
-        <header className={styles.todolist_header}>
-          <div
-            className={`${styles.content_wrapper} ${
-              !showList && styles.content_wrapper_rotate
-            }`}
-            onClick={switchListHandler}
-          >
-            <Icon type="down_arrow_small" />
-          </div>
-          <h4>{title}</h4>
-          {title !== "Today" && (
-            <div className={styles.menu_btn_container}>
-              <button
-                onClick={swithMenuHandler}
-                className={styles.menu_btn}
-                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
-              >
-                <Icon type="menu_unfill" />
-              </button>
-              {showItemMenu && (
-                <PopupMenu
-                  onOverlayClick={swithMenuHandler}
-                  position={buttonPosition}
-                  levels="2"
-                >
-                  <div className={styles.task_item_action_menu}>
-                    <button>
-                      <Icon type="edit" />
-                      <span>Edit</span>
-                    </button>
-                    <hr />
-                    <button>
-                      <Icon type="delete" />
-                      <span>Delete</span>
-                    </button>
-                  </div>
-                </PopupMenu>
-              )}
-            </div>
-          )}
-        </header>
-      )}
+  const menuDeleteHandler = (event) => {
+    swithMenuHandler(event);
+    showDeleteCardHandler();
+  };
 
-      {showList && (
-        <div>
-          {haveTasks &&
-            tasks
-              .filter((data) => data.completed === false)
-              .map((data) => (
+  const menuEditHandler = (event) => {
+    swithMenuHandler(event);
+    setEditSectionName(title);
+    switchEditSectionHandler();
+  };
+
+  const addBoardformHandler = async (event) => {
+    event.preventDefault();
+    const board = sectionInputRef.current.value.trim();
+
+    try {
+      const res = await fetch("/api/addBoard", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board,
+          projectId: fromProject.projectId,
+          fromBoard,
+        }),
+      });
+      const result = await res.json();
+
+      if (result.body === "success") {
+        dispatch(
+          addBoardAction({ board, projectId: fromProject.projectId, fromBoard })
+        );
+        switchAddSectionHandler();
+      } else if (result.body === "exist") {
+        failHandler();
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const deleteBoardHandler = async () => {
+    const board = title;
+
+    try {
+      const res = await fetch("/api/deleteBoard", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board,
+          projectId: fromProject.projectId,
+        }),
+      });
+      const result = await res.json();
+
+      if (result.body === "success") {
+        dispatch(
+          deleteBoardAction({ board, projectId: fromProject.projectId })
+        );
+        showDeleteCardHandler(false);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const editBoardHandler = async (event) => {
+    event.preventDefault();
+    const board = sectionEditRef.current.value.trim();
+
+    if (board === title) {
+      switchEditSectionHandler();
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/editBoard", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board,
+          projectId: fromProject.projectId,
+          oldBoard: title,
+        }),
+      });
+      const result = await res.json();
+      console.log(result)
+
+      if (result.body === "success") {
+        dispatch(
+          editBoardAction({ board, projectId: fromProject.projectId, oldBoard: title })
+        );
+        switchEditSectionHandler();
+      } else if (result.body === "exist") {
+        failEditHandler();
+      }
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
+  return (
+    <>
+      <section className={styles.section} id={title}>
+        {showEditSection && (
+          <AddBoard
+            refSection={sectionEditRef}
+            type="edit"
+            sectionName={sectionName2}
+            placeholder={placeholder2}
+            submitHandler={editBoardHandler}
+            nameChangeHandler={nameEditHandler}
+            closeHandler={switchEditSectionHandler}
+          />
+        )}
+        {(!showEditSection && haveTitle) && (
+          <header className={styles.todolist_header}>
+            <div
+              className={`${styles.content_wrapper} ${
+                !showList && styles.content_wrapper_rotate
+              }`}
+              onClick={switchListHandler}
+            >
+              <Icon type="down_arrow_small" />
+            </div>
+            <h4>{title}</h4>
+            {title !== "Today" && (
+              <div className={styles.menu_btn_container}>
+                <button
+                  onClick={swithMenuHandler}
+                  className={styles.menu_btn}
+                  style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+                >
+                  <Icon type="menu_unfill" />
+                </button>
+                {showItemMenu && (
+                  <PopupMenu
+                    onOverlayClick={swithMenuHandler}
+                    position={buttonPosition}
+                    levels="2"
+                  >
+                    <div className={styles.task_item_action_menu}>
+                      <button onClick={menuEditHandler}>
+                        <Icon type="edit" />
+                        <span>Edit</span>
+                      </button>
+                      <hr />
+                      <button onClick={menuDeleteHandler}>
+                        <Icon type="delete" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </PopupMenu>
+                )}
+              </div>
+            )}
+          </header>
+        )}
+
+        {showList && (
+          <div>
+            {haveTasks &&
+              tasks.map((data) => (
                 <SingleItems
                   key={data._id}
                   _id={data._id}
@@ -100,18 +242,54 @@ function TodoList({
                   allProjects={allProjects}
                 />
               ))}
-        </div>
+          </div>
+        )}
+        {title !== "Overdue" && (
+          <AddTask
+            allTags={allTags}
+            allProjects={allProjects}
+            fromProject={fromProject}
+            fromBoard={fromBoard}
+            fromTag={fromTag}
+          />
+        )}
+      </section>
+      {fromProject.projectId !== "" && (
+        <button
+          className={styles.add_section_btn}
+          onClick={switchAddSectionHandler}
+          style={{
+            opacity: showAddSection && 0,
+            cursor: showAddSection && "auto",
+          }}
+          disabled={showAddSection}
+        >
+          <span className={styles.line} />
+          <span>Add Section</span>
+          <span className={styles.line} />
+        </button>
       )}
-      {title !== "Overdue" && (
-        <AddTask
-          allTags={allTags}
-          allProjects={allProjects}
-          fromProject={fromProject}
-          fromBoard={fromBoard}
-          fromTag={fromTag}
+      {showAddSection && (
+        <AddBoard
+          refSection={sectionInputRef}
+          type="add"
+          sectionName={sectionName}
+          placeholder={placeholder}
+          submitHandler={addBoardformHandler}
+          nameChangeHandler={nameChangeHandler}
+          closeHandler={switchAddSectionHandler}
         />
       )}
-    </section>
+      {showDeleteCard && (
+        <DeleteConfirmCard
+          closeHandler={showDeleteCardHandler}
+          actionFunction={deleteBoardHandler}
+          content2={" with its " + tasks.length + " tasks?"}
+          name={title}
+          type="Delete"
+        />
+      )}
+    </>
   );
 }
 

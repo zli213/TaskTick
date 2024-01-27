@@ -15,26 +15,23 @@ import { options } from "../auth/[...nextauth]/options";
 export const POST = async (req) => {
   await connect();
   const session = await getServerSession(options);
-
   const param = await req.json();
-  const newId = new ObjectId();
 
   try {
     const user = await User.find({ email: session.user.email });
+    const newProject = {
+      projectId: new ObjectId(),
+      name: param.name,
+      boards: [],
+      archived: false,
+    };
 
-    const newProjects = [
-      ...user[0].projects,
-      {
-        projectId: newId,
-        name: param.name,
-        archived: false,
-      },
-    ];
+    const newProjects = [...user[0].projects, newProject];
 
     user[0].projects = newProjects;
     await user[0].save();
 
-    return NextResponse.json({ body: { projectId: newId } }, { status: 200 });
+    return NextResponse.json({ body: newProject }, { status: 200 });
   } catch (error) {
     return new NextResponse(error, {
       status: 500,

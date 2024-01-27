@@ -25,13 +25,13 @@ export const POST = async (req) => {
 
   try {
     const res = await newtask.save();
-    //   .then((savedData) => {
-    //     console.log("Success", savedData);
-    //   })
+      // .then((savedData) => {
+      //   console.log("Success", savedData);
+      // })
     //   .catch((error) => {
     //     console.error("Fail", error);
     //   });
-    return NextResponse.json({ body: res }, { status: 200 });
+    return NextResponse.json({ body: res, task: newtask }, { status: 200 });
   } catch (error) {
     return new NextResponse(error, {
       status: 500,
