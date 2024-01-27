@@ -16,7 +16,13 @@ import Icon from "./Icon";
 import { useDispatch } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
 
-const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
+const CheckBoxButton = ({
+  priority,
+  taskId,
+  dueDate,
+  projectId,
+  completed,
+}) => {
   const dispatch = useDispatch();
   const getPriorityColor = (option) => {
     switch (option) {
@@ -32,6 +38,7 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
   };
 
   const clickHandler = async () => {
+    if (completed) return;
     try {
       const res = await fetch("/api/completeTask", {
         method: "POST",
@@ -42,8 +49,7 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
       });
 
       const result = await res.json();
-      result.ifComplete &&
-        dispatch(completeTaskAction( taskId ));
+      result.ifComplete && dispatch(completeTaskAction(taskId));
     } catch (error) {
       throw error;
     }
@@ -51,12 +57,24 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
 
   return (
     <button
-      className={`${styles.task_checkBox} ${getPriorityColor(priority)}`}
+      className={`${styles.task_checkBox} ${getPriorityColor(priority)} `}
       onClick={clickHandler}
+      disabled={completed}
     >
-      <span className={styles.task_checkBox_backgroud}></span>
-      <Icon type="check" />
-      <span className={styles.task_checkBox_circle}></span>
+      <span
+        className={`${styles.task_checkBox_backgroud} ${
+          completed && styles.completed_background
+        } `}
+      ></span>
+      <Icon
+        type="check"
+        className={` ${completed && styles.completed_svg} `}
+      />
+      <span
+        className={`${styles.task_checkBox_circle} ${
+          completed && styles.completed_circle
+        }`}
+      ></span>
     </button>
   );
 };

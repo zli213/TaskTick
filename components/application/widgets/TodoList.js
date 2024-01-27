@@ -22,6 +22,7 @@ function TodoList({
   fromProject,
   fromBoard,
   fromTag,
+  isCompleted,
 }) {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
@@ -53,6 +54,10 @@ function TodoList({
   if (fromBoard == null) {
     fromBoard = "";
   }
+  if (isCompleted == null) {
+    isCompleted = false;
+  }
+
   const haveTasks = tasks !== "" && tasks !== "undefined" && tasks != null;
   const haveTitle = title !== "" && title !== "undefined" && title != null;
 

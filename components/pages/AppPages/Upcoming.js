@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 function Upcoming() {
   let tasks = Object.values(useSelector((state) => state.tasks));
-  tasks = tasks.filter((task) => task.completed !== true);
   useEffect(() => {
     document.title = "Upcoming - Todo";
     localStorage.setItem("lastPage", "upcoming");

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialProjects, addProjectNum } from "./projects";
 import { initialLabels } from "./labels";
 import { initialNum, addInboxNum, addTodayNum } from "./num";
-import { addCompletedTask } from "./completedTask";
+import { initialCompletedTasks, addCompletedTask } from "./completedTask";
+
 
 const initialState = {};
 
@@ -30,12 +31,6 @@ export const tasksSlice = createSlice({
     },
     updateTask: (state, action) => {
       state[action.payload._id] = action.payload;
-    },
-    completeTask: (state, action) => {
-      state[action.payload] = {
-        ...state[action.payload],
-        completed: true,
-      };
     },
 
     // ----- project related tasks -----
@@ -82,7 +77,6 @@ export const tasksSlice = createSlice({
       return newState;
     },
 
-    
     // ----- boards -----
     deleteBoardTasks: (state, action) => {
       const newState = Object.keys(state).reduce((object, key) => {
@@ -108,59 +102,46 @@ export const tasksSlice = createSlice({
     },
 
     // ----- tags -----
-    addTagAction: (state, action) => {
-      state.tags = [...state.tags, action.payload];
-    },
-    editOneTagAction: (state, action) => {
-      const { oldTag, newTag } = action.payload;
-      const index = state.tags.indexOf(oldTag);
-      state.tags = [
-        ...state.tags.slice(0, index),
-        newTag,
-        ...state.tags.slice(index + 1),
-      ];
-
-      //update tasks
-      state.tasks = state.tasks.map((task) => {
-        if (task.tags.includes(oldTag)) {
-          const index = task.tags.indexOf(oldTag);
-          return {
-            ...task,
+    updateTaskTag: (state, action) => {
+      const newState = Object.keys(state).reduce((object, key) => {
+        if (state[key].tags.includes(action.payload.oldTag)) {
+          const index = state[key].tags.indexOf(action.payload.oldTag);
+          object[key] = {
+            ...state[key],
             tags: [
-              ...task.tags.slice(0, index),
-              newTag,
-              ...task.tags.slice(index + 1),
+              ...state[key].tags.slice(0, index),
+              action.payload.newTag,
+              ...state[key].tags.slice(index + 1),
             ],
           };
         } else {
-          return task;
+          object[key] = state[key];
         }
-      });
+        return object;
+      }, {});
+      return newState;
     },
-    deleteOneTagAction: (state, action) => {
-      const index = state.tags.indexOf(action.payload);
-      state.tags = [
-        ...state.tags.slice(0, index),
-        ...state.tags.slice(index + 1),
-      ];
-
-      //update tasks
-      state.tasks = state.tasks.map((task) => {
-        if (task.tags.includes(action.payload)) {
-          const index = task.tags.indexOf(action.payload);
-          return {
-            ...task,
-            tags: [...task.tags.slice(0, index), ...task.tags.slice(index + 1)],
+    deleteTaskTag: (state, action) => {
+      const newState = Object.keys(state).reduce((object, key) => {
+        if (state[key].tags.includes(action.payload)) {
+          const index = state[key].tags.indexOf(action.payload);
+          object[key] = {
+            ...state[key],
+            tags: [
+              ...state[key].tags.slice(0, index),
+              ...state[key].tags.slice(index + 1),
+            ],
           };
         } else {
-          return task;
+          object[key] = state[key];
         }
-      });
+        return object;
+      }, {});
+      return newState;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
   initialTasks,
 
@@ -177,20 +158,20 @@ export const {
   deleteBoardTasks,
   updateTaskBoard,
 
-  addTagAction,
-  editOneTagAction,
-  deleteOneTagAction,
+  updateTaskTag,
+  deleteTaskTag,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
 // ----- actions -----
 export const initialAllState =
-  (tasks, projects, inboxNum, todayNum, tags) => (dispatch, getState) => {
+  (tasks, projects, inboxNum, todayNum, tags, completedTask) => (dispatch, getState) => {
     dispatch(initialTasks(tasks));
     dispatch(initialProjects(projects));
     dispatch(initialLabels(tags));
     dispatch(initialNum({ inboxNum: inboxNum, todayNum: todayNum }));
+    dispatch(initialCompletedTasks(completedTask));
   };
 
 export const addTaskAction = (value) => (dispatch, getState) => {
@@ -292,7 +273,7 @@ export const completeTaskAction = (_id) => (dispatch, getState) => {
   const task = getState().tasks[_id];
 
   dispatch(addCompletedTask(task));
-  dispatch(completeTask(_id));
+  dispatch(deleteTask(_id));
 
   //update counters
   const dueDate = task.dueDate;

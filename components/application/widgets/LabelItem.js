@@ -8,7 +8,7 @@ import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { DeleteTag } from "../../../public/CommonFunctions";
 import { useDispatch } from "react-redux";
-import { deleteOneTagAction } from "../../../store/tasks";
+import { deleteOneTagAction } from "../../../store/labels";
 
 function LabelItem({ label, num }) {
   const dispacth = useDispatch();

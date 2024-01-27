@@ -19,7 +19,8 @@ export default function ClientLayout(props) {
       props.projects,
       props.inboxNum,
       props.todayNum,
-      props.allTags
+      props.allTags,
+      JSON.stringify(props.completedTasks)
     )
   );
 

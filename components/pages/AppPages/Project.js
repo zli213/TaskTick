@@ -15,6 +15,9 @@ export default function Project({ projectId }) {
   const router = useRouter();
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
+  const showCompletedTask = useSelector(
+    (state) => state.viewOptions.inbox.showCompletedTasks
+  );
 
   if (project.state === "deleted") {
     router.push("/application/inbox");
@@ -24,8 +27,14 @@ export default function Project({ projectId }) {
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks
     .filter((task) => task.projectId === projectId)
-    .filter((task) => task.completed !== true);
+ 
   const groupedTasks = groupTasks(boards, tasks);
+
+  const completedTasks = Object.values(useSelector((state) => state.completedTasks[projectId]));
+  const groupedCompletedTasks = groupTasks(boards, completedTasks);
+
+console.log('1',groupedTasks)
+console.log('2',groupedCompletedTasks)
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&

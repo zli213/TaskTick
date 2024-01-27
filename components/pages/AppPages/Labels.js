@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 function LabelPage({ label }) {
   let tasks = Object.values(useSelector((state) => state.tasks));
-  tasks = tasks.filter((task) => task.completed !== true);
   tasks = tasks.filter((task) => {
     return task.tags.includes(label);
   });

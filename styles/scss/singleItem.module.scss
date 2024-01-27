@@ -223,3 +223,15 @@
     color: $priorityBlue;
   }
 }
+
+.completed_background{
+  background-color: $heaveGrayColor !important;
+  opacity: 1 !important;
+}
+.completed_circle{
+  border: 0 !important;
+}
+.completed_svg{
+  opacity: 1 !important;
+  color: white !important;
+}

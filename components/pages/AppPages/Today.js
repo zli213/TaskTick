@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 function Today(props) {
   let tasks = Object.values(useSelector((state) => state.tasks));
-  tasks = tasks.filter((task) => task.completed !== true);
   const todayNum = useSelector((state) => state.num.todayNum);
   const router = useRouter();
 

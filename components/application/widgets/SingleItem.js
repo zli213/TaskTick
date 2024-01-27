@@ -87,6 +87,7 @@ export function SingleItems({
   // };
 
   const updateTaskHandler = async (task) => {
+    if (completed) return;
     try {
       const res = await fetch("/api/updateTask", {
         method: "POST",
@@ -119,6 +120,7 @@ export function SingleItems({
   };
 
   const deleteTaskHandler = async () => {
+    if (completed) return;
     try {
       const res = await fetch("/api/deleteTask", {
         method: "POST",
@@ -183,6 +185,7 @@ export function SingleItems({
               taskId={_id}
               dueDate={dueDate}
               projectId={projectId}
+              completed={completed}
             />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
