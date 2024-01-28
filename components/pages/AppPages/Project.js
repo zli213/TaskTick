@@ -9,36 +9,45 @@ import { UnarchiveProject } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { unarchiveProjectAction } from "../../../store/projects";
+import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
+import { switchProjectCompletedTasks } from "../../../store/viewOptions";
 
 export default function Project({ projectId }) {
-  const dispacth = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
+  const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
+
+  let showCompletedTask = useSelector((state) => state.viewOptions.projects[projectId]);
+  showCompletedTask = showCompletedTask !== undefined ? showCompletedTask.showCompletedTasks : false;
+
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
-  const showCompletedTask = useSelector(
-    (state) => state.viewOptions.inbox.showCompletedTasks
-  );
-
   if (project.state === "deleted") {
     router.push("/application/inbox");
   }
 
   const boards = project.boards !== undefined ? project.boards : [];
   let tasks = Object.values(useSelector((state) => state.tasks));
-  tasks = tasks
-    .filter((task) => task.projectId === projectId)
- 
+  tasks = tasks.filter((task) => task.projectId === projectId);
+
   const groupedTasks = groupTasks(boards, tasks);
 
-  const completedTasks = Object.values(useSelector((state) => state.completedTasks[projectId]));
+  let completedTasks = useSelector((state) => state.completedTasks[projectId]);
+  completedTasks =
+    completedTasks !== undefined ? Object.values(completedTasks) : [];
   const groupedCompletedTasks = groupTasks(boards, completedTasks);
 
-console.log('1',groupedTasks)
-console.log('2',groupedCompletedTasks)
+  console.log("1", groupedTasks);
+  console.log("2", groupedCompletedTasks);
+  console.log('3', showCompletedTask) ;
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&
-      dispacth(unarchiveProjectAction(projectId));
+      dispatch(unarchiveProjectAction(projectId));
+  };
+
+  const showCompletedHandler = (event) => {
+    dispatch(switchProjectCompletedTasks(projectId));
   };
 
   useEffect(() => {
@@ -52,8 +61,40 @@ console.log('2',groupedCompletedTasks)
         <div className={styles.view_header_content}>
           <h1>{project.name}</h1>
           {!project.archived && (
-            <div>
-              <Icon type="view" />
+            <div className={styles.menu_btn_container}>
+              <button
+                onClick={swithMenuHandler}
+                className={styles.btn_completed_task}
+              >
+                <Icon type="view" />
+                View
+              </button>
+              {showItemMenu && (
+                <PopupMenu
+                  onOverlayClick={swithMenuHandler}
+                  position={buttonPosition}
+                  levels=""
+                >
+                  <div className={styles.task_item_action_menu}>
+                    <div className={styles.view_btn}>
+                      <Icon type="check_circle" />
+                      <label htmlFor="showCompletedTask">
+                        <div>Completed tasks</div>
+                        <div className={styles.toggle_switch}>
+                          <input
+                            type="checkbox"
+                            id="showCompletedTask"
+                            className={styles.view_checkbox}
+                            onChange={showCompletedHandler}
+                            checked={showCompletedTask}
+                          ></input>
+                          <span className={styles.toggle_background}></span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </PopupMenu>
+              )}
             </div>
           )}
         </div>
@@ -75,17 +116,24 @@ console.log('2',groupedCompletedTasks)
           />
         ) : (
           <div className={styles.list_box}>
-            {groupedTasks.map((group) => (
-              <TodoList
-                key={group.name}
-                title={group.name}
-                tasks={group.tasks}
-                fromProject={{
-                  projectId: projectId,
-                  projectName: project.name,
-                }}
-                fromBoard={group.name}
-              />
+            {groupedTasks.map((group, index) => (
+              <React.Fragment key={index}>
+                <TodoList
+                  id={index + group.name}
+                  key={group.name}
+                  title={group.name}
+                  tasks={group.tasks}
+                  fromProject={{
+                    projectId: projectId,
+                    projectName: project.name,
+                  }}
+                  fromBoard={group.name}
+                />
+                {
+                showCompletedTask && (
+                  <TodoList key={index} tasks={groupedCompletedTasks[1].tasks} isCompleted={true} />
+                )}
+              </React.Fragment>
             ))}
           </div>
         ))}

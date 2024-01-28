@@ -16,7 +16,9 @@ export default function Inbox(props) {
   let completedTasks = Object.values(
     useSelector((state) => state.completedTasks.inbox)
   );
-  const showCompletedTask = useSelector(
+  completedTasks = completedTasks !== undefined ? Object.values(completedTasks) : [];
+
+  let showCompletedTask = useSelector(
     (state) => state.viewOptions.inbox.showCompletedTasks
   );
 
@@ -57,14 +59,14 @@ export default function Inbox(props) {
                 <div className={styles.task_item_action_menu}>
                   <div className={styles.view_btn}>
                     <Icon type="check_circle" />
-                    <label for="showCompletedTask">
+                    <label htmlFor="showCompletedTask">
                       <div>Completed tasks</div>
                       <div className={styles.toggle_switch}>
                         <input
                           type="checkbox"
                           id="showCompletedTask"
                           className={styles.view_checkbox}
-                          onClick={showCompletedHandler}
+                          onChange={showCompletedHandler}
                           checked={showCompletedTask}
                         ></input>
                         <span className={styles.toggle_background}></span>

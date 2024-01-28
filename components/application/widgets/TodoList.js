@@ -169,7 +169,7 @@ function TodoList({
 
   return (
     <>
-      <section className={styles.section} id={title}>
+      <section className={styles.section} id={title} style={{ marginTop: isCompleted && 0 }}>
         {showEditSection && (
           <AddBoard
             refSection={sectionEditRef}
@@ -248,7 +248,7 @@ function TodoList({
               ))}
           </div>
         )}
-        {title !== "Overdue" && (
+        {title !== "Overdue" && !isCompleted && (
           <AddTask
             allTags={allTags}
             allProjects={allProjects}
