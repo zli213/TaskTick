@@ -70,7 +70,7 @@ function Today(props) {
           {overDueTasks.length !== 0 && (
             <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
           )}
-          <TodoList tasks={todayTasks} showProject={true} title="Today" />
+          <TodoList tasks={todayTasks} showProject={true} title="Today" fromDate={today} />
         </div>
       )}
     </>

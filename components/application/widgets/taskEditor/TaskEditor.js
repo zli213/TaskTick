@@ -34,6 +34,7 @@ function TaskEditor({
   fromProject,
   fromBoard,
   fromTag,
+  fromDate,
   cancelCallBack,
   submitCallBack,
 }) {
@@ -81,7 +82,14 @@ function TaskEditor({
   /** record the editing task */
   let newTaskData = useRef({
     _id: taskData._id == null ? "" : taskData._id,
-    selectedDate: taskData.selectedDate == null ? "" : taskData.selectedDate,
+    selectedDate: 
+      formType === "add"
+        ? fromDate == null
+          ? ""
+          : fromDate
+        : taskData.selectedDate == null
+        ? ""
+        : taskData.selectedDate,
     priority: taskData.priority == null ? 4 : taskData.priority,
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,

@@ -22,6 +22,7 @@ function TodoList({
   fromProject,
   fromBoard,
   fromTag,
+  fromDate,
   isCompleted,
 }) {
   const dispatch = useDispatch();
@@ -255,6 +256,7 @@ function TodoList({
             fromProject={fromProject}
             fromBoard={fromBoard}
             fromTag={fromTag}
+            fromDate={fromDate}
           />
         )}
       </section>
