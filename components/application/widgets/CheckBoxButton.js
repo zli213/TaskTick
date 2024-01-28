@@ -23,6 +23,7 @@ const CheckBoxButton = ({
   projectId,
   completed,
 }) => {
+  const [isCompleted, setIsCompleted] = React.useState(completed);
   const dispatch = useDispatch();
   const getPriorityColor = (option) => {
     switch (option) {
@@ -38,7 +39,7 @@ const CheckBoxButton = ({
   };
 
   const clickHandler = async () => {
-    if (completed) return;
+    if (isCompleted) return;
     try {
       const res = await fetch("/api/completeTask", {
         method: "POST",
@@ -50,6 +51,7 @@ const CheckBoxButton = ({
 
       const result = await res.json();
       result.ifComplete && dispatch(completeTaskAction(taskId));
+      setIsCompleted(result.ifComplete);
     } catch (error) {
       throw error;
     }
@@ -63,16 +65,16 @@ const CheckBoxButton = ({
     >
       <span
         className={`${styles.task_checkBox_backgroud} ${
-          completed && styles.completed_background
+          isCompleted && styles.completed_background
         } `}
       ></span>
       <Icon
         type="check"
-        className={` ${completed && styles.completed_svg} `}
+        className={` ${isCompleted && styles.completed_svg} `}
       />
       <span
         className={`${styles.task_checkBox_circle} ${
-          completed && styles.completed_circle
+          isCompleted && styles.completed_circle
         }`}
       ></span>
     </button>
