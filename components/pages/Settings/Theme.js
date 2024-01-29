@@ -10,6 +10,8 @@ const SettingTheme = () => {
   const {
     isDarkTheme,
     isSystemTheme,
+    setIsDarkTheme,
+    setIsSystemTheme,
     toggleDark,
     toggleLight,
     matchSystem} = useContext(MyThemeContext);
@@ -21,21 +23,26 @@ const SettingTheme = () => {
 
   function applyDarkTheme() {
     toggleDark();
+    setIsDarkTheme(true);
     saveChange("dark");
   }
 
   function applyLightTheme() {
     toggleLight();
+    setIsDarkTheme(true);
     saveChange("light");
   }
 
   function applySystemTheme() {
     matchSystem();
+    setIsSystemTheme(true);
     saveChange("system");
   }
 
-  function applydefault() {
+  function applyDefault() {
     toggleLight();
+    setIsSystemTheme(false);
+    setIsDarkTheme(false);
     saveChange("light");
   }
 
@@ -44,7 +51,7 @@ const SettingTheme = () => {
     if (isChecked) {
       applySystemTheme();
     } else {
-      applydefault();
+      applyDefault();
     }
   }
 
