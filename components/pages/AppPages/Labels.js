@@ -6,8 +6,14 @@ import Icon from "../../application/widgets/Icon";
 import TodoList from "../../application/widgets/TodoList";
 import Link from "next/link";
 import NoTask from "../../application/widgets/NoTask";
+import { useSelector } from "react-redux";
 
-function LabelPage({ tasks, label, allTags, allProjects }) {
+function LabelPage({ label }) {
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => {
+    return task.tags.includes(label);
+  });
+
   useEffect(() => {
     document.title = "Filters & Labels - Todo";
     localStorage.setItem("lastPage", `label/${label}`);
@@ -28,12 +34,7 @@ function LabelPage({ tasks, label, allTags, allProjects }) {
       {tasks.length === 0 && <NoTask page="label" />}
       {tasks.length !== 0 && (
         <div className={styles.list_box} id="listBox">
-          <TodoList
-          tasks={tasks}
-          allTags={allTags}
-          allProjects={allProjects}
-          fromTag={label}
-        />
+          <TodoList tasks={tasks} fromTag={label} />
         </div>
       )}
     </>

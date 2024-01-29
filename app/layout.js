@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import StoreProvider from "../store/StoreProvider";
 import "../styles/scss/globals.scss";
 import { MyThemeContextProvider } from "../components/application/widgets/MyThemeContext";
 import ProviderWrapper from "./ProviderWrapper";
@@ -10,16 +11,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    
+    <StoreProvider>
       <html lang="en">
         <body>
           <ProviderWrapper>
-          <MyThemeContextProvider>
-            <main>{children}</main>
+            <MyThemeContextProvider>
+              <main>{children}</main>
             </MyThemeContextProvider>
           </ProviderWrapper>
         </body>
       </html>
-    
+    </StoreProvider>
   );
 }

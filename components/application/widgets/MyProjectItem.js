@@ -11,6 +11,8 @@ import {
   UnarchiveProject,
 } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { deleteProjectAction, archiveProjectAction, unarchiveProjectAction} from "../../../store/tasks";
 
 //Custom React hook -> useProjectMenu, use for Delete and archive project
 export const useProjectMenu = () => {
@@ -47,11 +49,12 @@ export const useProjectMenu = () => {
 //MyProject Item
 function MyProjectItem({ project, type }) {
   const router = useRouter();
+  const dispacth = useDispatch();
 
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
   const { showAddProjectCard, showProjectCardHandler } = useProject();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
-  const [showedName, setShowedName] = useState(project.name);
+  // const [showedName, setShowedName] = useState(project.name);
   const { contents, actionType, setDeleteHandler, setArchiveHandler } =
     useProjectMenu();
 
@@ -72,19 +75,20 @@ function MyProjectItem({ project, type }) {
       setArchiveHandler();
       showDeleteCardHandler();
     } else {
-      await UnarchiveProject(project.projectId);
-      router.refresh();
+      const result = await UnarchiveProject(project.projectId);
+      result && dispacth(unarchiveProjectAction(project.projectId));
     }
   };
 
-  const changeProjectHandler = () => {
+  const changeProjectHandler =async () => {
     if (actionType === "Delete") {
-      DeleteProject(project.projectId);
+      const result = await DeleteProject(project.projectId);
+      result && dispacth(deleteProjectAction(project.projectId));
     } else {
-      ArchiveProject(project.projectId);
+      const result =  await ArchiveProject(project.projectId);
+      result && dispacth(archiveProjectAction(project.projectId));
     }
-    const lastPage = localStorage.getItem("lastPage");
-    lastPage.includes(project.projectId) && router.push("/application/inbox");
+   
   };
 
   return (
@@ -94,7 +98,7 @@ function MyProjectItem({ project, type }) {
     >
       <Link href={`/application/project/${project.projectId}`}>
         <Icon type="hashtag" />
-        {showedName}
+        {project.name}
       </Link>
       <div className={styles.menu_btn_container}>
         <span
@@ -133,7 +137,6 @@ function MyProjectItem({ project, type }) {
           name={project.name}
           projectId={project.projectId}
           closeHandler={showProjectCardHandler}
-          showNameHandler={setShowedName}
         />
       )}
       {showDeleteCard && (

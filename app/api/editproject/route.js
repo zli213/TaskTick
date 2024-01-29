@@ -22,7 +22,7 @@ export const POST = async (req) => {
     const user = await User.find({ email: session.user.email });
 
     //Update project name
-    var projects = user[0].projects;
+    let projects = user[0].projects;
     for (const project of projects) {
       if (project.projectId.toString() == param.id) {
         project.name = param.name;

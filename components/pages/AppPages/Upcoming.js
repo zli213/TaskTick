@@ -4,8 +4,12 @@ import React from "react";
 import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-function Upcoming(props) {
+function Upcoming() {
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
+
   useEffect(() => {
     document.title = "Upcoming - Todo";
     localStorage.setItem("lastPage", "upcoming");
@@ -19,12 +23,8 @@ function Upcoming(props) {
           <div>buttons</div>
         </div>
       </div>
-      <div className={styles.list_box} id="listBox">
-        <TodoList
-          tasks={props.data}
-          allTags={props.allTags}
-          allProjects={props.allProjects}
-        />
+      <div className={styles.list_box} id='listBox'>
+        <TodoList tasks={tasks} />
       </div>
     </>
   );

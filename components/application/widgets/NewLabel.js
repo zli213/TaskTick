@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import styles from "../../../styles/scss/components/application/widgets/newLabel.module.scss";
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addTagAction, editOneTagAction } from "../../../store/tasks";
 
 //Custom React hook -> useLabel
 export const useLabel = () => {
@@ -22,6 +24,7 @@ export const useLabel = () => {
 
 //Edit label card
 export default function NewLabel(props) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const tagInputRef = useRef();
   const [enteredTag, setEnteredTag] = useState(props.label ? props.label : "");
@@ -51,8 +54,7 @@ export default function NewLabel(props) {
 
         if (res.ok) {
           props.closeHandler();
-          props.changeShowHandler(tag);
-          router.refresh();
+          dispatch(editOneTagAction({ oldTag: props.label, newTag: tag }));
         } else {
           setIsWrong(true);
         }
@@ -73,8 +75,8 @@ export default function NewLabel(props) {
         const result = await res.json();
 
         if (res.ok) {
+          dispatch(addTagAction(tag));
           router.push(`/application/label/${tag}`);
-          router.refresh();
         } else {
           setIsWrong(true);
         }

@@ -6,15 +6,19 @@ import { useEffect } from "react";
 import styles from "/styles/scss/application.module.scss";
 import Icon from "../../../components/application/widgets/Icon";
 import NoTask from "../../application/widgets/NoTask";
+import { useSelector } from "react-redux";
 
 function Today(props) {
+  let tasks = useSelector((state) => state.tasks.tasks);
+  tasks = tasks.filter((task) => task.completed !== true);
+  const todayNum = useSelector((state) => state.tasks.todayNum);
   const router = useRouter();
 
   //use timestamp to compare if the item dueDate is today
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const overDueTasks = props.data
+  const overDueTasks = tasks
     .filter((task) => {
       return task.dueDate !== null;
     })
@@ -23,7 +27,7 @@ function Today(props) {
       return taskDueDate.getTime() < today.getTime();
     });
 
-  const todayTasks = props.data.filter((task) => {
+  const todayTasks = tasks.filter((task) => {
     const taskDueDate = new Date(task.dueDate);
     return taskDueDate.getTime() === today.getTime();
   });
@@ -49,35 +53,25 @@ function Today(props) {
         >
           <div>
             <h1>Today</h1>
-            {props.num === 0 ? (
+            {todayNum === 0 ? (
               ""
             ) : (
               <div className={styles.today_task_label}>
                 <Icon type="check_small" />
-                {props.num} tasks
+                {todayNum} tasks
               </div>
             )}
           </div>
         </div>
       </div>
-      {props.num === 0 ? (
+      {todayNum === 0 ? (
         <NoTask page="today" />
       ) : (
         <div className={styles.list_box} id="listBox">
-          <TodoList
-            tasks={overDueTasks}
-            showProject={true}
-            title="Overdue"
-            allTags={props.allTags}
-            allProjects={props.allProjects}
-          />
-          <TodoList
-            tasks={todayTasks}
-            showProject={true}
-            title="Today"
-            allTags={props.allTags}
-            allProjects={props.allProjects}
-          />
+          {overDueTasks.length !== 0 && (
+            <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+          )}
+          <TodoList tasks={todayTasks} showProject={true} title="Today" />
         </div>
       )}
     </>

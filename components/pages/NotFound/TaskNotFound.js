@@ -5,14 +5,15 @@
 import Link from "next/link";
 import styles from "../../../styles/scss/notFound.module.scss";
 
-export default function TaskNotFound() {
+export default function TaskNotFound({title}) {
+  console.log(title)
   return (
     <>
       <div className={`${styles.info_content}  ${styles.big_padding}`}>
         <img src="/images/task_not_found.jpg" alt="task not found" />
-        <h1>Task not found</h1>
+        <h1>{title} not found</h1>
         <p className={styles.limit_width}>
-          The task doesn't seem to exist or you don't have permission to access
+          The {title} doesn't seem to exist or you don't have permission to access
           it.
         </p>
         <div>

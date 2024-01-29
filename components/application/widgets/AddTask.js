@@ -2,6 +2,8 @@
 import { useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
+import {  useDispatch } from "react-redux";
+import { addTaskAction } from "../../../store/tasks";
 
 /**
  * @param
@@ -9,6 +11,7 @@ import { useSession } from "next-auth/react";
  * fromBoard
  */
 function AddTask(props) {
+  const dispatch = useDispatch();
   const { data: session } = useSession();
   // Show/Hide add task btn
   const [isShowAddBtn, setIsShowAddBtn] = useState(true);
@@ -29,7 +32,6 @@ function AddTask(props) {
   };
 
   const saveNewTask = async (newtask) => {
-    console.log(session.user);
     const newTaskWithUser = {
       ...newtask,
       userId: session.user.userId,
@@ -44,9 +46,10 @@ function AddTask(props) {
         },
         body: JSON.stringify(newTaskWithUser),
       });
-      console.log(res);
+      const data = await res.json();
       showAddBtn();
       hideTaskEditor();
+      dispatch(addTaskAction(data.task));
     } catch (err) {}
     // console.log(newTaskWithUser);
   };
