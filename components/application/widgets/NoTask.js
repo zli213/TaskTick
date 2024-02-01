@@ -40,6 +40,7 @@ const NoTask = (props) => {
         allProjects={props.allProjects}
         fromProject={props.fromProject}
         fromBoard={props.fromBoard}
+        fromDate={props.fromDate}
       />
       <div className={styles.no_tasks}>
         <img src={image} />

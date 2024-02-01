@@ -64,7 +64,7 @@ function Today(props) {
         </div>
       </div>
       {todayNum === 0 ? (
-        <NoTask page="today" />
+        <NoTask page="today" fromDate={today} />
       ) : (
         <div className={styles.list_box}>
           {overDueTasks.length !== 0 && (

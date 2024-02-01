@@ -10,7 +10,7 @@
  */
 
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ const CheckBoxButton = ({
   projectId,
   completed,
 }) => {
-  const [isCompleted, setIsCompleted] = React.useState(completed);
+  const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const getPriorityColor = (option) => {
     switch (option) {
@@ -50,8 +50,12 @@ const CheckBoxButton = ({
       });
 
       const result = await res.json();
-      result.ifComplete && dispatch(completeTaskAction(taskId));
-      setIsCompleted(result.ifComplete);
+      if (result.ifComplete) {
+        dispatch(completeTaskAction(taskId));
+        setIsCompleted(result.ifComplete);
+      } else {
+        throw new Error("Complete task failed ");
+      }
     } catch (error) {
       throw error;
     }

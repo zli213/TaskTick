@@ -155,7 +155,6 @@ function TodoList({
         }),
       });
       const result = await res.json();
-      console.log(result);
 
       if (result.body === "success") {
         dispatch(editBoardAction(fromProject.projectId, board, title));
@@ -170,7 +169,11 @@ function TodoList({
 
   return (
     <>
-      <section className={styles.section} id={title} style={{ marginTop: isCompleted && 0 }}>
+      <section
+        className={styles.section}
+        id={title}
+        style={{ marginTop: isCompleted && 0 }}
+      >
         {showEditSection && (
           <AddBoard
             refSection={sectionEditRef}

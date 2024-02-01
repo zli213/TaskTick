@@ -100,7 +100,6 @@ export function SingleItems({
       const result = await res.json();
       dispatch(updateTaskAction(result.body, dueDate, projectId));
 
-      console.log(result.body);
       setIsEditing(false);
       setDispTitle(result.body.title);
       setDispDescription(result.body.description);
