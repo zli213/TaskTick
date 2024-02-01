@@ -17,8 +17,13 @@ export default function Project({ projectId }) {
   const router = useRouter();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  let showCompletedTask = useSelector((state) => state.viewOptions.projects[projectId]);
-  showCompletedTask = showCompletedTask !== undefined ? showCompletedTask.showCompletedTasks : false;
+  let showCompletedTask = useSelector(
+    (state) => state.viewOptions.projects[projectId]
+  );
+  showCompletedTask =
+    showCompletedTask !== undefined
+      ? showCompletedTask.showCompletedTasks
+      : false;
 
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
@@ -39,7 +44,7 @@ export default function Project({ projectId }) {
 
   console.log("1", groupedTasks);
   console.log("2", groupedCompletedTasks);
-  console.log('3', showCompletedTask) ;
+  console.log("3", showCompletedTask);
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&
@@ -108,7 +113,7 @@ export default function Project({ projectId }) {
       )}
 
       {!project.archived &&
-        (boards.length === 0 && tasks.length === 0 ? (
+        (boards.length === 0 && tasks.length === 0  && !showCompletedTask ? (
           <NoTask
             page="project"
             fromProject={{ projectId: projectId, projectName: project.name }}
@@ -129,9 +134,12 @@ export default function Project({ projectId }) {
                   }}
                   fromBoard={group.name}
                 />
-                {
-                showCompletedTask && (
-                  <TodoList key={index} tasks={groupedCompletedTasks[1].tasks} isCompleted={true} />
+                {showCompletedTask && (
+                  <TodoList
+                    key={index}
+                    tasks={groupedCompletedTasks[index].tasks}
+                    isCompleted={true}
+                  />
                 )}
               </React.Fragment>
             ))}
