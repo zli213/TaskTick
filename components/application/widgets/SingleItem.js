@@ -87,6 +87,7 @@ export function SingleItems({
   // };
 
   const updateTaskHandler = async (task) => {
+    if (completed) return;
     try {
       const res = await fetch("/api/updateTask", {
         method: "POST",
@@ -97,34 +98,28 @@ export function SingleItems({
       });
 
       const result = await res.json();
-      dispatch(
-        updateTaskAction({
-          task: result.body,
-          oldDue: dueDate,
-          oldProjectId: projectId,
-        })
-      );
+      dispatch(updateTaskAction(result.body, dueDate, projectId));
 
-      //console.log(result.body);
       setIsEditing(false);
-      // setDispTitle(result.body.title);
-      // setDispDescription(result.body.description);
-      // setPriority(result.body.priority);
-      // setDispTags(result.body.tags);
-      // setSelectedDate(
-      //   formatDate(
-      //     result.body.dueDate == null ? "" : new Date(result.body.dueDate)
-      //   ).dateStr
-      // );
-      // setDispProjectId(result.body.projectId);
-      // setDispProjectName(result.body.projectName);
-      // setDispBoard(result.body.board);
+      setDispTitle(result.body.title);
+      setDispDescription(result.body.description);
+      setPriority(result.body.priority);
+      setDispTags(result.body.tags);
+      setSelectedDate(
+        formatDate(
+          result.body.dueDate == null ? "" : new Date(result.body.dueDate)
+        ).dateStr
+      );
+      setDispProjectId(result.body.projectId);
+      setDispProjectName(result.body.projectName);
+      setDispBoard(result.body.board);
     } catch (error) {
       throw error;
     }
   };
 
   const deleteTaskHandler = async () => {
+    if (completed) return;
     try {
       const res = await fetch("/api/deleteTask", {
         method: "POST",
@@ -136,7 +131,7 @@ export function SingleItems({
 
       const result = await res.json();
       // console.log(result);
-      dispatch(deleteTaskAction({ _id, dueDate, projectId }));
+      dispatch(deleteTaskAction(_id, dueDate, projectId));
     } catch (error) {
       throw error;
     }
@@ -184,7 +179,13 @@ export function SingleItems({
                 </span>
               </div>
             </div>
-            <CheckBoxButton priority={selectedPriority} taskId={_id} dueDate={dueDate} projectId={projectId} />
+            <CheckBoxButton
+              priority={selectedPriority}
+              taskId={_id}
+              dueDate={dueDate}
+              projectId={projectId}
+              completed={completed}
+            />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>

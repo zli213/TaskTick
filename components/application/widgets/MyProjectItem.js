@@ -12,7 +12,11 @@ import {
 } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { deleteProjectAction, archiveProjectAction, unarchiveProjectAction} from "../../../store/tasks";
+import {
+  deleteProjectAction,
+  archiveProjectAction,
+  unarchiveProjectAction,
+} from "../../../store/projects";
 
 //Custom React hook -> useProjectMenu, use for Delete and archive project
 export const useProjectMenu = () => {
@@ -80,15 +84,14 @@ function MyProjectItem({ project, type }) {
     }
   };
 
-  const changeProjectHandler =async () => {
+  const changeProjectHandler = async () => {
     if (actionType === "Delete") {
       const result = await DeleteProject(project.projectId);
       result && dispacth(deleteProjectAction(project.projectId));
     } else {
-      const result =  await ArchiveProject(project.projectId);
+      const result = await ArchiveProject(project.projectId);
       result && dispacth(archiveProjectAction(project.projectId));
     }
-   
   };
 
   return (

@@ -15,7 +15,6 @@ export const POST = async (req) => {
   await connect();
   const session = await getServerSession(options);
   const param = await req.json();
-  console.log('1',param)
 
   try {
     const user = await User.find({ email: session.user.email });
@@ -27,12 +26,9 @@ export const POST = async (req) => {
     if (param.fromBoard == null || param.fromBoard == "") {
       newProject.boards = [param.board, ...newProject.boards];
     } else {
-      console.log('2',newProject.boards.indexOf(param.board))
       if (newProject.boards.indexOf(param.board) > -1) {
-        console.log('3','exist')
         return NextResponse.json({body: 'exist'},{ status: 200 });
       }
-      console.log('4','not exist')
       const preIndex = newProject.boards.indexOf(param.fromBoard);
       newProject.boards.splice(preIndex + 1, 0, param.board);
     }

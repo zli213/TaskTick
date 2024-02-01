@@ -6,7 +6,7 @@ import styles from "../../../styles/scss/components/application/widgets/newLabel
 import Icon from "./Icon";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { addTagAction, editOneTagAction } from "../../../store/tasks";
+import { addTag, editOneTagAction } from "../../../store/labels";
 
 //Custom React hook -> useLabel
 export const useLabel = () => {
@@ -38,7 +38,7 @@ export default function NewLabel(props) {
   //Add or edit label
   const formSubmitHandler = async (event) => {
     event.preventDefault();
-    const tag = tagInputRef.current.value;
+    const tag = tagInputRef.current.value.trim();
 
     if (props.label) {
       //Edit label
@@ -54,7 +54,7 @@ export default function NewLabel(props) {
 
         if (res.ok) {
           props.closeHandler();
-          dispatch(editOneTagAction({ oldTag: props.label, newTag: tag }));
+          dispatch(editOneTagAction( props.label,  tag ));
         } else {
           setIsWrong(true);
         }
@@ -75,7 +75,7 @@ export default function NewLabel(props) {
         const result = await res.json();
 
         if (res.ok) {
-          dispatch(addTagAction(tag));
+          dispatch(addTag(tag));
           router.push(`/application/label/${tag}`);
         } else {
           setIsWrong(true);

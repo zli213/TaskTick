@@ -62,6 +62,7 @@ import ViewIcon from "../../../public/icon/view_option.svg";
 import EyeOnIcon from "../../../public/icon/eye_on.svg";
 import EyeOffIcon from "../../../public/icon/eye_off.svg";
 import Board from "../../../public/icon/board.svg";
+import CheckCircleIcon from "../../../public/icon/check_circle.svg";
 
 const Icon = ({ type, ...props }) => {
   const getIconByType = () => {
@@ -167,6 +168,8 @@ const Icon = ({ type, ...props }) => {
         return <ArchiveIcon {...props} />;
       case "unarchive":
         return <UnarchiveIcon {...props} />;
+      case "check_circle":
+        return <CheckCircleIcon {...props} />;
 
       default:
         return null;

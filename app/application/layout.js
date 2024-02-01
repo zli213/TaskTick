@@ -17,7 +17,8 @@ export default async function AppLayout(props) {
   }
 
   let tasks = await getOneUserTasks(session.user.userId);
-  tasks = tasks.filter((task) => task.archived !== true);
+  const completedTasks = tasks.filter((task) => task.completed === true);
+  tasks = tasks.filter((task) => task.archived !== true && task.completed !== true);
 
   let projects = await getProjects(session.user.userId);
   projects = await updateInfo(projects);
@@ -34,6 +35,7 @@ export default async function AppLayout(props) {
         inboxNum={inboxNum}
         todayNum={todayNum}
         allTags={tags}
+        completedTasks={completedTasks}
       >
         {props.children}
       </ClientLayout>

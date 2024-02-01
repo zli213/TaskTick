@@ -34,14 +34,15 @@ function TaskEditor({
   fromProject,
   fromBoard,
   fromTag,
+  fromDate,
   cancelCallBack,
   submitCallBack,
 }) {
-  let tagList = useSelector((state) => state.tasks.tags);
-  let allProjects = useSelector((state) => state.tasks.projects);
+  let tagList = useSelector((state) => state.labels.tags);
+  let allProjects = Object.values(useSelector((state) => state.projects));
   allProjects = allProjects
     .filter((project) => project.archived !== true)
-    .filter((project) => project.state !== "deleted");
+    .filter((project) => project.isDeleted !== true);
 
   // Default values
   if (formType == null) {
@@ -81,7 +82,14 @@ function TaskEditor({
   /** record the editing task */
   let newTaskData = useRef({
     _id: taskData._id == null ? "" : taskData._id,
-    selectedDate: taskData.selectedDate == null ? "" : taskData.selectedDate,
+    selectedDate: 
+      formType === "add"
+        ? fromDate == null
+          ? ""
+          : fromDate
+        : taskData.selectedDate == null
+        ? ""
+        : taskData.selectedDate,
     priority: taskData.priority == null ? 4 : taskData.priority,
     taskName: taskData.taskName == null ? "" : taskData.taskName,
     taskContent: taskData.taskContent == null ? "" : taskData.taskContent,
@@ -112,7 +120,6 @@ function TaskEditor({
         ? ""
         : taskData.board,
   });
-  console.log(newTaskData.current);
 
   /** update newTaskData */
   const setNewTaskData = (key, value) => {
