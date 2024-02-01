@@ -117,6 +117,7 @@ export default function NewLabel(props) {
   };
 
   useEffect(() => {
+    tagInputRef.current.focus();
     document.addEventListener("wheel", disableScroll, { passive: false });
     document.addEventListener("touchmove", disableScroll, { passive: false });
 

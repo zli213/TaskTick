@@ -68,9 +68,20 @@ function Today(props) {
       ) : (
         <div className={styles.list_box}>
           {overDueTasks.length !== 0 && (
-            <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+            <TodoList
+              tasks={overDueTasks}
+              showProject={true}
+              title="Overdue"
+              forbidEdit={true}
+            />
           )}
-          <TodoList tasks={todayTasks} showProject={true} title="Today" fromDate={today} />
+          <TodoList
+            tasks={todayTasks}
+            showProject={true}
+            title="Today"
+            fromDate={today}
+            forbidEdit={true}
+          />
         </div>
       )}
     </>

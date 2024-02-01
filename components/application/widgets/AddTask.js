@@ -4,6 +4,8 @@ import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
 import {  useDispatch } from "react-redux";
 import { addTaskAction } from "../../../store/tasks";
+import styles from "../../../styles/scss/components/application/widgets/addTask.module.scss";
+import Icon from "./Icon";
 
 /**
  * @param
@@ -14,7 +16,7 @@ function AddTask(props) {
   const dispatch = useDispatch();
   const { data: session } = useSession();
   // Show/Hide add task btn
-  const [isShowAddBtn, setIsShowAddBtn] = useState(true);
+  const [isShowAddBtn, setIsShowAddBtn] = useState(props.openEditor ? false : true);
   const showAddBtn = () => {
     setIsShowAddBtn(true);
   };
@@ -23,11 +25,12 @@ function AddTask(props) {
   };
 
   // Show/Hide task editor
-  const [isShowTaskEditor, setIsShowTaskEditor] = useState(false);
+  const [isShowTaskEditor, setIsShowTaskEditor] = useState(props.openEditor ? true : false);
   const showTaskEditor = () => {
     setIsShowTaskEditor(true);
   };
   const hideTaskEditor = () => {
+    props.openEditor && props.closeCardHandler() ;
     setIsShowTaskEditor(false);
   };
 
@@ -62,14 +65,10 @@ function AddTask(props) {
             showTaskEditor();
             hideAddBtn();
           }}
+          className={styles.add_task_btn}
         >
-          <span>
-            <svg width="13" height="13">
-              <path
-                fill="red"
-                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
-              ></path>
-            </svg>
+          <span className={styles.add_task_icon }>
+            <Icon type="add" />
           </span>
           Add a task
         </button>

@@ -18,9 +18,87 @@
   position: relative;
   @include flexRowStart();
   gap: $gap;
+}
+
+.icon_button {
+  @include flexRowBetween();
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: $fontSizeLg;
+  cursor: pointer;
   fill: white;
+  border-radius: $borderRadiusSm;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.2);
+  }
 }
 
 .avatar_button {
+  @include flexRowBetween();
+  gap: $gapXsm;
   cursor: pointer;
+  border-radius: $borderRadiusSm;
+  height: $fontSizeLg;
+  padding: 0 $paddingsm;
+  transition: all 100ms ease-in-out;
+
+  .icon_btn {
+    @include flexRowBetween();
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background-color: rgba($color: #fff, $alpha: 0.2);
+    margin-right: $marginXsm;
+    transition: all 100ms ease-in-out;
+  }
+
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.2);
+
+    .icon_btn {
+      background-color: rgba($color: #fff, $alpha: 0);
+    }
+  }
+}
+
+.overlay_styles {
+  @include flexRowBetween();
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+}
+
+.add_task_card {
+  background-color: #fff;
+  padding: $paddingXsm;
+  color: $textPrimaryColor;
+  line-height: $fontSizeMd;
+  min-width: 55rem;
+  border-radius: $borderRadius;
+  box-shadow: 0 8px 4rem 8px rgba($color: black, $alpha: 0.2);
+  transition: all 300ms ease-in-out ;
+}
+
+.show {
+  animation: scaleUp 0.1s ease-out;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: translate(0, 70%) scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
 }

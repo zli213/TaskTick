@@ -438,3 +438,7 @@
 .view_checkbox:checked + .toggle_background {
   background-color: $primaryColor;
 }
+
+.no_task_list {
+  color: $heaveGrayColor;
+}

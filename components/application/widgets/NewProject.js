@@ -95,6 +95,7 @@ export default function NewProject(props) {
   };
 
   useEffect(() => {
+    nameInputRef.current.focus();
     document.addEventListener("wheel", disableScroll, { passive: false });
     document.addEventListener("touchmove", disableScroll, { passive: false });
 

@@ -24,6 +24,8 @@ function TodoList({
   fromTag,
   fromDate,
   isCompleted,
+  titleClassName,
+  forbidEdit
 }) {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
@@ -195,8 +197,8 @@ function TodoList({
             >
               <Icon type="down_arrow_small" />
             </div>
-            <h4>{title}</h4>
-            {title !== "Today" && (
+            <h4 className={titleClassName}>{title}</h4>
+            {!forbidEdit && (
               <div className={styles.menu_btn_container}>
                 <button
                   onClick={swithMenuHandler}
