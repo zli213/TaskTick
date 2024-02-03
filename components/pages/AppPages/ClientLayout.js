@@ -7,6 +7,7 @@ import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
 import Topbar from "../../application/topbar/Topbar";
 import { initialAllState } from "../../../store/tasks";
+import { ToastContainer } from "react-toastify";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
@@ -35,6 +36,11 @@ export default function ClientLayout(props) {
         <Leftbar showClass={showLeftBar} />
         <div className={styles.content_holder}>{props.children}</div>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        style={{ width: "auto" }}
+      />
     </div>
   );
 }

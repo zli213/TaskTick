@@ -15,6 +15,7 @@ import styles from "../../../styles/scss/components/application/widgets/taskEdit
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
+import { toast } from "react-toastify";
 
 function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   //---------------- variables -----------------
@@ -299,7 +300,40 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     // Change current selected date
 
     // Call parent function when select a date, and pass the date to parent using json convert
-    onChangeDate(dateJson);
+    // Show notification and undo button
+
+    toast.success(
+      <Notification
+        onUndo={() => {
+          clearTimeout(timer);
+          let originalDateJson = formatDate(data.selectedDate);
+          onChangeDate(originalDateJson);
+        }}
+        date={dateJson.dateStr}
+      />,
+      {
+        pauseOnHover: false,
+      }
+    );
+    const timer = setTimeout(() => {
+      onChangeDate(dateJson);
+    }, 5000);
+  };
+
+  //----------------- Notification ----------------
+  const Notification = ({ onUndo, closeToast, date }) => {
+    const handleClick = () => {
+      onUndo();
+      closeToast();
+    };
+    return (
+      <div className={styles.notification}>
+        Task scheduled on <u>{date}</u>
+        <button onClick={handleClick} className={styles.undoBtn}>
+          Undo
+        </button>
+      </div>
+    );
   };
 
   //--------- set position ------------
@@ -458,7 +492,7 @@ export function formatDate(inDate) {
   if (indate !== "" || indate != null) {
     dateJson.dateTime = indate;
     dateJson.dateStr =
-    indate.getFullYear() +
+      indate.getFullYear() +
       "-" +
       (indate.getMonth() + 1) +
       "-" +

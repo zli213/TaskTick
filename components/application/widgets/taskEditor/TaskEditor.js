@@ -27,6 +27,8 @@ import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 function TaskEditor({
   formType,
@@ -82,7 +84,7 @@ function TaskEditor({
   /** record the editing task */
   let newTaskData = useRef({
     _id: taskData._id == null ? "" : taskData._id,
-    selectedDate: 
+    selectedDate:
       formType === "add"
         ? fromDate == null
           ? ""
@@ -132,9 +134,13 @@ function TaskEditor({
   const [selectedDate, setSelectedDate] = useState(
     newTaskData.current.selectedDate
   );
+  const [originalDate, setOriginalDate] = useState(
+    newTaskData.current.selectedDate
+  );
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
+    setOriginalDate(date.dateStr);
   };
 
   const [selectedPriority, setSelectedPriority] = useState(
@@ -236,6 +242,30 @@ function TaskEditor({
      */
   };
 
+  // handle submit
+  const handleSubmit = () => {
+    let routePath = "";
+    let projectName = "Inbox";
+    if (newTaskData.current.projectId === "") {
+      routePath = "/application/inbox";
+    } else {
+      // project
+      routePath = "/application/projects/" + newTaskData.current.projectId;
+      projectName = newTaskData.current.projectName;
+    }
+    toast.success(
+      <div>
+        <p>
+          Task has been added{"\u00a0"}
+          <Link href={routePath}>
+            <u>{projectName}</u>
+          </Link>
+        </p>
+      </div>,
+      { pauseOnHover: false }
+    );
+  };
+
   return (
     <>
       <div className={styles.task_edit_form}>
@@ -299,6 +329,7 @@ function TaskEditor({
                   type="button"
                   onClick={() => {
                     submitCallBack(newTaskData.current);
+                    handleSubmit();
                   }}
                 >
                   Add
@@ -310,6 +341,7 @@ function TaskEditor({
                   type="button"
                   onClick={() => {
                     submitCallBack(newTaskData.current);
+                    handleSubmit();
                   }}
                 >
                   Save
