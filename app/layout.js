@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
     <StoreProvider>
       <ProviderWrapper>
         <MyThemeContextProvider>
-          <html lang="en" class={ styleName }>
+          <html lang="en" className={ styleName }>
             <body>
               <main>{children}</main>
             </body>

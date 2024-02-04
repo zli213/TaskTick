@@ -23,40 +23,35 @@ export function MyThemeContextProvider(props) {
             const themeName = getCookie("themeName");
             console.log("get themeName in Context=", themeName);
 
+            const handleSystemThemeChange = (e) => {
+                setIsDarkTheme(e.matches);
+            };
+
             if (themeName === "system") {
+                const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const isSystemDark = darkModeMediaQuery.matches;
+
                 setIsSystemTheme(true);
-    
-                const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setCookie("systemTheme", isSystemDark ? "dark" : "");
+
                 if (isSystemDark) {
                     document.documentElement.classList.add("dark");
                     setIsDarkTheme(true);
-                    setCookie("systemTheme", "dark")
                 } else {
                     document.documentElement.classList.remove("dark");
-                    setCookie("systemTheme", "")
                 }
+
+                darkModeMediaQuery.addEventListener("change", handleSystemThemeChange);
+                return () => darkModeMediaQuery.removeEventListener("change", handleSystemThemeChange);
+
             } else if (themeName === "dark") {
                 setIsDarkTheme(true);
                 document.documentElement.classList.add("dark");
-            } else if(themeName === "light" || "") {
+            } else {
                 document.documentElement.classList.remove("dark");
             }
     },[session]);
 
-    useEffect(() => {
-        if(isSystemTheme) {
-            const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            const darkModeChangeListener = (e) => {
-                setIsDarkTheme(e.matches);
-            }
-
-            //When darkModeMediaQuery changes, update isDarkTheme
-            darkModeMediaQuery.addEventListener("change", darkModeChangeListener);
-            return () => {
-                darkModeMediaQuery.removeEventListener("change", darkModeChangeListener);
-            };
-        }
-    }, [isSystemTheme])
 
 
     function toggleDark () {
