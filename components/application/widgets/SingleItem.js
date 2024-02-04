@@ -205,18 +205,20 @@ export function SingleItems({
                   {dispTags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
                       <Icon type="small_tag" />
-                      {tag}
+                      <span className={styles.tag_box}>{tag}</span>
                     </Link>
                   ))}
-                </div>
-                {showProject && (
-                  <TaskHeaderLeft
-                    projectId={projectId}
-                    projectName={projectName}
-                    board={board}
-                    reverse={true}
-                  />
-                )}
+                  {showProject && (
+                    <div className={styles.tag_box4}>
+                      <TaskHeaderLeft
+                        projectId={projectId}
+                        projectName={projectName}
+                        board={board}
+                        reverse={true}
+                        />
+                    </div>
+                  )}
+                  </div>
               </div>
             </div>
           </div>

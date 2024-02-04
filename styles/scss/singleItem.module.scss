@@ -49,6 +49,8 @@
   top: $paddingsm;
   opacity: 0;
   color: $textSecondaryColor;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 2px rgba(255, 255, 255, 1);
 
   .task_list_action_last {
     position: absolute;
@@ -63,24 +65,35 @@
 }
 
 .task_title {
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  width: 93%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 
 .task_description {
+  width: 93%;
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
+  text-overflow: ellipsis;
+  white-space: pre;
+  overflow: hidden;
 }
 
 .task_info_container{
   @include flexRowBetween();
   font-size: $fontSizeXsm;
+  width: 100% ;
+  overflow: hidden;
 
 }
 
 .task_info {
+  width: 95%;
   @include flexRowStart();
   padding-top: $paddingXsm;
+  flex-wrap: wrap;
+  gap: $paddingXsm;
 
   a,
   span,
@@ -89,9 +102,19 @@
     gap: 0.2rem;
     color: $textSecondaryColor;
     cursor: pointer;
+    
+  }
+
+  .tag_box{
+    max-width: 20rem;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    display: block;
   }
 
   .task_info_date {
+    flex: 0 0 auto;
     color: $primaryColor;
   }
 }
@@ -234,4 +257,21 @@
 .completed_svg{
   opacity: 1 !important;
   color: white !important;
+}
+
+.tag_box2{
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag_box3{
+  flex: 0 0 auto;
+}
+
+.tag_box4{
+  flex: 0 0 30%;
+  max-width: 30%;
+  margin-left: auto;
 }

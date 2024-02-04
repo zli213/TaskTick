@@ -23,24 +23,36 @@ export default function TaskHeaderLeft({
 }) {
   return (
     <div className={styles.task_header_title}>
-      {!projectId && showInbox  ? (
+      {!projectId && showInbox ? (
         <Link href="application/inbox">
           <Icon type="hashtag_small" />
           &nbsp; Inbox
         </Link>
       ) : (
-        <Link href={`/application/project/${projectId}`}>
-         {projectName && !reverse && <Icon type="hashtag_small" />} 
-          &nbsp;{projectName}
+        <Link
+          href={`/application/project/${projectId}`}
+          className={styles.tag_box2}
+        >
+          {projectName && !reverse && (
+            <span className={styles.tag_box3}>
+              <Icon type="hashtag_small" />
+            </span>
+          )}
+          &nbsp;<span className={styles.tag_box2}>{projectName}</span>
         </Link>
       )}
       {board && (
         <>
           &nbsp;/&nbsp;
-          <Link href={`/application/project/${projectId}`}>{board}</Link>
+          <Link
+            href={`/application/project/${projectId}`}
+            className={styles.tag_box3}
+          >
+            {board}
+          </Link>
         </>
       )}
-       {projectName && reverse && <Icon type="hashtag_small" />} 
+      {projectName && reverse && <Icon type="hashtag_small" />}
     </div>
   );
 }
