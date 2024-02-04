@@ -6,8 +6,6 @@ import { getCookie, setCookie } from "cookies-next";
 const MyThemeContext = createContext({
     isDarkTheme: false,
     isSystemTheme: false,
-    setIsDarkTheme: () => {},
-    setIsSystemTheme: () => {},
     toggleDark:() => {},
     toggleLight: () => {},
     matchSystem: () => {}
@@ -54,12 +52,14 @@ export function MyThemeContextProvider(props) {
 
     const toggleDark = () => {
         setIsDarkTheme(true);
+        setIsSystemTheme(false);    
         setCookie("themeName", "dark");
         document.documentElement.classList.add("dark");
     }
 
     const toggleLight = () => {
         setIsDarkTheme(false);
+        setIsSystemTheme(false);    
         setCookie("themeName", "");
         document.documentElement.classList.remove("dark");
     }
@@ -79,8 +79,6 @@ export function MyThemeContextProvider(props) {
             value={{
                 isDarkTheme,
                 isSystemTheme,
-                setIsDarkTheme,
-                setIsSystemTheme,
                 toggleDark,
                 toggleLight,
                 matchSystem

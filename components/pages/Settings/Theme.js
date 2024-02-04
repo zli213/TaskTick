@@ -10,49 +10,33 @@ const SettingTheme = () => {
   const {
     isDarkTheme,
     isSystemTheme,
-    setIsDarkTheme,
-    setIsSystemTheme,
     toggleDark,
     toggleLight,
-    matchSystem} = useContext(MyThemeContext);
+    matchSystem
+  } = useContext(MyThemeContext);
 
   useEffect(() => {
     const checkbox = document.querySelector('input[type="checkbox"]');
     checkbox.checked = isSystemTheme ? true : false;
   }, [isDarkTheme, isSystemTheme]);
 
-  function applyDarkTheme() {
+  const applyDarkTheme = () => {
     toggleDark();
-    setIsDarkTheme(true);
     saveChange("dark");
   }
 
-  function applyLightTheme() {
+  const applyLightTheme = () => {
     toggleLight();
-    setIsDarkTheme(false);
     saveChange("light");
   }
 
-  function applySystemTheme() {
+  const applySystemTheme = () => {
     matchSystem();
-    setIsSystemTheme(true);
     saveChange("system");
   }
 
-  function applydefault() {
-    toggleLight();
-    setIsDarkTheme(false);
-    setIsSystemTheme(false);
-    saveChange("light");
-  }
-
-  function handleCheckboxChange (event) {
-    const isChecked = event.target.checked;
-    if (isChecked) {
-      applySystemTheme();
-    } else {
-      applydefault();
-    }
+  const handleCheckboxChange = (event) => {
+    event.target.checked ? applySystemTheme() : applyLightTheme();
   }
 
   const button1Colors = {
