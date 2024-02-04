@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
@@ -10,7 +10,6 @@ import { initialAllState } from "../../../store/tasks";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
-
   const dispatch = useDispatch();
 
   dispatch(
