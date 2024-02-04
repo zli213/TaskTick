@@ -4,7 +4,6 @@ import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { addTaskAction } from "../../../store/tasks";
-import "react-toastify/dist/ReactToastify.css";
 
 /**
  * @param

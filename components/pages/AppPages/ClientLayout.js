@@ -40,6 +40,9 @@ export default function ClientLayout(props) {
         position="bottom-left"
         autoClose={3000}
         style={{ width: "auto" }}
+        theme="dark"
+        icon={false}
+        hideProgressBar
       />
     </div>
   );

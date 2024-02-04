@@ -302,7 +302,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     // Call parent function when select a date, and pass the date to parent using json convert
     // Show notification and undo button
 
-    toast.success(
+    toast.info(
       <Notification
         onUndo={() => {
           clearTimeout(timer);
@@ -318,6 +318,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     const timer = setTimeout(() => {
       onChangeDate(dateJson);
     }, 5000);
+    onOverlayClick();
   };
 
   //----------------- Notification ----------------

@@ -253,7 +253,7 @@ function TaskEditor({
       routePath = "/application/projects/" + newTaskData.current.projectId;
       projectName = newTaskData.current.projectName;
     }
-    toast.success(
+    toast.info(
       <div>
         <p>
           Task has been added{"\u00a0"}
@@ -330,6 +330,7 @@ function TaskEditor({
                   onClick={() => {
                     submitCallBack(newTaskData.current);
                     handleSubmit();
+                    hideScheduler();
                   }}
                 >
                   Add
@@ -342,6 +343,7 @@ function TaskEditor({
                   onClick={() => {
                     submitCallBack(newTaskData.current);
                     handleSubmit();
+                    hideScheduler();
                   }}
                 >
                   Save

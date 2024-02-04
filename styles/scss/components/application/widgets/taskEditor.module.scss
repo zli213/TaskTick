@@ -385,15 +385,15 @@
     margin-left: 4px;
   }
   .undoBtn {
-    background-color: red;
-    color: white;
+    background-color: $primaryColor;
+    color: $secondaryColor;
     border: none;
-    padding: 5px 10px;
-    margin-left: 10px;
+    padding: $paddingXsm $paddingsm;
+    margin-left: $marginXsm;
     cursor: pointer;
-    border-radius: 1rem;
+    border-radius: $borderRadius;
     &:hover {
-      background-color: darkred;
+      background-color: $errorColor;
     }
   }
 }
