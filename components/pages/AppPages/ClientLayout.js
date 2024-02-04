@@ -38,11 +38,12 @@ export default function ClientLayout(props) {
       </div>
       <ToastContainer
         position="bottom-left"
-        autoClose={3000}
+        autoClose={2000}
         style={{ width: "auto" }}
         theme="dark"
         icon={false}
         hideProgressBar
+        limit={1}
       />
     </div>
   );
