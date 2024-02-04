@@ -50,7 +50,7 @@ function Today(props) {
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
-          <div>
+          <div className={styles.today_title}>
             <h1>Today</h1>
             {todayNum === 0 ? (
               ""

@@ -47,13 +47,22 @@
     padding-bottom: $paddingsm;
 
     h1 {
+      flex:1;
+      max-width: 90%;
       font-size: $fontSizeMd;
+      // white-space: pre;
+      // overflow-wrap: break-word;
+      word-wrap: break-word ;
     }
   }
 
   .no_bottom_border {
     border-bottom: 0;
   }
+}
+
+.today_title{
+  width: 100%;
 }
 
 .list_box {
@@ -125,6 +134,7 @@
 }
 
 .menu_btn_container {
+  flex: 0 0 auto;
   @include flexRowStart();
   position: relative;
   z-index: 5;
@@ -292,12 +302,13 @@
   }
 
   a {
-    padding: $paddingsm 0;
     @include flexRowStart();
+    padding: $paddingsm 0;
 
     .labels_item_content {
       width: 100%;
       @include flexRowBetween();
+      
     }
   }
 
@@ -440,4 +451,15 @@
 
 .no_task_list {
   color: $heaveGrayColor;
+}
+
+.tag_box1{
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag_box2{
+  flex: 0 0 auto;
 }

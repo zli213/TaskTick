@@ -109,7 +109,7 @@ export default function Project({ projectId }) {
       )}
 
       {!project.archived &&
-        (boards.length === 0 && tasks.length === 0  && !showCompletedTask ? (
+        (boards.length === 0 && tasks.length === 0 && !showCompletedTask ? (
           <NoTask
             page="project"
             fromProject={{ projectId: projectId, projectName: project.name }}
