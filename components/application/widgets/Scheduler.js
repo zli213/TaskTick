@@ -268,6 +268,26 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     );
   }, []);
 
+  //------------ useEffect for disable scroll ------------
+  const disableScroll = (event) => {
+    const menu = document.querySelector(`.${styles.datepicker_monthlist_wrapper}`);
+    const isInsideMenu = menu && menu.contains(event.target);
+
+    if (!isInsideMenu) {
+      event.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
+
   //--------- functions for interactive ------------
   const goToToday = () => {
     calendarRef.current?.scrollTo(0, 0);
@@ -315,7 +335,11 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   return (
     <>
       <div className={styles.popup_overlay} onClick={onOverlayClick}></div>
-      <div className={styles.scheduler} style={position && schedulerStyle}>
+      <div
+        className={styles.scheduler}
+        style={position && schedulerStyle}
+        scrollable={"scrollable_area"}
+      >
         <button
           className={styles.scheduler_quickbutton}
           onClick={() => selectDate(today)}
@@ -458,7 +482,7 @@ export function formatDate(inDate) {
   if (indate !== "" || indate != null) {
     dateJson.dateTime = indate;
     dateJson.dateStr =
-    indate.getFullYear() +
+      indate.getFullYear() +
       "-" +
       (indate.getMonth() + 1) +
       "-" +

@@ -45,7 +45,7 @@ function TaskTagCheckList({
           onOverlayClick();
         }}
       ></div>
-      <div id="tagCheckList" className={styles.tag_check_list_dropdown}>
+      <div id="tagCheckList" scrollable='scrollable_area' className={styles.tag_check_list_dropdown}>
         {allTags.map((item) => (
           <div
             className={styles.tag_check_list_dropdown_btn}

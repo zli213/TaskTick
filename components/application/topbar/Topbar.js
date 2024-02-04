@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserMenu from "./UserMenu";
 import Link from "next/link";
 import styles from "../../../styles/scss/topbar.module.scss";
@@ -22,6 +22,28 @@ const Topbar = ({ switchHandler }) => {
   const containerClickHandler = (event) => {
     event.stopPropagation();
   };
+
+  const disableScroll = (event) => {
+    const menu = document.querySelector('[scrollable="scrollable_area"]');
+    const isInsideMenu = menu && menu.contains(event.target);
+
+    if (!isInsideMenu) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
+  useEffect(() => {
+    if (addTask) {
+      document.addEventListener("wheel", disableScroll, { passive: false });
+      document.addEventListener("touchmove", disableScroll, { passive: false });
+    }
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, [addTask]);
 
   return (
     <nav className={styles.app_nav}>
@@ -56,7 +78,10 @@ const Topbar = ({ switchHandler }) => {
               className={`${styles.add_task_card} ${addTask && styles.show}`}
               onClick={containerClickHandler}
             >
-              <AddTask closeCardHandler={switchAddTaskCard} openEditor={addTask} />
+              <AddTask
+                closeCardHandler={switchAddTaskCard}
+                openEditor={addTask}
+              />
             </div>
           </div>
         )}

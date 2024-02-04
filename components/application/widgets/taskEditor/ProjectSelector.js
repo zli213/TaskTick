@@ -19,7 +19,7 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
           onOverlayClick();
         }}
       ></div>
-      <div className={styles.project_selector}>
+      <div className={styles.project_selector} scrollable='scrollable_area'>
         <ul>
           <li
             role="option"
