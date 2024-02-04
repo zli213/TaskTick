@@ -63,3 +63,40 @@
     }
   }
 }
+
+.dark {
+  background-color: $textPrimaryColor;
+  color: $secondaryColor;
+  
+  #leftbar,
+  #settingLeft {
+    background-color: $textSecondaryColor;
+    color: $secondaryColor;
+
+    h4 {
+      color: $secondaryColor;
+    }
+  }
+
+  #listBox,
+  #viewHeader,
+  #taskEditor,
+  #menuBox,
+  #settingRight,
+  #addProject,
+  #newTask,
+  #noticeContainer {
+    background-color: $textPrimaryColor;
+    color: $secondaryColor;
+  }
+
+  #icon {
+    fill: $secondaryColor;
+  }
+
+  #settingRight {
+    div {
+      border-top: 1px solid $textPrimaryColor;
+    }
+  }
+}

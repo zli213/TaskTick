@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
+    "cookies-next": "^4.1.1",
     "leaflet": "^1.9.4",
     "mongodb": "^6.3.0",
     "mongodb-client-encryption": "^6.0.0",

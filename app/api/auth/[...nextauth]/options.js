@@ -6,7 +6,11 @@ import connect from "../../../../src/utils/data/db";
 import User from "../../../../src/models/User";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-
+import { cookies } from "next/headers";
+import { setCookie } from  'cookies-next';
+//todo: test getserversession here,then get session in rootlayout
+//then test if it could toggle theme by add session.user.theme to class name
+//Q: how to handle system themes
 export const options = {
   providers: [
     GitHubProvider({
@@ -74,6 +78,10 @@ export const options = {
               delete foundUser.password;
 
               foundUser["role"] = "Email user";
+              const userTheme = foundUser.themes[0];
+              console.log("match, userTheme=", userTheme);
+              cookies().set("themeName", userTheme);
+              // setCookie({cookies});
               return foundUser;
             }
           }
@@ -112,6 +120,11 @@ export const options = {
           } else {
             user.accountStatus = "existing_user";
           }
+          const userTheme = existingUser.themes[0];
+          cookies().set("themeName", userTheme);
+          console.log(userTheme);
+          // setCookie({cookies});
+
         } catch (error) {
           user.accountStatus = "error";
           throw new Error("User creation failed");
@@ -146,7 +159,7 @@ export const options = {
         if (user[0]) {
           session.user.userId = user[0]._id.toString();
           session.user.username = user[0].username;
-          session.user.theme = user[0].themes[0];
+          // session.user.theme = user[0].themes[0];
         } else {
           session.user.userId = null;
         }

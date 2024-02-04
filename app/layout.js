@@ -3,6 +3,8 @@ import StoreProvider from "../store/StoreProvider";
 import "../styles/scss/globals.scss";
 import { MyThemeContextProvider } from "../components/application/widgets/MyThemeContext";
 import ProviderWrapper from "./ProviderWrapper";
+import { cookies } from "next/headers";
+import { getCookie } from "cookies-next";
 
 export const metadata = {
   title: "Todo APP",
@@ -10,17 +12,24 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const themeName = getCookie("themeName", { cookies });
+  const systemTheme = getCookie("systemTheme", { cookies });
+
+  console.log("get themeName=", themeName);
+  console.log("get systemTheme=", systemTheme);
+  
+  const styleName = themeName === "system" ? systemTheme : themeName;
   return (
     <StoreProvider>
-      <html lang="en">
-        <body>
-          <ProviderWrapper>
-            <MyThemeContextProvider>
+      <ProviderWrapper>
+        <MyThemeContextProvider>
+          <html lang="en" class={ styleName }>
+            <body>
               <main>{children}</main>
-            </MyThemeContextProvider>
-          </ProviderWrapper>
-        </body>
-      </html>
+            </body>
+          </html>
+        </MyThemeContextProvider>
+      </ProviderWrapper>
     </StoreProvider>
   );
 }

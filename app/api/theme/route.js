@@ -3,6 +3,7 @@ import connect from "../../../src/utils/data/db";
 import User from "../../../src/models/User";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
+import { cookies } from "next/headers";
 
 export const POST = async (req) =>  {
     await connect();
@@ -12,7 +13,10 @@ export const POST = async (req) =>  {
         const result = await req.json();
         const theme = result.cur;
 
-        await User.findOneAndUpdate({ email: session.user.email }, {themes: [theme]}, { new: true });
+        cookies().set("themeName", theme);
+
+        const updateTheme = await User.findOneAndUpdate({ email: session.user.email }, {themes: [theme]}, { new: true });
+        console.log("Update result: ", updateTheme);
         return NextResponse.json({ message: "Succeed. "}, {status: 201});
     } catch (error) {
         return NextResponse.json({ message: "Fail to save : ", error}, {status: 500});

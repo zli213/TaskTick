@@ -29,7 +29,7 @@ const SettingTheme = () => {
 
   function applyLightTheme() {
     toggleLight();
-    setIsDarkTheme(true);
+    setIsDarkTheme(false);
     saveChange("light");
   }
 
@@ -39,10 +39,10 @@ const SettingTheme = () => {
     saveChange("system");
   }
 
-  function applyDefault() {
+  function applydefault() {
     toggleLight();
-    setIsSystemTheme(false);
     setIsDarkTheme(false);
+    setIsSystemTheme(false);
     saveChange("light");
   }
 
@@ -51,7 +51,7 @@ const SettingTheme = () => {
     if (isChecked) {
       applySystemTheme();
     } else {
-      applyDefault();
+      applydefault();
     }
   }
 
