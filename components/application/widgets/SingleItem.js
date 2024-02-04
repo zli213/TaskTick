@@ -185,8 +185,9 @@ export function SingleItems({
               dueDate={dueDate}
               projectId={projectId}
               completed={completed}
+              className={styles.tag_box3}
             />
-            <div className={styles.task_content}>
+            <div className={`${styles.task_content} ${styles.tag_box2}`}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>
                 <div className={styles.task_description}>{dispDescription}</div>
@@ -215,10 +216,10 @@ export function SingleItems({
                         projectName={projectName}
                         board={board}
                         reverse={true}
-                        />
+                      />
                     </div>
                   )}
-                  </div>
+                </div>
               </div>
             </div>
           </div>

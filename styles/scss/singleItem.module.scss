@@ -39,7 +39,6 @@
 
 .task_content {
   width: 100%;
-  // min-width: $maxListWidth;
 }
 
 .task_list_action {
@@ -56,44 +55,41 @@
     position: absolute;
     left: 5rem;
     width: $fontSizeMd;
-    
   }
 
   .menu_button {
-   @include menuButton();
+    @include menuButton();
   }
 }
 
 .task_title {
-  width: 93%;
   white-space: normal;
   overflow-wrap: break-word;
   overflow: hidden;
 }
 
 .task_description {
-  width: 93%;
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
   text-overflow: ellipsis;
-  white-space: pre;
+  white-space: normal;
   overflow: hidden;
 }
 
-.task_info_container{
-  @include flexRowBetween();
+.task_info_container {
+  @include flexRowStart();
   font-size: $fontSizeXsm;
-  width: 100% ;
   overflow: hidden;
-
 }
 
 .task_info {
-  width: 95%;
+  width: 100%;
   @include flexRowStart();
   padding-top: $paddingXsm;
   flex-wrap: wrap;
   gap: $paddingXsm;
+  overflow: hidden;
+  row-gap: 2px;
 
   a,
   span,
@@ -102,11 +98,10 @@
     gap: 0.2rem;
     color: $textSecondaryColor;
     cursor: pointer;
-    
   }
 
-  .tag_box{
-    max-width: 20rem;
+  .tag_box {
+    max-width: 15rem;
     overflow: hidden;
     white-space: pre;
     text-overflow: ellipsis;
@@ -247,31 +242,29 @@
   }
 }
 
-.completed_background{
+.completed_background {
   background-color: $heaveGrayColor !important;
   opacity: 1 !important;
 }
-.completed_circle{
+.completed_circle {
   border: 0 !important;
 }
-.completed_svg{
+.completed_svg {
   opacity: 1 !important;
   color: white !important;
 }
 
-.tag_box2{
-  flex: 1;
+.tag_box2 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.tag_box3{
+.tag_box3 {
   flex: 0 0 auto;
 }
 
-.tag_box4{
-  flex: 0 0 30%;
+.tag_box4 {
   max-width: 30%;
   margin-left: auto;
 }

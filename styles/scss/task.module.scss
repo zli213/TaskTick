@@ -34,7 +34,6 @@
 }
 
 .task_header_title {
-  width: 100%;
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -44,7 +43,6 @@
   a {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
   }
 }
 
@@ -91,7 +89,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: $paddingXsm;
-   
   }
 
   .task_tag_item {
@@ -105,14 +102,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-  
   }
 
   .task_tag_item:hover {
     background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
   }
-
-
 }
 
 .task_main_container {
@@ -188,25 +182,23 @@
   background-color: $grayColor;
 }
 
-.flexStart{
+.flexStart {
   @include flexRowStart();
 }
 
-.tag_box{
+.tag_box {
   max-width: 10rem;
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  display: block;
 }
 
-.tag_box2{
-  flex: 1;
+.tag_box2 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.tag_box3{
+.tag_box3 {
   flex: 0 0 auto;
 }
