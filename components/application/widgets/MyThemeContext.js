@@ -52,33 +52,26 @@ export function MyThemeContextProvider(props) {
             }
     },[session]);
 
-
-
-    function toggleDark () {
+    const toggleDark = () => {
         setIsDarkTheme(true);
         setCookie("themeName", "dark");
         document.documentElement.classList.add("dark");
     }
 
-    function toggleLight () {
+    const toggleLight = () => {
         setIsDarkTheme(false);
         setCookie("themeName", "");
         document.documentElement.classList.remove("dark");
     }
 
-    function matchSystem () {
-        setIsSystemTheme(true);
-        console.log("in context, isSystem: ", isSystemTheme);
+    const matchSystem = () => {
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (isSystemDark) {
-            setIsDarkTheme(true);
-            setCookie("systemTheme", "dark")
-            document.documentElement.classList.add("dark");    
-        } else {
-            setIsDarkTheme(false);
-            setCookie("systemTheme", "")
-            document.documentElement.classList.remove("dark");
-        }
+
+        setIsSystemTheme(true);
+        setIsDarkTheme(isSystemDark);
+        setCookie("systemTheme", isSystemDark ? "dark" : "");
+
+        document.documentElement.classList.toggle("dark", isSystemDark);
     }
 
     return (
