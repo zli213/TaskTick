@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import { updateTodayNumAction } from "./num";
 import {
   deleteProjectTasks,

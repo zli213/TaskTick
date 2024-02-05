@@ -71,9 +71,9 @@
 .task_description {
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
-  text-overflow: ellipsis;
-  white-space: normal;
+  white-space: pre;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task_info_container {
