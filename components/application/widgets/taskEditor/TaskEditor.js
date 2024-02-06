@@ -19,16 +19,17 @@
  * ...
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import Scheduler, { convertDate } from "../Scheduler";
 import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { addToastId } from "../../../../store/toastIds";
 
 function TaskEditor({
   formType,
@@ -45,7 +46,8 @@ function TaskEditor({
   allProjects = allProjects
     .filter((project) => project.archived !== true)
     .filter((project) => project.isDeleted !== true);
-
+  let toastIds = useSelector((state) => state.toastIds.toastIds);
+  let dispatch = useDispatch();
   // Default values
   if (formType == null) {
     formType = "add";
@@ -129,7 +131,6 @@ function TaskEditor({
       newTaskData.current[key] = value;
     }
   };
-  const toastId = useRef(null);
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(
     newTaskData.current.selectedDate
@@ -253,10 +254,8 @@ function TaskEditor({
       routePath = "/application/project/" + newTaskData.current.projectId;
       projectName = newTaskData.current.projectName;
     }
-    if (toastId.current !== null) {
-      toast.dismiss(toastId.current);
-    }
-    toastId.current = toast.info(
+
+    const newToastId = toast.info(
       <div>
         <p>
           Task has been added{"\u00a0"}
@@ -267,8 +266,16 @@ function TaskEditor({
       </div>,
       { pauseOnHover: false }
     );
+    dispatch(addToastId(newToastId));
   };
-
+  useEffect(() => {
+    return () => {
+      if (toastIds.length > 1) {
+        const latestToastId = toastIds[toastIds.length - 2];
+        toast.dismiss(latestToastId);
+      }
+    };
+  }, [toastIds]);
   return (
     <>
       <div className={styles.task_edit_form}>

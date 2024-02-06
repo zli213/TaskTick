@@ -12,13 +12,16 @@
  */
 
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
-import { use, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
 import { toast } from "react-toastify";
-import { set } from "mongoose";
+import { useDispatch, useSelector } from "react-redux";
+import { addToastId } from "../../../store/toastIds";
 
 function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
+  const dispatch = useDispatch();
+  const toastIds = useSelector((state) => state.toastIds.toastIds);
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
   const today = new Date();
@@ -295,17 +298,21 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     }
     calendarRef.current?.scrollTo(0, top);
   };
-  const toastId = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastIds.length !== 0) {
+        const latestToastId = toastIds[toastIds.length - 1];
+        toast.dismiss(latestToastId);
+      }
+    };
+  }, [toastIds]);
   const selectDate = (selDate) => {
     let dateJson = formatDate(selDate);
     // Change current selected date
-
     // Call parent function when select a date, and pass the date to parent using json convert
     // Show notification and undo button
-    if (toastId.current !== null) {
-      toast.dismiss(toastId.current);
-    }
-    toastId.current = toast.info(
+    const newToastId = toast.info(
       <Notification
         onUndo={() => {
           clearTimeout(timer);
@@ -318,6 +325,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
         pauseOnHover: false,
       }
     );
+    dispatch(addToastId(newToastId));
     const timer = setTimeout(() => {
       onChangeDate(dateJson);
     }, 5000);

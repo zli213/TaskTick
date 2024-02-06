@@ -43,7 +43,7 @@ export default function ClientLayout(props) {
         theme="dark"
         icon={false}
         hideProgressBar
-        // limit={1}
+        limit={1}
       />
     </div>
   );
