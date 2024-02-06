@@ -188,6 +188,7 @@
     height: 4rem;
     @include flexRowStart();
     width: 100%;
+    align-items: center
   }
 
   .project_item_menu {
@@ -462,4 +463,5 @@
 
 .tag_box2{
   flex: 0 0 auto;
+  @include flexRowStart();
 }
