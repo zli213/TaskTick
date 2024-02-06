@@ -129,7 +129,7 @@ function TaskEditor({
       newTaskData.current[key] = value;
     }
   };
-
+  const toastId = useRef(null);
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(
     newTaskData.current.selectedDate
@@ -250,10 +250,13 @@ function TaskEditor({
       routePath = "/application/inbox";
     } else {
       // project
-      routePath = "/application/projects/" + newTaskData.current.projectId;
+      routePath = "/application/project/" + newTaskData.current.projectId;
       projectName = newTaskData.current.projectName;
     }
-    toast.info(
+    if (toastId.current !== null) {
+      toast.dismiss(toastId.current);
+    }
+    toastId.current = toast.info(
       <div>
         <p>
           Task has been added{"\u00a0"}

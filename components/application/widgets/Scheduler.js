@@ -12,10 +12,11 @@
  */
 
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
 import { toast } from "react-toastify";
+import { set } from "mongoose";
 
 function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   //---------------- variables -----------------
@@ -294,15 +295,17 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     }
     calendarRef.current?.scrollTo(0, top);
   };
-
+  const toastId = useRef(null);
   const selectDate = (selDate) => {
     let dateJson = formatDate(selDate);
     // Change current selected date
 
     // Call parent function when select a date, and pass the date to parent using json convert
     // Show notification and undo button
-
-    toast.info(
+    if (toastId.current !== null) {
+      toast.dismiss(toastId.current);
+    }
+    toastId.current = toast.info(
       <Notification
         onUndo={() => {
           clearTimeout(timer);
