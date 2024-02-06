@@ -43,8 +43,8 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
                   onProjSelect(project.projectId, project.name, "");
                 }}
               >
-                <Icon type="hashtag" />
-                {project.name}
+                <span className={styles.tag_box}><Icon type="hashtag" /></span>
+                <span>{project.name}</span>
               </li>
               {project.boards.map((board) => (
                 <li
@@ -56,8 +56,8 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
                     onProjSelect(project.projectId, project.name, board);
                   }}
                 >
-                  <Icon type="board" />
-                  {board}
+                  <span className={styles.tag_box}><Icon type="board" /></span>
+                  <span>{board}</span>
                 </li>
               ))}
             </>

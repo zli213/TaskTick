@@ -336,6 +336,7 @@
 }
 
 .project_selector{
+    max-width: 30rem;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -346,9 +347,19 @@
     max-height: 30rem;
     overflow: auto;
     z-index: 1001;
+
     li{
+        // width: 100%;
         display: flex;
         padding:.4rem 1rem;
+
+        span{
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         &[role=option]{
             cursor: pointer;
             &:hover {
@@ -385,3 +396,7 @@
         background-color: #c3392c;
     }
 }
+
+.tag_box {
+    flex: 0 0 auto;
+  }
