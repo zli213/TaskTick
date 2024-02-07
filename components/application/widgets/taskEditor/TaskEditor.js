@@ -174,14 +174,6 @@ function TaskEditor({
     setNewTaskData("board", name);
   };
 
-  const projSelectHandler = (projId, projName, board) => {
-    changeDispProjectId(projId);
-    changeDispProjectName(projName);
-    changeDispBoard(board);
-    hideProjectSel();
-    //console.log({ id: projId, name: projName, board: board });
-  };
-
   // Show/Hide Scheduler
   const [isShowScheduler, setIsShowScheduler] = useState(false);
   const showScheduler = () => {
@@ -206,19 +198,19 @@ function TaskEditor({
   } = useMenu();
 
   // Show/Hide ProjectSelector
-  const [isShowProjectSel, setIsShowProjectSel] = useState(false);
-  const showProjectSel = () => {
-    setIsShowProjectSel(true);
-  };
-  const hideProjectSel = () => {
-    setIsShowProjectSel(false);
-  };
-
   const {
     showItemMenu: showProjectMenu,
     buttonPosition: projectPosition,
     swithMenuHandler: swichProjectHandler,
   } = useMenu();
+
+  const projSelectHandler = (projId, projName, board) => {
+    changeDispProjectId(projId);
+    changeDispProjectName(projName);
+    changeDispBoard(board);
+    swichProjectHandler();
+    //console.log({ id: projId, name: projName, board: board });
+  };
 
   const recordTaskContent = () => {
     setNewTaskData(
@@ -344,8 +336,12 @@ function TaskEditor({
                 onClick={swichProjectHandler}
                 style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
               >
-                <span className={styles.tag_box2}>{dispProjectId === "" ? "Inbox" : dispProjectName}</span> 
-                <span className={styles.tag_box}>{dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}</span>
+                <span className={styles.tag_box2}>
+                  {dispProjectId === "" ? "Inbox" : dispProjectName}
+                </span>
+                <span className={styles.tag_box}>
+                  {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+                </span>
               </div>
               {showProjectMenu && (
                 <PopupMenu
@@ -408,14 +404,6 @@ function TaskEditor({
             hideScheduler();
           }}
           onOverlayClick={hideScheduler}
-        />
-      ) : null}
-
-      {isShowProjectSel ? (
-        <ProjectSelector
-          allProjects={allProjects}
-          onProjSelect={projSelectHandler}
-          onOverlayClick={hideProjectSel}
         />
       ) : null}
     </>
