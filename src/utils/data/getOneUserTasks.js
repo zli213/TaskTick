@@ -41,5 +41,6 @@ export function TransferTask(task) {
     username: task.username,
     completed: task.completed,
     archived: task.archived,
+    updatedAt: task.updatedAt,
   };
 }

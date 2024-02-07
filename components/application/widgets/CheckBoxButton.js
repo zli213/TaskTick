@@ -10,11 +10,14 @@
  */
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
+import { addToastId } from "../../../store/toastIds";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 const CheckBoxButton = ({
   priority,
@@ -25,6 +28,7 @@ const CheckBoxButton = ({
 }) => {
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
+  const toastIds = useSelector((state) => state.toastIds.toastIds);
   const getPriorityColor = (option) => {
     switch (option) {
       case "P1":
@@ -40,6 +44,16 @@ const CheckBoxButton = ({
 
   const clickHandler = async () => {
     if (isCompleted) return;
+    // const newToastId = toast.info(
+    //   <Notification
+    //     onUndo={() => {
+    //       clearTimeout(timer);
+    //     }}
+    //   />,
+    //   { pauseOnHover: false, autoClose: false }
+    // );
+    // dispatch(addToastId(newToastId));
+    // const timer = setTimeout(async () => {
     try {
       const res = await fetch("/api/completeTask", {
         method: "POST",
@@ -59,7 +73,31 @@ const CheckBoxButton = ({
     } catch (error) {
       throw error;
     }
+    // }, 2000);
   };
+  //----------------- Notification ----------------
+  // const Notification = ({ onUndo, closeToast, date }) => {
+  //   const handleClick = () => {
+  //     onUndo();
+  //     closeToast();
+  //   };
+  //   return (
+  //     <div className={styles.notification}>
+  //       1 task completed
+  //       <button onClick={handleClick} className={styles.undoBtn}>
+  //         Undo
+  //       </button>
+  //     </div>
+  //   );
+  // };
+  // useEffect(() => {
+  //   return () => {
+  //     if (toastIds.length !== 0) {
+  //       const latestToastId = toastIds[toastIds.length - 1];
+  //       toast.dismiss(latestToastId);
+  //     }
+  //   };
+  // }, [toastIds]);
 
   return (
     <button

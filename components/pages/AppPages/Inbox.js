@@ -1,13 +1,14 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
 import { useSelector, useDispatch } from "react-redux";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchInboxCompletedTasks } from "../../../store/viewOptions";
+import { toast } from "react-toastify";
 
 export default function Inbox(props) {
   const dispatch = useDispatch();
@@ -16,11 +17,15 @@ export default function Inbox(props) {
   let completedTasks = Object.values(
     useSelector((state) => state.completedTasks.inbox)
   );
-  completedTasks = completedTasks !== undefined ? Object.values(completedTasks) : [];
+  const [previousTasks, setPreviousTasks] = useState(tasks);
+  completedTasks =
+    completedTasks !== undefined ? Object.values(completedTasks) : [];
 
   let showCompletedTask = useSelector(
     (state) => state.viewOptions.inbox.showCompletedTasks
   );
+  console.log("1", tasks);
+  console.log("2", completedTasks);
 
   const showCompletedHandler = (event) => {
     dispatch(switchInboxCompletedTasks(showCompletedTask));
@@ -31,9 +36,30 @@ export default function Inbox(props) {
     localStorage.setItem("lastPage", "inbox");
   }, []);
 
+  // Check the latest task has been completed
   const inBoxTasks = tasks.filter((task) => {
     return task.projectId == "" || task.projectId == null;
   });
+  console.log("4", inBoxTasks);
+
+  // Check the latest completedTasks's updatedAt
+  const latestCompletedTaskISO =
+    completedTasks[completedTasks.length - 1].updatedAt;
+  const latestCompletedTaskTime = new Date(latestCompletedTaskISO).getTime();
+  // Current UTC time
+  const currentTime = new Date().getTime();
+  // 如果现在时间与最后一个完成的任务的时间相差在10s内，发送通知
+  if (currentTime - latestCompletedTaskTime <= 10000) {
+    toast.success("You have completed a task!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
   return (
     <>
