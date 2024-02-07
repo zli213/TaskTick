@@ -207,6 +207,12 @@ function TaskEditor({
     setIsShowTagCheck(false);
   };
 
+  const {
+    showItemMenu: showTagMenu,
+    buttonPosition: tagPosition,
+    swithMenuHandler: swichTagHandler,
+  } = useMenu();
+
   // Show/Hide ProjectSelector
   const [isShowProjectSel, setIsShowProjectSel] = useState(false);
   const showProjectSel = () => {
@@ -268,9 +274,11 @@ function TaskEditor({
               </div>
             </div>
             <div className={styles.task_edit_buttons}>
-              <button type="button" onClick={showScheduler}>
-                {convertDate(selectedDate)}
-              </button>
+              <span className={styles.btn_menu}>
+                <button type="button" onClick={showScheduler}>
+                  {convertDate(selectedDate)}
+                </button>
+              </span>
               <span className={styles.btn_menu}>
                 <button type="button" onClick={swichPriorityHandler}>
                   <Icon
@@ -296,9 +304,30 @@ function TaskEditor({
                   </PopupMenu>
                 )}
               </span>
-              <button type="button" onClick={showTagCheck}>
-                Tags
-              </button>
+              <span className={styles.btn_menu}>
+                <button type="button" onClick={swichTagHandler}>
+                  Tags
+                </button>
+                {showTagMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichTagHandler}
+                    position={tagPosition}
+                    levels={allTags.length <= 7 ? allTags.length * 0.75 : 5.4}
+                    menuWidth="401"
+                  >
+                    <TaskTagCheckList
+                      allTags={allTags}
+                      checkedTags={newTaskData.current.tags}
+                      onTagCheckClick={(tags) => {
+                        //updateCheckTags(tags);
+                        setNewTaskData("tags", tags);
+                        taskNameInputRef.current.checkTags(tags);
+                      }}
+                      onOverlayClick={swichTagHandler}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
             </div>
           </div>
           <div className={styles.task_footer}>

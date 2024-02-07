@@ -41,12 +41,6 @@ function TaskTagCheckList({
   return (
     <>
       <div
-        className={styles.popup_overlay}
-        onClick={() => {
-          onOverlayClick();
-        }}
-      ></div>
-      <div
         id="tagCheckList"
         scrollable="scrollable_area"
         className={styles.tag_check_list_dropdown}
@@ -63,10 +57,10 @@ function TaskTagCheckList({
               onTagCheckClick(newCheckedTags.current);
             }}
           >
-            <div className={styles.tag_box3}>
+            <label className={styles.tag_box3}>
               <Icon type="small_tag" className={styles.tag_box} />
               <span className={styles.tag_box2}>{item}</span>
-            </div>
+            </label>
             <i
               className={`
                 ${

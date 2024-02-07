@@ -84,7 +84,15 @@ export default function PopupMenu(props) {
   });
 
   const disableScroll = (event) => {
-    event.preventDefault();
+    const menu = document.querySelector('[scrollable="scrollable_area"]');
+    const isInsideMenu = menu && menu.contains(event.target);
+
+    if (!isInsideMenu) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    // event.stopPropagation();
+    // event.preventDefault();
   };
 
   const updateWindowSize = () => {
