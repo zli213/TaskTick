@@ -1,402 +1,421 @@
 @use "../../../utils/variable" as *;
 
 .popup_overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 }
 
-.task_edit_form{
-    position: relative;
-    background-color: #fff;
-    border:1px solid $lightGrayColor;
-    border-radius: 8px;
+.task_edit_form {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid $lightGrayColor;
+  border-radius: 8px;
 }
 
-.task_name{
-    outline:none;
-    font-weight: bold;
-    min-height: 1.5rem;
-    margin-bottom:0.4rem;
-    cursor:text;
-    [match-type=matched] {
-        background-color: antiquewhite;
-        margin-right: 3px;
-    }
-    &:empty:before{
-        content: attr(placeholder);
-        position: absolute;
-        color: $textSecondaryColor;
-        background-color: transparent;
-    }
-}
-
-
-.task_name_tag_selector{
+.task_name {
+  outline: none;
+  font-weight: bold;
+  min-height: 1.5rem;
+  margin-bottom: 0.4rem;
+  cursor: text;
+  [match-type="matched"] {
+    background-color: antiquewhite;
+    margin-right: 3px;
+  }
+  &:empty:before {
+    content: attr(placeholder);
     position: absolute;
-    width: 90%;
-    margin:0 auto;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 15rem;
-    overflow: auto;
-    z-index: 1000;
-    button{
-        text-align: left;
-        padding-left:1rem;
-        &:hover{
-            background-color: $grayColor;
-        }
-    }
-}
-.task_name_tag_selector_button_on{
-    background-color: $grayColor;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
 }
 
-.task_content{
-    outline: none;
-    min-height: 1.5rem;
-    margin-bottom: 0.8rem;
-    cursor: text;
-    &:empty:before {
-        content: attr(placeholder);
-        position: absolute;
-        color: $textSecondaryColor;
-        background-color: transparent;
+.task_name_tag_selector {
+  position: absolute;
+  width: 90%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  box-shadow: 0 2px 10px $grayColor;
+  max-height: 15rem;
+  overflow: auto;
+  z-index: 1000;
+  button {
+    text-align: left;
+    padding-left: 1rem;
+    &:hover {
+      background-color: $grayColor;
     }
+  }
+}
+.task_name_tag_selector_button_on {
+  background-color: $grayColor;
 }
 
-.task_edit_area{
-    width: 100%;
-    padding:1rem;
-    border-bottom:1px solid $lightGrayColor;
+.task_content {
+  outline: none;
+  min-height: 1.5rem;
+  margin-bottom: 0.8rem;
+  cursor: text;
+  &:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
 }
 
-.task_edit_buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    button{
-        border: 1px solid $grayColor;
-        border-radius: $borderRadiusSm;
-        margin: 0 .3rem;
-        padding: .5rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        &:hover{
-            background-color: $lightGrayColor;
-        }
+.task_edit_area {
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid $lightGrayColor;
+}
+
+.task_edit_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  button {
+    @include flexRowStart();
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    margin: 0 0.3rem;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    &:hover {
+      background-color: $lightGrayColor;
     }
+  }
 }
 
 /* Scheduler */
 .scheduler {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0px 1px 2rem 1px $grayColor;
-    overflow: hidden;
-    padding: 1rem 0;
-    z-index: 1001;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  box-shadow: 0px 1px 2rem 1px $grayColor;
+  overflow: hidden;
+  padding: 1rem 0;
+  z-index: 1001;
 }
 
 .scheduler_quickbutton {
-    padding: .5rem .9rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .scheduler_quickbutton:hover {
-    background-color: $grayColor;
+  background-color: $grayColor;
 }
 
 .datepicker_head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-top: 1px solid $grayColor;
-    padding: 1rem .9rem .3rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid $grayColor;
+  padding: 1rem 0.9rem 0.3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .datepicker_header_action {
-    button {
-        margin: 0 .8rem;
-    }
+  button {
+    margin: 0 0.8rem;
+  }
 }
 
 .week_names {
-    display: flex;
-    color: $grayColor;
-    font-size: 1.2rem;
-    padding: .5rem .9rem;
-    border-bottom: 1px solid $grayColor;
+  display: flex;
+  color: $grayColor;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid $grayColor;
 
-    div {
-        width: 3rem;
-        text-align: center;
-    }
+  div {
+    width: 3rem;
+    text-align: center;
+  }
 }
 
-
-
 .datepicker_monthlist_wrapper {
-    height: 19rem;
-    overflow: auto;
-    margin-right: -17px;
+  height: 19rem;
+  overflow: auto;
+  margin-right: -17px;
 }
 
 .datepicker_monthlist {
-    height: 200000px;
-    position: relative;
+  height: 200000px;
+  position: relative;
 }
 
 .datepicker_calendar {
-    position: absolute;
-    left: 0;
-    right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 .datepicker_calendar_header {
-    padding: .7rem 0;
-    margin: 0 1.6rem;
-    border-bottom: 1px solid $grayColor;
-    font-size: 1.3rem;
-    font-weight: bold;
+  padding: 0.7rem 0;
+  margin: 0 1.6rem;
+  border-bottom: 1px solid $grayColor;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .datepicker_calendar_body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .datepicker_calendar_week {
-    display: flex;
-    flex-direction: row;
-    padding: .3rem .9rem;
+  display: flex;
+  flex-direction: row;
+  padding: 0.3rem 0.9rem;
 
-    button {
-        text-align: center;
-        width: 14.28571%;
-        line-height: 2rem;
-        font-size: 1.3rem;
-        cursor: pointer;
-    }
+  button {
+    text-align: center;
+    width: 14.28571%;
+    line-height: 2rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
 
-    div {
-        width: 14.28571%;
-    }
+  div {
+    width: 14.28571%;
+  }
 }
 
 .datepicker_selected {
-    display: block;
-    background-color: $primaryColor;
-    border-radius: 50%;
-    color: #fff;
-    width: 2rem;
-    margin: 0 auto;
-    font-weight: bold;
+  display: block;
+  background-color: $primaryColor;
+  border-radius: 50%;
+  color: #fff;
+  width: 2rem;
+  margin: 0 auto;
+  font-weight: bold;
 }
 
 .datepicker_normal {
-    display: block;
-    border-radius: 50%;
-    width: 2rem;
-    margin: 0 auto;
-    transition: all 100ms;
+  display: block;
+  border-radius: 50%;
+  width: 2rem;
+  margin: 0 auto;
+  transition: all 100ms;
 }
 
 .datepicker_normal:hover {
-    background-color: $grayColor;
+  background-color: $grayColor;
 }
 
 .datepicker_today {
-    font-weight: bold;
-    color: $primaryColor;
+  font-weight: bold;
+  color: $primaryColor;
 }
 /* end Scheduler */
 
 /* priority picker */
 .priority_picker {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0px 1px 2rem 1px #c4c4c4;
-    overflow: hidden;
-    padding: 1rem 0;
-    z-index: 1001;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  box-shadow: 0px 1px 2rem 1px #c4c4c4;
+  overflow: hidden;
+  padding: 1rem 0;
+  z-index: 1001;
 }
 
 .priority_picker_button {
-    padding: .5rem .9rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  cursor: pointer;
+  gap: $gapSm;
 
-    &:hover {
-        background-color: $grayColor;
-    }
+  &:hover {
+    background-color: $grayColor;
+  }
 }
 /* end priority picker */
 
-
-.tag_check_list_dropdown{
-    position:absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding:1rem 0;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 15rem;
-    overflow: auto;
-    z-index: 1001;
-    
+.tag_check_list_dropdown {
+  max-width: 40rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-radius: $borderRadius;
+  box-shadow: 0 2px 10px $grayColor;
+  max-height: 15rem;
+  overflow: auto;
+  z-index: 1001;
 }
-.tag_check_list_dropdown_btn{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding:.25rem 1rem;
-    cursor:pointer;
-    &:hover{
-        background-color:$grayColor;
-    }
+.tag_check_list_dropdown_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $grayColor;
+  }
 }
-.tag_checkbox{
-    position: relative;
-    display: block;
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid #000;
-    margin: auto 0;
+.tag_checkbox {
+  position: relative;
+  display: block;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid #000;
+  margin: auto 0;
 }
-.tag_checkbox_on{
-    //background-color: #dc4c3e;
-    &:before{
-        content: "√";
-        position: absolute;
-        display: block;
-        font-size: 1.8rem;
-        top: -4px;
-        left:3px
-    }
-    
-}
-
-
-
-.task_footer{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    padding:1rem;
-    button{
-        border-radius: 4px;
-        margin: 0 .3rem;
-        padding: .5rem 2rem;
-        font-weight: bold;
-    }
-}
-.project_board{
-    border-radius: $borderRadius;
-    padding: .5rem 1rem;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    &:hover{
-        background-color: $lightGrayColor;
-    }
-    &::after{
-        content: "";
-        border-top:6px solid #000;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        width: 0;
-        height: 0;
-        margin-left:5px;
-    }
-}
-
-.project_selector{
-    max-width: 30rem;
+.tag_checkbox_on {
+  //background-color: #dc4c3e;
+  &:before {
+    content: "√";
     position: absolute;
+    display: block;
+    font-size: 1.8rem;
+    top: -4px;
+    left: 3px;
+  }
+}
+
+.task_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  button {
+    border-radius: 4px;
+    margin: 0 0.3rem;
+    padding: 0.5rem 2rem;
+    font-weight: bold;
+  }
+}
+.project_board {
+  border-radius: $borderRadius;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+  &::after {
+    content: "";
+    border-top: 6px solid #000;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+  }
+}
+
+.project_selector {
+  max-width: 30rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-radius: $borderRadius;
+  box-shadow: 0 2px 10px $grayColor;
+  max-height: 30rem;
+  overflow: auto;
+  z-index: 1001;
+
+  li {
+    // width: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding: 1rem 0;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 30rem;
-    overflow: auto;
-    z-index: 1001;
+    padding: 0.4rem 1rem;
 
-    li{
-        // width: 100%;
-        display: flex;
-        padding:.4rem 1rem;
-
-        span{
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        &[role=option]{
-            cursor: pointer;
-            &:hover {
-                background-color: $grayColor;
-            }
-        }
-        
-        &[indent-level='1']{
-            padding-left: 2rem;
-        }
-        &[indent-level='2'] {
-            padding-left: 3rem;
-        }
+    span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+
+    &[role="option"] {
+      cursor: pointer;
+      &:hover {
+        background-color: $grayColor;
+      }
+    }
+
+    &[indent-level="1"] {
+      padding-left: 2rem;
+    }
+    &[indent-level="2"] {
+      padding-left: 3rem;
+    }
+  }
 }
 
-.task_footer_btns{
-    display: flex;
-    justify-content: flex-end;
+.task_footer_btns {
+  display: flex;
+  justify-content: flex-end;
 }
-.task_footer_cancel{
-    color: #000;
-    background-color: #f5f5f5;
-    cursor: pointer;
-    &:hover {
-        background-color: $lightGrayColor;
-    }
+.task_footer_cancel {
+  color: #000;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  &:hover {
+    background-color: $lightGrayColor;
+  }
 }
-.task_footer_submit{
-    color: #fff;
-    background-color: $primaryColor;
-    cursor: pointer;
-    &:hover {
-        background-color: #c3392c;
-    }
+.task_footer_submit {
+  color: #fff;
+  background-color: $primaryColor;
+  cursor: pointer;
+  &:hover {
+    background-color: #c3392c;
+  }
 }
 
 .tag_box {
-    flex: 0 0 auto;
-  }
+  flex: 0 0 auto;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag_box3 {
+  @include flexRowStart();
+  overflow: hidden;
+  flex: 1;
+}
+
+.button_red {
+  color: $priorityRed;
+}
+
+.button_yellow {
+  color: $priorityYellow;
+}
+
+.button_blue {
+  color: $priorityBlue;
+}

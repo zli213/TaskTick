@@ -27,6 +27,7 @@ import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector } from "react-redux";
+import Icon from "../Icon";
 
 function TaskEditor({
   formType,
@@ -82,7 +83,7 @@ function TaskEditor({
   /** record the editing task */
   let newTaskData = useRef({
     _id: taskData._id == null ? "" : taskData._id,
-    selectedDate: 
+    selectedDate:
       formType === "add"
         ? fromDate == null
           ? ""
@@ -272,6 +273,10 @@ function TaskEditor({
                 {convertDate(selectedDate)}
               </button>
               <button type="button" onClick={showPriority}>
+                <Icon
+                  type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
+                  className={priorityColor(selectedPriority)}
+                />
                 Priority&nbsp;{selectedPriority}
               </button>
               <button type="button" onClick={showTagCheck}>
@@ -362,3 +367,14 @@ function TaskEditor({
 }
 
 export default TaskEditor;
+
+const priorityColor = (p) => {
+  switch (p) {
+    case 1:
+      return styles.button_red;
+    case 2:
+      return styles.button_yellow;
+    case 3:
+      return styles.button_blue;
+  }
+};

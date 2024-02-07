@@ -11,6 +11,7 @@
 
 import { useRef } from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import Icon from "../Icon";
 
 function TaskTagCheckList({
   allTags,
@@ -45,7 +46,11 @@ function TaskTagCheckList({
           onOverlayClick();
         }}
       ></div>
-      <div id="tagCheckList" scrollable='scrollable_area' className={styles.tag_check_list_dropdown}>
+      <div
+        id="tagCheckList"
+        scrollable="scrollable_area"
+        className={styles.tag_check_list_dropdown}
+      >
         {allTags.map((item) => (
           <div
             className={styles.tag_check_list_dropdown_btn}
@@ -58,12 +63,19 @@ function TaskTagCheckList({
               onTagCheckClick(newCheckedTags.current);
             }}
           >
-            {item}
+            <div className={styles.tag_box3}>
+              <Icon type="small_tag" className={styles.tag_box} />
+              <span className={styles.tag_box2}>{item}</span>
+            </div>
             <i
-              className={
-                styles.tag_checkbox +
-                (checkedTags.includes(item) ? " " + styles.tag_checkbox_on : "")
-              }
+              className={`
+                ${
+                  styles.tag_checkbox +
+                  (checkedTags.includes(item)
+                    ? " " + styles.tag_checkbox_on
+                    : "")
+                }
+                ${styles.tag_box}`}
             ></i>
           </div>
         ))}

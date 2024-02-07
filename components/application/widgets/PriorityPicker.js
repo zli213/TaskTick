@@ -7,9 +7,22 @@
  */
 
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import Icon from "./Icon";
 
 function PriorityPicker({ data, onPrioritySelect, onOverlayClick }) {
   const priorities = [{ p: 1 }, { p: 2 }, { p: 3 }, { p: 4 }];
+
+  const priorityColor = (p) => {
+    switch (p) {
+      case 1:
+        return styles.button_red;
+      case 2:
+        return styles.button_yellow;
+      case 3:
+        return styles.button_blue;
+    }
+  };
+
   return (
     <>
       <div className={styles.popup_overlay} onClick={onOverlayClick}></div>
@@ -20,7 +33,11 @@ function PriorityPicker({ data, onPrioritySelect, onOverlayClick }) {
             className={styles.priority_picker_button}
             onClick={() => onPrioritySelect(item.p)}
           >
-            Priority &nbsp; {item.p}
+            <Icon
+              type={item.p == 4 ? "flag_big" : "flag_filled"}
+              className={priorityColor(item.p)}
+            />
+            Priority&nbsp;{item.p} 
           </button>
         ))}
       </div>

@@ -54,8 +54,8 @@ export const useMenu = () => {
         left: buttonRect.left,
         bottom: buttonRect.top,
         right: buttonRect.right,
-      pX: 0,
-      pY: 0,
+        pX: 0,
+        pY: 0,
       });
     }
     setShowItemMenu((preState) => !preState);
@@ -70,26 +70,30 @@ export const useMenu = () => {
 
 //PopupMenu
 export default function PopupMenu(props) {
-  const [menuPosition, setMenuPosition] = useState(()=> {
-    const newPostion = convertPosition2(props.position, props.levels, 260);
+  const [menuPosition, setMenuPosition] = useState(() => {
+    const newPostion = convertPosition2(
+      props.position,
+      props.levels,
+      props.menuWidth ? props.menuWidth : 260
+    );
     return {
       position: "absolute",
       top: `${newPostion.pY}px`,
       left: `${newPostion.pX}px`,
-    }
+    };
   });
-  
+
   const disableScroll = (event) => {
     event.preventDefault();
   };
 
   const updateWindowSize = () => {
     const newPostion = convertPosition2(props.position, props.levels, 260);
-    setMenuPosition( {
+    setMenuPosition({
       position: "absolute",
       top: `${newPostion.pY}px`,
       left: `${newPostion.pX}px`,
-    })
+    });
   };
 
   useEffect(() => {
@@ -116,4 +120,3 @@ export default function PopupMenu(props) {
     </>
   );
 }
-
