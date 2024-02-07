@@ -88,7 +88,11 @@ export default function PopupMenu(props) {
   };
 
   const updateWindowSize = () => {
-    const newPostion = convertPosition2(props.position, props.levels, 260);
+    const newPostion = convertPosition2(
+      props.position,
+      props.levels,
+      props.menuWidth ? props.menuWidth : 260
+    );
     setMenuPosition({
       position: "absolute",
       top: `${newPostion.pY}px`,
@@ -114,7 +118,10 @@ export default function PopupMenu(props) {
         className={styles.popup_overlay}
         onClick={props.onOverlayClick}
       ></div>
-      <div className={styles.action_btn_menu} style={menuPosition}>
+      <div
+        className={styles.action_btn_menu}
+        style={{ ...menuPosition, width: props.menuWidth + "px" }}
+      >
         {props.children}
       </div>
     </>

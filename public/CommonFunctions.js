@@ -42,11 +42,10 @@ export function convertPosition(position, levels, componentWidth) {
 }
 
 export function convertPosition2(position, levels, componentWidth) {
-  let left2 = (window.innerWidth - 280 - 800) / 2 + 280 + 800 - 33;
-  const menuHeight = levels * 38 + 17;
+  const menuHeight = levels * 38;
 
   var newtop = position.height + 2;
-  var newleft = -componentWidth * 0.5 + position.width / 2;
+  var newleft = -componentWidth * 0.5 + position.width / 2 + 3;
 
   if (window.innerHeight - position.top < menuHeight) {
     newtop = -menuHeight;

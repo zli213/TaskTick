@@ -28,6 +28,7 @@ import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector } from "react-redux";
 import Icon from "../Icon";
+import PopupMenu, { useMenu } from "../PopupMenu";
 
 function TaskEditor({
   formType,
@@ -191,13 +192,11 @@ function TaskEditor({
   };
 
   // Show/Hide PriorityPicker
-  const [isShowPriority, setIsShowPriority] = useState(false);
-  const showPriority = () => {
-    setIsShowPriority(true);
-  };
-  const hidePriority = () => {
-    setIsShowPriority(false);
-  };
+  const {
+    showItemMenu: showPriorityMenu,
+    buttonPosition: priorityPosition,
+    swithMenuHandler: swichPriorityHandler,
+  } = useMenu();
 
   // Show/Hide TaskTagCheckList
   const [isShowTagCheck, setIsShowTagCheck] = useState(false);
@@ -272,13 +271,31 @@ function TaskEditor({
               <button type="button" onClick={showScheduler}>
                 {convertDate(selectedDate)}
               </button>
-              <button type="button" onClick={showPriority}>
-                <Icon
-                  type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
-                  className={priorityColor(selectedPriority)}
-                />
-                Priority&nbsp;{selectedPriority}
-              </button>
+              <span className={styles.btn_menu}>
+                <button type="button" onClick={swichPriorityHandler}>
+                  <Icon
+                    type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
+                    className={priorityColor(selectedPriority)}
+                  />
+                  Priority&nbsp;{selectedPriority}
+                </button>
+                {showPriorityMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichPriorityHandler}
+                    position={priorityPosition}
+                    levels={4}
+                    menuWidth="110"
+                  >
+                    <PriorityPicker
+                      onPrioritySelect={(pri) => {
+                        changeSelectedPriority(pri);
+                        swichPriorityHandler();
+                      }}
+                      onOverlayClick={swichPriorityHandler}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
               <button type="button" onClick={showTagCheck}>
                 Tags
               </button>
@@ -334,15 +351,7 @@ function TaskEditor({
           onOverlayClick={hideScheduler}
         />
       ) : null}
-      {isShowPriority ? (
-        <PriorityPicker
-          onPrioritySelect={(pri) => {
-            changeSelectedPriority(pri);
-            hidePriority();
-          }}
-          onOverlayClick={hidePriority}
-        />
-      ) : null}
+
       {isShowTagCheck ? (
         <TaskTagCheckList
           allTags={allTags}

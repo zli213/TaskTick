@@ -242,12 +242,12 @@
 }
 
 .priority_picker_button {
-  padding: 0.5rem 0.9rem;
+  border: 0 !important;
   display: flex;
   justify-content: space-between;
   font-size: 1.3rem;
+  margin: 0 !important;
   cursor: pointer;
-  gap: $gapSm;
 
   &:hover {
     background-color: $grayColor;
@@ -418,4 +418,8 @@
 
 .button_blue {
   color: $priorityBlue;
+}
+
+.btn_menu {
+  position: relative;
 }
