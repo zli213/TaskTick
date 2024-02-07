@@ -13,11 +13,7 @@ import { useRef } from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import Icon from "../Icon";
 
-function TaskTagCheckList({
-  allTags,
-  checkedTags,
-  onTagCheckClick,
-}) {
+function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
   let newCheckedTags = useRef([...checkedTags]);
   const updateNewCheckedTags = (tag, ele) => {
     // change the checkbox to checked/unchecked
@@ -48,7 +44,7 @@ function TaskTagCheckList({
           <div
             className={styles.tag_check_list_dropdown_btn}
             onClick={(e) => {
-              let ele = e.target.parentNode;
+              let ele = e.currentTarget;
               if (e.target.tagName === "I") {
                 ele = e.target.parentNode;
               }
