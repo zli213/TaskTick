@@ -199,14 +199,6 @@ function TaskEditor({
   } = useMenu();
 
   // Show/Hide TaskTagCheckList
-  const [isShowTagCheck, setIsShowTagCheck] = useState(false);
-  const showTagCheck = () => {
-    setIsShowTagCheck(true);
-  };
-  const hideTagCheck = () => {
-    setIsShowTagCheck(false);
-  };
-
   const {
     showItemMenu: showTagMenu,
     buttonPosition: tagPosition,
@@ -221,6 +213,12 @@ function TaskEditor({
   const hideProjectSel = () => {
     setIsShowProjectSel(false);
   };
+
+  const {
+    showItemMenu: showProjectMenu,
+    buttonPosition: projectPosition,
+    swithMenuHandler: swichProjectHandler,
+  } = useMenu();
 
   const recordTaskContent = () => {
     setNewTaskData(
@@ -280,7 +278,11 @@ function TaskEditor({
                 </button>
               </span>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={swichPriorityHandler}>
+                <button
+                  type="button"
+                  onClick={swichPriorityHandler}
+                  style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
+                >
                   <Icon
                     type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
                     className={priorityColor(selectedPriority)}
@@ -305,7 +307,11 @@ function TaskEditor({
                 )}
               </span>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={swichTagHandler}>
+                <button
+                  type="button"
+                  onClick={swichTagHandler}
+                  style={{ backgroundColor: showTagMenu && "#f5f5f5" }}
+                >
                   Tags
                 </button>
                 {showTagMenu && (
@@ -332,9 +338,33 @@ function TaskEditor({
           </div>
           <div className={styles.task_footer}>
             {/* project / board */}
-            <div className={styles.project_board} onClick={showProjectSel}>
-              {dispProjectId === "" ? "Inbox" : dispProjectName}
-              {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+            <div className={styles.btn_menu}>
+              <div
+                className={styles.project_board}
+                onClick={swichProjectHandler}
+                style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
+              >
+                {dispProjectId === "" ? "Inbox" : dispProjectName}
+                {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+              </div>
+              {showProjectMenu && (
+                <PopupMenu
+                  onOverlayClick={swichProjectHandler}
+                  position={projectPosition}
+                  levels={
+                    boardNum(allProjects) <= 9
+                      ? boardNum(allProjects) * 0.87
+                      : 8.22
+                  }
+                  menuWidth="300"
+                >
+                  <ProjectSelector
+                    allProjects={allProjects}
+                    onProjSelect={projSelectHandler}
+                    onOverlayClick={swichProjectHandler}
+                  />
+                </PopupMenu>
+              )}
             </div>
             <div className={styles.task_footer_btns}>
               <button
@@ -381,18 +411,6 @@ function TaskEditor({
         />
       ) : null}
 
-      {isShowTagCheck ? (
-        <TaskTagCheckList
-          allTags={allTags}
-          checkedTags={newTaskData.current.tags}
-          onTagCheckClick={(tags) => {
-            //updateCheckTags(tags);
-            setNewTaskData("tags", tags);
-            taskNameInputRef.current.checkTags(tags);
-          }}
-          onOverlayClick={hideTagCheck}
-        />
-      ) : null}
       {isShowProjectSel ? (
         <ProjectSelector
           allProjects={allProjects}
@@ -415,4 +433,15 @@ const priorityColor = (p) => {
     case 3:
       return styles.button_blue;
   }
+};
+
+const boardNum = (allProjects) => {
+  if (allProjects.length === 0) return 1;
+
+  let num = 0;
+  allProjects.forEach((proj) => {
+    num += proj.boards.length + 1;
+  });
+  console.log("1", num + 2);
+  return num + 2;
 };

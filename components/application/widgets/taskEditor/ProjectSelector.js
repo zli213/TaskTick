@@ -13,13 +13,7 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
   console.log(allProjects);
   return (
     <>
-      <div
-        className={styles.popup_overlay}
-        onClick={() => {
-          onOverlayClick();
-        }}
-      ></div>
-      <div className={styles.project_selector} scrollable='scrollable_area'>
+      <div className={styles.project_selector} scrollable="scrollable_area">
         <ul>
           <li
             role="option"
@@ -31,7 +25,7 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
             <Icon type="inbox" />
             Inbox
           </li>
-          <li role="separator">My Projects</li>
+          {allProjects.length != 0 && <li role="separator">My Projects</li>}
           {allProjects.map((project) => (
             <>
               <li
@@ -43,7 +37,9 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
                   onProjSelect(project.projectId, project.name, "");
                 }}
               >
-                <span className={styles.tag_box}><Icon type="hashtag" /></span>
+                <span className={styles.tag_box}>
+                  <Icon type="hashtag" />
+                </span>
                 <span>{project.name}</span>
               </li>
               {project.boards.map((board) => (
@@ -56,7 +52,9 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
                     onProjSelect(project.projectId, project.name, board);
                   }}
                 >
-                  <span className={styles.tag_box}><Icon type="board" /></span>
+                  <span className={styles.tag_box}>
+                    <Icon type="board" />
+                  </span>
                   <span>{board}</span>
                 </li>
               ))}
@@ -64,7 +62,6 @@ function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
           ))}
         </ul>
       </div>
-      111
     </>
   );
 }

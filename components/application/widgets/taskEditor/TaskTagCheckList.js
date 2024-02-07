@@ -17,7 +17,6 @@ function TaskTagCheckList({
   allTags,
   checkedTags,
   onTagCheckClick,
-  onOverlayClick,
 }) {
   let newCheckedTags = useRef([...checkedTags]);
   const updateNewCheckedTags = (tag, ele) => {
@@ -57,10 +56,10 @@ function TaskTagCheckList({
               onTagCheckClick(newCheckedTags.current);
             }}
           >
-            <label className={styles.tag_box3}>
+            <div className={styles.tag_box3}>
               <Icon type="small_tag" className={styles.tag_box} />
               <span className={styles.tag_box2}>{item}</span>
-            </label>
+            </div>
             <i
               className={`
                 ${
