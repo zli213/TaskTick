@@ -48,7 +48,7 @@ function TaskTagCheckList({
           <div
             className={styles.tag_check_list_dropdown_btn}
             onClick={(e) => {
-              let ele = e.target;
+              let ele = e.target.parentNode;
               if (e.target.tagName === "I") {
                 ele = e.target.parentNode;
               }

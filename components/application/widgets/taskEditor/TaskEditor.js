@@ -344,8 +344,8 @@ function TaskEditor({
                 onClick={swichProjectHandler}
                 style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
               >
-                {dispProjectId === "" ? "Inbox" : dispProjectName}
-                {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+                <span className={styles.tag_box2}>{dispProjectId === "" ? "Inbox" : dispProjectName}</span> 
+                <span className={styles.tag_box}>{dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}</span>
               </div>
               {showProjectMenu && (
                 <PopupMenu
