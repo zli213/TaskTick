@@ -91,7 +91,6 @@ export default function PopupMenu(props) {
       event.preventDefault();
       event.stopPropagation();
     }
-  
   };
 
   const updateWindowSize = () => {

@@ -7,6 +7,7 @@
 .app_holder {
   position: relative;
   display: flex;
+
 }
 
 .list_sidebar_hide {
@@ -23,6 +24,7 @@
   flex-grow: 1;
   position: relative;
   max-width: $maxListWidth;
+  padding-bottom: 15rem;
 
   li {
     list-style: none;

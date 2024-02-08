@@ -22,7 +22,6 @@ export default function Modal(props) {
       event.preventDefault();
       event.stopPropagation();
     }
-    event.preventDefault();
   };
 
   useEffect(() => {
