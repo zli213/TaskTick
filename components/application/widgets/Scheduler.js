@@ -16,12 +16,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToastId } from "../../../store/toastIds";
 
 function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   const dispatch = useDispatch();
-  const toastIds = useSelector((state) => state.toastIds.toastIds);
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
   const today = new Date();
@@ -299,14 +298,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     calendarRef.current?.scrollTo(0, top);
   };
 
-  useEffect(() => {
-    return () => {
-      if (toastIds.length !== 0) {
-        const latestToastId = toastIds[toastIds.length - 1];
-        toast.dismiss(latestToastId);
-      }
-    };
-  }, [toastIds]);
+  //--------- select date ------------
   const selectDate = (selDate) => {
     let dateJson = formatDate(selDate);
     // Change current selected date

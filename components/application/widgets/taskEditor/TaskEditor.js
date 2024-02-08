@@ -19,7 +19,7 @@
  * ...
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import Scheduler, { convertDate } from "../Scheduler";
 import PriorityPicker from "../PriorityPicker";
@@ -46,7 +46,6 @@ function TaskEditor({
   allProjects = allProjects
     .filter((project) => project.archived !== true)
     .filter((project) => project.isDeleted !== true);
-  let toastIds = useSelector((state) => state.toastIds.toastIds);
   let dispatch = useDispatch();
   // Default values
   if (formType == null) {
@@ -268,14 +267,7 @@ function TaskEditor({
     );
     dispatch(addToastId(newToastId));
   };
-  useEffect(() => {
-    return () => {
-      if (toastIds.length > 1) {
-        const latestToastId = toastIds[toastIds.length - 2];
-        toast.dismiss(latestToastId);
-      }
-    };
-  }, [toastIds]);
+
   return (
     <>
       <div className={styles.task_edit_form}>

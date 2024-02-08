@@ -31,12 +31,14 @@ export const completedTaskSlice = createSlice({
           updatedAt: currentTime,
         };
       } else {
+        const currentTime = new Date().toISOString();
         if (!state[task.projectId]) {
           state[task.projectId] = {};
         }
         state[task.projectId][task._id] = {
           ...task,
           completed: true,
+          updatedAt: currentTime,
         };
       }
     },

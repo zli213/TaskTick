@@ -8,8 +8,8 @@ import Icon from "../../application/widgets/Icon";
 import { useSelector, useDispatch } from "react-redux";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchInboxCompletedTasks } from "../../../store/viewOptions";
-import { toast } from "react-toastify";
-import { addToastId } from "../../../store/toastIds";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 export default function Inbox(props) {
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ export default function Inbox(props) {
   let completedTasks = Object.values(
     useSelector((state) => state.completedTasks.inbox)
   );
-  const toastIds = useSelector((state) => state.toastIds.toastIds);
 
   completedTasks =
     completedTasks !== undefined ? Object.values(completedTasks) : [];
@@ -26,8 +25,6 @@ export default function Inbox(props) {
   let showCompletedTask = useSelector(
     (state) => state.viewOptions.inbox.showCompletedTasks
   );
-  console.log("1", tasks);
-  console.log("2", completedTasks);
 
   const showCompletedHandler = (event) => {
     dispatch(switchInboxCompletedTasks(showCompletedTask));
@@ -42,62 +39,11 @@ export default function Inbox(props) {
   const inBoxTasks = tasks.filter((task) => {
     return task.projectId == "" || task.projectId == null;
   });
-  console.log("4", inBoxTasks);
-  useEffect(() => {
-    console.log("length:", completedTasks.length);
-    if (completedTasks.length !== 0) {
-      console.log("5");
-      // Check the latest completedTasks's updatedAt
-      const latestCompletedTaskISO =
-        completedTasks[completedTasks.length - 1].updatedAt;
-      const latestCompletedTaskTime = new Date(
-        latestCompletedTaskISO
-      ).getTime();
-      // 转换为新西兰时间
-      const localDate = new Date(latestCompletedTaskTime).toLocaleString(
-        "en-NZ",
-        { timeZone: "Pacific/Auckland" }
-      );
-      // Current UTC time
-      const currentTime = new Date().getTime();
-      const currentLocalTime = new Date(currentTime).toLocaleString("en-NZ", {
-        timeZone: "Pacific/Auckland",
-      });
-      console.log("latestCompletedTaskTime:", latestCompletedTaskTime);
-      console.log("currentTime:", currentLocalTime);
-      console.log("localDate:", localDate);
-      // If the latest task has been completed within 1 second, show the toast
-      if (currentTime - latestCompletedTaskTime <= 1000) {
-        console.log("6");
-        const newToastId = toast.success(
-          <Notification
-            onUndo={() => {
-              // TODO: Add undo function after completed task can be converted back to uncompleted
-            }}
-          />,
-          {
-            pauseOnHover: false,
-          }
-        );
-        dispatch(addToastId(newToastId));
-      }
-    }
-  }, [completedTasks]);
-  //----------------- Notification ----------------
-  const Notification = ({ onUndo, closeToast }) => {
-    const handleClick = () => {
-      onUndo();
-      closeToast();
-    };
-    return (
-      <div className={styles.notification}>
-        You have completed a task!
-        <button onClick={handleClick} className={styles.undoBtn}>
-          Undo
-        </button>
-      </div>
-    );
-  };
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>

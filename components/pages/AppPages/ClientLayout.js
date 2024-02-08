@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
@@ -38,7 +38,7 @@ export default function ClientLayout(props) {
       </div>
       <ToastContainer
         position="bottom-left"
-        autoClose={false}
+        autoClose={5000}
         style={{ width: "auto" }}
         theme="dark"
         icon={false}

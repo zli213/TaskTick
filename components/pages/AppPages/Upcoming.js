@@ -4,14 +4,23 @@ import React from "react";
 import TodoList from "../../application/widgets/TodoList";
 import styles from "../../../styles/scss/application.module.scss";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 function Upcoming() {
+  const dispatch = useDispatch();
   let tasks = Object.values(useSelector((state) => state.tasks));
+
   useEffect(() => {
     document.title = "Upcoming - Todo";
     localStorage.setItem("lastPage", "upcoming");
   }, []);
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>
