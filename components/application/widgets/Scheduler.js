@@ -16,7 +16,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
 import { convertPosition } from "../../../public/CommonFunctions";
 
-function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
+function Scheduler({ data, onChangeDate, position }) {
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
   const today = new Date();
@@ -270,7 +270,9 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
 
   //------------ useEffect for disable scroll ------------
   const disableScroll = (event) => {
-    const menu = document.querySelector(`.${styles.datepicker_monthlist_wrapper}`);
+    const menu = document.querySelector(
+      `.${styles.datepicker_monthlist_wrapper}`
+    );
     const isInsideMenu = menu && menu.contains(event.target);
 
     if (!isInsideMenu) {
@@ -289,15 +291,18 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
   }, []);
 
   //--------- functions for interactive ------------
-  const goToToday = () => {
+  const goToToday = (event) => {
+    event.preventDefault();
     calendarRef.current?.scrollTo(0, 0);
   };
-  const goToNextMonth = () => {
+  const goToNextMonth = (event) => {
+    event.preventDefault();
     const top =
       currentDispMonth.current.top + calcMonthH(currentDispMonth.current) + 32;
     calendarRef.current?.scrollTo(0, top);
   };
-  const goToPrevMonth = () => {
+  const goToPrevMonth = (event) => {
+    event.preventDefault();
     if (
       currentDispMonth.current.year === thisMonth.year &&
       currentDispMonth.current.month === thisMonth.month
@@ -334,7 +339,6 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
 
   return (
     <>
-      <div className={styles.popup_overlay} onClick={onOverlayClick}></div>
       <div
         className={styles.scheduler}
         style={position && schedulerStyle}
@@ -400,9 +404,9 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
               {currentMonthLabel}
             </span>
             <div className={styles.datepicker_header_action}>
-              <button onClick={goToPrevMonth}>&lt;</button>
-              <button onClick={goToToday}>○</button>
-              <button onClick={goToNextMonth}>&gt;</button>
+              <button onClick={goToPrevMonth}> &lt;</button>
+              <button onClick={goToToday}> ○</button>
+              <button onClick={goToNextMonth}> &gt;</button>
             </div>
           </div>
           <div className={styles.week_names}>

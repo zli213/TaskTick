@@ -16,6 +16,7 @@
 
 .content_container {
   @include flexRowStart();
+  max-width: 100%;
   position: relative;
   align-items: flex-start;
   padding: $paddingsm 0;
@@ -38,15 +39,19 @@
 }
 
 .task_content {
-  width: 100%;
+  width: 95%;
+  flex: 1;
 }
 
 .task_list_action {
   @include flexRowStart();
+  align-items: center;
+  height: 2.4rem;
   position: absolute;
   right: 0;
   top: $paddingsm;
   opacity: 0;
+  cursor: pointer;
   color: $textSecondaryColor;
   background-color: #fff;
   box-shadow: 0 1px 2px 2px rgba(255, 255, 255, 1);
@@ -59,6 +64,15 @@
 
   .menu_button {
     @include menuButton();
+    @include flexRowStart();
+    justify-content: center;
+  }
+
+  .two_btn {
+    @include flexRowStart();
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
   }
 }
 
@@ -79,7 +93,6 @@
 .task_info_container {
   @include flexRowStart();
   font-size: $fontSizeXsm;
-  overflow: hidden;
 }
 
 .task_info {
@@ -88,7 +101,6 @@
   padding-top: $paddingXsm;
   flex-wrap: wrap;
   gap: $paddingXsm;
-  overflow: hidden;
   row-gap: 2px;
 
   a,
@@ -267,4 +279,10 @@
 .tag_box4 {
   max-width: 30%;
   margin-left: auto;
+}
+
+.btn_menu {
+  cursor: pointer !important;
+  position: relative;
+  overflow: visible;
 }

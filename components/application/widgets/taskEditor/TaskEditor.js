@@ -175,13 +175,11 @@ function TaskEditor({
   };
 
   // Show/Hide Scheduler
-  const [isShowScheduler, setIsShowScheduler] = useState(false);
-  const showScheduler = () => {
-    setIsShowScheduler(true);
-  };
-  const hideScheduler = () => {
-    setIsShowScheduler(false);
-  };
+  const {
+    showItemMenu: showSchedulerMenu,
+    buttonPosition: schedulerPosition,
+    swithMenuHandler: swichSchedulerHandler,
+  } = useMenu();
 
   // Show/Hide PriorityPicker
   const {
@@ -265,9 +263,25 @@ function TaskEditor({
             </div>
             <div className={styles.task_edit_buttons}>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={showScheduler}>
+                <button type="button" onClick={swichSchedulerHandler}>
                   {convertDate(selectedDate)}
                 </button>
+                {showSchedulerMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichSchedulerHandler}
+                    position={schedulerPosition}
+                    levels={10.4}
+                    menuWidth="230"
+                  >
+                    <Scheduler
+                      data={{ selectedDate: selectedDate }}
+                      onChangeDate={(dateJson) => {
+                        changeSelectedDate(dateJson);
+                        swichSchedulerHandler();
+                      }}
+                    />
+                  </PopupMenu>
+                )}
               </span>
               <span className={styles.btn_menu}>
                 <button
@@ -396,16 +410,6 @@ function TaskEditor({
           </div>
         </form>
       </div>
-      {isShowScheduler ? (
-        <Scheduler
-          data={{ selectedDate: selectedDate }}
-          onChangeDate={(dateJson) => {
-            changeSelectedDate(dateJson);
-            hideScheduler();
-          }}
-          onOverlayClick={hideScheduler}
-        />
-      ) : null}
     </>
   );
 }

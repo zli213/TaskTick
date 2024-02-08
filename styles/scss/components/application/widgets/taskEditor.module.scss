@@ -102,23 +102,32 @@
 
 /* Scheduler */
 .scheduler {
-  position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   border-radius: $borderRadius;
-  box-shadow: 0px 1px 2rem 1px $grayColor;
   overflow: hidden;
-  padding: 1rem 0;
   z-index: 1001;
+
+  button {
+    height: auto;
+    border: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
 }
 
 .scheduler_quickbutton {
   padding: 0.5rem 0.9rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between !important;
   font-size: 1.3rem;
   cursor: pointer;
+  border-radius: $borderRadiusSm;
+
+  &:hover {
+    background-color: $grayColor;
+  }
 }
 
 .scheduler_quickbutton:hover {
@@ -136,8 +145,12 @@
 }
 
 .datepicker_header_action {
+  @include flexRowStart();
   button {
-    margin: 0 0.8rem;
+    justify-content: center;
+    text-align: center;
+    width: 2rem;
+    padding: 0 !important;
   }
 }
 
@@ -163,6 +176,13 @@
 .datepicker_monthlist {
   height: 200000px;
   position: relative;
+
+  button {
+    padding: 0;
+    &:hover {
+      background-color: #fff;
+    }
+  }
 }
 
 .datepicker_calendar {
@@ -192,8 +212,8 @@
   button {
     text-align: center;
     width: 14.28571%;
-    line-height: 2rem;
-    font-size: 1.3rem;
+    line-height: 2rem !important;
+    font-size: 1.3rem !important;
     cursor: pointer;
   }
 
@@ -216,8 +236,14 @@
   display: block;
   border-radius: 50%;
   width: 2rem;
-  margin: 0 auto;
+  margin: 0 auto ;
   transition: all 100ms;
+  text-align: center;
+
+  span{
+  margin: 0 auto !important;
+
+  }
 }
 
 .datepicker_normal:hover {
@@ -275,7 +301,6 @@
   margin: auto 0;
 }
 .tag_checkbox_on {
-  //background-color: #dc4c3e;
   &:before {
     content: "√";
     position: absolute;

@@ -82,6 +82,18 @@ export function SingleItems({
     setIsShowScheduler(false);
   };
 
+  const {
+    showItemMenu: showSchedulerMenu,
+    buttonPosition: schedulerPosition,
+    swithMenuHandler: swichSchedulerHandler,
+  } = useMenu();
+
+  const {
+    showItemMenu: showSchedulerMenu2,
+    buttonPosition: schedulerPosition2,
+    swithMenuHandler: swichSchedulerHandler2,
+  } = useMenu();
+
   // const priorityChangeHandler = (option) => {
   //   setPriority(option);
   // };
@@ -187,21 +199,39 @@ export function SingleItems({
               completed={completed}
               className={styles.tag_box3}
             />
-            <div className={`${styles.task_content} ${styles.tag_box2}`}>
-              <Link href={`/application/task/${_id}`} scroll={false}>
+            <div className={`${styles.task_content}`} >
+              <Link href={`/application/task/${_id}`} scroll={false} className={styles.tag_box2}>
                 <div className={styles.task_title}>{dispTitle}</div>
                 <div className={styles.task_description}>{dispDescription}</div>
               </Link>
               <div className={styles.task_info_container}>
                 <div className={styles.task_info}>
                   {hasDue && (
-                    <button
-                      className={styles.task_info_date}
-                      onClick={showScheduler}
-                    >
-                      <Icon type="calender_small" />
-                      {selectedDate}
-                    </button>
+                    <span className={styles.btn_menu}>
+                      <button
+                        className={styles.task_info_date}
+                        onClick={swichSchedulerHandler}
+                      >
+                        <Icon type="calender_small" />
+                        {selectedDate}
+                      </button>
+                      {showSchedulerMenu && (
+                        <PopupMenu
+                          onOverlayClick={swichSchedulerHandler}
+                          position={schedulerPosition}
+                          levels={10.4}
+                          menuWidth="230"
+                        >
+                          <Scheduler
+                            data={{ selectedDate: selectedDate }}
+                            onChangeDate={(dateJson) => {
+                              changeSelectedDate(dateJson);
+                              swichSchedulerHandler();
+                            }}
+                          />
+                        </PopupMenu>
+                      )}
+                    </span>
                   )}
                   {dispTags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
@@ -227,19 +257,37 @@ export function SingleItems({
           {/* right buttons */}
           <div
             className={styles.task_list_action}
-            style={{ opacity: showItemMenu && 1 }}
+            style={{ opacity: (showItemMenu || showSchedulerMenu2)  && 1 }}
           >
-            <div>
-              <button
+            <div className={styles.two_btn}>
+              <button className={styles.two_btn}
                 onClick={() => {
                   setIsEditing(true);
                 }}
               >
                 <Icon type="edit" />
               </button>
-              <button onClick={showScheduler}>
-                <Icon type="calender_big" />
-              </button>
+              <span className={styles.btn_menu}>
+                <button onClick={swichSchedulerHandler2} className={styles.two_btn}>
+                  <Icon type="calender_big" />
+                </button>
+                {showSchedulerMenu2 && (
+                  <PopupMenu
+                    onOverlayClick={swichSchedulerHandler2}
+                    position={schedulerPosition2}
+                    levels={10.4}
+                    menuWidth="230"
+                  >
+                    <Scheduler
+                      data={{ selectedDate: selectedDate }}
+                      onChangeDate={(dateJson) => {
+                        changeSelectedDate(dateJson);
+                        swichSchedulerHandler2();
+                      }}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
             </div>
             <div className={styles.task_list_action_last}>
               <button
