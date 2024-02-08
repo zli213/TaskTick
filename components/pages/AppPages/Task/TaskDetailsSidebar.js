@@ -6,13 +6,13 @@
 import { useState } from "react";
 import styles from "../../../../styles/scss/task.module.scss";
 import TaskHeaderLeft from "./TaskHeaderLeft";
-import {
+import Scheduler, {
   convertDate,
   formatDate,
 } from "../../../application/widgets/Scheduler";
-import Scheduler from "../../../application/widgets/Scheduler";
 import Icon from "../../../application/widgets/Icon";
 import Link from "next/link";
+import PopupMenu, { useMenu } from "../../../application/widgets/PopupMenu";
 
 export default function TaskDetailsSidebar({ task, showInbox }) {
   const dateJson = task.dueDate ? formatDate(task.dueDate) : "";
@@ -25,24 +25,11 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
   };
 
   // Show/Hide Scheduler
-  const [isShowScheduler, setIsShowScheduler] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
-
-  const showScheduler = (event) => {
-    const buttonRect = event.target.getBoundingClientRect();
-    setButtonPosition({
-      width: 0,
-      top: buttonRect.bottom,
-      left: buttonRect.left,
-      bottom: buttonRect.top,
-      right: buttonRect.right,
-    });
-    setIsShowScheduler(true);
-  };
-
-  const hideScheduler = () => {
-    setIsShowScheduler(false);
-  };
+  const {
+    showItemMenu: showSchedulerMenu,
+    buttonPosition: schedulerPosition,
+    swithMenuHandler: swichSchedulerHandler,
+  } = useMenu();
 
   return (
     <div className={styles.task_sidebar}>
@@ -60,26 +47,33 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
         <div className={styles.task_sidebar_item}>
           <h4>Due date</h4>
           {hasDue && (
-            <button
-              className={styles.task_sidebar_button}
-              onClick={showScheduler}
-            >
-              <div className={styles.flexStart}>
-                <Icon type="calender" />
-              </div>
-              <span>{convertDate(selectedDate)}</span>
-            </button>
-          )}
-          {isShowScheduler && (
-            <Scheduler
-              position={buttonPosition}
-              data={{ selectedDate: selectedDate }}
-              onChangeDate={(dateJson) => {
-                changeSelectedDate(dateJson);
-                hideScheduler();
-              }}
-              onOverlayClick={hideScheduler}
-            />
+            <span className={styles.btn_menu}>
+              <button
+                className={styles.task_sidebar_button}
+                onClick={swichSchedulerHandler}
+              >
+                <div className={styles.flexStart}>
+                  <Icon type="calender" />
+                </div>
+                <span>{convertDate(selectedDate)}</span>
+              </button>
+              {showSchedulerMenu && (
+                <PopupMenu
+                  onOverlayClick={swichSchedulerHandler}
+                  position={schedulerPosition}
+                  levels={10.4}
+                  menuWidth="230"
+                >
+                  <Scheduler
+                    data={{ selectedDate: selectedDate }}
+                    onChangeDate={(dateJson) => {
+                      changeSelectedDate(dateJson);
+                      swichSchedulerHandler();
+                    }}
+                  />
+                </PopupMenu>
+              )}
+            </span>
           )}
         </div>
         <hr />

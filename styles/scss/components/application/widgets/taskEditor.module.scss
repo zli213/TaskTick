@@ -102,11 +102,13 @@
 
 /* Scheduler */
 .scheduler {
+  color: $textSecondaryColor;
   display: flex;
   flex-direction: column;
   border-radius: $borderRadius;
   overflow: hidden;
   z-index: 1001;
+  // background-color: #fff;
 
   button {
     height: auto;
@@ -118,7 +120,7 @@
 }
 
 .scheduler_quickbutton {
-  padding: 0.5rem 0.9rem;
+  padding: 0.5rem 0.5rem;
   display: flex;
   justify-content: space-between !important;
   font-size: 1.3rem;

@@ -327,21 +327,10 @@ function Scheduler({ data, onChangeDate, position }) {
     onChangeDate(dateJson);
   };
 
-  //--------- set position ------------
-  position = position ? convertPosition(position, 10, 230) : null;
-  const schedulerStyle = position
-    ? {
-        position: "fixed",
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-      }
-    : "";
-
   return (
     <>
       <div
         className={styles.scheduler}
-        style={position && schedulerStyle}
         scrollable={"scrollable_area"}
       >
         <button

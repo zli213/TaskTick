@@ -65,23 +65,6 @@ export function SingleItems({
   };
 
   // Show/Hide Scheduler
-  const showScheduler = (event) => {
-    const buttonRect = event.target.getBoundingClientRect();
-    setButtonPosition({
-      width: buttonRect.width,
-      height: buttonRect.height,
-      top: buttonRect.bottom,
-      left: buttonRect.left,
-      bottom: buttonRect.top,
-      right: buttonRect.right,
-    });
-    setIsShowScheduler(true);
-  };
-
-  const hideScheduler = () => {
-    setIsShowScheduler(false);
-  };
-
   const {
     showItemMenu: showSchedulerMenu,
     buttonPosition: schedulerPosition,
@@ -391,17 +374,6 @@ export function SingleItems({
               )}
             </div>
           </div>
-          {isShowScheduler && (
-            <Scheduler
-              position={buttonPosition}
-              data={{ selectedDate: selectedDate }}
-              onChangeDate={(dateJson) => {
-                changeSelectedDate(dateJson);
-                hideScheduler();
-              }}
-              onOverlayClick={hideScheduler}
-            />
-          )}
         </div>
       )}
       {showDeleteCard && (
