@@ -44,16 +44,6 @@ const CheckBoxButton = ({
 
   const clickHandler = async () => {
     if (isCompleted) return;
-    // const newToastId = toast.info(
-    //   <Notification
-    //     onUndo={() => {
-    //       clearTimeout(timer);
-    //     }}
-    //   />,
-    //   { pauseOnHover: false, autoClose: false }
-    // );
-    // dispatch(addToastId(newToastId));
-    // const timer = setTimeout(async () => {
     try {
       const res = await fetch("/api/completeTask", {
         method: "POST",
@@ -73,31 +63,7 @@ const CheckBoxButton = ({
     } catch (error) {
       throw error;
     }
-    // }, 2000);
   };
-  //----------------- Notification ----------------
-  // const Notification = ({ onUndo, closeToast, date }) => {
-  //   const handleClick = () => {
-  //     onUndo();
-  //     closeToast();
-  //   };
-  //   return (
-  //     <div className={styles.notification}>
-  //       1 task completed
-  //       <button onClick={handleClick} className={styles.undoBtn}>
-  //         Undo
-  //       </button>
-  //     </div>
-  //   );
-  // };
-  // useEffect(() => {
-  //   return () => {
-  //     if (toastIds.length !== 0) {
-  //       const latestToastId = toastIds[toastIds.length - 1];
-  //       toast.dismiss(latestToastId);
-  //     }
-  //   };
-  // }, [toastIds]);
 
   return (
     <button

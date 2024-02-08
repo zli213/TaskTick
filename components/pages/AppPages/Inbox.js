@@ -1,7 +1,7 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";
@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchInboxCompletedTasks } from "../../../store/viewOptions";
 import { toast } from "react-toastify";
+import { addToastId } from "../../../store/toastIds";
 
 export default function Inbox(props) {
   const dispatch = useDispatch();
@@ -17,7 +18,8 @@ export default function Inbox(props) {
   let completedTasks = Object.values(
     useSelector((state) => state.completedTasks.inbox)
   );
-  const [previousTasks, setPreviousTasks] = useState(tasks);
+  const toastIds = useSelector((state) => state.toastIds.toastIds);
+
   completedTasks =
     completedTasks !== undefined ? Object.values(completedTasks) : [];
 
@@ -41,25 +43,61 @@ export default function Inbox(props) {
     return task.projectId == "" || task.projectId == null;
   });
   console.log("4", inBoxTasks);
-
-  // Check the latest completedTasks's updatedAt
-  const latestCompletedTaskISO =
-    completedTasks[completedTasks.length - 1].updatedAt;
-  const latestCompletedTaskTime = new Date(latestCompletedTaskISO).getTime();
-  // Current UTC time
-  const currentTime = new Date().getTime();
-  // 如果现在时间与最后一个完成的任务的时间相差在10s内，发送通知
-  if (currentTime - latestCompletedTaskTime <= 10000) {
-    toast.success("You have completed a task!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
+  useEffect(() => {
+    console.log("length:", completedTasks.length);
+    if (completedTasks.length !== 0) {
+      console.log("5");
+      // Check the latest completedTasks's updatedAt
+      const latestCompletedTaskISO =
+        completedTasks[completedTasks.length - 1].updatedAt;
+      const latestCompletedTaskTime = new Date(
+        latestCompletedTaskISO
+      ).getTime();
+      // 转换为新西兰时间
+      const localDate = new Date(latestCompletedTaskTime).toLocaleString(
+        "en-NZ",
+        { timeZone: "Pacific/Auckland" }
+      );
+      // Current UTC time
+      const currentTime = new Date().getTime();
+      const currentLocalTime = new Date(currentTime).toLocaleString("en-NZ", {
+        timeZone: "Pacific/Auckland",
+      });
+      console.log("latestCompletedTaskTime:", latestCompletedTaskTime);
+      console.log("currentTime:", currentLocalTime);
+      console.log("localDate:", localDate);
+      // If the latest task has been completed within 1 second, show the toast
+      if (currentTime - latestCompletedTaskTime <= 1000) {
+        console.log("6");
+        const newToastId = toast.success(
+          <Notification
+            onUndo={() => {
+              // TODO: Add undo function after completed task can be converted back to uncompleted
+            }}
+          />,
+          {
+            pauseOnHover: false,
+          }
+        );
+        dispatch(addToastId(newToastId));
+      }
+    }
+  }, [completedTasks]);
+  //----------------- Notification ----------------
+  const Notification = ({ onUndo, closeToast }) => {
+    const handleClick = () => {
+      onUndo();
+      closeToast();
+    };
+    return (
+      <div className={styles.notification}>
+        You have completed a task!
+        <button onClick={handleClick} className={styles.undoBtn}>
+          Undo
+        </button>
+      </div>
+    );
+  };
 
   return (
     <>

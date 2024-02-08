@@ -24,7 +24,12 @@ export const completedTaskSlice = createSlice({
     addCompletedTask: (state, action) => {
       const task = action.payload;
       if (task.projectId === null || task.projectId === "") {
-        state.inbox[task._id] = { ...task, completed: true };
+        const currentTime = new Date().toISOString();
+        state.inbox[task._id] = {
+          ...task,
+          completed: true,
+          updatedAt: currentTime,
+        };
       } else {
         if (!state[task.projectId]) {
           state[task.projectId] = {};
