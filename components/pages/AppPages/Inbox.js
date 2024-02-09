@@ -1,7 +1,7 @@
 "use client";
 
 import TodoList from "../../application/widgets/TodoList";
-import { useState, useEffect, use } from "react";
+import { useEffect } from "react";
 import styles from "../../../styles/scss/application.module.scss";
 import NoTask from "../../application/widgets/NoTask";
 import Icon from "../../application/widgets/Icon";

@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "../../../styles/scss/application.module.scss";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import TodoList from "../../application/widgets/TodoList";
 import Link from "next/link";
 import NoTask from "../../application/widgets/NoTask";
