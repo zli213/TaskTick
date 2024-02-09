@@ -59,9 +59,11 @@ function useCompletedTaskNotification() {
       onUndo();
       closeToast();
     };
+    const displayTitle =
+      task.title.length > 3 ? `${task.title.slice(0, 3)}...` : task.title;
     return (
       <div className={styles.notification}>
-        You have completed a task called [{task.title}]!
+        Task <u>[{displayTitle}]</u> has been completed.
         <button onClick={handleClick} className={styles.undoBtn}>
           Undo
         </button>
