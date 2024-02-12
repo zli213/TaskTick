@@ -1,0 +1,62 @@
+@use "../scss/utils/variable" as *;
+
+.click_close_cover {
+  // Fill the screen
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80vw; // Use viewport width to cover the full screen width
+  height: 80vh; // Use viewport height to cover the full screen height
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-top: 50rem; // Removed to ensure centering
+  z-index: 100;
+  // display: true; // Removed because it's an invalid property value
+
+  .search_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 100%;
+    border-radius: $borderRadius;
+    padding: $paddingMd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    .error {
+      color: $errorColor;
+      margin-bottom: $marginXsm;
+    }
+
+    .input_style {
+      width: 100%;
+      margin: $marginXsm;
+      border: 1px solid $midGrayColor;
+      border-radius: $borderRadius;
+      background-color: aliceblue;
+
+      label {
+        font-size: smaller;
+        font-weight: lighter;
+        margin-left: $marginXsm;
+        display: block;
+      }
+
+      input {
+        width: 100%;
+        padding: $paddingXsm;
+      }
+
+      .visibility {
+        width: 100%;
+
+        .visibility_btn {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
