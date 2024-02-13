@@ -41,6 +41,7 @@ import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
 import MoveListIcon from "../../../public/icon/move_list.svg";
 
 import SearchIcon from "../../../public/icon/search.svg";
+import SearchColorIcon from "../../../public/icon/search_color.svg";
 import SettingIcon from "../../../public/icon/setting.svg";
 import SmallTagIcon from "../../../public/icon/small_tag.svg";
 import SmallCalenderIcon from "../../../public/icon/small_calender.svg";
@@ -117,6 +118,8 @@ const Icon = ({ type, ...props }) => {
         return <TopMenuIcon {...props} />;
       case "search":
         return <SearchIcon {...props} />;
+      case "search_color":
+        return <SearchColorIcon {...props} />;
       case "calender":
         return <CalenderIcon {...props} />;
       case "flag":
