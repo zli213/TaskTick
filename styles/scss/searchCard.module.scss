@@ -16,11 +16,13 @@
   .search_card {
     display: flex;
     flex-direction: column;
-    width: 95%;
+    align-items: center;
+    width: 98%;
     height: 100%;
     border-radius: $borderRadius;
-    padding: $paddingMd;
+    padding-top: $paddingMd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 
     .error {
       color: $errorColor;
@@ -72,10 +74,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        .section {
-          width: 100%;
-          max-width: $maxListWidth;
-          margin-top: $marginSm;
+        .showAllBtn {
+          color: $primaryColor;
         }
       }
     }
