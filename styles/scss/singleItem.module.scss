@@ -1,237 +1,237 @@
 @use "./utils/variable" as *;
+.taskListItem {
+  list-style-type: none;
+  .task_container {
+    position: relative;
 
-.task_container {
-  position: relative;
+    &:hover {
+      .drag_tool {
+        opacity: 1;
+      }
 
-  &:hover {
-    .drag_tool {
-      opacity: 1;
+      .task_list_action {
+        opacity: 1;
+      }
     }
-
-    .task_list_action {
-      opacity: 1;
-    }
-  }
-}
-
-.content_container {
-  @include flexRowStart();
-  position: relative;
-  align-items: flex-start;
-  padding: $paddingsm 0;
-  border-bottom: 1px solid $grayColor;
-}
-
-.drag_tool {
-  opacity: 0;
-  position: absolute;
-  left: -2.7rem;
-  width: $fontSizeMd;
-  height: $fontSizeMd;
-  border-radius: $borderRadiusXsm;
-  color: $textSecondaryColor;
-  transition: all 100ms ease 0ms;
-
-  &:hover {
-    background-color: $midGrayColor;
-  }
-}
-
-.task_content {
-  width: 100%;
-  // min-width: $maxListWidth;
-}
-
-.task_list_action {
-  @include flexRowStart();
-  position: absolute;
-  right: 0;
-  top: $paddingsm;
-  opacity: 0;
-  color: $textSecondaryColor;
-
-  .task_list_action_last {
-    position: absolute;
-    left: 5rem;
-    width: $fontSizeMd;
-    
   }
 
-  .menu_button {
-   @include menuButton();
-  }
-}
-
-.task_title {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.task_description {
-  font-size: $fontSizeXsm;
-  color: $textSecondaryColor;
-}
-
-.task_info_container{
-  @include flexRowBetween();
-  font-size: $fontSizeXsm;
-
-}
-
-.task_info {
-  @include flexRowStart();
-  padding-top: $paddingXsm;
-
-  a,
-  span,
-  button {
+  .content_container {
     @include flexRowStart();
-    gap: 0.2rem;
-    color: $textSecondaryColor;
-    cursor: pointer;
+    position: relative;
+    align-items: flex-start;
+    padding: $paddingsm 0;
+    border-bottom: 1px solid $grayColor;
   }
 
-  .task_info_date {
-    color: $primaryColor;
-  }
-}
-
-.task_item_action_menu {
-  @include menuItems();
-}
-
-.menu_title {
-  padding: 0 $paddingsm;
-}
-
-.priority_button_list {
-  @include flexRowStart();
-  padding: $paddingXsm $paddingsm;
-
-  button {
-    @include flexRowBetween();
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: $borderRadiusXsm;
-  }
-
-  .button_red {
-    color: $priorityRed;
-  }
-
-  .button_yellow {
-    color: $priorityYellow;
-  }
-
-  .button_blue {
-    color: $priorityBlue;
-  }
-
-  .button_selected {
-    border: 1px solid $grayColor;
-  }
-}
-
-.button_delete {
-  color: $primaryColor !important;
-}
-
-.task_checkBox {
-  width: 2.4rem;
-  height: 2.4rem;
-  display: grid;
-  grid-template-columns: "center";
-  place-items: center;
-  cursor: pointer;
-
-  .task_checkBox_backgroud {
-    width: 1.8rem;
-    height: 1.8rem;
-    border-radius: 50%;
-    box-sizing: border-box;
-    grid-area: center;
-    opacity: 0.1;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .task_checkBox_circle {
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid $heaveGrayColor;
-    grid-area: center;
-    border-radius: 50%;
-    box-sizing: border-box;
-
-    z-index: 2;
-  }
-
-  svg {
-    grid-area: center;
+  .drag_tool {
     opacity: 0;
-    color: $heaveGrayColor;
-    z-index: 3;
-  }
+    position: absolute;
+    left: -2.7rem;
+    width: $fontSizeMd;
+    height: $fontSizeMd;
+    border-radius: $borderRadiusXsm;
+    color: $textSecondaryColor;
+    transition: all 100ms ease 0ms;
 
-  &:hover {
-    svg {
-      opacity: 1;
+    &:hover {
+      background-color: $midGrayColor;
     }
   }
-}
 
-.task_priority1 {
-  .task_checkBox_backgroud {
-    background-color: $priorityRed;
+  .task_content {
+    width: 100%;
+    // min-width: $maxListWidth;
   }
 
-  .task_checkBox_circle {
-    border: 2px solid $priorityRed;
+  .task_list_action {
+    @include flexRowStart();
+    position: absolute;
+    right: 0;
+    top: $paddingsm;
+    opacity: 0;
+    color: $textSecondaryColor;
+
+    .task_list_action_last {
+      position: absolute;
+      left: 5rem;
+      width: $fontSizeMd;
+    }
+
+    .menu_button {
+      @include menuButton();
+    }
   }
 
-  svg {
-    color: $priorityRed;
-  }
-}
-
-.task_priority2 {
-  .task_checkBox_backgroud {
-    background-color: $priorityYellow;
+  .task_title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .task_checkBox_circle {
-    border: 2px solid $priorityYellow;
+  .task_description {
+    font-size: $fontSizeXsm;
+    color: $textSecondaryColor;
   }
 
-  svg {
-    color: $priorityYellow;
-  }
-}
-
-.task_priority3 {
-  .task_checkBox_backgroud {
-    background-color: $priorityBlue;
+  .task_info_container {
+    @include flexRowBetween();
+    font-size: $fontSizeXsm;
   }
 
-  .task_checkBox_circle {
-    border: 2px solid $priorityBlue;
+  .task_info {
+    @include flexRowStart();
+    padding-top: $paddingXsm;
+
+    a,
+    span,
+    button {
+      @include flexRowStart();
+      gap: 0.2rem;
+      color: $textSecondaryColor;
+      cursor: pointer;
+    }
+
+    .task_info_date {
+      color: $primaryColor;
+    }
   }
 
-  svg {
-    color: $priorityBlue;
+  .task_item_action_menu {
+    @include menuItems();
   }
-}
 
-.completed_background{
-  background-color: $heaveGrayColor !important;
-  opacity: 1 !important;
-}
-.completed_circle{
-  border: 0 !important;
-}
-.completed_svg{
-  opacity: 1 !important;
-  color: white !important;
+  .menu_title {
+    padding: 0 $paddingsm;
+  }
+
+  .priority_button_list {
+    @include flexRowStart();
+    padding: $paddingXsm $paddingsm;
+
+    button {
+      @include flexRowBetween();
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: $borderRadiusXsm;
+    }
+
+    .button_red {
+      color: $priorityRed;
+    }
+
+    .button_yellow {
+      color: $priorityYellow;
+    }
+
+    .button_blue {
+      color: $priorityBlue;
+    }
+
+    .button_selected {
+      border: 1px solid $grayColor;
+    }
+  }
+
+  .button_delete {
+    color: $primaryColor !important;
+  }
+
+  .task_checkBox {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: grid;
+    grid-template-columns: "center";
+    place-items: center;
+    cursor: pointer;
+
+    .task_checkBox_backgroud {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      box-sizing: border-box;
+      grid-area: center;
+      opacity: 0.1;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .task_checkBox_circle {
+      width: 1.8rem;
+      height: 1.8rem;
+      border: 1px solid $heaveGrayColor;
+      grid-area: center;
+      border-radius: 50%;
+      box-sizing: border-box;
+
+      z-index: 2;
+    }
+
+    svg {
+      grid-area: center;
+      opacity: 0;
+      color: $heaveGrayColor;
+      z-index: 3;
+    }
+
+    &:hover {
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+
+  .task_priority1 {
+    .task_checkBox_backgroud {
+      background-color: $priorityRed;
+    }
+
+    .task_checkBox_circle {
+      border: 2px solid $priorityRed;
+    }
+
+    svg {
+      color: $priorityRed;
+    }
+  }
+
+  .task_priority2 {
+    .task_checkBox_backgroud {
+      background-color: $priorityYellow;
+    }
+
+    .task_checkBox_circle {
+      border: 2px solid $priorityYellow;
+    }
+
+    svg {
+      color: $priorityYellow;
+    }
+  }
+
+  .task_priority3 {
+    .task_checkBox_backgroud {
+      background-color: $priorityBlue;
+    }
+
+    .task_checkBox_circle {
+      border: 2px solid $priorityBlue;
+    }
+
+    svg {
+      color: $priorityBlue;
+    }
+  }
+
+  .completed_background {
+    background-color: $heaveGrayColor !important;
+    opacity: 1 !important;
+  }
+  .completed_circle {
+    border: 0 !important;
+  }
+  .completed_svg {
+    opacity: 1 !important;
+    color: white !important;
+  }
 }

@@ -3,6 +3,7 @@ import styles from "../../../styles/scss/searchCard.module.scss";
 import Icon from "../widgets/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleItems } from "./../widgets/SingleItem";
+import TodoList from "./../widgets/TodoList";
 
 const SearchCard = ({ closeCardHandler }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const SearchCard = ({ closeCardHandler }) => {
   tasks = Array.isArray(tasks) ? tasks : [];
   console.log(tasks);
   const [searchResult, setSearchResult] = useState([]);
+  const [showAllResults, setShowAllResults] = useState(false);
   const searchHandler = (event) => {
     if (event.key === "Enter") {
       const keyword = event.target.value;
@@ -24,9 +26,14 @@ const SearchCard = ({ closeCardHandler }) => {
       });
       console.log(result);
       setSearchResult(result);
+      setShowAllResults(false);
     }
   };
-  const haveTasks = SearchCard.length > 0;
+  const displayedResults = showAllResults
+    ? searchResult
+    : searchResult.slice(0, 5);
+  const haveTasks = displayedResults.length > 0;
+  console.log("haveTasks", haveTasks);
   const containerClickHandler = (event) => {
     event.stopPropagation();
   };
@@ -54,19 +61,15 @@ const SearchCard = ({ closeCardHandler }) => {
           )}
           {haveTasks && (
             <div className={styles.searchResult}>
-              {searchResult.map((task) => (
-                <SingleItems
-                  key={task._id}
-                  _id={task._id}
-                  title={task.title}
-                  dueDate={task.dueDate}
-                  description={task.description}
-                  projectName={task.projectName}
-                  projectId={task.projectId}
-                  board={task.board}
-                  tags={task.tags}
-                />
-              ))}
+              <TodoList tasks={displayedResults} showAddTask={false} />
+              {searchResult.length > 5 && !showAllResults && (
+                <button
+                  className={styles.showAllBtn}
+                  onClick={() => setShowAllResults(true)}
+                >
+                  Show All
+                </button>
+              )}
             </div>
           )}
         </div>

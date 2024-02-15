@@ -54,7 +54,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 100px;
+      // margin-top: 100px;
       .search_card_body_title {
         margin: $marginXsm;
       }
@@ -72,6 +72,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
+        .section {
+          width: 100%;
+          max-width: $maxListWidth;
+          margin-top: $marginSm;
+        }
       }
     }
   }

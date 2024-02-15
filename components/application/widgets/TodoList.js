@@ -24,6 +24,7 @@ function TodoList({
   fromTag,
   fromDate,
   isCompleted,
+  showAddTask = true, // This is a default value
 }) {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
@@ -252,7 +253,7 @@ function TodoList({
               ))}
           </div>
         )}
-        {title !== "Overdue" && !isCompleted && (
+        {title !== "Overdue" && !isCompleted && showAddTask && (
           <AddTask
             allTags={allTags}
             allProjects={allProjects}
