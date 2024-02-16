@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import styles from "../../../styles/scss/searchCard.module.scss";
 import Icon from "../widgets/Icon";
 import { useDispatch, useSelector } from "react-redux";
-import { SingleItems } from "./../widgets/SingleItem";
 import TodoList from "./../widgets/TodoList";
 
 const SearchCard = ({ closeCardHandler }) => {
   const dispatch = useDispatch();
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = Array.isArray(tasks) ? tasks : [];
-  console.log(tasks);
   const [searchResult, setSearchResult] = useState([]);
   const [showAllResults, setShowAllResults] = useState(false);
   const searchHandler = (event) => {
@@ -33,7 +31,6 @@ const SearchCard = ({ closeCardHandler }) => {
     ? searchResult
     : searchResult.slice(0, 5);
   const haveTasks = displayedResults.length > 0;
-  console.log("haveTasks", haveTasks);
   const containerClickHandler = (event) => {
     event.stopPropagation();
   };
