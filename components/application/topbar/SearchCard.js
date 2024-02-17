@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/searchCard.module.scss";
 import Icon from "../widgets/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./../widgets/TodoList";
+import { set } from "mongoose";
 
 const SearchCard = ({ closeCardHandler }) => {
   const dispatch = useDispatch();
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = Array.isArray(tasks) ? tasks : [];
+  const [inialBody, setInitialBody] = useState(true);
   const [searchResult, setSearchResult] = useState([]);
   const [showAllResults, setShowAllResults] = useState(false);
+  const [haveTasks, setHaveTasks] = useState(false);
   const searchHandler = (event) => {
-    if (event.key === "Enter") {
-      const keyword = event.target.value;
-      console.log(keyword);
+    const keyword = event.target.value.trim();
+    setInitialBody(!keyword); // if keyword is empty, setInitialBody to true
+    if (keyword) {
       const result = tasks.filter((task) => {
         return (
           (task.title && task.title.includes(keyword)) ||
@@ -22,15 +25,20 @@ const SearchCard = ({ closeCardHandler }) => {
           (task.description && task.description.includes(keyword))
         );
       });
-      console.log(result);
       setSearchResult(result);
       setShowAllResults(false);
+    } else {
+      setSearchResult([]);
     }
   };
+  useEffect(() => {
+    setHaveTasks(searchResult.length > 0);
+  }, [searchResult]);
+  // If the search result is more than 5, the user can only see the first 5 results.
   const displayedResults = showAllResults
     ? searchResult
     : searchResult.slice(0, 5);
-  const haveTasks = displayedResults.length > 0;
+
   const containerClickHandler = (event) => {
     event.stopPropagation();
   };
@@ -41,16 +49,16 @@ const SearchCard = ({ closeCardHandler }) => {
           <Icon type="search" />
           <input
             type="text"
-            placeholder="Search"
+            placeholder=" Search"
             className={styles.search_input}
-            onKeyDown={searchHandler}
+            onChange={searchHandler}
           />
-          <button className={styles.close_btn}>
+          <button className={styles.close_btn} onClick={closeCardHandler}>
             <Icon type="close" fill="#000" />
           </button>
         </div>
         <div className={styles.search_card_body}>
-          {!haveTasks && (
+          {inialBody && (
             <div className={styles.emptyResult}>
               <Icon type="search_color" />
               <p>Search Tasks, Tags, and Projects.</p>
@@ -67,6 +75,12 @@ const SearchCard = ({ closeCardHandler }) => {
                   Show All
                 </button>
               )}
+            </div>
+          )}
+          {!haveTasks && !inialBody && (
+            <div className={styles.emptyResult}>
+              <Icon type="search_color" />
+              <p>No result found.</p>
             </div>
           )}
         </div>
