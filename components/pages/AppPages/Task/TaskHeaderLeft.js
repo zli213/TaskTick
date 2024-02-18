@@ -25,15 +25,11 @@ export default function TaskHeaderLeft({
   reverse,
 }) {
   let task = useSelector((state) => state.tasks[taskId]);
-  console.log("task", projectId);
   if (task) {
     projectId =  task.projectId
     projectName = task.projectName;
     board = task.board;
   }
-  // const projectId =  task.projectId ?? "";
-  // const projectName = task.projectName;
-  // const board = task.board;
 
   return (
     <div className={styles.task_header_title}>

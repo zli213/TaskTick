@@ -20,12 +20,15 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 const CheckBoxButton = ({
+  priority,
   taskId,
   completed,
 }) => {
   const task = useSelector((state) => state.tasks[taskId]);
+  if(task){
+    priority = task.priority;
+  }
 
-  const priority = completed ? "P4" :task.priority;
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const toastIds = useSelector((state) => state.toastIds.toastIds);
