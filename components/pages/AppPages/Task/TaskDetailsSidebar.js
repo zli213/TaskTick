@@ -18,8 +18,9 @@ import { useDispatch } from "react-redux";
 import { updateTaskAction } from "../../../../store/tasks";
 import { useSelector } from "react-redux";
 
-export default function TaskDetailsSidebar({ showInbox, taskId }) {
-  let task = useSelector((state) => state.tasks[taskId]);
+export default function TaskDetailsSidebar({task, taskId }) {
+  let task2 = useSelector((state) => state.tasks[taskId]);
+  if (task2) {task = task2; }
   let allProjects = Object.values(useSelector((state) => state.projects));
   allProjects = allProjects
     .filter((project) => project.archived !== true)

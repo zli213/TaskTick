@@ -24,7 +24,8 @@ const CheckBoxButton = ({
   completed,
 }) => {
   const task = useSelector((state) => state.tasks[taskId]);
-  const priority = task.priority;
+
+  const priority = completed ? "P4" :task.priority;
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const toastIds = useSelector((state) => state.toastIds.toastIds);

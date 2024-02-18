@@ -347,11 +347,11 @@ function Scheduler({ data, onChangeDate, position }) {
         pauseOnHover: false,
       }
     );
+    
     dispatch(addToastId(newToastId));
     const timer = setTimeout(() => {
       onChangeDate(dateJson);
-    }, 5000);
-    onOverlayClick();
+    }, 0);
   };
 
   //----------------- Notification ----------------
