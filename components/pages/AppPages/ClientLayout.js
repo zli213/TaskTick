@@ -11,7 +11,6 @@ import { ToastContainer } from "react-toastify";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
-
   const dispatch = useDispatch();
 
   dispatch(

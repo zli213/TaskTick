@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import { updateTodayNumAction } from "./num";
 import {
   deleteProjectTasks,
@@ -147,5 +146,5 @@ export const deleteBoardAction = (projectId, board) => (dispatch, getState) => {
 export const editBoardAction =
   (projectId, board, oldBoard) => (dispatch, getState) => {
     dispatch(editBoard({ projectId, board, oldBoard }));
-    dispatch(updateTaskBoard({ projectId, board }));
+    dispatch(updateTaskBoard({ projectId, board, oldBoard }));
   };

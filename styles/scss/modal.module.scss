@@ -15,6 +15,10 @@
   max-height: $settingPageWidth;
 }
 
+.content_container{
+  display: block
+}
+
 .overlay_styles {
   position: fixed;
   top: 0;

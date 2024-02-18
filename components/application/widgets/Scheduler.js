@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToastId } from "../../../store/toastIds";
 
-function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
+function Scheduler({ data, onChangeDate, position }) {
   const dispatch = useDispatch();
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
@@ -272,16 +272,41 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     );
   }, []);
 
+  //------------ useEffect for disable scroll ------------
+  const disableScroll = (event) => {
+    const menu = document.querySelector(
+      `.${styles.datepicker_monthlist_wrapper}`
+    );
+    const isInsideMenu = menu && menu.contains(event.target);
+
+    if (!isInsideMenu) {
+      event.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
+
   //--------- functions for interactive ------------
-  const goToToday = () => {
+  const goToToday = (event) => {
+    event.preventDefault();
     calendarRef.current?.scrollTo(0, 0);
   };
-  const goToNextMonth = () => {
+  const goToNextMonth = (event) => {
+    event.preventDefault();
     const top =
       currentDispMonth.current.top + calcMonthH(currentDispMonth.current) + 32;
     calendarRef.current?.scrollTo(0, top);
   };
-  const goToPrevMonth = () => {
+  const goToPrevMonth = (event) => {
+    event.preventDefault();
     if (
       currentDispMonth.current.year === thisMonth.year &&
       currentDispMonth.current.month === thisMonth.month
@@ -340,20 +365,12 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
     );
   };
 
-  //--------- set position ------------
-  position = position ? convertPosition(position, 10, 230) : null;
-  const schedulerStyle = position
-    ? {
-        position: "fixed",
-        top: `${position.top}px`,
-        left: `${position.left}px`,
-      }
-    : "";
-
   return (
     <>
-      <div className={styles.popup_overlay} onClick={onOverlayClick}></div>
-      <div className={styles.scheduler} style={position && schedulerStyle}>
+      <div
+        className={styles.scheduler}
+        scrollable={"scrollable_area"}
+      >
         <button
           className={styles.scheduler_quickbutton}
           onClick={() => selectDate(today)}
@@ -414,9 +431,9 @@ function Scheduler({ data, onChangeDate, onOverlayClick, position }) {
               {currentMonthLabel}
             </span>
             <div className={styles.datepicker_header_action}>
-              <button onClick={goToPrevMonth}>&lt;</button>
-              <button onClick={goToToday}>○</button>
-              <button onClick={goToNextMonth}>&gt;</button>
+              <button onClick={goToPrevMonth}> &lt;</button>
+              <button onClick={goToToday}> ○</button>
+              <button onClick={goToNextMonth}> &gt;</button>
             </div>
           </div>
           <div className={styles.week_names}>

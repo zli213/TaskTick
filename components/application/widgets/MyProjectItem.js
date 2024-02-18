@@ -99,11 +99,11 @@ function MyProjectItem({ project, type }) {
       key={project.projectId}
       style={{ backgroundColor: showItemMenu && "#f5f5f5" }}
     >
-      <Link href={`/application/project/${project.projectId}`}>
-        <Icon type="hashtag" />
-        {project.name}
+      <Link href={`/application/project/${project.projectId}`} className={styles.tag_box1}>
+        <span className={styles.tag_box2}><Icon type="hashtag" /></span>
+        <span className={styles.tag_box1}>{project.name} </span> 
       </Link>
-      <div className={styles.menu_btn_container}>
+      <div className={`${styles.menu_btn_container} ${styles.tag_box2}`}>
         <span
           className={styles.project_item_menu}
           onClick={swithMenuHandler}

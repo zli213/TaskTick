@@ -95,6 +95,7 @@ export default function NewProject(props) {
   };
 
   useEffect(() => {
+    nameInputRef.current.focus();
     document.addEventListener("wheel", disableScroll, { passive: false });
     document.addEventListener("touchmove", disableScroll, { passive: false });
 
@@ -122,6 +123,7 @@ export default function NewProject(props) {
                   id="edit_project_modal_field_name"
                   onChange={nameChangeHandler}
                   value={enteredName}
+                  maxlength="120"
                 ></input>
               </div>
               <div className={styles.form_field}>

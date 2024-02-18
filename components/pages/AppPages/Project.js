@@ -44,9 +44,6 @@ export default function Project({ projectId }) {
     completedTasks !== undefined ? Object.values(completedTasks) : [];
   const groupedCompletedTasks = groupTasks(boards, completedTasks);
 
-  console.log("1", groupedTasks);
-  console.log("2", groupedCompletedTasks);
-  console.log("3", showCompletedTask);
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&
@@ -120,7 +117,7 @@ export default function Project({ projectId }) {
       )}
 
       {!project.archived &&
-        (boards.length === 0 && tasks.length === 0 ? (
+        (boards.length === 0 && tasks.length === 0 && !showCompletedTask ? (
           <NoTask
             page="project"
             fromProject={{ projectId: projectId, projectName: project.name }}
@@ -144,7 +141,7 @@ export default function Project({ projectId }) {
                 {showCompletedTask && (
                   <TodoList
                     key={index}
-                    tasks={groupedCompletedTasks[1].tasks}
+                    tasks={groupedCompletedTasks[index].tasks}
                     isCompleted={true}
                   />
                 )}

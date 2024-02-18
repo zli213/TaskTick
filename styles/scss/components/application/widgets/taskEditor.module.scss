@@ -1,121 +1,122 @@
 @use "../../../utils/variable" as *;
 
 .popup_overlay {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
 }
 
-.task_edit_form {
-  position: relative;
-  background-color: #fff;
-  border: 1px solid $lightGrayColor;
-  border-radius: 8px;
+.task_edit_form{
+    position: relative;
+    background-color: #fff;
+    border:1px solid $lightGrayColor;
+    border-radius: 8px;
 }
 
-.task_name {
-  outline: none;
-  font-weight: bold;
-  min-height: 1.5rem;
-  margin-bottom: 0.4rem;
-  cursor: text;
-  [match-type="matched"] {
-    background-color: antiquewhite;
-    margin-right: 3px;
-  }
-  &:empty:before {
-    content: attr(placeholder);
-    position: absolute;
-    color: $textSecondaryColor;
-    background-color: transparent;
-  }
-}
-
-.task_name_tag_selector {
-  position: absolute;
-  width: 90%;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #fff;
-  border-radius: $borderRadius;
-  box-shadow: 0 2px 10px $grayColor;
-  max-height: 15rem;
-  overflow: auto;
-  z-index: 1000;
-  button {
-    text-align: left;
-    padding-left: 1rem;
-    &:hover {
-      background-color: $grayColor;
+.task_name{
+    outline:none;
+    font-weight: bold;
+    min-height: 1.5rem;
+    margin-bottom:0.4rem;
+    cursor:text;
+    [match-type=matched] {
+        background-color: antiquewhite;
+        margin-right: 3px;
     }
-  }
-}
-.task_name_tag_selector_button_on {
-  background-color: $grayColor;
-}
-
-.task_content {
-  outline: none;
-  min-height: 1.5rem;
-  margin-bottom: 0.8rem;
-  cursor: text;
-  &:empty:before {
-    content: attr(placeholder);
-    position: absolute;
-    color: $textSecondaryColor;
-    background-color: transparent;
-  }
-}
-
-.task_edit_area {
-  width: 100%;
-  padding: 1rem;
-  border-bottom: 1px solid $lightGrayColor;
-}
-
-.task_edit_buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  button {
-    border: 1px solid $grayColor;
-    border-radius: $borderRadiusSm;
-    margin: 0 0.3rem;
-    padding: 0.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    &:hover {
-      background-color: $lightGrayColor;
+    &:empty:before{
+        content: attr(placeholder);
+        position: absolute;
+        color: $textSecondaryColor;
+        background-color: transparent;
     }
-  }
+}
+
+
+.task_name_tag_selector{
+    position: absolute;
+    width: 90%;
+    margin:0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: $borderRadius;
+    box-shadow: 0 2px 10px $grayColor;
+    max-height: 15rem;
+    overflow: auto;
+    z-index: 1000;
+    button{
+        text-align: left;
+        padding-left:1rem;
+        &:hover{
+            background-color: $grayColor;
+        }
+    }
+}
+.task_name_tag_selector_button_on{
+    background-color: $grayColor;
+}
+
+.task_content{
+    outline: none;
+    min-height: 1.5rem;
+    margin-bottom: 0.8rem;
+    cursor: text;
+    &:empty:before {
+        content: attr(placeholder);
+        position: absolute;
+        color: $textSecondaryColor;
+        background-color: transparent;
+    }
+}
+
+.task_edit_area{
+    width: 100%;
+    padding:1rem;
+    border-bottom:1px solid $lightGrayColor;
+}
+
+.task_edit_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    button{
+        border: 1px solid $grayColor;
+        border-radius: $borderRadiusSm;
+        margin: 0 .3rem;
+        padding: .5rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        &:hover{
+            background-color: $lightGrayColor;
+        }
+    }
 }
 
 /* Scheduler */
 .scheduler {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: $borderRadius;
-  box-shadow: 0px 1px 2rem 1px $grayColor;
-  overflow: hidden;
-  padding: 1rem 0;
-  z-index: 1001;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: $borderRadius;
+    box-shadow: 0px 1px 2rem 1px $grayColor;
+    overflow: hidden;
+    padding: 1rem 0;
+    z-index: 1001;
 }
 
 .scheduler_quickbutton {
-  padding: 0.5rem 0.9rem;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.3rem;
-  cursor: pointer;
+    padding: .5rem .9rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
 .scheduler_quickbutton:hover {
@@ -133,8 +134,12 @@
 }
 
 .datepicker_header_action {
+  @include flexRowStart();
   button {
-    margin: 0 0.8rem;
+    justify-content: center;
+    text-align: center;
+    width: 2rem;
+    padding: 0 !important;
   }
 }
 
@@ -160,6 +165,13 @@
 .datepicker_monthlist {
   height: 200000px;
   position: relative;
+
+  button {
+    padding: 0;
+    &:hover {
+      background-color: #fff;
+    }
+  }
 }
 
 .datepicker_calendar {
@@ -189,8 +201,8 @@
   button {
     text-align: center;
     width: 14.28571%;
-    line-height: 2rem;
-    font-size: 1.3rem;
+    line-height: 2rem !important;
+    font-size: 1.3rem !important;
     cursor: pointer;
   }
 
@@ -213,8 +225,14 @@
   display: block;
   border-radius: 50%;
   width: 2rem;
-  margin: 0 auto;
+  margin: 0 auto ;
   transition: all 100ms;
+  text-align: center;
+
+  span{
+  margin: 0 auto !important;
+
+  }
 }
 
 .datepicker_normal:hover {
@@ -228,24 +246,14 @@
 /* end Scheduler */
 
 /* priority picker */
-.priority_picker {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: $borderRadius;
-  box-shadow: 0px 1px 2rem 1px #c4c4c4;
-  overflow: hidden;
-  padding: 1rem 0;
-  z-index: 1001;
-}
-
 .priority_picker_button {
-  padding: 0.5rem 0.9rem;
+  border: 0 !important;
   display: flex;
   justify-content: space-between;
   font-size: 1.3rem;
+  margin: 0 !important;
   cursor: pointer;
+  height: 100%;
 
   &:hover {
     background-color: $grayColor;
@@ -254,44 +262,41 @@
 /* end priority picker */
 
 .tag_check_list_dropdown {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  padding: 1rem 0;
-  border-radius: $borderRadius;
-  box-shadow: 0 2px 10px $grayColor;
-  max-height: 15rem;
+  width: 39rem;
+  max-height: 19rem;
   overflow: auto;
   z-index: 1001;
 }
+
 .tag_check_list_dropdown_btn {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem;
+  border-radius: $borderRadiusSm;
   cursor: pointer;
+  margin: 0 !important;
+
   &:hover {
     background-color: $grayColor;
   }
 }
-.tag_checkbox {
-  position: relative;
-  display: block;
-  width: 1.8rem;
-  height: 1.8rem;
-  border: 1px solid #000;
-  margin: auto 0;
+.tag_checkbox{
+    position: relative;
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid #000;
+    margin: auto 0;
 }
 .tag_checkbox_on {
-  //background-color: #dc4c3e;
   &:before {
     content: "√";
     position: absolute;
     display: block;
     font-size: 1.8rem;
     top: -4px;
-    left: 3px;
+    left: 1px;
   }
 }
 
@@ -313,6 +318,10 @@
   display: flex;
   align-items: center;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   &:hover {
     background-color: $lightGrayColor;
   }
@@ -328,19 +337,22 @@
 }
 
 .project_selector {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  padding: 1rem 0;
-  border-radius: $borderRadius;
-  box-shadow: 0 2px 10px $grayColor;
+  max-width: 30rem;
   max-height: 30rem;
   overflow: auto;
   z-index: 1001;
+
   li {
-    display: flex;
+    @include flexRowStart();
     padding: 0.4rem 1rem;
+    border-radius: $borderRadiusSm;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     &[role="option"] {
       cursor: pointer;
       &:hover {
@@ -377,23 +389,38 @@
     background-color: #c3392c;
   }
 }
-.notification {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  u {
-    margin-left: 4px;
-  }
-  .undoBtn {
-    background-color: $primaryColor;
-    color: $secondaryColor;
-    border: none;
-    padding: $paddingXsm $paddingsm;
-    margin-left: $marginXsm;
-    cursor: pointer;
-    border-radius: $borderRadius;
-    &:hover {
-      background-color: $errorColor;
-    }
-  }
+
+.tag_box {
+  @include flexRowStart();
+  flex: 0 0 auto;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag_box3 {
+  @include flexRowStart();
+  overflow: hidden;
+  flex: 1;
+}
+
+.button_red {
+  color: $priorityRed;
+}
+
+.button_yellow {
+  color: $priorityYellow;
+}
+
+.button_blue {
+  color: $priorityBlue;
+}
+
+.btn_menu {
+  cursor: pointer;
+  position: relative;
+  max-width: 68%;
 }

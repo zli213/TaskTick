@@ -27,11 +27,7 @@ export default function TaskMainContent({
             </div>
           </div>
         </div>
-        <div>
-          <div className={styles.task_main_add_sub}>
-            <button>add sub task</button>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

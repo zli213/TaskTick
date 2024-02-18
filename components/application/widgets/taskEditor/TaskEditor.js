@@ -27,6 +27,8 @@ import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector, useDispatch } from "react-redux";
+import Icon from "../Icon";
+import PopupMenu, { useMenu } from "../PopupMenu";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { addToastId } from "../../../../store/toastIds";
@@ -178,48 +180,40 @@ function TaskEditor({
     setNewTaskData("board", name);
   };
 
+  // Show/Hide Scheduler
+  const {
+    showItemMenu: showSchedulerMenu,
+    buttonPosition: schedulerPosition,
+    swithMenuHandler: swichSchedulerHandler,
+  } = useMenu();
+
+  // Show/Hide PriorityPicker
+  const {
+    showItemMenu: showPriorityMenu,
+    buttonPosition: priorityPosition,
+    swithMenuHandler: swichPriorityHandler,
+  } = useMenu();
+
+  // Show/Hide TaskTagCheckList
+  const {
+    showItemMenu: showTagMenu,
+    buttonPosition: tagPosition,
+    swithMenuHandler: swichTagHandler,
+  } = useMenu();
+
+  // Show/Hide ProjectSelector
+  const {
+    showItemMenu: showProjectMenu,
+    buttonPosition: projectPosition,
+    swithMenuHandler: swichProjectHandler,
+  } = useMenu();
+
   const projSelectHandler = (projId, projName, board) => {
     changeDispProjectId(projId);
     changeDispProjectName(projName);
     changeDispBoard(board);
-    hideProjectSel();
+    swichProjectHandler();
     //console.log({ id: projId, name: projName, board: board });
-  };
-
-  // Show/Hide Scheduler
-  const [isShowScheduler, setIsShowScheduler] = useState(false);
-  const showScheduler = () => {
-    setIsShowScheduler(true);
-  };
-  const hideScheduler = () => {
-    setIsShowScheduler(false);
-  };
-
-  // Show/Hide PriorityPicker
-  const [isShowPriority, setIsShowPriority] = useState(false);
-  const showPriority = () => {
-    setIsShowPriority(true);
-  };
-  const hidePriority = () => {
-    setIsShowPriority(false);
-  };
-
-  // Show/Hide TaskTagCheckList
-  const [isShowTagCheck, setIsShowTagCheck] = useState(false);
-  const showTagCheck = () => {
-    setIsShowTagCheck(true);
-  };
-  const hideTagCheck = () => {
-    setIsShowTagCheck(false);
-  };
-
-  // Show/Hide ProjectSelector
-  const [isShowProjectSel, setIsShowProjectSel] = useState(false);
-  const showProjectSel = () => {
-    setIsShowProjectSel(true);
-  };
-  const hideProjectSel = () => {
-    setIsShowProjectSel(false);
   };
 
   const recordTaskContent = () => {
@@ -300,22 +294,119 @@ function TaskEditor({
               </div>
             </div>
             <div className={styles.task_edit_buttons}>
-              <button type="button" onClick={showScheduler}>
-                {convertDate(selectedDate)}
-              </button>
-              <button type="button" onClick={showPriority}>
-                Priority&nbsp;{selectedPriority}
-              </button>
-              <button type="button" onClick={showTagCheck}>
-                Tags
-              </button>
+              <span className={styles.btn_menu}>
+                <button type="button" onClick={swichSchedulerHandler}>
+                  {convertDate(selectedDate)}
+                </button>
+                {showSchedulerMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichSchedulerHandler}
+                    position={schedulerPosition}
+                    levels={10.4}
+                    menuWidth="230"
+                  >
+                    <Scheduler
+                      data={{ selectedDate: selectedDate }}
+                      onChangeDate={(dateJson) => {
+                        changeSelectedDate(dateJson);
+                        swichSchedulerHandler();
+                      }}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
+              <span className={styles.btn_menu}>
+                <button
+                  type="button"
+                  onClick={swichPriorityHandler}
+                  style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
+                >
+                  <Icon
+                    type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
+                    className={priorityColor(selectedPriority)}
+                  />
+                  Priority&nbsp;{selectedPriority}
+                </button>
+                {showPriorityMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichPriorityHandler}
+                    position={priorityPosition}
+                    levels={4}
+                    menuWidth="110"
+                  >
+                    <PriorityPicker
+                      onPrioritySelect={(pri) => {
+                        changeSelectedPriority(pri);
+                        swichPriorityHandler();
+                      }}
+                      onOverlayClick={swichPriorityHandler}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
+              <span className={styles.btn_menu}>
+                <button
+                  type="button"
+                  onClick={swichTagHandler}
+                  style={{ backgroundColor: showTagMenu && "#f5f5f5" }}
+                >
+                  Tags
+                </button>
+                {showTagMenu && (
+                  <PopupMenu
+                    onOverlayClick={swichTagHandler}
+                    position={tagPosition}
+                    levels={allTags.length <= 7 ? allTags.length * 0.75 : 5.4}
+                    menuWidth="401"
+                  >
+                    <TaskTagCheckList
+                      allTags={allTags}
+                      checkedTags={newTaskData.current.tags}
+                      onTagCheckClick={(tags) => {
+                        //updateCheckTags(tags);
+                        setNewTaskData("tags", tags);
+                        taskNameInputRef.current.checkTags(tags);
+                      }}
+                      onOverlayClick={swichTagHandler}
+                    />
+                  </PopupMenu>
+                )}
+              </span>
             </div>
           </div>
           <div className={styles.task_footer}>
             {/* project / board */}
-            <div className={styles.project_board} onClick={showProjectSel}>
-              {dispProjectId === "" ? "Inbox" : dispProjectName}
-              {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+            <div className={styles.btn_menu}>
+              <div
+                className={styles.project_board}
+                onClick={swichProjectHandler}
+                style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
+              >
+                <span className={styles.tag_box2}>
+                  {dispProjectId === "" ? "Inbox" : dispProjectName}
+                </span>
+                <span className={styles.tag_box}>
+                  {dispBoard === "" ? null : "\u00a0/\u00a0" + dispBoard}
+                </span>
+              </div>
+              {showProjectMenu && (
+                <PopupMenu
+                  onOverlayClick={swichProjectHandler}
+                  position={projectPosition}
+                  levels={
+                    boardNum(allProjects) <= 9
+                      ? boardNum(allProjects) * 0.87
+                      : 8.22
+                  }
+                  menuWidth="300"
+                >
+                  <ProjectSelector
+                    allProjects={allProjects}
+                    onProjSelect={projSelectHandler}
+                    onOverlayClick={swichProjectHandler}
+                  />
+                </PopupMenu>
+              )}
             </div>
             <div className={styles.task_footer_btns}>
               <button
@@ -355,46 +446,30 @@ function TaskEditor({
           </div>
         </form>
       </div>
-      {isShowScheduler ? (
-        <Scheduler
-          data={{ selectedDate: selectedDate }}
-          onChangeDate={(dateJson) => {
-            changeSelectedDate(dateJson);
-            hideScheduler();
-          }}
-          onOverlayClick={hideScheduler}
-        />
-      ) : null}
-      {isShowPriority ? (
-        <PriorityPicker
-          onPrioritySelect={(pri) => {
-            changeSelectedPriority(pri);
-            hidePriority();
-          }}
-          onOverlayClick={hidePriority}
-        />
-      ) : null}
-      {isShowTagCheck ? (
-        <TaskTagCheckList
-          allTags={allTags}
-          checkedTags={newTaskData.current.tags}
-          onTagCheckClick={(tags) => {
-            //updateCheckTags(tags);
-            setNewTaskData("tags", tags);
-            taskNameInputRef.current.checkTags(tags);
-          }}
-          onOverlayClick={hideTagCheck}
-        />
-      ) : null}
-      {isShowProjectSel ? (
-        <ProjectSelector
-          allProjects={allProjects}
-          onProjSelect={projSelectHandler}
-          onOverlayClick={hideProjectSel}
-        />
-      ) : null}
     </>
   );
 }
 
 export default TaskEditor;
+
+const priorityColor = (p) => {
+  switch (p) {
+    case 1:
+      return styles.button_red;
+    case 2:
+      return styles.button_yellow;
+    case 3:
+      return styles.button_blue;
+  }
+};
+
+const boardNum = (allProjects) => {
+  if (allProjects.length === 0) return 1;
+
+  let num = 0;
+  allProjects.forEach((proj) => {
+    num += proj.boards.length + 1;
+  });
+  console.log("1", num + 2);
+  return num + 2;
+};

@@ -57,7 +57,7 @@ function Today(props) {
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
-          <div>
+          <div className={styles.today_title}>
             <h1>Today</h1>
             {todayNum === 0 ? (
               ""
@@ -75,13 +75,19 @@ function Today(props) {
       ) : (
         <div className={styles.list_box}>
           {overDueTasks.length !== 0 && (
-            <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+            <TodoList
+              tasks={overDueTasks}
+              showProject={true}
+              title="Overdue"
+              forbidEdit={true}
+            />
           )}
           <TodoList
             tasks={todayTasks}
             showProject={true}
             title="Today"
             fromDate={today}
+            forbidEdit={true}
           />
         </div>
       )}

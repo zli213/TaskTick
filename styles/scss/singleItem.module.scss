@@ -16,6 +16,7 @@
 
 .content_container {
   @include flexRowStart();
+  max-width: 100%;
   position: relative;
   align-items: flex-start;
   padding: $paddingsm 0;
@@ -38,49 +39,69 @@
 }
 
 .task_content {
-  width: 100%;
-  // min-width: $maxListWidth;
+  width: 95%;
+  flex: 1;
 }
 
 .task_list_action {
   @include flexRowStart();
+  align-items: center;
+  height: 2.4rem;
   position: absolute;
   right: 0;
   top: $paddingsm;
   opacity: 0;
+  cursor: pointer;
   color: $textSecondaryColor;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 2px rgba(255, 255, 255, 1);
 
   .task_list_action_last {
     position: absolute;
     left: 5rem;
     width: $fontSizeMd;
-    
   }
 
   .menu_button {
-   @include menuButton();
+    @include menuButton();
+    @include flexRowStart();
+    justify-content: center;
+  }
+
+  .two_btn {
+    @include flexRowStart();
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
   }
 }
 
 .task_title {
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 
 .task_description {
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.task_info_container{
-  @include flexRowBetween();
+.task_info_container {
+  @include flexRowStart();
   font-size: $fontSizeXsm;
-
 }
 
 .task_info {
+  width: 100%;
   @include flexRowStart();
   padding-top: $paddingXsm;
+  flex-wrap: wrap;
+  gap: $paddingXsm;
+  row-gap: 2px;
 
   a,
   span,
@@ -91,7 +112,16 @@
     cursor: pointer;
   }
 
+  .tag_box {
+    max-width: 15rem;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
   .task_info_date {
+    flex: 0 0 auto;
     color: $primaryColor;
   }
 }
@@ -224,14 +254,34 @@
   }
 }
 
-.completed_background{
+.completed_background {
   background-color: $heaveGrayColor !important;
   opacity: 1 !important;
 }
-.completed_circle{
+.completed_circle {
   border: 0 !important;
 }
-.completed_svg{
+.completed_svg {
   opacity: 1 !important;
   color: white !important;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag_box3 {
+  flex: 0 0 auto;
+}
+
+.tag_box4 {
+  max-width: 30%;
+  margin-left: auto;
+}
+
+.btn_menu {
+  cursor: pointer !important;
+  position: relative;
 }
