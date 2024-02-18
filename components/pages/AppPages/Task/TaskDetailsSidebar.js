@@ -40,11 +40,6 @@ export default function TaskDetailsSidebar({ task, taskId }) {
     return task.priority.charAt(task.priority.length - 1) - "0";
   });
 
-  const [allTags, setAllTags] = useState([...tagList]);
-  const updateAllTags = (taglist) => {
-    setAllTags(taglist);
-  };
-
   //Update task
   const projSelectHandler = async (projId, projName, board) => {
     const newTask = {
@@ -128,6 +123,30 @@ export default function TaskDetailsSidebar({ task, taskId }) {
       tags: taglist,
     };
 
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const removeOneTag = async (tag) => {
+    const newTagList = task.tags.filter((t) => t !== tag);
+
+    const newTask = {
+      ...task,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
+      priority: task.priority.charAt(task.priority.length - 1),
+      tags: newTagList,
+    };
     try {
       const res = await fetch("/api/updateTask", {
         method: "POST",
@@ -349,11 +368,11 @@ export default function TaskDetailsSidebar({ task, taskId }) {
               <PopupMenu
                 onOverlayClick={swichTagHandler}
                 position={tagPosition}
-                levels={allTags.length <= 7 ? allTags.length * 0.75 : 5.4}
+                levels={tagList.length <= 7 ? tagList.length * 0.75 : 5.4}
                 menuWidth="250"
               >
                 <TaskTagCheckList
-                  allTags={allTags}
+                  allTags={tagList}
                   checkedTags={task.tags}
                   onTagCheckClick={(tags) => {
                     updateCheckTags(tags);
@@ -366,12 +385,24 @@ export default function TaskDetailsSidebar({ task, taskId }) {
           <div className={styles.task_tags_container}>
             {task.tags &&
               task.tags.map((tag, index) => (
-                <Link href={`/application/label/${tag}`} key={tag}>
+                <div key={tag}>
                   <span className={styles.task_tag_item} key={index}>
-                    <span className={styles.tag_box}>{tag} </span>
-                    <Icon type="close_small" />
+                    <Link
+                      href={`/application/label/${tag}`}
+                      className={styles.tag_box}
+                    >
+                      {tag}{" "}
+                    </Link>
+                    <div
+                      className={styles.tag_remove}
+                      onClick={() => {
+                        removeOneTag(tag);
+                      }}
+                    >
+                      <Icon type="close_small" />
+                    </div>
                   </span>
-                </Link>
+                </div>
               ))}
           </div>
         </div>
