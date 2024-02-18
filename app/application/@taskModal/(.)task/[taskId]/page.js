@@ -19,14 +19,12 @@ export default async function TaskModal({ params }) {
     const task = await getOneTask(params.taskId);
 
     return (
-      <Modal >
+      <Modal>
         <div className={styles.task_modal_container}>
           <header className={styles.task_header}>
             <div className={styles.task_title_bar}>
               <TaskHeaderLeft
-                projectId={task.projectId}
-                projectName={task.projectName}
-                board={task.board}
+                taskId={params.taskId}
                 showInbox={true}
               />
               <TaskHeaderButtons />

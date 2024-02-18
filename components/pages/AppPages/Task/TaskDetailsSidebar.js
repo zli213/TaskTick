@@ -5,12 +5,12 @@
 
 import { useState } from "react";
 import styles from "../../../../styles/scss/task.module.scss";
-import TaskHeaderLeft from "./TaskHeaderLeft";
 import Scheduler, {
   convertDate,
   formatDate,
 } from "../../../application/widgets/Scheduler";
 import PriorityPicker from "../../../application/widgets/PriorityPicker";
+import ProjectSelector from "../../../application/widgets/taskEditor/ProjectSelector";
 import Icon from "../../../application/widgets/Icon";
 import Link from "next/link";
 import PopupMenu, { useMenu } from "../../../application/widgets/PopupMenu";
@@ -20,28 +20,45 @@ import { useSelector } from "react-redux";
 
 export default function TaskDetailsSidebar({ showInbox, taskId }) {
   let task = useSelector((state) => state.tasks[taskId]);
+  let allProjects = Object.values(useSelector((state) => state.projects));
+  allProjects = allProjects
+    .filter((project) => project.archived !== true)
+    .filter((project) => project.isDeleted !== true);
+
   const dispatch = useDispatch();
   const dateJson = task.dueDate ? formatDate(task.dueDate) : "";
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
   const [selectedPriority, setSelectedPriority] = useState(() => {
-    return task.priority.charAt(task.priority.length - 1) - '0';
+    return task.priority.charAt(task.priority.length - 1) - "0";
   });
 
-  const priorityColor = (p) => {
-    console.log('start',p);
-    switch (p) {
-      case 1:
-        console.log('111')
-        return styles.button_red;
-      case 2:
-        console.log('222')
-        return styles.button_yellow;
-      case 3:
-        console.log('333')
-        return styles.button_blue;
+  //Update task
+  const projSelectHandler = async (projId, projName, board) => {
+    const newTask = {
+      ...task,
+      projectId: projId,
+      projectName: projName,
+      board: board,
+      selectedDate: dateJson.dateStr,
+      priority: task.priority.charAt(task.priority.length - 1),
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
     }
+    swichProjectHandler();
   };
 
   const changeSelectedDate = async (date) => {
@@ -113,17 +130,64 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
     swithMenuHandler: swichPriorityHandler,
   } = useMenu();
 
+  // Show/Hide ProjectSelector
+  const {
+    showItemMenu: showProjectMenu,
+    buttonPosition: projectPosition,
+    swithMenuHandler: swichProjectHandler,
+  } = useMenu();
+
   return (
     <div className={styles.task_sidebar}>
       <div className={styles.task_sidebar_list}>
         <div className={styles.task_sidebar_item}>
           <h4>Project</h4>
-          <TaskHeaderLeft
-            projectId={task.projectId}
-            projectName={task.projectName}
-            board={task.board}
-            showInbox={showInbox}
-          />
+          <div className={styles.btn_menu}>
+            <span onClick={swichProjectHandler}>
+              {!task.projectId ? (
+                <div className={styles.flexStart}>
+                  <Icon type="hashtag_small" />
+                  Inbox
+                </div>
+              ) : (
+                <div className={`${styles.tag_box2} ${styles.flexStart}`}>
+                  <span className={`${styles.tag_box3} ${styles.flexStart}`}>
+                    <Icon type="hashtag_small" />
+                  </span>
+
+                  <span
+                    className={styles.tag_box2}
+                    style={{ display: "block" }}
+                  >
+                    {task.projectName}
+                  </span>
+                  {task.board && (
+                    <>
+                      /<span className={styles.tag_box3}>{task.board}</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </span>
+            {showProjectMenu && (
+              <PopupMenu
+                onOverlayClick={swichProjectHandler}
+                position={projectPosition}
+                levels={
+                  boardNum(allProjects) <= 9
+                    ? boardNum(allProjects) * 0.87
+                    : 8.22
+                }
+                menuWidth="250"
+              >
+                <ProjectSelector
+                  allProjects={allProjects}
+                  onProjSelect={projSelectHandler}
+                  onOverlayClick={swichProjectHandler}
+                />
+              </PopupMenu>
+            )}
+          </div>
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>
@@ -253,3 +317,24 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
     </div>
   );
 }
+
+const boardNum = (allProjects) => {
+  if (allProjects.length === 0) return 1;
+
+  let num = 0;
+  allProjects.forEach((proj) => {
+    num += proj.boards.length + 1;
+  });
+  return num + 2;
+};
+
+const priorityColor = (p) => {
+  switch (p) {
+    case 1:
+      return styles.button_red;
+    case 2:
+      return styles.button_yellow;
+    case 3:
+      return styles.button_blue;
+  }
+};

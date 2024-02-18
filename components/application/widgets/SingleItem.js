@@ -225,9 +225,7 @@ export function SingleItems({
                   {showProject && (
                     <div className={styles.tag_box4}>
                       <TaskHeaderLeft
-                        projectId={projectId}
-                        projectName={projectName}
-                        board={board}
+                        taskId={_id}
                         reverse={true}
                       />
                     </div>
