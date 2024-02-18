@@ -20,29 +20,8 @@
   background-color: #fff;
   border: 1px solid $lightGrayColor;
   border-radius: 8px;
-.task_edit_form {
-  position: relative;
-  background-color: #fff;
-  border: 1px solid $lightGrayColor;
-  border-radius: 8px;
 }
 
-.task_name {
-  outline: none;
-  font-weight: bold;
-  min-height: 1.5rem;
-  margin-bottom: 0.4rem;
-  cursor: text;
-  [match-type="matched"] {
-    background-color: antiquewhite;
-    margin-right: 3px;
-  }
-  &:empty:before {
-    content: attr(placeholder);
-    position: absolute;
-    color: $textSecondaryColor;
-    background-color: transparent;
-  }
 .task_name {
   outline: none;
   font-weight: bold;
@@ -84,8 +63,7 @@
     }
   }
 }
-.task_name_tag_selector_button_on {
-  background-color: $grayColor;
+
 .task_name_tag_selector_button_on {
   background-color: $grayColor;
 }
@@ -103,10 +81,6 @@
   }
 }
 
-.task_edit_area {
-  width: 100%;
-  padding: 1rem;
-  border-bottom: 1px solid $lightGrayColor;
 .task_edit_area {
   width: 100%;
   padding: 1rem;
@@ -167,17 +141,9 @@
 
 .scheduler_quickbutton:hover {
   background-color: $grayColor;
-  background-color: $grayColor;
 }
 
 .datepicker_head {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-top: 1px solid $grayColor;
-  padding: 1rem 0.9rem 0.3rem;
-  font-size: 1.3rem;
-  font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -203,16 +169,7 @@
   font-size: 1.2rem;
   padding: 0.5rem 0.9rem;
   border-bottom: 1px solid $grayColor;
-  display: flex;
-  color: $grayColor;
-  font-size: 1.2rem;
-  padding: 0.5rem 0.9rem;
-  border-bottom: 1px solid $grayColor;
 
-  div {
-    width: 3rem;
-    text-align: center;
-  }
   div {
     width: 3rem;
     text-align: center;
@@ -255,24 +212,14 @@
   border-bottom: 1px solid $grayColor;
   font-size: 1.3rem;
   font-weight: bold;
-  padding: 0.7rem 0;
-  margin: 0 1.6rem;
-  border-bottom: 1px solid $grayColor;
-  font-size: 1.3rem;
-  font-weight: bold;
 }
 
 .datepicker_calendar_body {
   display: flex;
   flex-direction: column;
-  display: flex;
-  flex-direction: column;
 }
 
 .datepicker_calendar_week {
-  display: flex;
-  flex-direction: row;
-  padding: 0.3rem 0.9rem;
   display: flex;
   flex-direction: row;
   padding: 0.3rem 0.9rem;
@@ -301,13 +248,6 @@
   width: 2rem;
   margin: 0 auto;
   font-weight: bold;
-  display: block;
-  background-color: $primaryColor;
-  border-radius: 50%;
-  color: #fff;
-  width: 2rem;
-  margin: 0 auto;
-  font-weight: bold;
 }
 
 .datepicker_normal {
@@ -325,12 +265,9 @@
 
 .datepicker_normal:hover {
   background-color: $grayColor;
-  background-color: $grayColor;
 }
 
 .datepicker_today {
-  font-weight: bold;
-  color: $primaryColor;
   font-weight: bold;
   color: $primaryColor;
 }
@@ -354,9 +291,6 @@
   &:hover {
     background-color: $grayColor;
   }
-  &:hover {
-    background-color: $grayColor;
-  }
 }
 /* end priority picker */
 
@@ -368,7 +302,6 @@
   &::-webkit-scrollbar {
     display: none;
   }
-  
 }
 
 .tag_check_list_dropdown_btn {
@@ -384,6 +317,7 @@
     background-color: $grayColor;
   }
 }
+
 .tag_checkbox {
   position: relative;
   display: block;
@@ -391,9 +325,8 @@
   height: 1.6rem;
   // border: 1px solid #000;
   margin: auto 0;
- 
-
 }
+
 .tag_checkbox_on {
   &:before {
     content: "☑️";
@@ -417,18 +350,8 @@
     padding: 0.5rem 2rem;
     font-weight: bold;
   }
-.task_footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1rem;
-  button {
-    border-radius: 4px;
-    margin: 0 0.3rem;
-    padding: 0.5rem 2rem;
-    font-weight: bold;
-  }
 }
+
 .project_board {
   border-radius: $borderRadius;
   padding: 0.5rem 1rem;
@@ -489,10 +412,8 @@
 .task_footer_btns {
   display: flex;
   justify-content: flex-end;
-.task_footer_btns {
-  display: flex;
-  justify-content: flex-end;
 }
+
 .task_footer_cancel {
   color: #000;
   background-color: #f5f5f5;
@@ -501,6 +422,7 @@
     background-color: $lightGrayColor;
   }
 }
+
 .task_footer_submit {
   color: #fff;
   background-color: $primaryColor;

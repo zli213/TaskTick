@@ -423,7 +423,6 @@ function TaskEditor({
                   onClick={() => {
                     submitCallBack(newTaskData.current);
                     handleSubmit();
-                    hideScheduler();
                   }}
                 >
                   Add
@@ -436,7 +435,6 @@ function TaskEditor({
                   onClick={() => {
                     submitCallBack(newTaskData.current);
                     handleSubmit();
-                    hideScheduler();
                   }}
                 >
                   Save
