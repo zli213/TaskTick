@@ -75,12 +75,16 @@
   }
 
   .task_sidebar_label_title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flexRowBetween();
 
     h4 {
       line-height: $fontSizeMd;
+    }
+
+    div{
+      font-weight: 400;
+      // line-height: auto;
+      
     }
   }
 
@@ -204,6 +208,6 @@
 }
 
 .btn_menu {
-  cursor: pointer !important;
+  cursor: pointer ;
   position: relative;
 }

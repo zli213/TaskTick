@@ -320,6 +320,12 @@ function Scheduler({ data, onChangeDate, position }) {
   };
 
   const selectDate = (selDate) => {
+    console.log('123',selDate);
+    if (selDate == "") {
+      console.log('!!!')
+      onChangeDate({dateStr: null});
+      return;
+    }
     let dateJson = formatDate(selDate);
     // Change current selected date
 
