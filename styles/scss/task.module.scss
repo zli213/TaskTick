@@ -81,10 +81,9 @@
       line-height: $fontSizeMd;
     }
 
-    div{
+    div {
       font-weight: 400;
       // line-height: auto;
-      
     }
   }
 
@@ -210,7 +209,7 @@
 }
 
 .btn_menu {
-  cursor: pointer ;
+  cursor: pointer;
   position: relative;
 
   &:hover {
