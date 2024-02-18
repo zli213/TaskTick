@@ -212,6 +212,10 @@
 .btn_menu {
   cursor: pointer ;
   position: relative;
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
 }
 
 .button_red {

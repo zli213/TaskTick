@@ -145,12 +145,12 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
           <div className={styles.btn_menu}>
             <span onClick={swichProjectHandler}>
               {!task.projectId ? (
-                <div className={styles.flexStart}>
+                <div className={styles.task_sidebar_button}>
                   <Icon type="hashtag_small" />
                   Inbox
                 </div>
               ) : (
-                <div className={`${styles.tag_box2} ${styles.flexStart}`}>
+                <div className={`${styles.tag_box2} ${styles.task_sidebar_button}`}>
                   <span className={`${styles.tag_box3} ${styles.flexStart}`}>
                     <Icon type="hashtag_small" />
                   </span>

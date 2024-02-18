@@ -286,6 +286,10 @@
   max-height: 19rem;
   overflow: auto;
   z-index: 1001;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
 }
 
 .tag_check_list_dropdown_btn {
@@ -306,17 +310,20 @@
   display: block;
   width: 1.6rem;
   height: 1.6rem;
-  border: 1px solid #000;
+  // border: 1px solid #000;
   margin: auto 0;
+ 
+
 }
 .tag_checkbox_on {
   &:before {
-    content: "√";
+    content: "☑️";
     position: absolute;
     display: block;
     font-size: 1.8rem;
     top: -4px;
-    left: 1px;
+    left: -4px;
+    font-style: normal;
   }
 }
 

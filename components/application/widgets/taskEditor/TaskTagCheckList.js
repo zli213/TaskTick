@@ -56,7 +56,7 @@ function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
               <Icon type="hashtag_big" className={styles.tag_box} style={{color: "#999"}} />
               <span className={styles.tag_box2}>{item}</span>
             </div>
-            <i
+            <i type="checkbox"
               className={`
                 ${
                   styles.tag_checkbox +
