@@ -125,7 +125,6 @@ export function SingleItems({
       });
 
       const result = await res.json();
-      // console.log(result);
       dispatch(deleteTaskAction(_id, dueDate, projectId));
     } catch (error) {
       throw error;
@@ -159,7 +158,6 @@ export function SingleItems({
             setIsEditing(false);
           }}
           submitCallBack={(newTaskData) => {
-            // console.log(newTaskData);
             updateTaskHandler(newTaskData);
           }}
         />

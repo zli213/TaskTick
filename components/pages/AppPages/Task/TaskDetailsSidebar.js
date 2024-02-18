@@ -27,10 +27,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
     .filter((project) => project.isDeleted !== true);
 
   const dispatch = useDispatch();
-
-  console.log('11',task, task.dueDate)
   const dateJson = task.dueDate ? formatDate(task.dueDate) : "";
-  console.log('33',dateJson)
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
@@ -40,7 +37,6 @@ export default function TaskDetailsSidebar({task, taskId }) {
 
   //Update task
   const projSelectHandler = async (projId, projName, board) => {
-    console.log('44',dateJson.dateStr)
     const newTask = {
       ...task,
       projectId: projId,
@@ -49,7 +45,6 @@ export default function TaskDetailsSidebar({task, taskId }) {
       selectedDate: dateJson == '' ? null : dateJson.dateStr,
       priority: task.priority.charAt(task.priority.length - 1),
     };
-    console.log('111',newTask)
 
     try {
       const res = await fetch("/api/updateTask", {

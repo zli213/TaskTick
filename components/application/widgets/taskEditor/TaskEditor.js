@@ -468,6 +468,5 @@ const boardNum = (allProjects) => {
   allProjects.forEach((proj) => {
     num += proj.boards.length + 1;
   });
-  console.log("1", num + 2);
   return num + 2;
 };
