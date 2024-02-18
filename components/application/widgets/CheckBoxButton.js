@@ -10,11 +10,14 @@
  */
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
+import { addToastId } from "../../../store/toastIds";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 const CheckBoxButton = ({
   taskId,
@@ -24,6 +27,7 @@ const CheckBoxButton = ({
   const priority = task.priority;
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
+  const toastIds = useSelector((state) => state.toastIds.toastIds);
   const getPriorityColor = (option) => {
     switch (option) {
       case "P1":

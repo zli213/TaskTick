@@ -2,7 +2,7 @@
 import { useState } from "react";
 import TaskEditor from "./taskEditor/TaskEditor";
 import { useSession } from "next-auth/react";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTaskAction } from "../../../store/tasks";
 import styles from "../../../styles/scss/components/application/widgets/addTask.module.scss";
 import Icon from "./Icon";

@@ -11,6 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { unarchiveProjectAction } from "../../../store/projects";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchProjectCompletedTasks } from "../../../store/viewOptions";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 export default function Project({ projectId }) {
   const dispatch = useDispatch();
@@ -18,11 +20,16 @@ export default function Project({ projectId }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
   let showCompletedTask = useSelector(
+    
     (state) => state.viewOptions.projects[projectId]
+  
   );
   showCompletedTask =
+   
     showCompletedTask !== undefined
+     
       ? showCompletedTask.showCompletedTasks
+     
       : false;
 
   const projects = useSelector((state) => state.projects);
@@ -55,6 +62,11 @@ export default function Project({ projectId }) {
     document.title = project.name + " - Todo";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>

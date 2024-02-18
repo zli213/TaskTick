@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import StoreProvider from "../store/StoreProvider";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/scss/globals.scss";
 import ProviderWrapper from "./ProviderWrapper";
 export const metadata = {
