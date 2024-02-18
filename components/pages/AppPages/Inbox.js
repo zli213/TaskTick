@@ -8,6 +8,8 @@ import Icon from "../../application/widgets/Icon";
 import { useSelector, useDispatch } from "react-redux";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchInboxCompletedTasks } from "../../../store/viewOptions";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 export default function Inbox(props) {
   const dispatch = useDispatch();
@@ -16,7 +18,9 @@ export default function Inbox(props) {
   let completedTasks = Object.values(
     useSelector((state) => state.completedTasks.inbox)
   );
-  completedTasks = completedTasks !== undefined ? Object.values(completedTasks) : [];
+
+  completedTasks =
+    completedTasks !== undefined ? Object.values(completedTasks) : [];
 
   let showCompletedTask = useSelector(
     (state) => state.viewOptions.inbox.showCompletedTasks
@@ -31,9 +35,15 @@ export default function Inbox(props) {
     localStorage.setItem("lastPage", "inbox");
   }, []);
 
+  // Check the latest task has been completed
   const inBoxTasks = tasks.filter((task) => {
     return task.projectId == "" || task.projectId == null;
   });
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>

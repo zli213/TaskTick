@@ -12,7 +12,6 @@ import Tasks from "../../../src/models/Tasks";
 export const POST = async (req) => {
   await connect();
   const param = await req.json();
-  console.log(param)
   try {
     const res = await Tasks.findOneAndUpdate(
       { _id: param },
