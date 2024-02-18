@@ -26,7 +26,10 @@ import PriorityPicker from "../PriorityPicker";
 import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import { addToastId } from "../../../../store/toastIds";
 
 function TaskEditor({
   formType,
@@ -43,7 +46,7 @@ function TaskEditor({
   allProjects = allProjects
     .filter((project) => project.archived !== true)
     .filter((project) => project.isDeleted !== true);
-
+  let dispatch = useDispatch();
   // Default values
   if (formType == null) {
     formType = "add";
@@ -82,7 +85,7 @@ function TaskEditor({
   /** record the editing task */
   let newTaskData = useRef({
     _id: taskData._id == null ? "" : taskData._id,
-    selectedDate: 
+    selectedDate:
       formType === "add"
         ? fromDate == null
           ? ""
@@ -127,14 +130,17 @@ function TaskEditor({
       newTaskData.current[key] = value;
     }
   };
-
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(
+    newTaskData.current.selectedDate
+  );
+  const [originalDate, setOriginalDate] = useState(
     newTaskData.current.selectedDate
   );
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
     setNewTaskData("selectedDate", date.dateStr);
+    setOriginalDate(date.dateStr);
   };
 
   const [selectedPriority, setSelectedPriority] = useState(
@@ -236,6 +242,32 @@ function TaskEditor({
      */
   };
 
+  // handle submit
+  const handleSubmit = () => {
+    let routePath = "";
+    let projectName = "Inbox";
+    if (newTaskData.current.projectId === "") {
+      routePath = "/application/inbox";
+    } else {
+      // project
+      routePath = "/application/project/" + newTaskData.current.projectId;
+      projectName = newTaskData.current.projectName;
+    }
+
+    const newToastId = toast.info(
+      <div>
+        <p>
+          Task has been added{"\u00a0"}
+          <Link href={routePath}>
+            <u>{projectName}</u>
+          </Link>
+        </p>
+      </div>,
+      { pauseOnHover: false }
+    );
+    dispatch(addToastId(newToastId));
+  };
+
   return (
     <>
       <div className={styles.task_edit_form}>
@@ -299,6 +331,8 @@ function TaskEditor({
                   type="button"
                   onClick={() => {
                     submitCallBack(newTaskData.current);
+                    handleSubmit();
+                    hideScheduler();
                   }}
                 >
                   Add
@@ -310,6 +344,8 @@ function TaskEditor({
                   type="button"
                   onClick={() => {
                     submitCallBack(newTaskData.current);
+                    handleSubmit();
+                    hideScheduler();
                   }}
                 >
                   Save

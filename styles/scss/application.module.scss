@@ -438,3 +438,24 @@
 .view_checkbox:checked + .toggle_background {
   background-color: $primaryColor;
 }
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: small;
+  u {
+    margin-left: 4px;
+  }
+  .undoBtn {
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    border: none;
+    padding: $paddingXsm $paddingsm;
+    margin-left: $marginXsm;
+    cursor: pointer;
+    border-radius: $borderRadius;
+    &:hover {
+      background-color: $errorColor;
+    }
+  }
+}

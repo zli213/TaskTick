@@ -6,10 +6,14 @@ import { useEffect } from "react";
 import styles from "/styles/scss/application.module.scss";
 import Icon from "../../../components/application/widgets/Icon";
 import NoTask from "../../application/widgets/NoTask";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 function Today(props) {
+  const dispatch = useDispatch();
   let tasks = Object.values(useSelector((state) => state.tasks));
+
   const todayNum = useSelector((state) => state.num.todayNum);
   const router = useRouter();
 
@@ -30,7 +34,6 @@ function Today(props) {
     const taskDueDate = new Date(task.dueDate);
     return taskDueDate.getTime() === today.getTime();
   });
-
   useEffect(() => {
     document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
@@ -44,6 +47,10 @@ function Today(props) {
     }
   }, []);
 
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
   return (
     <>
       <div className={styles.view_header}>
@@ -70,7 +77,12 @@ function Today(props) {
           {overDueTasks.length !== 0 && (
             <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
           )}
-          <TodoList tasks={todayTasks} showProject={true} title="Today" fromDate={today} />
+          <TodoList
+            tasks={todayTasks}
+            showProject={true}
+            title="Today"
+            fromDate={today}
+          />
         </div>
       )}
     </>

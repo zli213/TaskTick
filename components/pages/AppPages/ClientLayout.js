@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import styles from "../../../styles/scss/application.module.scss";
 import Leftbar from "../../application/leftbar/Leftbar";
 import Topbar from "../../application/topbar/Topbar";
 import { initialAllState } from "../../../store/tasks";
+import { ToastContainer } from "react-toastify";
 
 export default function ClientLayout(props) {
   const [showLeftBar, setShowLeftBar] = useState(false);
@@ -35,6 +36,15 @@ export default function ClientLayout(props) {
         <Leftbar showClass={showLeftBar} />
         <div className={styles.content_holder}>{props.children}</div>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        style={{ width: "auto" }}
+        theme="dark"
+        icon={false}
+        hideProgressBar
+        limit={1}
+      />
     </div>
   );
 }
