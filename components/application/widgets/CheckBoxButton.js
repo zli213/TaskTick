@@ -13,16 +13,15 @@
 import React, { useState } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
 
 const CheckBoxButton = ({
-  priority,
   taskId,
-  dueDate,
-  projectId,
   completed,
 }) => {
+  const task = useSelector((state) => state.tasks[taskId]);
+  const priority = task.priority;
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const getPriorityColor = (option) => {

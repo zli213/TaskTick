@@ -10,6 +10,7 @@ import Scheduler, {
   convertDate,
   formatDate,
 } from "../../../application/widgets/Scheduler";
+import PriorityPicker from "../../../application/widgets/PriorityPicker";
 import Icon from "../../../application/widgets/Icon";
 import Link from "next/link";
 import PopupMenu, { useMenu } from "../../../application/widgets/PopupMenu";
@@ -24,6 +25,24 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
 
   // Default selected date: from incoming parameters
   const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
+  const [selectedPriority, setSelectedPriority] = useState(() => {
+    return task.priority.charAt(task.priority.length - 1) - '0';
+  });
+
+  const priorityColor = (p) => {
+    console.log('start',p);
+    switch (p) {
+      case 1:
+        console.log('111')
+        return styles.button_red;
+      case 2:
+        console.log('222')
+        return styles.button_yellow;
+      case 3:
+        console.log('333')
+        return styles.button_blue;
+    }
+  };
 
   const changeSelectedDate = async (date) => {
     setSelectedDate(date.dateStr);
@@ -32,6 +51,30 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
       ...task,
       selectedDate: date.dateStr,
       priority: task.priority.charAt(task.priority.length - 1),
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const changeSelectedPriority = async (priority) => {
+    setSelectedPriority(priority);
+
+    const newTask = {
+      ...task,
+      selectedDate: dateJson.dateStr,
+      priority: priority,
     };
 
     try {
@@ -61,6 +104,13 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
     showItemMenu: showSecSchedulerMenu,
     buttonPosition: secSchedulerPosition,
     swithMenuHandler: switchSecSchedulerHandler,
+  } = useMenu();
+
+  // Show/Hide PriorityPicker
+  const {
+    showItemMenu: showPriorityMenu,
+    buttonPosition: priorityPosition,
+    swithMenuHandler: swichPriorityHandler,
   } = useMenu();
 
   return (
@@ -147,12 +197,36 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
 
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
-          <button className={styles.task_sidebar_button}>
-            <div className={styles.flexStart}>
-              <Icon type="flag" />
-            </div>
-            <span>{task.priority}</span>
-          </button>
+          <div className={styles.btn_menu}>
+            <button
+              className={styles.task_sidebar_button}
+              onClick={swichPriorityHandler}
+            >
+              <div className={styles.flexStart}>
+                <Icon
+                  type={selectedPriority == 4 ? "flag" : "flag_filled_small"}
+                  className={priorityColor(selectedPriority)}
+                />
+              </div>
+              <span>P{selectedPriority}</span>
+            </button>
+            {showPriorityMenu && (
+              <PopupMenu
+                onOverlayClick={swichPriorityHandler}
+                position={priorityPosition}
+                levels={4}
+                menuWidth="110"
+              >
+                <PriorityPicker
+                  onPrioritySelect={(pri) => {
+                    changeSelectedPriority(pri);
+                    swichPriorityHandler();
+                  }}
+                  onOverlayClick={swichPriorityHandler}
+                />
+              </PopupMenu>
+            )}
+          </div>
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>

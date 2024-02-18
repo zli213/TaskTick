@@ -27,6 +27,7 @@ import FilterSelected from "../../../public/icon/filter_selected.svg";
 import FlagIcon from "../../../public/icon/flag.svg";
 import FlagBigIcon from "../../../public/icon/flag_big.svg";
 import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
+import FlagFilledSmallIcon from "../../../public/icon/flag_filled_small.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
 import HashtagBigIcon from "../../../public/icon/hashtag_big.svg";
 import HashtagSmallIcon from "../../../public/icon/hashtag_small.svg";
@@ -111,6 +112,8 @@ const Icon = ({ type, ...props }) => {
         return <MoveListIcon {...props} />;
       case "flag_filled":
         return <FlagFilledIcon {...props} />;
+      case "flag_filled_small":
+        return <FlagFilledSmallIcon {...props} />;
       case "flag_big":
         return <FlagBigIcon {...props} />;
       case "top_menu":
