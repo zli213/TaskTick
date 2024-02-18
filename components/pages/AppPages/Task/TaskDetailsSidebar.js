@@ -11,6 +11,7 @@ import Scheduler, {
 } from "../../../application/widgets/Scheduler";
 import PriorityPicker from "../../../application/widgets/PriorityPicker";
 import ProjectSelector from "../../../application/widgets/taskEditor/ProjectSelector";
+import TaskTagCheckList from "../../../application/widgets/taskEditor/TaskTagCheckList";
 import Icon from "../../../application/widgets/Icon";
 import Link from "next/link";
 import PopupMenu, { useMenu } from "../../../application/widgets/PopupMenu";
@@ -18,9 +19,13 @@ import { useDispatch } from "react-redux";
 import { updateTaskAction } from "../../../../store/tasks";
 import { useSelector } from "react-redux";
 
-export default function TaskDetailsSidebar({task, taskId }) {
+export default function TaskDetailsSidebar({ task, taskId }) {
   let task2 = useSelector((state) => state.tasks[taskId]);
-  if (task2) {task = task2; }
+  let tagList = useSelector((state) => state.labels.tags);
+
+  if (task2) {
+    task = task2;
+  }
   let allProjects = Object.values(useSelector((state) => state.projects));
   allProjects = allProjects
     .filter((project) => project.archived !== true)
@@ -35,6 +40,11 @@ export default function TaskDetailsSidebar({task, taskId }) {
     return task.priority.charAt(task.priority.length - 1) - "0";
   });
 
+  const [allTags, setAllTags] = useState([...tagList]);
+  const updateAllTags = (taglist) => {
+    setAllTags(taglist);
+  };
+
   //Update task
   const projSelectHandler = async (projId, projName, board) => {
     const newTask = {
@@ -42,7 +52,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
       projectId: projId,
       projectName: projName,
       board: board,
-      selectedDate: dateJson == '' ? null : dateJson.dateStr,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
       priority: task.priority.charAt(task.priority.length - 1),
     };
 
@@ -91,7 +101,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
 
     const newTask = {
       ...task,
-      selectedDate: dateJson.dateStr,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
       priority: priority,
     };
 
@@ -109,6 +119,36 @@ export default function TaskDetailsSidebar({task, taskId }) {
       throw error;
     }
   };
+
+  const updateCheckTags = async (taglist) => {
+    const newTask = {
+      ...task,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
+      priority: task.priority.charAt(task.priority.length - 1),
+      tags: taglist,
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Show/Hide ProjectSelector
+  const {
+    showItemMenu: showProjectMenu,
+    buttonPosition: projectPosition,
+    swithMenuHandler: swichProjectHandler,
+  } = useMenu();
 
   // Show/Hide Scheduler
   const {
@@ -131,11 +171,11 @@ export default function TaskDetailsSidebar({task, taskId }) {
     swithMenuHandler: swichPriorityHandler,
   } = useMenu();
 
-  // Show/Hide ProjectSelector
+  // Show/Hide TaskTagCheckList
   const {
-    showItemMenu: showProjectMenu,
-    buttonPosition: projectPosition,
-    swithMenuHandler: swichProjectHandler,
+    showItemMenu: showTagMenu,
+    buttonPosition: tagPosition,
+    swithMenuHandler: swichTagHandler,
   } = useMenu();
 
   return (
@@ -151,7 +191,9 @@ export default function TaskDetailsSidebar({task, taskId }) {
                   Inbox
                 </div>
               ) : (
-                <div className={`${styles.tag_box2} ${styles.task_sidebar_button}`}>
+                <div
+                  className={`${styles.tag_box2} ${styles.task_sidebar_button}`}
+                >
                   <span className={`${styles.tag_box3} ${styles.flexStart}`}>
                     <Icon type="hashtag_small" />
                   </span>
@@ -170,7 +212,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
                 </div>
               )}
             </span>
-            {showProjectMenu && (
+            {showProjectMenu && !task.completed && (
               <PopupMenu
                 onOverlayClick={swichProjectHandler}
                 position={projectPosition}
@@ -206,7 +248,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
                 className={styles.btn_menu}
                 style={{ position: "absolute" }}
               >
-                {showSecSchedulerMenu && (
+                {showSecSchedulerMenu && !task.completed && (
                   <PopupMenu
                     onOverlayClick={switchSecSchedulerHandler}
                     position={secSchedulerPosition}
@@ -238,7 +280,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
                   </div>
                   <span>{convertDate(dateJson.dateStr)}</span>
                 </button>
-                {showSchedulerMenu && (
+                {showSchedulerMenu && !task.completed && (
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler}
                     position={schedulerPosition}
@@ -275,7 +317,7 @@ export default function TaskDetailsSidebar({task, taskId }) {
               </div>
               <span>P{selectedPriority}</span>
             </button>
-            {showPriorityMenu && (
+            {showPriorityMenu && !task.completed && (
               <PopupMenu
                 onOverlayClick={swichPriorityHandler}
                 position={priorityPosition}
@@ -295,11 +337,31 @@ export default function TaskDetailsSidebar({task, taskId }) {
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>
-          <div className={styles.task_sidebar_label_title}>
-            <h4>Labels</h4>
-            <span>
+          <div className={styles.btn_menu}>
+            <div
+              className={` ${styles.task_sidebar_button} ${styles.task_sidebar_label_title}`}
+              onClick={swichTagHandler}
+            >
+              <h4>Labels</h4>
               <Icon type="add" />
-            </span>
+            </div>
+            {showTagMenu && !task.completed && (
+              <PopupMenu
+                onOverlayClick={swichTagHandler}
+                position={tagPosition}
+                levels={allTags.length <= 7 ? allTags.length * 0.75 : 5.4}
+                menuWidth="250"
+              >
+                <TaskTagCheckList
+                  allTags={allTags}
+                  checkedTags={task.tags}
+                  onTagCheckClick={(tags) => {
+                    updateCheckTags(tags);
+                  }}
+                  onOverlayClick={swichTagHandler}
+                />
+              </PopupMenu>
+            )}
           </div>
           <div className={styles.task_tags_container}>
             {task.tags &&

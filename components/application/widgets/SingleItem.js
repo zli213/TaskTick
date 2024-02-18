@@ -17,7 +17,7 @@ import CheckBoxButton from "./CheckBoxButton";
 import TaskHeaderLeft from "../../pages/AppPages/Task/TaskHeaderLeft";
 import TaskEditor from "./taskEditor/TaskEditor";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskAction, updateTaskAction } from "../../../store/tasks";
 
 export function SingleItems({
@@ -34,8 +34,10 @@ export function SingleItems({
   showProject,
   allTags,
   allProjects,
+  task,
 }) {
   const dispatch = useDispatch();
+
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
 
@@ -45,23 +47,31 @@ export function SingleItems({
     swithMenuHandler,
   } = useMenu();
   const { showDeleteCard, showDeleteCardHandler } = useDelete();
-
-  const [selectedDate, setSelectedDate] = useState(dateJson.dateStr);
-  const [isShowScheduler, setIsShowScheduler] = useState(false);
   const [selectedPriority, setPriority] = useState(priority);
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
   const [isEditing, setIsEditing] = useState(false);
 
-  /** for change the display values when save */
-  const [dispTitle, setDispTitle] = useState(title);
-  const [dispDescription, setDispDescription] = useState(description);
-  const [dispTags, setDispTags] = useState(tags);
-  const [dispProjectId, setDispProjectId] = useState(projectId);
-  const [dispProjectName, setDispProjectName] = useState(projectName);
-  const [dispBoard, setDispBoard] = useState(board);
+  const changeSelectedDate = async (date) => {
+    // setSelectedDate(date.dateStr);
 
-  const changeSelectedDate = (date) => {
-    setSelectedDate(date.dateStr);
+    const newTask = {
+      ...task,
+      selectedDate: date.dateStr,
+      priority: task.priority.charAt(task.priority.length - 1),
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
   };
 
   // Show/Hide Scheduler
@@ -77,10 +87,6 @@ export function SingleItems({
     swithMenuHandler: swichSchedulerHandler2,
   } = useMenu();
 
-  // const priorityChangeHandler = (option) => {
-  //   setPriority(option);
-  // };
-
   const updateTaskHandler = async (task) => {
     if (completed) return;
     try {
@@ -94,20 +100,7 @@ export function SingleItems({
 
       const result = await res.json();
       dispatch(updateTaskAction(result.body, dueDate, projectId));
-
       setIsEditing(false);
-      setDispTitle(result.body.title);
-      setDispDescription(result.body.description);
-      setPriority(result.body.priority);
-      setDispTags(result.body.tags);
-      setSelectedDate(
-        formatDate(
-          result.body.dueDate == null ? "" : new Date(result.body.dueDate)
-        ).dateStr
-      );
-      setDispProjectId(result.body.projectId);
-      setDispProjectName(result.body.projectName);
-      setDispBoard(result.body.board);
     } catch (error) {
       throw error;
     }
@@ -143,14 +136,14 @@ export function SingleItems({
           formType={"edit"}
           taskData={{
             _id: _id,
-            selectedDate: selectedDate,
+            selectedDate: dateJson.dateStr,
             priority: parseInt(selectedPriority[1]),
-            taskName: dispTitle,
-            taskContent: dispDescription,
-            tags: dispTags,
-            projectId: dispProjectId,
-            projectName: dispProjectName,
-            board: dispBoard,
+            taskName: title,
+            taskContent: description,
+            tags: tags,
+            projectId: projectId,
+            projectName: projectName,
+            board: board,
           }}
           tagList={allTags} // alltags
           allProjects={allProjects}
@@ -180,10 +173,14 @@ export function SingleItems({
               completed={completed}
               className={styles.tag_box3}
             />
-            <div className={`${styles.task_content}`} >
-              <Link href={`/application/task/${_id}`} scroll={false} className={styles.tag_box2}>
-                <div className={styles.task_title}>{dispTitle}</div>
-                <div className={styles.task_description}>{dispDescription}</div>
+            <div className={`${styles.task_content}`}>
+              <Link
+                href={`/application/task/${_id}`}
+                scroll={false}
+                className={styles.tag_box2}
+              >
+                <div className={styles.task_title}>{title}</div>
+                <div className={styles.task_description}>{description}</div>
               </Link>
               <div className={styles.task_info_container}>
                 <div className={styles.task_info}>
@@ -194,7 +191,7 @@ export function SingleItems({
                         onClick={swichSchedulerHandler}
                       >
                         <Icon type="calender_small" />
-                        {selectedDate}
+                        {dateJson.dateStr}
                       </button>
                       {showSchedulerMenu && (
                         <PopupMenu
@@ -204,7 +201,7 @@ export function SingleItems({
                           menuWidth="230"
                         >
                           <Scheduler
-                            data={{ selectedDate: selectedDate }}
+                            data={{ selectedDate: dateJson.dateStr }}
                             onChangeDate={(dateJson) => {
                               changeSelectedDate(dateJson);
                               swichSchedulerHandler();
@@ -214,7 +211,7 @@ export function SingleItems({
                       )}
                     </span>
                   )}
-                  {dispTags.map((tag) => (
+                  {tags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
                       <Icon type="small_tag" />
                       <span className={styles.tag_box}>{tag}</span>
@@ -239,10 +236,11 @@ export function SingleItems({
           {/* right buttons */}
           <div
             className={styles.task_list_action}
-            style={{ opacity: (showItemMenu || showSchedulerMenu2)  && 1 }}
+            style={{ opacity: (showItemMenu || showSchedulerMenu2) && 1 }}
           >
             <div className={styles.two_btn}>
-              <button className={styles.two_btn}
+              <button
+                className={styles.two_btn}
                 onClick={() => {
                   setIsEditing(true);
                 }}
@@ -250,7 +248,10 @@ export function SingleItems({
                 <Icon type="edit" />
               </button>
               <span className={styles.btn_menu}>
-                <button onClick={swichSchedulerHandler2} className={styles.two_btn}>
+                <button
+                  onClick={swichSchedulerHandler2}
+                  className={styles.two_btn}
+                >
                   <Icon type="calender_big" />
                 </button>
                 {showSchedulerMenu2 && (
@@ -261,7 +262,7 @@ export function SingleItems({
                     menuWidth="230"
                   >
                     <Scheduler
-                      data={{ selectedDate: selectedDate }}
+                      data={{ selectedDate: dateJson.dateStr }}
                       onChangeDate={(dateJson) => {
                         changeSelectedDate(dateJson);
                         swichSchedulerHandler2();

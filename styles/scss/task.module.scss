@@ -75,6 +75,7 @@
   }
 
   .task_sidebar_label_title {
+    padding: 0.5rem 0;
     @include flexRowBetween();
 
     h4 {
@@ -189,6 +190,7 @@
   @include flexRowStart();
   gap: $gapSm;
   align-items: center;
+  justify-content: center;
 }
 
 .tag_box {

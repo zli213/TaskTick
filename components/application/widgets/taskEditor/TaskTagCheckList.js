@@ -14,6 +14,7 @@ import styles from "../../../../styles/scss/components/application/widgets/taskE
 import Icon from "../Icon";
 
 function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
+
   let newCheckedTags = useRef([...checkedTags]);
   const updateNewCheckedTags = (tag, ele) => {
     // change the checkbox to checked/unchecked
@@ -42,6 +43,7 @@ function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
       >
         {allTags.map((item) => (
           <div
+            key={item}
             className={styles.tag_check_list_dropdown_btn}
             onClick={(e) => {
               let ele = e.currentTarget;

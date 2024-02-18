@@ -237,6 +237,7 @@ function TodoList({
               {haveTasks &&
                 tasks.map((data) => (
                   <SingleItems
+                    task={data}
                     key={data._id}
                     _id={data._id}
                     title={data.title}

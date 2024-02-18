@@ -324,9 +324,7 @@ function Scheduler({ data, onChangeDate, position }) {
 
   //--------- select date ------------
   const selectDate = (selDate) => {
-    console.log('123',selDate);
     if (selDate == "") {
-      console.log('!!!')
       onChangeDate({dateStr: null});
       return;
     }

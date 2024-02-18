@@ -290,7 +290,6 @@
 /* end priority picker */
 
 .tag_check_list_dropdown {
-  width: 39rem;
   max-height: 19rem;
   overflow: auto;
   z-index: 1001;
@@ -307,6 +306,7 @@
   border-radius: $borderRadiusSm;
   cursor: pointer;
   margin: 0 !important;
+  overflow: hidden;
 
   &:hover {
     background-color: $grayColor;

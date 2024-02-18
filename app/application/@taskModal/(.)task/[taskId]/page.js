@@ -42,6 +42,7 @@ export default async function TaskModal({ params }) {
               taskPriority={task.priority}
             />
             <TaskDetailsSidebar
+              taskCompleted={task.completed}
               taskId={params.taskId}
               task={task}
               showInbox={true}
