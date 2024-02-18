@@ -95,7 +95,7 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
                   <PopupMenu
                     onOverlayClick={switchSecSchedulerHandler}
                     position={secSchedulerPosition}
-                    levels={10.4}
+                    levels={9.67}
                     menuWidth="230"
                   >
                     <Scheduler
@@ -127,7 +127,7 @@ export default function TaskDetailsSidebar({ showInbox, taskId }) {
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler}
                     position={schedulerPosition}
-                    levels={10.4}
+                    levels={9.67}
                     menuWidth="230"
                   >
                     <Scheduler

@@ -14,7 +14,6 @@
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
-import { convertPosition } from "../../../public/CommonFunctions";
 
 function Scheduler({ data, onChangeDate, position }) {
   //---------------- variables -----------------

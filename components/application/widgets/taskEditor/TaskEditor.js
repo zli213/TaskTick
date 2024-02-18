@@ -270,7 +270,7 @@ function TaskEditor({
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler}
                     position={schedulerPosition}
-                    levels={10.4}
+                    levels={9.67}
                     menuWidth="230"
                   >
                     <Scheduler

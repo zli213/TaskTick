@@ -172,7 +172,10 @@
 .datepicker_monthlist_wrapper {
   height: 19rem;
   overflow: auto;
-  margin-right: -17px;
+  // margin-right: -17px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .datepicker_monthlist {
@@ -238,13 +241,12 @@
   display: block;
   border-radius: 50%;
   width: 2rem;
-  margin: 0 auto ;
+  margin: 0 auto;
   transition: all 100ms;
   text-align: center;
 
-  span{
-  margin: 0 auto !important;
-
+  span {
+    margin: 0 auto !important;
   }
 }
 

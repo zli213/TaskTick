@@ -202,7 +202,7 @@ export function SingleItems({
                         <PopupMenu
                           onOverlayClick={swichSchedulerHandler}
                           position={schedulerPosition}
-                          levels={10.4}
+                          levels={9.67}
                           menuWidth="230"
                         >
                           <Scheduler
@@ -258,7 +258,7 @@ export function SingleItems({
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler2}
                     position={schedulerPosition2}
-                    levels={10.4}
+                    levels={9.66}
                     menuWidth="230"
                   >
                     <Scheduler
