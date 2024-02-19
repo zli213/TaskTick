@@ -267,7 +267,7 @@ function TaskEditor({
   };
 
   //content check
-  const [notAllowSubmit, setNotAllowSubmit] = useState(true);
+  const [notAllowSubmit, setNotAllowSubmit] = useState(taskData.taskName == "");
 
   const preSubmitCheck = () => {
     submitCallBack(newTaskData.current);
