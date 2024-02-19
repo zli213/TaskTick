@@ -177,7 +177,7 @@
   width: 100%;
   cursor: pointer;
   align-items: center;
-  line-height: $lineHeight;
+  line-height: 2rem;
   vertical-align: center;
   border-radius: $borderRadius;
 }
@@ -215,7 +215,7 @@
   position: relative;
 
   &:hover {
-    background-color: $lightGrayColor;
+    background-color: $lightGrayColor !important;
   }
 }
 

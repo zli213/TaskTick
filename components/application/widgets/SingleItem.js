@@ -197,7 +197,7 @@ export function SingleItems({
                         <PopupMenu
                           onOverlayClick={swichSchedulerHandler}
                           position={schedulerPosition}
-                          levels={9.67}
+                          levels={10.4}
                           menuWidth="230"
                         >
                           <Scheduler
@@ -206,6 +206,7 @@ export function SingleItems({
                               changeSelectedDate(dateJson);
                               swichSchedulerHandler();
                             }}
+                            onOverlayClick={swichSchedulerHandler}
                           />
                         </PopupMenu>
                       )}
@@ -258,7 +259,7 @@ export function SingleItems({
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler2}
                     position={schedulerPosition2}
-                    levels={9.66}
+                    levels={10.4}
                     menuWidth="230"
                   >
                     <Scheduler
@@ -267,6 +268,8 @@ export function SingleItems({
                         changeSelectedDate(dateJson);
                         swichSchedulerHandler2();
                       }}
+                      onOverlayClick={swichSchedulerHandler}
+
                     />
                   </PopupMenu>
                 )}

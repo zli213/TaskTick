@@ -256,7 +256,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
           {!selectedDate && (
             <>
               <h4
-                className={`${styles.task_sidebar_label_title}`}
+                className={`${styles.task_sidebar_label_title} ${styles.task_sidebar_button}`}
                 onClick={switchSecSchedulerHandler}
                 style={{ cursor: "pointer" }}
               >
@@ -271,7 +271,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
                   <PopupMenu
                     onOverlayClick={switchSecSchedulerHandler}
                     position={secSchedulerPosition}
-                    levels={9.67}
+                    levels={10.4}
                     menuWidth="230"
                   >
                     <Scheduler
@@ -288,7 +288,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
           )}
           {selectedDate && (
             <>
-              <h4>Due date</h4>
+              <h4 className={`${styles.task_sidebar_label_title}`}>Due date</h4>
               <span className={styles.btn_menu}>
                 <button
                   className={styles.task_sidebar_button}
@@ -303,7 +303,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler}
                     position={schedulerPosition}
-                    levels={9.67}
+                    levels={10.4}
                     menuWidth="230"
                   >
                     <Scheduler

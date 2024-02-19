@@ -154,9 +154,6 @@ function TaskEditor({
   };
 
   const [allTags, setAllTags] = useState([...tagList]);
-  const updateAllTags = (taglist) => {
-    setAllTags(taglist);
-  };
 
   const [dispProjectId, setDispProjectId] = useState(
     newTaskData.current.projectId
@@ -248,18 +245,20 @@ function TaskEditor({
       projectName = newTaskData.current.projectName;
     }
 
-    const newToastId = toast.info(
-      <div>
-        <p>
-          Task has been added{"\u00a0"}
-          <Link href={routePath}>
-            <u>{projectName}</u>
-          </Link>
-        </p>
-      </div>,
-      { pauseOnHover: false }
-    );
-    dispatch(addToastId(newToastId));
+    if (formType === "add") {
+      const newToastId = toast.info(
+        <div>
+          <p className={styles.notification_card}>
+            Task has been added to{"\u00a0"}
+            <Link href={routePath}>
+              <u>{projectName}</u>
+            </Link>
+          </p>
+        </div>,
+        { pauseOnHover: false }
+      );
+      dispatch(addToastId(newToastId));
+    }
   };
 
   return (
@@ -302,7 +301,7 @@ function TaskEditor({
                   <PopupMenu
                     onOverlayClick={swichSchedulerHandler}
                     position={schedulerPosition}
-                    levels={9.67}
+                    levels={10.4}
                     menuWidth="230"
                   >
                     <Scheduler
@@ -311,6 +310,7 @@ function TaskEditor({
                         changeSelectedDate(dateJson);
                         swichSchedulerHandler();
                       }}
+                      isEdit={true}
                     />
                   </PopupMenu>
                 )}
@@ -418,9 +418,11 @@ function TaskEditor({
               </button>
               {formType === "add" ? (
                 <button
+                  // disabled={newTaskData.current.taskName == ""}
                   className={styles.task_footer_submit}
                   type="button"
                   onClick={() => {
+                    console.log('1',newTaskData.current);
                     submitCallBack(newTaskData.current);
                     handleSubmit();
                   }}
@@ -430,6 +432,7 @@ function TaskEditor({
               ) : null}
               {formType === "edit" ? (
                 <button
+                  // disabled={newTaskData.current.taskName === ""}
                   className={styles.task_footer_submit}
                   type="button"
                   onClick={() => {
