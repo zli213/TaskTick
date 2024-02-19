@@ -445,7 +445,7 @@ function TaskEditor({
               ) : null}
               {formType === "edit" ? (
                 <button
-                  disabled={showInfo}
+                  disabled={notAllowSubmit}
                   className={styles.task_footer_submit}
                   type="button"
                   onClick={preSubmitCheck}
