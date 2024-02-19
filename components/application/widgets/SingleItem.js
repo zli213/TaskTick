@@ -19,6 +19,7 @@ import TaskEditor from "./taskEditor/TaskEditor";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTaskAction, updateTaskAction } from "../../../store/tasks";
+import ProjectSelector from "./taskEditor/ProjectSelector";
 
 export function SingleItems({
   title,
@@ -33,10 +34,13 @@ export function SingleItems({
   completed,
   showProject,
   allTags,
-  allProjects,
   task,
 }) {
   const dispatch = useDispatch();
+  let allProjects = Object.values(useSelector((state) => state.projects));
+  allProjects = allProjects
+    .filter((project) => project.archived !== true)
+    .filter((project) => project.isDeleted !== true);
 
   const dateJson = dueDate ? formatDate(dueDate) : "";
   const hasDue = dueDate == null ? false : true;
@@ -87,6 +91,13 @@ export function SingleItems({
     swithMenuHandler: swichSchedulerHandler2,
   } = useMenu();
 
+  // Show/Hide ProjectSelector
+  const {
+    showItemMenu: showProjectMenu,
+    buttonPosition: projectPosition,
+    swithMenuHandler: swichProjectHandler,
+  } = useMenu();
+
   const updateTaskHandler = async (task) => {
     if (completed) return;
     try {
@@ -127,6 +138,57 @@ export function SingleItems({
   const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
     showDeleteCardHandler();
+  };
+
+  //Update task
+  const projSelectHandler = async (projId, projName, board) => {
+    const newTask = {
+      ...task,
+      projectId: projId,
+      projectName: projName,
+      board: board,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
+      priority: task.priority.charAt(task.priority.length - 1),
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
+    swichProjectHandler();
+  };
+
+  const changeSelectedPriority = async (priority) => {
+    setPriority(priority);
+
+    const newTask = {
+      ...task,
+      selectedDate: dateJson == "" ? null : dateJson.dateStr,
+      priority: priority.charAt(priority.length - 1),
+    };
+
+    try {
+      const res = await fetch("/api/updateTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      const result = await res.json();
+      dispatch(updateTaskAction(result.body, task.dueDate, task.projectId));
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
@@ -269,7 +331,6 @@ export function SingleItems({
                         swichSchedulerHandler2();
                       }}
                       onOverlayClick={swichSchedulerHandler}
-
                     />
                   </PopupMenu>
                 )}
@@ -315,6 +376,10 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          onClick={() => {
+                            changeSelectedPriority("P1");
+                            swithMenuHandler();
+                          }}
                         >
                           <Icon
                             type="flag_filled"
@@ -327,6 +392,10 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          onClick={() => {
+                            changeSelectedPriority("P2");
+                            swithMenuHandler();
+                          }}
                         >
                           <Icon
                             type="flag_filled"
@@ -339,6 +408,10 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          onClick={() => {
+                            changeSelectedPriority("P3");
+                            swithMenuHandler();
+                          }}
                         >
                           <Icon
                             type="flag_filled"
@@ -351,6 +424,10 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          onClick={() => {
+                            changeSelectedPriority("P4");
+                            swithMenuHandler();
+                          }}
                         >
                           <Icon
                             type="flag_big"
@@ -360,9 +437,32 @@ export function SingleItems({
                       </div>
                     </div>
                     <hr />
-                    <button>
-                      <Icon type="move_list" />
-                      <span>Move to...</span>
+                    <button className={styles.btn_menu}>
+                      <div
+                        className={styles.flex_start}
+                        onClick={swichProjectHandler}
+                      >
+                        <Icon type="move_list" />
+                        <span>Move to...</span>
+                      </div>
+                      {showProjectMenu && !task.completed && (
+                        <PopupMenu
+                          onOverlayClick={swichProjectHandler}
+                          position={projectPosition}
+                          levels={
+                            boardNum(allProjects) <= 9
+                              ? boardNum(allProjects) * 0.87
+                              : 8.22
+                          }
+                          menuWidth="250"
+                        >
+                          <ProjectSelector
+                            allProjects={allProjects}
+                            onProjSelect={projSelectHandler}
+                            onOverlayClick={swichProjectHandler}
+                          />
+                        </PopupMenu>
+                      )}
                     </button>
                     <hr />
                     <button
@@ -390,3 +490,13 @@ export function SingleItems({
     </li>
   );
 }
+
+const boardNum = (allProjects) => {
+  if (allProjects.length === 0) return 1;
+
+  let num = 0;
+  allProjects.forEach((proj) => {
+    num += proj.boards.length + 1;
+  });
+  return num + 2;
+};
