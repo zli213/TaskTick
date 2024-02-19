@@ -2,7 +2,7 @@ import React, { useState, useEffect, use } from "react";
 import styles from "../../../styles/scss/searchCard.module.scss";
 import Icon from "../widgets/Icon";
 import { useDispatch, useSelector } from "react-redux";
-import TodoList from "./../widgets/TodoList";
+import TodoListInSearch from "../widgets/TodoListInSearch";
 
 const SearchCard = ({ closeCardHandler }) => {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const SearchCard = ({ closeCardHandler }) => {
           )}
           {haveTasks && (
             <div className={styles.searchResult}>
-              <TodoList tasks={displayedResults} showAddTask={false} />
+              <TodoListInSearch tasks={displayedResults} />
               {searchResult.length > 5 && !showAllResults && (
                 <button
                   className={styles.showAllBtn}
