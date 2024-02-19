@@ -3,7 +3,6 @@ import styles from "../../../styles/scss/searchCard.module.scss";
 import Icon from "../widgets/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./../widgets/TodoList";
-import { set } from "mongoose";
 
 const SearchCard = ({ closeCardHandler }) => {
   const dispatch = useDispatch();
