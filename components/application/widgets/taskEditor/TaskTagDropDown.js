@@ -5,6 +5,7 @@
 
 import { forwardRef, useImperativeHandle, useState } from "react";
 import styles from "../../../../styles/scss/components/application/widgets/taskEditor.module.scss";
+import Icon from "../Icon";
 
 function TaskTagDropDown(
   { tags, onTagSelect, showCreateTag, matchingValue, createNewTag },
@@ -40,7 +41,11 @@ function TaskTagDropDown(
   }));
 
   return (
-    <div id="tagDropDown" className={styles.task_name_tag_selector}>
+    <div
+      id="tagDropDown"
+      className={styles.task_name_tag_selector}
+      scrollable="scrollable_area"
+    >
       {tags.map((item, index) => (
         <button
           key={"item_" + item}
@@ -52,7 +57,8 @@ function TaskTagDropDown(
             index === onIndex ? styles.task_name_tag_selector_button_on : ""
           }
         >
-          {item}
+          <Icon type="hashtag_big" className={styles.tag_box}  />
+          <span className={styles.tag_box2} >{item}</span>
         </button>
       ))}
       {showCreateTag ? (
