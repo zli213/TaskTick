@@ -220,6 +220,11 @@ function TaskEditor({
     );
   };
   const recordTaskName = (name) => {
+    if (name === "") {
+      setNotAllowSubmit(true);
+    } else {
+      setNotAllowSubmit(false);
+    }
     setNewTaskData("taskName", name);
   };
   const recordTaskTags = (tags) => {
@@ -259,6 +264,14 @@ function TaskEditor({
       );
       dispatch(addToastId(newToastId));
     }
+  };
+
+  //content check
+  const [notAllowSubmit, setNotAllowSubmit] = useState(true);
+
+  const preSubmitCheck = () => {
+    submitCallBack(newTaskData.current);
+    handleSubmit();
   };
 
   return (
@@ -418,13 +431,13 @@ function TaskEditor({
               </button>
               {formType === "add" ? (
                 <button
-                  // disabled={newTaskData.current.taskName == ""}
+                  disabled={notAllowSubmit}
                   className={styles.task_footer_submit}
                   type="button"
-                  onClick={() => {
-                    console.log('1',newTaskData.current);
-                    submitCallBack(newTaskData.current);
-                    handleSubmit();
+                  onClick={preSubmitCheck}
+                  style={{
+                    backgroundColor: notAllowSubmit && "#e56c61",
+                    cursor: notAllowSubmit && "not-allowed",
                   }}
                 >
                   Add
@@ -432,12 +445,13 @@ function TaskEditor({
               ) : null}
               {formType === "edit" ? (
                 <button
-                  // disabled={newTaskData.current.taskName === ""}
+                  disabled={showInfo}
                   className={styles.task_footer_submit}
                   type="button"
-                  onClick={() => {
-                    submitCallBack(newTaskData.current);
-                    handleSubmit();
+                  onClick={preSubmitCheck}
+                  style={{
+                    backgroundColor: notAllowSubmit && "#e56c61",
+                    cursor: notAllowSubmit && "not-allowed",
                   }}
                 >
                   Save
