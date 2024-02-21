@@ -185,6 +185,7 @@ export function SingleItems({
               dueDate={dueDate}
               projectId={projectId}
               completed={completed}
+              styles={styles}
             />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>

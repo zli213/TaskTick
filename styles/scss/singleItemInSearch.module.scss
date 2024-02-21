@@ -19,7 +19,7 @@
     @include flexRowStart();
     position: relative;
     align-items: center;
-    padding: $paddingsm 0;
+    padding: $paddingXsm 0;
     border-bottom: 1px solid $grayColor;
   }
 
@@ -49,16 +49,19 @@
   .task_title {
     white-space: nowrap;
     text-overflow: ellipsis;
+    line-height: $lineHeight;
   }
 
   .task_description {
     font-size: $fontSizeXsm;
     color: $textSecondaryColor;
+    line-height: $lineHeight;
   }
 
   .task_info_container {
     @include flexRowBetween();
     font-size: $fontSizeXsm;
+    line-height: $fontSizeSm;
   }
 
   .task_info {

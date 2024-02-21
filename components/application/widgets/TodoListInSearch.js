@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SingleItemsInSearch } from "./SingleItemsInSearch";
-import styles from "../../../styles/scss/todoList.module.scss";
+import styles from "../../../styles/scss/todoListInSearch.module.scss";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";

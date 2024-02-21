@@ -59,6 +59,13 @@ export function SingleItemsInSearch({
   const [dispProjectId, setDispProjectId] = useState(projectId);
   const [dispProjectName, setDispProjectName] = useState(projectName);
   const [dispBoard, setDispBoard] = useState(board);
+  const formatDescription = (description) => {
+    const words = description.split(/\s+/);
+    if (words.length > 20) {
+      return words.slice(0, 20).join(" ") + "...";
+    }
+    return description;
+  };
 
   const changeSelectedDate = (date) => {
     setSelectedDate(date.dateStr);
@@ -178,11 +185,14 @@ export function SingleItemsInSearch({
               dueDate={dueDate}
               projectId={projectId}
               completed={completed}
+              styles={styles}
             />
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>
-                <div className={styles.task_description}>{dispDescription}</div>
+                <div className={styles.task_description}>
+                  {formatDescription(dispDescription)}
+                </div>
               </Link>
               <div className={styles.task_info_container}>
                 <div className={styles.task_info}>

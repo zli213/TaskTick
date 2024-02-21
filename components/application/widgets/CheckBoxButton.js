@@ -11,7 +11,6 @@
 
 "use client";
 import React, { useState } from "react";
-import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
 import { useDispatch } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
@@ -22,6 +21,7 @@ const CheckBoxButton = ({
   dueDate,
   projectId,
   completed,
+  styles,
 }) => {
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
