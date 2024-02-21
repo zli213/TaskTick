@@ -49,6 +49,7 @@ export default function Project({ projectId }) {
     completedTasks !== undefined ? Object.values(completedTasks) : [];
   const groupedCompletedTasks = groupTasks(boards, completedTasks);
 
+
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&
       dispatch(unarchiveProjectAction(projectId));

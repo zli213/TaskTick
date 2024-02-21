@@ -34,7 +34,7 @@ function Today(props) {
     const taskDueDate = new Date(task.dueDate);
     return taskDueDate.getTime() === today.getTime();
   });
-  
+
   useEffect(() => {
     document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
