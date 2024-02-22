@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import TodoListInSearch from "../widgets/TodoListInSearch";
 
 const SearchCard = ({ closeCardHandler }) => {
+  const containerClickHandler = (event) => {
+    event.stopPropagation();
+  };
   const dispatch = useDispatch();
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = Array.isArray(tasks) ? tasks : [];
@@ -38,11 +41,8 @@ const SearchCard = ({ closeCardHandler }) => {
     ? searchResult
     : searchResult.slice(0, 5);
 
-  const containerClickHandler = (event) => {
-    event.stopPropagation();
-  };
   return (
-    <div className={styles.click_close_cover} onClick={closeCardHandler}>
+    <div className="click_close_cover" onClick={closeCardHandler}>
       <div className={styles.search_card} onClick={containerClickHandler}>
         <div className={styles.search_card_header}>
           <Icon type="search" />
