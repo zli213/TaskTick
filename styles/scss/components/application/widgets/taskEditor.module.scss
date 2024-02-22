@@ -19,8 +19,8 @@
 .task_name {
   outline: none;
   font-weight: bold;
-  min-height: 1.5rem;
-  margin-bottom: 0.4rem;
+  min-height: $mobileSpacing;
+  margin-bottom: $marginXsm;
   cursor: text;
   [match-type="matched"] {
     background-color: antiquewhite;
@@ -49,18 +49,18 @@
   max-height: 20rem;
   overflow: auto;
   z-index: 1000;
-  padding: 0.5rem;
+  padding: $paddingXsm;
 
 
   button {
-    padding: 1.5rem;
+    padding: $mobileSpacing;
     @include flexRowStart();
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: left;
-    padding-left: 1rem;
+    padding-left: $paddingsm3;
     border-radius: $borderRadiusXsm;
 
     &:hover {
@@ -76,7 +76,7 @@
 .task_content {
   outline: none;
   min-height: 1.5rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: $marginXsm2;
   cursor: text;
   &:empty:before {
     content: attr(placeholder);
@@ -88,7 +88,7 @@
 
 .task_edit_area {
   width: 100%;
-  padding: 1rem;
+  padding: $paddingsm3;
   border-bottom: 1px solid $lightGrayColor;
 }
 
@@ -102,9 +102,9 @@
     @include flexRowStart();
     border: 1px solid $grayColor;
     border-radius: $borderRadiusSm;
-    margin: 0 0.3rem;
-    padding: 0.5rem;
-    font-size: 1.5rem;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm;
+    font-size: $fontSizeSm;
     cursor: pointer;
     &:hover {
       background-color: $lightGrayColor;
@@ -126,17 +126,17 @@
     height: auto;
     border: 0;
     margin: 0;
-    font-size: 1.3rem;
+    font-size: $fontSizeXsm2;
     cursor: pointer;
   }
 }
 
 .scheduler_quickbutton {
   line-height: normal;
-  padding: 0.5rem 0.5rem;
+  padding: $paddingXsm;
   display: flex;
   justify-content: space-between !important;
-  font-size: 1.3rem;
+  font-size: $fontSizeXsm2;
   cursor: pointer;
   border-radius: $borderRadiusSm;
 
@@ -154,8 +154,8 @@
   flex-direction: row;
   justify-content: space-between;
   border-top: 1px solid $grayColor;
-  padding: 1rem 0.9rem 0.3rem;
-  font-size: 1.3rem;
+  padding: $paddingsm3 $paddingsm2 $gapXsm;
+  font-size: $fontSizeXsm2;
   font-weight: bold;
   line-height: normal;
 }
@@ -165,7 +165,7 @@
   button {
     justify-content: center;
     text-align: center;
-    width: 2rem;
+    width: $paddingMd;
     padding: 0 !important;
   }
 }
@@ -173,8 +173,8 @@
 .week_names {
   display: flex;
   color: $grayColor;
-  font-size: 1.2rem;
-  padding: 0.5rem 0.9rem;
+  font-size: $fontSizeXsm;
+  padding: $paddingXsm $paddingsm;
   border-bottom: 1px solid $grayColor;
   line-height: normal;
 
@@ -215,10 +215,10 @@
 }
 
 .datepicker_calendar_header {
-  padding: 0.7rem 0;
+  padding: $paddingXsm1 0;
   margin: 0 1.6rem;
   border-bottom: 1px solid $grayColor;
-  font-size: 1.3rem;
+  font-size: $fontSizeXsm2;
   font-weight: bold;
 }
 
@@ -230,13 +230,13 @@
 .datepicker_calendar_week {
   display: flex;
   flex-direction: row;
-  padding: 0.3rem 0.9rem;
+  padding: $gapXsm $paddingsm2;
 
   button {
     text-align: center;
     width: 14.28571%;
-    line-height: 2rem !important;
-    font-size: 1.3rem !important;
+    line-height: $paddingMd !important;
+    font-size: $fontSizeXsm2 !important;
     cursor: pointer;
   }
 
@@ -253,7 +253,7 @@
   background-color: $primaryColor;
   border-radius: 50%;
   color: #fff;
-  width: 2rem;
+  width: $paddingMd;
   margin: 0 auto !important;
   font-weight: bold;
   span {
@@ -265,7 +265,7 @@
 .datepicker_normal {
   display: block;
   border-radius: 50%;
-  width: 2rem;
+  width: $paddingMd;
   margin: 0 auto;
   transition: all 100ms;
   text-align: center;
@@ -291,11 +291,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.3rem;
+  font-size: $fontSizeXsm2;
   margin: 0 !important;
   cursor: pointer;
   height: 100%;
-  padding: 0.5rem;
+  padding: $paddingXsm;
   border-radius: $borderRadiusSm;
   gap: $gapSm;
   width: 100%;
@@ -319,12 +319,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.25rem;
+  padding: $paddingXxsm;
   border-radius: $borderRadiusSm;
   cursor: pointer;
   margin: 0 !important;
   overflow: hidden;
-  font-size: 1.3rem;
+  font-size: $fontSizeXsm2;
 
   &:hover {
     background-color: $grayColor;
@@ -345,7 +345,7 @@
     content: "☑️";
     position: absolute;
     display: block;
-    font-size: 1.8rem;
+    font-size: $fontSizeSm2;
     top: -4px;
     left: -4px;
     font-style: normal;
@@ -356,18 +356,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1rem;
+  padding: $paddingsm3;
   button {
     border-radius: 4px;
-    margin: 0 0.3rem;
-    padding: 0.5rem 2rem;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm $paddingMd;
     font-weight: bold;
   }
 }
 
 .project_board {
   border-radius: $borderRadius;
-  padding: 0.5rem 1rem;
+  padding: $paddingXsm $paddingsm3;
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -381,11 +381,11 @@
   &::after {
     content: "";
     border-top: 6px solid #000;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
+    border-left: $marginXsm solid transparent;
+    border-right: $marginXsm solid transparent;
     width: 0;
     height: 0;
-    margin-left: 5px;
+    margin-left: $marginXsm;
   }
 }
 
@@ -397,7 +397,7 @@
 
   li {
     @include flexRowStart();
-    padding: 0.4rem 1rem;
+    padding: 0.4rem $paddingsm3;
     border-radius: $borderRadiusSm;
 
     span {
@@ -414,7 +414,7 @@
     }
 
     &[indent-level="1"] {
-      padding-left: 2rem;
+      padding-left: $paddingMd;
     }
     &[indent-level="2"] {
       padding-left: 3rem;
