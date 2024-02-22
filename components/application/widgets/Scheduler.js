@@ -18,7 +18,6 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToastId } from "../../../store/toastIds";
 
-
 function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
   const dispatch = useDispatch();
   //---------------- variables -----------------
@@ -330,6 +329,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
       return;
     }
     let dateJson = formatDate(selDate);
+
     // Change current selected date
     // Call parent function when select a date, and pass the date to parent using json convert
     // Show notification and undo button
@@ -339,7 +339,6 @@ function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
           let originalDateJson = formatDate(data.selectedDate);
           onChangeDate(originalDateJson);
           onOverlayClick();
-
         }}
         date={dateJson.dateStr}
       />,
@@ -350,7 +349,6 @@ function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
     
     onChangeDate(dateJson);
     !isEdit && dispatch(addToastId(newToastId));
-
   };
 
   //----------------- Notification ----------------

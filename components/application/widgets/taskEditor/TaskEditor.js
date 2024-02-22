@@ -27,11 +27,11 @@ import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector, useDispatch } from "react-redux";
-import Icon from "../Icon";
-import PopupMenu, { useMenu } from "../PopupMenu";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { addToastId } from "../../../../store/toastIds";
+import Icon from "../Icon";
+import PopupMenu, { useMenu } from "../PopupMenu";
 
 function TaskEditor({
   formType,
@@ -272,7 +272,6 @@ function TaskEditor({
   const preSubmitCheck = () => {
     submitCallBack(newTaskData.current);
     handleSubmit();
-
   };
 
   return (
@@ -435,12 +434,10 @@ function TaskEditor({
                   disabled={notAllowSubmit}
                   className={styles.task_footer_submit}
                   type="button"
-
                   onClick={preSubmitCheck}
                   style={{
                     backgroundColor: notAllowSubmit && "#e56c61",
                     cursor: notAllowSubmit && "not-allowed",
-
                   }}
                 >
                   Add
@@ -455,7 +452,6 @@ function TaskEditor({
                   style={{
                     backgroundColor: notAllowSubmit && "#e56c61",
                     cursor: notAllowSubmit && "not-allowed",
-
                   }}
                 >
                   Save
