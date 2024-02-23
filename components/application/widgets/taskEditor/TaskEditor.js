@@ -345,7 +345,7 @@ function TaskEditor({
                     onOverlayClick={swichPriorityHandler}
                     position={priorityPosition}
                     levels={4}
-                    menuWidth="12f0"
+                    menuWidth="120"
                   >
                     <PriorityPicker
                       onPrioritySelect={(pri) => {
