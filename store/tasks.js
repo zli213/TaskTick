@@ -4,7 +4,6 @@ import { initialLabels } from "./labels";
 import { initialNum, addInboxNum, addTodayNum } from "./num";
 import { initialCompletedTasks, addCompletedTask } from "./completedTask";
 
-
 const initialState = {};
 
 export const tasksSlice = createSlice({
@@ -91,7 +90,10 @@ export const tasksSlice = createSlice({
     },
     updateTaskBoard: (state, action) => {
       const newState = Object.keys(state).reduce((object, key) => {
-        if (state[key].projectId === action.payload.projectId) {
+        if (
+          state[key].projectId === action.payload.projectId &&
+          state[key].board === action.payload.oldBoard
+        ) {
           object[key] = { ...state[key], board: action.payload.board };
         } else {
           object[key] = state[key];
@@ -166,7 +168,8 @@ export default tasksSlice.reducer;
 
 // ----- actions -----
 export const initialAllState =
-  (tasks, projects, inboxNum, todayNum, tags, completedTask) => (dispatch, getState) => {
+  (tasks, projects, inboxNum, todayNum, tags, completedTask) =>
+  (dispatch, getState) => {
     dispatch(initialTasks(tasks));
     dispatch(initialProjects(projects));
     dispatch(initialLabels(tags));

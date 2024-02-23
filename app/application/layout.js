@@ -8,13 +8,9 @@ import getInboxNum from "../../src/utils/data/getInboxNum";
 import getProjectNum from "../../src/utils/data/getProjectNum";
 import getUserTags from "../../src/utils/data/getUserTags";
 import getOneUserTasks from "../../src/utils/data/getOneUserTasks";
-import { redirect } from "next/navigation";
 
 export default async function AppLayout(props) {
   const session = await getServerSession(options);
-  if (session == null) {
-    redirect("/auth/signin");
-  }
 
   let tasks = await getOneUserTasks(session.user.userId);
   const completedTasks = tasks.filter((task) => task.completed === true);

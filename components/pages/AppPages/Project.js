@@ -11,14 +11,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { unarchiveProjectAction } from "../../../store/projects";
 import PopupMenu, { useMenu } from "../../application/widgets/PopupMenu";
 import { switchProjectCompletedTasks } from "../../../store/viewOptions";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 export default function Project({ projectId }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
-  let showCompletedTask = useSelector((state) => state.viewOptions.projects[projectId]);
-  showCompletedTask = showCompletedTask !== undefined ? showCompletedTask.showCompletedTasks : false;
+  let showCompletedTask = useSelector(
+    (state) => state.viewOptions.projects[projectId]
+  );
+  showCompletedTask =
+    showCompletedTask !== undefined
+      ? showCompletedTask.showCompletedTasks
+      : false;
 
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
@@ -37,9 +44,6 @@ export default function Project({ projectId }) {
     completedTasks !== undefined ? Object.values(completedTasks) : [];
   const groupedCompletedTasks = groupTasks(boards, completedTasks);
 
-  console.log("1", groupedTasks);
-  console.log("2", groupedCompletedTasks);
-  console.log('3', showCompletedTask) ;
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&
@@ -54,6 +58,11 @@ export default function Project({ projectId }) {
     document.title = project.name + " - Todo";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>
@@ -108,7 +117,7 @@ export default function Project({ projectId }) {
       )}
 
       {!project.archived &&
-        (boards.length === 0 && tasks.length === 0 ? (
+        (boards.length === 0 && tasks.length === 0 && !showCompletedTask ? (
           <NoTask
             page="project"
             fromProject={{ projectId: projectId, projectName: project.name }}
@@ -129,9 +138,12 @@ export default function Project({ projectId }) {
                   }}
                   fromBoard={group.name}
                 />
-                {
-                showCompletedTask && (
-                  <TodoList key={index} tasks={groupedCompletedTasks[1].tasks} isCompleted={true} />
+                {showCompletedTask && (
+                  <TodoList
+                    key={index}
+                    tasks={groupedCompletedTasks[index].tasks}
+                    isCompleted={true}
+                  />
                 )}
               </React.Fragment>
             ))}

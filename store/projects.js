@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import { updateTodayNumAction } from "./num";
 import {
   deleteProjectTasks,
@@ -81,7 +80,6 @@ export const projectSlice = createSlice({
       const preIndex = newBoards.indexOf(action.payload.oldBoard);
       newBoards[preIndex] = action.payload.board;
       state[action.payload.projectId].boards = newBoards;
-
     },
   },
 });
@@ -120,10 +118,11 @@ export const deleteProjectAction = (projectId) => (dispatch, getState) => {
   dispatch(updateTodayNumAction());
 };
 
-export const updateProjectAction = (projectId, newName) => (dispatch, getState) => {
-  dispatch(editProject({ projectId, newName }));
-  dispatch(updateTaskProjectName({ projectId, newName }));
-};
+export const updateProjectAction =
+  (projectId, newName) => (dispatch, getState) => {
+    dispatch(editProject({ projectId, newName }));
+    dispatch(updateTaskProjectName({ projectId, newName }));
+  };
 
 export const archiveProjectAction = (projectId) => (dispatch, getState) => {
   dispatch(archiveProject(projectId));
@@ -144,7 +143,8 @@ export const deleteBoardAction = (projectId, board) => (dispatch, getState) => {
   dispatch(updateProjectNumAction(projectId));
 };
 
-export const editBoardAction = (projectId, board, oldBoard) => (dispatch, getState) => {
-  dispatch(editBoard({projectId, board, oldBoard}));
-  dispatch(updateTaskBoard({projectId, board}));
-}
+export const editBoardAction =
+  (projectId, board, oldBoard) => (dispatch, getState) => {
+    dispatch(editBoard({ projectId, board, oldBoard }));
+    dispatch(updateTaskBoard({ projectId, board, oldBoard }));
+  };

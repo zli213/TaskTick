@@ -120,165 +120,166 @@
 }
 
 .scheduler_quickbutton:hover {
-    background-color: $grayColor;
+  background-color: $grayColor;
 }
 
 .datepicker_head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-top: 1px solid $grayColor;
-    padding: 1rem .9rem .3rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid $grayColor;
+  padding: 1rem 0.9rem 0.3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .datepicker_header_action {
-    button {
-        margin: 0 .8rem;
-    }
+  @include flexRowStart();
+  button {
+    justify-content: center;
+    text-align: center;
+    width: 2rem;
+    padding: 0 !important;
+  }
 }
 
 .week_names {
-    display: flex;
-    color: $grayColor;
-    font-size: 1.2rem;
-    padding: .5rem .9rem;
-    border-bottom: 1px solid $grayColor;
+  display: flex;
+  color: $grayColor;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid $grayColor;
 
-    div {
-        width: 3rem;
-        text-align: center;
-    }
+  div {
+    width: 3rem;
+    text-align: center;
+  }
 }
 
-
-
 .datepicker_monthlist_wrapper {
-    height: 19rem;
-    overflow: auto;
-    margin-right: -17px;
+  height: 19rem;
+  overflow: auto;
+  margin-right: -17px;
 }
 
 .datepicker_monthlist {
-    height: 200000px;
-    position: relative;
+  height: 200000px;
+  position: relative;
+
+  button {
+    padding: 0;
+    &:hover {
+      background-color: #fff;
+    }
+  }
 }
 
 .datepicker_calendar {
-    position: absolute;
-    left: 0;
-    right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 .datepicker_calendar_header {
-    padding: .7rem 0;
-    margin: 0 1.6rem;
-    border-bottom: 1px solid $grayColor;
-    font-size: 1.3rem;
-    font-weight: bold;
+  padding: 0.7rem 0;
+  margin: 0 1.6rem;
+  border-bottom: 1px solid $grayColor;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .datepicker_calendar_body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .datepicker_calendar_week {
-    display: flex;
-    flex-direction: row;
-    padding: .3rem .9rem;
+  display: flex;
+  flex-direction: row;
+  padding: 0.3rem 0.9rem;
 
-    button {
-        text-align: center;
-        width: 14.28571%;
-        line-height: 2rem;
-        font-size: 1.3rem;
-        cursor: pointer;
-    }
+  button {
+    text-align: center;
+    width: 14.28571%;
+    line-height: 2rem !important;
+    font-size: 1.3rem !important;
+    cursor: pointer;
+  }
 
-    div {
-        width: 14.28571%;
-    }
+  div {
+    width: 14.28571%;
+  }
 }
 
 .datepicker_selected {
-    display: block;
-    background-color: $primaryColor;
-    border-radius: 50%;
-    color: #fff;
-    width: 2rem;
-    margin: 0 auto;
-    font-weight: bold;
+  display: block;
+  background-color: $primaryColor;
+  border-radius: 50%;
+  color: #fff;
+  width: 2rem;
+  margin: 0 auto;
+  font-weight: bold;
 }
 
 .datepicker_normal {
-    display: block;
-    border-radius: 50%;
-    width: 2rem;
-    margin: 0 auto;
-    transition: all 100ms;
+  display: block;
+  border-radius: 50%;
+  width: 2rem;
+  margin: 0 auto ;
+  transition: all 100ms;
+  text-align: center;
+
+  span{
+  margin: 0 auto !important;
+
+  }
 }
 
 .datepicker_normal:hover {
-    background-color: $grayColor;
+  background-color: $grayColor;
 }
 
 .datepicker_today {
-    font-weight: bold;
-    color: $primaryColor;
+  font-weight: bold;
+  color: $primaryColor;
 }
 /* end Scheduler */
 
 /* priority picker */
-.priority_picker {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0px 1px 2rem 1px #c4c4c4;
-    overflow: hidden;
-    padding: 1rem 0;
-    z-index: 1001;
-}
-
 .priority_picker_button {
-    padding: .5rem .9rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    cursor: pointer;
+  border: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  margin: 0 !important;
+  cursor: pointer;
+  height: 100%;
 
-    &:hover {
-        background-color: $grayColor;
-    }
+  &:hover {
+    background-color: $grayColor;
+  }
 }
 /* end priority picker */
 
-
-.tag_check_list_dropdown{
-    position:absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding:1rem 0;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 15rem;
-    overflow: auto;
-    z-index: 1001;
-    
+.tag_check_list_dropdown {
+  width: 39rem;
+  max-height: 19rem;
+  overflow: auto;
+  z-index: 1001;
 }
-.tag_check_list_dropdown_btn{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding:.25rem 1rem;
-    cursor:pointer;
-    &:hover{
-        background-color:$grayColor;
-    }
+
+.tag_check_list_dropdown_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.25rem;
+  border-radius: $borderRadiusSm;
+  cursor: pointer;
+  margin: 0 !important;
+
+  &:hover {
+    background-color: $grayColor;
+  }
 }
 .tag_checkbox{
     position: relative;
@@ -288,100 +289,138 @@
     border: 1px solid #000;
     margin: auto 0;
 }
-.tag_checkbox_on{
-    //background-color: #dc4c3e;
-    &:before{
-        content: "√";
-        position: absolute;
-        display: block;
-        font-size: 1.8rem;
-        top: -4px;
-        left:3px
-    }
-    
-}
-
-
-
-.task_footer{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    padding:1rem;
-    button{
-        border-radius: 4px;
-        margin: 0 .3rem;
-        padding: .5rem 2rem;
-        font-weight: bold;
-    }
-}
-.project_board{
-    border-radius: $borderRadius;
-    padding: .5rem 1rem;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    &:hover{
-        background-color: $lightGrayColor;
-    }
-    &::after{
-        content: "";
-        border-top:6px solid #000;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        width: 0;
-        height: 0;
-        margin-left:5px;
-    }
-}
-
-.project_selector{
+.tag_checkbox_on {
+  &:before {
+    content: "√";
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding: 1rem 0;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 30rem;
-    overflow: auto;
-    z-index: 1001;
-    li{
-        display: flex;
-        padding:.4rem 1rem;
-        &[role=option]{
-            cursor: pointer;
-            &:hover {
-                background-color: $grayColor;
-            }
-        }
-        
-        &[indent-level='1']{
-            padding-left: 2rem;
-        }
-        &[indent-level='2'] {
-            padding-left: 3rem;
-        }
-    }
+    display: block;
+    font-size: 1.8rem;
+    top: -4px;
+    left: 1px;
+  }
 }
 
-.task_footer_btns{
-    display: flex;
-    justify-content: flex-end;
+.task_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  button {
+    border-radius: 4px;
+    margin: 0 0.3rem;
+    padding: 0.5rem 2rem;
+    font-weight: bold;
+  }
 }
-.task_footer_cancel{
-    color: #000;
-    background-color: #f5f5f5;
-    cursor: pointer;
-    &:hover {
-        background-color: $lightGrayColor;
-    }
+.project_board {
+  border-radius: $borderRadius;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+  &::after {
+    content: "";
+    border-top: 6px solid #000;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+  }
 }
-.task_footer_submit{
-    color: #fff;
-    background-color: $primaryColor;
-    cursor: pointer;
-    &:hover {
-        background-color: #c3392c;
+
+.project_selector {
+  max-width: 30rem;
+  max-height: 30rem;
+  overflow: auto;
+  z-index: 1001;
+
+  li {
+    @include flexRowStart();
+    padding: 0.4rem 1rem;
+    border-radius: $borderRadiusSm;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+
+    &[role="option"] {
+      cursor: pointer;
+      &:hover {
+        background-color: $grayColor;
+      }
+    }
+
+    &[indent-level="1"] {
+      padding-left: 2rem;
+    }
+    &[indent-level="2"] {
+      padding-left: 3rem;
+    }
+  }
+}
+
+.task_footer_btns {
+  display: flex;
+  justify-content: flex-end;
+}
+.task_footer_cancel {
+  color: #000;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+.task_footer_submit {
+  color: #fff;
+  background-color: $primaryColor;
+  cursor: pointer;
+  &:hover {
+    background-color: #c3392c;
+  }
+}
+
+.tag_box {
+  @include flexRowStart();
+  flex: 0 0 auto;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag_box3 {
+  @include flexRowStart();
+  overflow: hidden;
+  flex: 1;
+}
+
+.button_red {
+  color: $priorityRed;
+}
+
+.button_yellow {
+  color: $priorityYellow;
+}
+
+.button_blue {
+  color: $priorityBlue;
+}
+
+.btn_menu {
+  cursor: pointer;
+  position: relative;
+  max-width: 68%;
 }

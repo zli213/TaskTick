@@ -17,6 +17,7 @@
 
   .navLinks {
     display: flex;
+    align-items: center;
 
     a {
       margin-left: 15px;
@@ -46,6 +47,7 @@
       color: $secondaryColor;
       border-radius: $borderRadius;
       padding: $paddingXsm;
+      margin-left: $marginSm;
       font-size: $fontSizeXsm;
       font-weight: bold;
       border: none;

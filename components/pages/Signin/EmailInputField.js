@@ -11,7 +11,7 @@ const EmailInputField = ({ formValues, handleChange, styles }) => {
   return (
     <div className={styles.input_style}>
       <span className={styles.label}>
-        <label for="email" className={styles.label}>
+        <label htmlFor="email" className={styles.label}>
           Email
         </label>
       </span>

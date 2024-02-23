@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useRef} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../../../styles/scss/todoList.module.scss";
 
 //Custom React hook -> useBoard
@@ -46,7 +46,19 @@ export const useBoard = () => {
 };
 
 //AddBoard
-function AddBoard({type, sectionName, placeholder,submitHandler, nameChangeHandler,refSection,closeHandler}) {
+function AddBoard({
+  type,
+  sectionName,
+  placeholder,
+  submitHandler,
+  nameChangeHandler,
+  refSection,
+  closeHandler,
+}) {
+  
+  useEffect(() => {
+    refSection.current.focus();
+  }, []);
 
   return (
     <form className={styles.add_section_form} onSubmit={submitHandler}>

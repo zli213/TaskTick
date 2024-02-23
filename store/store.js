@@ -6,7 +6,7 @@ import { viewOptionSlice } from "./viewOptions";
 import { labelSlice } from "./labels";
 import { numSlice } from "./num";
 import { completedTaskSlice } from "./completedTask";
-
+import { toastIdsSlice } from "./toastIds";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +17,6 @@ export const store = configureStore({
     num: numSlice.reducer,
     viewOptions: viewOptionSlice.reducer,
     completedTasks: completedTaskSlice.reducer,
-
+    toastIds: toastIdsSlice.reducer,
   },
 });

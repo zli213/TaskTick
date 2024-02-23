@@ -22,7 +22,7 @@ const PasswordInputField = ({
     <div className={styles.password_style}>
       <div className={styles.password_label}>
         <span className={styles.label}>
-          <label for="password" className={styles.label}>
+          <label htmlFor="password" className={styles.label}>
             Password
           </label>
         </span>
