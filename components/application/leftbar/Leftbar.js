@@ -74,6 +74,7 @@ function Leftbar({ showClass }) {
           className={`${styles.project_title} ${
             selectedItemType === "projects/active" ? styles.selected_item : ""
           }`}
+          id="leftbar_item"
         >
           <Link
             href="/application/projects/active"

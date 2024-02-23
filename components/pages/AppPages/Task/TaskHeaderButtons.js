@@ -25,13 +25,13 @@ export default function TaskHeaderButton() {
   return (
     <div className={styles.task_header_button}>
       <button>
-        <Icon type="up_arrow" />
+        <Icon type="up_arrow" id="icon"/>
       </button>
       <button>
-        <Icon type="down_arrow" />
+        <Icon type="down_arrow" id="icon"/>
       </button>
       <button onClick={onDismiss}>
-        <Icon type="close" />
+        <Icon type="close" id="icon"/>
       </button>
     </div>
   );

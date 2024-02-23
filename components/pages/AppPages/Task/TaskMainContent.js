@@ -14,7 +14,7 @@ export default function TaskMainContent({
   taskPriority
 }) {
   return (
-    <div className={styles.task_main_container}>
+    <div className={styles.task_main_container} id="task_main_container">
       <div className={styles.task_main_sub_container}>
         <div>
           <div className={styles.task_main_task}>

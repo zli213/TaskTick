@@ -110,7 +110,7 @@ export default function PopupMenu(props) {
         className={styles.popup_overlay}
         onClick={props.onOverlayClick}
       ></div>
-      <div className={styles.action_btn_menu} style={menuPosition}>
+      <div className={styles.action_btn_menu} style={menuPosition} id="project_popup_window">
         {props.children}
       </div>
     </>

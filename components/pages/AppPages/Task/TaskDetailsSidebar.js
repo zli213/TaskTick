@@ -45,8 +45,8 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
   };
 
   return (
-    <div className={styles.task_sidebar}>
-      <div className={styles.task_sidebar_list}>
+    <div className={styles.task_sidebar} id="task_sidebar">
+      <div className={styles.task_sidebar_list} id="task_sidebar_list">
         <div className={styles.task_sidebar_item}>
           <h4>Project</h4>
           <TaskHeaderLeft
@@ -63,9 +63,10 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
             <button
               className={styles.task_sidebar_button}
               onClick={showScheduler}
+              id="task_sidebar_button"
             >
               <div className={styles.flexStart}>
-                <Icon type="calender" />
+                <Icon type="calender" id="icon"/>
               </div>
               <span>{convertDate(selectedDate)}</span>
             </button>
@@ -85,9 +86,9 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
         <hr />
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
-          <button className={styles.task_sidebar_button}>
+          <button className={styles.task_sidebar_button} id="task_sidebar_button">
             <div className={styles.flexStart}>
-              <Icon type="flag" />
+              <Icon type="flag" id="icon"/>
             </div>
             <span>{task.priority}</span>
           </button>
@@ -97,16 +98,16 @@ export default function TaskDetailsSidebar({ task, showInbox }) {
           <div className={styles.task_sidebar_label_title}>
             <h4>Labels</h4>
             <span>
-              <Icon type="add" />
+              <Icon type="add" id="icon"/>
             </span>
           </div>
           <div className={styles.task_tags_container}>
             {task.tags &&
               task.tags.map((tag, index) => (
                 <Link href={`/application/label/${tag}`} key={tag}>
-                  <span className={styles.task_tag_item} key={index}>
+                  <span className={styles.task_tag_item} key={index} id="task_tag_item">
                     <span>{tag} </span>
-                    <Icon type="close_small" />
+                    <Icon type="close_small" id="icon"/>
                   </span>
                 </Link>
               ))}

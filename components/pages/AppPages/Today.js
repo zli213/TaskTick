@@ -56,7 +56,7 @@ function Today(props) {
             {todayNum === 0 ? (
               ""
             ) : (
-              <div className={styles.today_task_label}>
+              <div className={styles.today_task_label} id="task_label">
                 <Icon type="check_small" />
                 {todayNum} tasks
               </div>

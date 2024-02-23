@@ -176,11 +176,11 @@ export function SingleItems({
       ) : (
         <div className={styles.task_container}>
           {/* content */}
-          <div className={styles.content_container}>
+          <div className={styles.content_container} id="content_holder">
             <div className={styles.drag_tool}>
               <div>
                 <span className={styles.check}>
-                  <Icon type="drag" />
+                  <Icon type="drag" id="icon"/>
                 </span>
               </div>
             </div>
@@ -188,7 +188,7 @@ export function SingleItems({
             <div className={styles.task_content}>
               <Link href={`/application/task/${_id}`} scroll={false}>
                 <div className={styles.task_title}>{dispTitle}</div>
-                <div className={styles.task_description}>{dispDescription}</div>
+                <div className={styles.task_description} id="task_discription">{dispDescription}</div>
               </Link>
               <div className={styles.task_info_container}>
                 <div className={styles.task_info}>
@@ -197,13 +197,13 @@ export function SingleItems({
                       className={styles.task_info_date}
                       onClick={showScheduler}
                     >
-                      <Icon type="calender_small" />
+                      <Icon type="calender_small" id="icon"/>
                       {selectedDate}
                     </button>
                   )}
                   {dispTags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
-                      <Icon type="small_tag" />
+                      <Icon type="small_tag" id="icon"/>
                       {tag}
                     </Link>
                   ))}
@@ -231,10 +231,10 @@ export function SingleItems({
                   setIsEditing(true);
                 }}
               >
-                <Icon type="edit" />
+                <Icon type="edit" id="icon"/>
               </button>
               <button onClick={showScheduler}>
-                <Icon type="calender_big" />
+                <Icon type="calender_big" id="icon"/>
               </button>
             </div>
             <div className={styles.task_list_action_last}>
@@ -243,7 +243,7 @@ export function SingleItems({
                 className={styles.menu_button}
                 style={{ backgroundColor: showItemMenu && "#eeeeee" }}
               >
-                <Icon type="menu_unfill" />
+                <Icon type="menu_unfill" id="icon"/>
               </button>
               {showItemMenu && (
                 <PopupMenu
@@ -258,12 +258,12 @@ export function SingleItems({
                         setIsEditing(true);
                       }}
                     >
-                      <Icon type="edit" />
+                      <Icon type="edit" id="icon"/>
                       <span>Edit</span>
                     </button>
                     {projectName && (
                       <Link href={`/application/project/${projectId}`}>
-                        <Icon type="list" />
+                        <Icon type="list" id="icon"/>
                         <span>Go to Project</span>
                       </Link>
                     )}

@@ -118,6 +118,7 @@ const LeftbarItem = ({
       className={`${isSelected ? styles.selected_item : ""} ${
         showItemMenu && styles.li_hover
       }`}
+      id="leftbar_item"
     >
       <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>

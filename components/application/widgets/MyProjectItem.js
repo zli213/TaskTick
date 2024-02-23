@@ -94,7 +94,8 @@ function MyProjectItem({ project, type }) {
   return (
     <li
       key={project.projectId}
-      style={{ backgroundColor: showItemMenu && "#f5f5f5" }}
+      style={{ backgroundColor: showItemMenu && "rgba(245, 245, 245, 0.5)" }}
+      id="project_item"
     >
       <Link href={`/application/project/${project.projectId}`}>
         <Icon type="hashtag" />
@@ -106,7 +107,7 @@ function MyProjectItem({ project, type }) {
           onClick={swithMenuHandler}
           style={{ opacity: showItemMenu && 1 }}
         >
-          <Icon type="menu_unfill" />
+          <Icon type="menu_unfill" id="icon"/>
         </span>
         {showItemMenu && (
           <PopupMenu
@@ -115,16 +116,16 @@ function MyProjectItem({ project, type }) {
             levels="3"
           >
             <div className={`${styles.task_item_action_menu}`}>
-              <button onClick={menuEditHandler}>
+              <button onClick={menuEditHandler} id="action_menu_btn">
                 <Icon type="edit" />
                 <span>Edit</span>
               </button>
               <hr />
-              <button onClick={menuArchiveHandler}>
+              <button onClick={menuArchiveHandler} id="action_menu_btn">
                 <Icon type={type === "active" ? "archive" : "unarchive"} />
                 <span>{type === "active" ? "Archive" : "Unarchive"}</span>
               </button>
-              <button onClick={menuDeleteHandler}>
+              <button onClick={menuDeleteHandler} id="action_menu_btn">
                 <Icon type="delete" />
                 <span>Delete</span>
               </button>

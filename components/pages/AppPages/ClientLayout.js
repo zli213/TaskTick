@@ -33,7 +33,7 @@ export default function ClientLayout(props) {
       <Topbar switchHandler={switchLeftBar} />
       <div id="app-holder" className={styles.app_holder}>
         <Leftbar showClass={showLeftBar} />
-        <div className={styles.content_holder}>{props.children}</div>
+        <div className={styles.content_holder} id="content_holder">{props.children}</div>
       </div>
     </div>
   );

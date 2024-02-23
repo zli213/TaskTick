@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useEffect, useState } from 'react';
-import { useSession } from "next-auth/react";
 import { getCookie, setCookie } from "cookies-next";
 
 const MyThemeContext = createContext({
@@ -13,16 +12,16 @@ const MyThemeContext = createContext({
 
 
 export function MyThemeContextProvider(props) {
-    const { data: session } = useSession();
     const [isDarkTheme, setIsDarkTheme] = useState(false);
     const [isSystemTheme, setIsSystemTheme] = useState(false);
+    const [themeName, setThemeName] = useState(getCookie("themeName"));
+    const [systemTheme, setSystemTheme] = useState("");
 
     useEffect(() => {
-            const themeName = getCookie("themeName");
-            console.log("get themeName in Context=", themeName);
-
             const handleSystemThemeChange = (e) => {
                 setIsDarkTheme(e.matches);
+                setCookie("systemTheme", e.matches ? "dark" : "");
+                document.documentElement.classList.toggle("dark", e.matches);
             };
 
             if (themeName === "system") {
@@ -48,7 +47,16 @@ export function MyThemeContextProvider(props) {
             } else {
                 document.documentElement.classList.remove("dark");
             }
-    },[session]);
+    },[themeName, systemTheme]);
+
+    //initial system theme in cookie.
+    useEffect(() => {
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // setIsSystemTheme(true);
+        // setIsDarkTheme(isSystemDark);
+        setCookie("systemTheme", isSystemDark ? "dark" : "");
+    }, []);
 
     const toggleDark = () => {
         setIsDarkTheme(true);
@@ -70,7 +78,6 @@ export function MyThemeContextProvider(props) {
         setIsSystemTheme(true);
         setIsDarkTheme(isSystemDark);
         setCookie("systemTheme", isSystemDark ? "dark" : "");
-
         document.documentElement.classList.toggle("dark", isSystemDark);
     }
 

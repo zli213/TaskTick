@@ -74,14 +74,14 @@ export default function MyProjects(props) {
               >
                 <div className={`${styles.task_item_action_menu}`}>
                   <h4>Project type</h4>
-                  <Link href="/application/projects/active">
+                  <Link href="/application/projects/active" id="option_link">
                     <div>
                       <Icon type="list" />
                       <span>Active project</span>
                     </div>
                     {props.type === "active" && <Icon type="check" />}
                   </Link>
-                  <Link href="/application/projects/archived">
+                  <Link href="/application/projects/archived" id="option_link">
                     <div>
                       <Icon type="archive" />
                       <span>Archived project</span>
@@ -95,6 +95,7 @@ export default function MyProjects(props) {
           <div
             className={`${styles.add_btn_projects} ${styles.project_btn}`}
             onClick={showProjectCardHandler}
+            id="add_btn"
           >
             <Icon type="add" />
             <span>Add project</span>

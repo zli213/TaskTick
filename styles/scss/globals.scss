@@ -31,11 +31,13 @@
     color: $secondaryColor;
     
     #leftbar,
-    #settingLeft {
+    #settingLeft,
+    #task_sidebar,
+    #task_sidebar_list {
       background-color: $textSecondaryColor;
       color: $secondaryColor;
 
-      h4 {
+      h4, a, span {
         color: $secondaryColor;
       }
     }
@@ -47,13 +49,22 @@
     #settingRight,
     #addProject,
     #newTask,
-    #noticeContainer {
+    #noticeContainer,
+    #task_header,
+    #task_main_container,
+    #content_holder,
+    #project_popup_window {
       background-color: $textPrimaryColor;
       color: $secondaryColor;
+      border: $textSecondaryColor 0.2px solid;
+
+      a {
+        color: $secondaryColor;
+      }
     }
 
     #icon {
-      fill: $secondaryColor;
+      color: $secondaryColor;
     }
 
     #settingRight {
@@ -61,6 +72,45 @@
         border-top: 1px solid $textPrimaryColor;
       }
     }
+
+    #task_tag_item,
+    #add_btn {
+      background-color: $textPrimaryColor;
+      &:hover {
+        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      }
+    }
+
+    #task_sidebar_button,
+    #action_menu_btn {
+      background-color: none;
+      color: $secondaryColor;
+      &:hover {
+        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      }
+    }
+
+    #leftbar_item:hover,
+    #project_item:hover,
+    #option_link:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
+
+    #project_item {
+      background-color: none;
+      color: $secondaryColor;
+    }
+
+    #task_discription,
+    #task_label {
+      color: $grayColor;
+    }
+
+    // #project_popup_window {
+    //   background-color: $textPrimaryColor;
+    //   color: $secondaryColor;
+    //   border: $textSecondaryColor 0.2px solid;
+    // }
   }
 }
 
@@ -69,7 +119,10 @@
   color: $secondaryColor;
   
   #leftbar,
-  #settingLeft {
+  #settingLeft,
+  #task_sidebar,
+  #task_sidebar_list,
+  .task_sidebar_item {
     background-color: $textSecondaryColor;
     color: $secondaryColor;
 
@@ -85,7 +138,9 @@
   #settingRight,
   #addProject,
   #newTask,
-  #noticeContainer {
+  #noticeContainer,
+  #task_header,
+  #task_main_container {
     background-color: $textPrimaryColor;
     color: $secondaryColor;
   }

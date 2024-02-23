@@ -179,7 +179,7 @@
 }
 
 .selected_item {
-  background-color: $selectedColor !important;
+  background-color: rgba($color: $selectedColor, $alpha: 0.6);
   color: $primaryColor;
 }
 

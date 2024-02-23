@@ -7,10 +7,7 @@ import User from "../../../../src/models/User";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import { cookies } from "next/headers";
-import { setCookie } from  'cookies-next';
-//todo: test getserversession here,then get session in rootlayout
-//then test if it could toggle theme by add session.user.theme to class name
-//Q: how to handle system themes
+
 export const options = {
   providers: [
     GitHubProvider({
@@ -79,9 +76,7 @@ export const options = {
 
               foundUser["role"] = "Email user";
               const userTheme = foundUser.themes[0];
-              console.log("match, userTheme=", userTheme);
               cookies().set("themeName", userTheme);
-              // setCookie({cookies});
               return foundUser;
             }
           }
