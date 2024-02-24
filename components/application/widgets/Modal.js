@@ -4,7 +4,7 @@
  */
 
 "use client";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/modal.module.scss";
 

@@ -292,12 +292,13 @@ export function SingleItems({
                         swithMenuHandler();
                         setIsEditing(true);
                       }}
+                      id="option_link"
                     >
                       <Icon type="edit" id="icon"/>
                       <span>Edit</span>
                     </button>
                     {projectName && (
-                      <Link href={`/application/project/${projectId}`}>
+                      <Link href={`/application/project/${projectId}`} id="option_link">
                         <Icon type="list" id="icon"/>
                         <span>Go to Project</span>
                       </Link>
@@ -312,6 +313,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link"
                         >
                           <Icon
                             type="flag_filled"
@@ -324,6 +326,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link"
                         >
                           <Icon
                             type="flag_filled"
@@ -336,6 +339,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link"
                         >
                           <Icon
                             type="flag_filled"
@@ -348,6 +352,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link"
                         >
                           <Icon
                             type="flag_big"
@@ -357,14 +362,15 @@ export function SingleItems({
                       </div>
                     </div>
                     <hr />
-                    <button>
-                      <Icon type="move_list" />
+                    <button id="option_link">
+                      <Icon type="move_list" id="icon"/>
                       <span>Move to...</span>
                     </button>
                     <hr />
                     <button
                       className={styles.button_delete}
                       onClick={menuDeleteHandler}
+                      id="option_link"
                     >
                       <Icon type="delete" />
                       <span>Delete</span>

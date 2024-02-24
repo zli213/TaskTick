@@ -12,7 +12,8 @@ const SettingTheme = () => {
     isSystemTheme,
     toggleDark,
     toggleLight,
-    matchSystem
+    matchSystem,
+    setThemeName
   } = useContext(MyThemeContext);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const SettingTheme = () => {
   }
 
   const applySystemTheme = () => {
+    setThemeName("system");
     matchSystem();
     saveChange("system");
   }
@@ -90,7 +92,7 @@ const SettingTheme = () => {
           <Icon type="close" id="icon"/>
         </button>
       </header>
-      <p>Personalize your Todoist with colors to match your style, mood, and personality.</p>
+      <p>Personalize your TaskTick with colors to match your style, mood, and personality.</p>
       <label className={styles.switchContainer}>
         <div>
           <label className={styles.switch}>
@@ -106,19 +108,21 @@ const SettingTheme = () => {
       <div className={styles.themeButtons}>
           {/* default light theme*/}
           <ThemeButton
-          onClick={applyLightTheme}
-          themeName={"Light"}
-          isSelected={!isDarkTheme}
-          isDisabled={isSystemTheme || !isDarkTheme}
-          {...button1Colors}/>
+            onClick={applyLightTheme}
+            themeName={"Light"}
+            isSelected={!isDarkTheme}
+            isDisabled={isSystemTheme || !isDarkTheme}
+            {...button1Colors}
+          />
 
           {/* dark theme */}
           <ThemeButton
-          onClick={applyDarkTheme}
-          themeName={"Dark"}
-          isSelected={isDarkTheme}
-          isDisabled={isSystemTheme || isDarkTheme}
-          {...button2Colors}/>
+            onClick={applyDarkTheme}
+            themeName={"Dark"}
+            isSelected={isDarkTheme}
+            isDisabled={isSystemTheme || isDarkTheme}
+            {...button2Colors}
+          />
       </div>
 
     </div>

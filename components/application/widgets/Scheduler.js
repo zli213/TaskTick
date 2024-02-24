@@ -370,6 +370,7 @@ function Scheduler({ data, onChangeDate, position }) {
       <div
         className={styles.scheduler}
         scrollable={"scrollable_area"}
+        id="content_holder"
       >
         <button
           className={styles.scheduler_quickbutton}
