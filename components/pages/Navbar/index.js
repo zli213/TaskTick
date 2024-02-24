@@ -5,6 +5,7 @@ import styles from "../../../styles/scss/navbar.module.scss";
 import Link from "next/link";
 
 import { signOut, useSession } from "next-auth/react";
+import { setCookie } from "cookies-next";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -30,7 +31,7 @@ const Navbar = () => {
         )}
         {user && (
           <>
-            <button className={styles.loginButton} onClick={() => signOut()}>
+            <button className={styles.loginButton} onClick={()=>{ signOut(); setCookie("themeName", "")}}>
               Logout
             </button>
           </>

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next";
 
 const MyThemeContext = createContext({
@@ -7,7 +7,8 @@ const MyThemeContext = createContext({
     isSystemTheme: false,
     toggleDark:() => {},
     toggleLight: () => {},
-    matchSystem: () => {}
+    matchSystem: () => {},
+    setThemeName: () => {}
 });
 
 
@@ -52,9 +53,6 @@ export function MyThemeContextProvider(props) {
     //initial system theme in cookie.
     useEffect(() => {
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        // setIsSystemTheme(true);
-        // setIsDarkTheme(isSystemDark);
         setCookie("systemTheme", isSystemDark ? "dark" : "");
     }, []);
 
@@ -88,7 +86,8 @@ export function MyThemeContextProvider(props) {
                 isSystemTheme,
                 toggleDark,
                 toggleLight,
-                matchSystem
+                matchSystem,
+                setThemeName
             }}
         >
             {props.children}

@@ -1,6 +1,7 @@
 import styles from "../../../styles/scss/userMenu.module.scss";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { setCookie } from "cookies-next";
 
 export default function UserMenu({ closeUserMenuHandler }) {
   const containerClickHandler = (event) => {
@@ -15,7 +16,7 @@ export default function UserMenu({ closeUserMenuHandler }) {
           <span onClick={closeUserMenuHandler}>Setting</span>
         </Link>
 
-        <div onClick={()=>signOut()}>Logout</div>
+        <div onClick={()=>{ signOut(); setCookie("themeName", "")}}>Logout</div>
       </div>
     </div>
   );
