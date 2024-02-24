@@ -223,6 +223,8 @@ function TaskNameInput(
   //------------ useEffect -----------
 
   useEffect(() => {
+    taskNameRef.current.focus();
+
     /** keydown event */
     const taskNameKeydown = (e) => {
       const sel = getSelection();

@@ -7,6 +7,7 @@
 .app_holder {
   position: relative;
   display: flex;
+
 }
 
 .list_sidebar_hide {
@@ -23,6 +24,7 @@
   flex-grow: 1;
   position: relative;
   max-width: $maxListWidth;
+  padding-bottom: 15rem;
 
   li {
     list-style: none;
@@ -31,7 +33,6 @@
 
 .view_header {
   padding: $marginLg $marginLg 0;
-  position: sticky;
   top: $navHeight;
   background-color: $bodyBg;
   z-index: 5;
@@ -48,17 +49,22 @@
     padding-bottom: $paddingsm;
 
     h1 {
+      flex:1;
+      max-width: 90%;
       font-size: $fontSizeMd;
-    }
-
-    span {
-      font-weight: 500;
+      // white-space: pre;
+      // overflow-wrap: break-word;
+      word-wrap: break-word ;
     }
   }
 
   .no_bottom_border {
     border-bottom: 0;
   }
+}
+
+.today_title{
+  width: 100%;
 }
 
 .list_box {
@@ -129,14 +135,14 @@
 }
 
 .menu_btn_container {
+  flex: 0 0 auto;
   @include flexRowStart();
   position: relative;
+  z-index: 5;
 }
 
 .btn_projects {
   @include flexRowBetween();
-
-  
 
   .project_btn {
     display: flex;
@@ -183,6 +189,7 @@
     height: 4rem;
     @include flexRowStart();
     width: 100%;
+    align-items: center
   }
 
   .project_item_menu {
@@ -297,12 +304,13 @@
   }
 
   a {
-    padding: $paddingsm 0;
     @include flexRowStart();
+    padding: $paddingsm 0;
 
     .labels_item_content {
       width: 100%;
       @include flexRowBetween();
+      
     }
   }
 
@@ -319,8 +327,7 @@
   right: 0;
   @include flexRowStart();
   opacity: 0;
-  // background-color: #fff;
-  z-index: 1;
+  //background-color: #fff;
 
   .right_menu_btn {
     position: relative;
@@ -362,4 +369,121 @@
     padding: $paddingsm $paddingMd;
     cursor: pointer;
   }
+}
+
+.btn_completed_task {
+  @include flexRowBetween();
+  gap: $gapXsm;
+  cursor: pointer;
+  border-radius: $borderRadiusSm;
+  padding: $paddingXsm;
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.view_btn {
+  @include flexRowStart();
+  padding: 0.4rem;
+  border-radius: $borderRadiusSm;
+  color: $textSecondaryColor;
+
+  label {
+    @include flexRowBetween();
+    align-items: center;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.toggle_switch {
+  @include flexRowStart();
+  align-items: center;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 22px;
+  // background-color: $grayColor;
+  // border-radius: 15px;
+}
+
+.toggle_background {
+  position: absolute;
+  width: 30px;
+  height: 17px;
+  top: 3px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  background-color: $grayColor;
+  transition: 350ms ease all;
+}
+
+.view_checkbox {
+  border-radius: 50%;
+  position: relative;
+  appearance: none;
+  z-index: 1;
+}
+
+.view_checkbox::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: -12px;
+  left: 2px;
+  background-color: #fff;
+  transition: 350ms ease all;
+  border-radius: 15px;
+}
+
+.view_checkbox:checked::before {
+  left: 16px;
+}
+
+.view_checkbox:checked + .toggle_background {
+  background-color: $primaryColor;
+}
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: small;
+  u {
+    margin-left: 4px;
+  }
+  .undoBtn {
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    border: none;
+    padding: $paddingXsm $paddingsm;
+    margin-left: $marginXsm;
+    cursor: pointer;
+    border-radius: $borderRadius;
+    &:hover {
+      background-color: $errorColor;
+    }
+  }
+}
+
+.no_task_list {
+  color: $heaveGrayColor;
+}
+
+.tag_box1{
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag_box2{
+  flex: 0 0 auto;
+  @include flexRowStart();
 }

@@ -1,7 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tasksSlice } from "./tasks";
+import { projectSlice } from "./projects";
 import { userInfoSlice } from "./userInfo";
+import { viewOptionSlice } from "./viewOptions";
+import { labelSlice } from "./labels";
+import { numSlice } from "./num";
+import { completedTaskSlice } from "./completedTask";
+import { toastIdsSlice } from "./toastIds";
 
 export const store = configureStore({
-  reducer: { tasks: tasksSlice.reducer, userInfo: userInfoSlice.reducer },
+  reducer: {
+    userInfo: userInfoSlice.reducer,
+    tasks: tasksSlice.reducer,
+    projects: projectSlice.reducer,
+    labels: labelSlice.reducer,
+    num: numSlice.reducer,
+    viewOptions: viewOptionSlice.reducer,
+    completedTasks: completedTaskSlice.reducer,
+    toastIds: toastIdsSlice.reducer,
+  },
 });

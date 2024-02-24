@@ -14,9 +14,15 @@ export default function Modal(props) {
     event.stopPropagation();
   };
 
-  // const disableScroll = (event) => {
-  //   event.preventDefault();
-  // };
+  const disableScroll = (event) => {
+    const menu = document.querySelector(`.${styles.content_container}`);
+    const isInsideMenu = menu && menu.contains(event.target);
+
+    if (!isInsideMenu) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
 
   // useEffect(() => {
   //   document.addEventListener("wheel", disableScroll, { passive: false });
@@ -37,7 +43,10 @@ export default function Modal(props) {
   return (
     <>
       <div className={styles.overlay_styles} onClick={onDismiss}>
-        <div onClick={containerClickHandler}>
+        <div
+          onClick={containerClickHandler}
+          className={styles.content_container}
+        >
           {props.children}
         </div>
       </div>

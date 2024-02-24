@@ -12,7 +12,11 @@ import {
 } from "../../../public/CommonFunctions";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { deleteProjectAction, archiveProjectAction, unarchiveProjectAction} from "../../../store/tasks";
+import {
+  deleteProjectAction,
+  archiveProjectAction,
+  unarchiveProjectAction,
+} from "../../../store/projects";
 
 //Custom React hook -> useProjectMenu, use for Delete and archive project
 export const useProjectMenu = () => {
@@ -80,15 +84,14 @@ function MyProjectItem({ project, type }) {
     }
   };
 
-  const changeProjectHandler =async () => {
+  const changeProjectHandler = async () => {
     if (actionType === "Delete") {
       const result = await DeleteProject(project.projectId);
       result && dispacth(deleteProjectAction(project.projectId));
     } else {
-      const result =  await ArchiveProject(project.projectId);
+      const result = await ArchiveProject(project.projectId);
       result && dispacth(archiveProjectAction(project.projectId));
     }
-   
   };
 
   return (
@@ -97,11 +100,11 @@ function MyProjectItem({ project, type }) {
       style={{ backgroundColor: showItemMenu && "rgba(245, 245, 245, 0.5)" }}
       id="project_item"
     >
-      <Link href={`/application/project/${project.projectId}`}>
-        <Icon type="hashtag" />
-        {project.name}
+      <Link href={`/application/project/${project.projectId}`} className={styles.tag_box1}>
+        <span className={styles.tag_box2}><Icon type="hashtag" /></span>
+        <span className={styles.tag_box1}>{project.name} </span> 
       </Link>
-      <div className={styles.menu_btn_container}>
+      <div className={`${styles.menu_btn_container} ${styles.tag_box2}`}>
         <span
           className={styles.project_item_menu}
           onClick={swithMenuHandler}

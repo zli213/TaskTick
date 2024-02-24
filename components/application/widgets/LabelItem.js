@@ -8,7 +8,7 @@ import NewLabel, { useLabel } from "./NewLabel";
 import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
 import { DeleteTag } from "../../../public/CommonFunctions";
 import { useDispatch } from "react-redux";
-import { deleteOneTagAction } from "../../../store/tasks";
+import { deleteOneTagAction } from "../../../store/labels";
 
 function LabelItem({ label, num }) {
   const dispacth = useDispatch();
@@ -36,10 +36,10 @@ function LabelItem({ label, num }) {
     <div className={styles.labels_item_container}>
       <li>
         <Link href={`/application/label/${showLabel}`}>
-          <Icon type="hashtag_big" />
-          <span className={styles.labels_item_content}>
-            <span>{showLabel}</span>
-            <div>{num}</div>
+          <Icon type="hashtag_big" className={styles.tag_box2} />
+          <span className={`${styles.labels_item_content} ${styles.tag_box1}`}>
+            <span className={styles.tag_box1}>{showLabel}</span>
+            <div className={styles.tag_box2}>{num}</div>
           </span>
         </Link>
         <div

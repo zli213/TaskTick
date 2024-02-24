@@ -6,12 +6,15 @@ import { useEffect } from "react";
 import styles from "/styles/scss/application.module.scss";
 import Icon from "../../../components/application/widgets/Icon";
 import NoTask from "../../application/widgets/NoTask";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 function Today(props) {
-  let tasks = useSelector((state) => state.tasks.tasks);
-  tasks = tasks.filter((task) => task.completed !== true);
-  const todayNum = useSelector((state) => state.tasks.todayNum);
+  const dispatch = useDispatch();
+  let tasks = Object.values(useSelector((state) => state.tasks));
+
+  const todayNum = useSelector((state) => state.num.todayNum);
   const router = useRouter();
 
   //use timestamp to compare if the item dueDate is today
@@ -31,7 +34,6 @@ function Today(props) {
     const taskDueDate = new Date(task.dueDate);
     return taskDueDate.getTime() === today.getTime();
   });
-
   useEffect(() => {
     document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
@@ -45,13 +47,17 @@ function Today(props) {
     }
   }, []);
 
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
   return (
     <>
       <div className={styles.view_header} id="viewHeader">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
-          <div>
+          <div className={styles.today_title}>
             <h1>Today</h1>
             {todayNum === 0 ? (
               ""
@@ -65,13 +71,24 @@ function Today(props) {
         </div>
       </div>
       {todayNum === 0 ? (
-        <NoTask page="today" />
+        <NoTask page="today" fromDate={today} />
       ) : (
         <div className={styles.list_box} id="listBox">
           {overDueTasks.length !== 0 && (
-            <TodoList tasks={overDueTasks} showProject={true} title="Overdue" />
+            <TodoList
+              tasks={overDueTasks}
+              showProject={true}
+              title="Overdue"
+              forbidEdit={true}
+            />
           )}
-          <TodoList tasks={todayTasks} showProject={true} title="Today" />
+          <TodoList
+            tasks={todayTasks}
+            showProject={true}
+            title="Today"
+            fromDate={today}
+            forbidEdit={true}
+          />
         </div>
       )}
     </>

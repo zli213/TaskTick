@@ -1,15 +1,16 @@
 "use client";
 
 import styles from "../../../styles/scss/application.module.scss";
-import { useEffect, useState } from "react";
-import Icon from "../../application/widgets/Icon";
+import { useEffect } from "react";
 import TodoList from "../../application/widgets/TodoList";
 import Link from "next/link";
 import NoTask from "../../application/widgets/NoTask";
 import { useSelector } from "react-redux";
+import useCompletedTaskNotification from "../../application/widgets/useCompletedTaskNotification";
+import useDismissToast from "../../application/widgets/useDismissToast";
 
 function LabelPage({ label }) {
-  let tasks = useSelector((state) => state.tasks.tasks);
+  let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => {
     return task.tags.includes(label);
   });
@@ -18,6 +19,11 @@ function LabelPage({ label }) {
     document.title = "Filters & Labels - Todo";
     localStorage.setItem("lastPage", `label/${label}`);
   }, []);
+
+  // Show the latest completed task notification
+  useCompletedTaskNotification();
+  // Dismiss the previous task notification
+  useDismissToast();
 
   return (
     <>

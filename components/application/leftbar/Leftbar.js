@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import styles from "../../../styles/scss/leftbar.module.scss";
 import LeftItem from "../widgets/LeftItem";
 import Link from "next/link";
@@ -9,12 +10,13 @@ import Icon from "../widgets/Icon";
 import { useSelector } from "react-redux";
 
 function Leftbar({ showClass }) {
-  let projects = useSelector((state) => state.tasks.projects);
+  const pathname = usePathname();
+  let projects = Object.values(useSelector((state) => state.projects));
   projects = projects
     .filter((project) => project.archived !== true)
-    .filter((project) => project.state !== "deleted");
-  const inboxNum = useSelector((state) => state.tasks.inboxNum);
-  const todayNum = useSelector((state) => state.tasks.todayNum);
+    .filter((project) => project.isDeleted !== true);
+  const inboxNum = useSelector((state) => state.num.inboxNum);
+  const todayNum = useSelector((state) => state.num.todayNum);
 
   const [selectedItemType, setSeletedItemType] = useState("");
   const { showAddProjectCard, showProjectCardHandler } = useProject();
@@ -29,9 +31,21 @@ function Leftbar({ showClass }) {
   };
 
   useEffect(() => {
-    const current = localStorage.getItem("lastPage");
+    let current = localStorage.getItem("lastPage");
     setSeletedItemType(current);
   }, []);
+
+  useEffect(() => {
+    const path = pathname.match(/^\/application\/(.*)$/)[1];
+    if (path == "today") {
+      setSeletedItemType("today");
+    }
+
+    if (path.includes("project")) {
+      setSeletedItemType(pathname.match(/^\/application\/(.*)$/)[1]);
+    }
+    
+  }, [pathname]);
 
   return (
     <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`} id="leftbar">

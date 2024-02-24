@@ -10,14 +10,25 @@
  */
 
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
+import { addToastId } from "../../../store/toastIds";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
-const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
+const CheckBoxButton = ({
+  priority,
+  taskId,
+  dueDate,
+  projectId,
+  completed,
+}) => {
+  const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
+  const toastIds = useSelector((state) => state.toastIds.toastIds);
   const getPriorityColor = (option) => {
     switch (option) {
       case "P1":
@@ -32,6 +43,7 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
   };
 
   const clickHandler = async () => {
+    if (isCompleted) return;
     try {
       const res = await fetch("/api/completeTask", {
         method: "POST",
@@ -42,9 +54,12 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
       });
 
       const result = await res.json();
-      console.log(result);
-      result.ifComplete &&
-        dispatch(completeTaskAction({ taskId, dueDate, projectId }));
+      if (result.ifComplete) {
+        dispatch(completeTaskAction(taskId));
+        setIsCompleted(result.ifComplete);
+      } else {
+        throw new Error("Complete task failed ");
+      }
     } catch (error) {
       throw error;
     }
@@ -52,12 +67,24 @@ const CheckBoxButton = ({ priority, taskId, dueDate, projectId }) => {
 
   return (
     <button
-      className={`${styles.task_checkBox} ${getPriorityColor(priority)}`}
+      className={`${styles.task_checkBox} ${getPriorityColor(priority)} `}
       onClick={clickHandler}
+      disabled={completed}
     >
-      <span className={styles.task_checkBox_backgroud}></span>
-      <Icon type="check" />
-      <span className={styles.task_checkBox_circle}></span>
+      <span
+        className={`${styles.task_checkBox_backgroud} ${
+          isCompleted && styles.completed_background
+        } `}
+      ></span>
+      <Icon
+        type="check"
+        className={` ${isCompleted && styles.completed_svg} `}
+      />
+      <span
+        className={`${styles.task_checkBox_circle} ${
+          isCompleted && styles.completed_circle
+        }`}
+      ></span>
     </button>
   );
 };

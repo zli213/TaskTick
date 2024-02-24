@@ -8,7 +8,6 @@
   border-radius: $borderRadius;
   color: $textPrimaryColor;
   width: $taskPageWidth;
-  // min-height: $settingHeight;
   height: calc(100vh - $marginLg * 2);
   max-width: $taskPageWidth;
   overflow: hidden;
@@ -19,9 +18,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // padding: $paddingXsm;
   align-items: center;
-  // height: $fontSizeMd;
 }
 
 .task_header {
@@ -39,22 +36,25 @@
 .task_header_title {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   a {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    white-space: nowrap;
   }
 }
 
 .task_sidebar {
-  min-width: $taskSideBarWidth;
+  width: $taskSideBarWidth;
   background-color: $lightGrayColor;
   height: calc(100vh - $marginLg * 2);
   padding: $paddingMd;
+  overflow: hidden;
 
   .task_sidebar_list {
+    width: 100%;
     padding: 0 $paddingsm;
     display: flex;
     flex-direction: column;
@@ -63,6 +63,7 @@
   }
 
   .task_sidebar_item {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: $paddingXsm;
@@ -84,30 +85,28 @@
   }
 
   .task_tags_container {
-    display: flex;
+    @include flexRowStart();
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: $paddingXsm;
   }
 
   .task_tag_item {
+    max-width: 14rem;
     background-color: $grayColor;
     padding: $paddingXsm;
     margin-right: $marginXsm;
     border-radius: $paddingXsm;
     color: $textPrimaryColor;
-
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
-    overflow: hidden;
-    white-space: nowrap;
   }
 
   .task_tag_item:hover {
     background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
   }
-
-
 }
 
 .task_main_container {
@@ -135,11 +134,18 @@
     font-weight: 700;
     font-size: $fontSizeMd;
     margin: 0 $marginXsm $marginXsm 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 
   .task_overview_description {
     margin: $paddingsm 0;
     font-size: $fontSizeSm;
+    white-space: normal;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    word-break: break-all;
   }
 
   .task_main_add_sub {
@@ -176,6 +182,28 @@
   background-color: $grayColor;
 }
 
-.flexStart{
+.flexStart {
   @include flexRowStart();
+}
+
+.tag_box {
+  max-width: 10rem;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag_box3 {
+  flex: 0 0 auto;
+}
+
+.btn_menu {
+  cursor: pointer !important;
+  position: relative;
 }

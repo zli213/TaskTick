@@ -25,95 +25,6 @@
 }
 
 //Dark theme
-// @media (prefers-color-scheme: dark) {
-//   .dark {
-//     background-color: $textPrimaryColor;
-//     color: $secondaryColor;
-    
-//     #leftbar,
-//     #settingLeft,
-//     #task_sidebar,
-//     #task_sidebar_list {
-//       background-color: $textSecondaryColor;
-//       color: $secondaryColor;
-
-//       h4, a, span {
-//         color: $secondaryColor;
-//       }
-//     }
-
-//     #listBox,
-//     #viewHeader,
-//     #taskEditor,
-//     #menuBox,
-//     #settingRight,
-//     #addProject,
-//     #newTask,
-//     #noticeContainer,
-//     #task_header,
-//     #task_main_container,
-//     #content_holder,
-//     #project_popup_window {
-//       background-color: $textPrimaryColor;
-//       color: $secondaryColor;
-//       border: $textSecondaryColor 0.2px solid;
-
-//       a {
-//         color: $secondaryColor;
-//       }
-//     }
-
-//     #icon {
-//       color: $secondaryColor;
-//     }
-
-//     #settingRight {
-//       div {
-//         border-top: 1px solid $textPrimaryColor;
-//       }
-//     }
-
-//     #task_tag_item,
-//     #add_btn {
-//       background-color: $textPrimaryColor;
-//       &:hover {
-//         background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-//       }
-//     }
-
-//     #task_sidebar_button,
-//     #action_menu_btn {
-//       background-color: none;
-//       color: $secondaryColor;
-//       &:hover {
-//         background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-//       }
-//     }
-
-//     #leftbar_item:hover,
-//     #project_item:hover,
-//     #option_link:hover {
-//       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-//     }
-
-//     #project_item {
-//       background-color: none;
-//       color: $secondaryColor;
-//     }
-
-//     #task_discription,
-//     #task_label {
-//       color: $grayColor;
-//     }
-
-//     // #project_popup_window {
-//     //   background-color: $textPrimaryColor;
-//     //   color: $secondaryColor;
-//     //   border: $textSecondaryColor 0.2px solid;
-//     // }
-//   }
-// }
-
 .dark body{
   background-color: $textPrimaryColor;
   color: $secondaryColor;
@@ -202,4 +113,8 @@
   #task_label {
     color: $grayColor;
   }
+}
+
+.Toastify__toast-theme--dark {
+  background-color: $textSecondaryColor;
 }

@@ -12,7 +12,7 @@ import styles from "../../../styles/scss/components/application/widgets/newProje
 import Icon from "../widgets/Icon";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { addProjectAction, updateProjectAction } from "../../../store/tasks";
+import { addProject, updateProjectAction } from "../../../store/projects";
 
 //Custom React hook -> useProject
 export const useProject = () => {
@@ -58,12 +58,11 @@ export default function NewProject(props) {
           body: JSON.stringify({
             name,
             id: props.projectId,
-          
           }),
         });
 
         if (res.ok) {
-          dispatch(updateProjectAction({ id: props.projectId, newName: name }));
+          dispatch(updateProjectAction(props.projectId, name));
         } else {
           setIsWrong(true);
         }
@@ -83,7 +82,7 @@ export default function NewProject(props) {
         const result = await res.json();
 
         if (res.ok) {
-          dispatch(addProjectAction(result.body));
+          dispatch(addProject(result.body));
           router.push(`/application/project/${result.body.projectId}`);
         } else {
           setIsWrong(true);
@@ -96,6 +95,7 @@ export default function NewProject(props) {
   };
 
   useEffect(() => {
+    nameInputRef.current.focus();
     document.addEventListener("wheel", disableScroll, { passive: false });
     document.addEventListener("touchmove", disableScroll, { passive: false });
 
@@ -123,6 +123,7 @@ export default function NewProject(props) {
                   id="edit_project_modal_field_name"
                   onChange={nameChangeHandler}
                   value={enteredName}
+                  maxlength="120"
                 ></input>
               </div>
               <div className={styles.form_field}>

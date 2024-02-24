@@ -8,10 +8,7 @@ import { ArchiveProject, DeleteProject } from "../../../public/CommonFunctions";
 import { useProjectMenu } from "./MyProjectItem";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import {
-  deleteProjectAction,
-  archiveProjectAction,
-} from "../../../store/tasks";
+import { deleteProjectAction,archiveProjectAction } from "../../../store/projects";
 
 const LeftbarItem = ({
   label,
@@ -53,14 +50,8 @@ const LeftbarItem = ({
       const result = await DeleteProject(projectId);
       console.log("1", result);
       if (result) {
-        // const lastPage = localStorage.getItem("lastPage");
-        // if (lastPage.includes(projectId)) {
-          showDeleteCardHandler();
-        //   // router.replace("/application/inbox");
-        //   dispacth(deleteProjectAction(projectId));
-        // } else {
-          dispacth(deleteProjectAction(projectId));
-        // }
+        showDeleteCardHandler();
+        dispacth(deleteProjectAction(projectId));
       }
     } else {
       ArchiveProject(projectId);
