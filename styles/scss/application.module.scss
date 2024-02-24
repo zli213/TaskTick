@@ -319,7 +319,7 @@
   right: 0;
   @include flexRowStart();
   opacity: 0;
-  background-color: #fff;
+  // background-color: #fff;
   z-index: 1;
 
   .right_menu_btn {

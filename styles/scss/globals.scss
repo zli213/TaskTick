@@ -25,114 +25,113 @@
 }
 
 //Dark theme
-@media (prefers-color-scheme: dark) {
-  .dark {
-    background-color: $textPrimaryColor;
-    color: $secondaryColor;
+// @media (prefers-color-scheme: dark) {
+//   .dark {
+//     background-color: $textPrimaryColor;
+//     color: $secondaryColor;
     
-    #leftbar,
-    #settingLeft,
-    #task_sidebar,
-    #task_sidebar_list {
-      background-color: $textSecondaryColor;
-      color: $secondaryColor;
+//     #leftbar,
+//     #settingLeft,
+//     #task_sidebar,
+//     #task_sidebar_list {
+//       background-color: $textSecondaryColor;
+//       color: $secondaryColor;
 
-      h4, a, span {
-        color: $secondaryColor;
-      }
-    }
+//       h4, a, span {
+//         color: $secondaryColor;
+//       }
+//     }
 
-    #listBox,
-    #viewHeader,
-    #taskEditor,
-    #menuBox,
-    #settingRight,
-    #addProject,
-    #newTask,
-    #noticeContainer,
-    #task_header,
-    #task_main_container,
-    #content_holder,
-    #project_popup_window {
-      background-color: $textPrimaryColor;
-      color: $secondaryColor;
-      border: $textSecondaryColor 0.2px solid;
+//     #listBox,
+//     #viewHeader,
+//     #taskEditor,
+//     #menuBox,
+//     #settingRight,
+//     #addProject,
+//     #newTask,
+//     #noticeContainer,
+//     #task_header,
+//     #task_main_container,
+//     #content_holder,
+//     #project_popup_window {
+//       background-color: $textPrimaryColor;
+//       color: $secondaryColor;
+//       border: $textSecondaryColor 0.2px solid;
 
-      a {
-        color: $secondaryColor;
-      }
-    }
+//       a {
+//         color: $secondaryColor;
+//       }
+//     }
 
-    #icon {
-      color: $secondaryColor;
-    }
+//     #icon {
+//       color: $secondaryColor;
+//     }
 
-    #settingRight {
-      div {
-        border-top: 1px solid $textPrimaryColor;
-      }
-    }
+//     #settingRight {
+//       div {
+//         border-top: 1px solid $textPrimaryColor;
+//       }
+//     }
 
-    #task_tag_item,
-    #add_btn {
-      background-color: $textPrimaryColor;
-      &:hover {
-        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-      }
-    }
+//     #task_tag_item,
+//     #add_btn {
+//       background-color: $textPrimaryColor;
+//       &:hover {
+//         background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+//       }
+//     }
 
-    #task_sidebar_button,
-    #action_menu_btn {
-      background-color: none;
-      color: $secondaryColor;
-      &:hover {
-        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-      }
-    }
+//     #task_sidebar_button,
+//     #action_menu_btn {
+//       background-color: none;
+//       color: $secondaryColor;
+//       &:hover {
+//         background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+//       }
+//     }
 
-    #leftbar_item:hover,
-    #project_item:hover,
-    #option_link:hover {
-      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-    }
+//     #leftbar_item:hover,
+//     #project_item:hover,
+//     #option_link:hover {
+//       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+//     }
 
-    #project_item {
-      background-color: none;
-      color: $secondaryColor;
-    }
+//     #project_item {
+//       background-color: none;
+//       color: $secondaryColor;
+//     }
 
-    #task_discription,
-    #task_label {
-      color: $grayColor;
-    }
+//     #task_discription,
+//     #task_label {
+//       color: $grayColor;
+//     }
 
-    // #project_popup_window {
-    //   background-color: $textPrimaryColor;
-    //   color: $secondaryColor;
-    //   border: $textSecondaryColor 0.2px solid;
-    // }
-  }
-}
+//     // #project_popup_window {
+//     //   background-color: $textPrimaryColor;
+//     //   color: $secondaryColor;
+//     //   border: $textSecondaryColor 0.2px solid;
+//     // }
+//   }
+// }
 
-.dark {
+.dark body{
   background-color: $textPrimaryColor;
   color: $secondaryColor;
   
   #leftbar,
   #settingLeft,
   #task_sidebar,
-  #task_sidebar_list,
-  .task_sidebar_item {
+  #task_sidebar_list {
     background-color: $textSecondaryColor;
     color: $secondaryColor;
 
-    h4 {
+    h4, a, span {
       color: $secondaryColor;
     }
   }
 
-  #listBox,
-  #viewHeader,
+  
+  
   #taskEditor,
   #menuBox,
   #settingRight,
@@ -140,18 +139,67 @@
   #newTask,
   #noticeContainer,
   #task_header,
-  #task_main_container {
+  #task_main_container,
+  #project_popup_window,
+  #add_label {
+    background-color: $textPrimaryColor;
+    color: $secondaryColor;
+    border: $textSecondaryColor 0.2px solid;
+
+    a, span {
+      color: $secondaryColor;
+    }
+  }
+
+  #listBox,
+  #viewHeader,
+  #content_holder {
     background-color: $textPrimaryColor;
     color: $secondaryColor;
   }
 
   #icon {
-    fill: $secondaryColor;
+    color: $secondaryColor;
   }
 
   #settingRight {
     div {
       border-top: 1px solid $textPrimaryColor;
     }
+  }
+
+  #task_tag_item,
+  #add_btn {
+    background-color: $textPrimaryColor;
+    &:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
+  }
+
+  #task_sidebar_button,
+  #action_menu_btn {
+    background-color: none;
+    color: $secondaryColor;
+    &:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
+  }
+
+  #leftbar_item:hover,
+  #project_item:hover,
+  #option_link:hover,
+  #setting_item:hover {
+    background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+  }
+
+  #project_item,
+  #right_menu {
+    background-color: none;
+    color: $secondaryColor;
+  }
+
+  #task_discription,
+  #task_label {
+    color: $grayColor;
   }
 }

@@ -129,7 +129,7 @@ export default function NewLabel(props) {
   return (
     <div onClick={props.closeHandler}>
       <Modal>
-        <div className={styles.add_label_modal_container}>
+        <div className={styles.add_label_modal_container} id="add_label">
           <div>
             <h1>{props.label ? "Edit" : "Add"} label</h1>
           </div>

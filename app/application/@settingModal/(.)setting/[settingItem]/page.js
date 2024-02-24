@@ -42,6 +42,7 @@ export default function SettingModal({ params }) {
                 className={`${styles.leftGroup} ${
                   selected === "account" ? styles.selected : ""
                 }`}
+                id="setting_item"
               >
                 <Link href="/application/setting/account" scroll={false}>
                   <span>
@@ -55,9 +56,11 @@ export default function SettingModal({ params }) {
             </li>
             <li>
               <div
-              className={`${styles.leftGroup} ${
-                selected === "theme" ? styles.selected : ""
-              }`}>
+                className={`${styles.leftGroup} ${
+                  selected === "theme" ? styles.selected : ""
+                }`}
+                id="setting_item"
+              >
                 <Link href="/application/setting/theme" scroll={false}>
                   <span>
                   {selected === "theme" ? <ThemeSelected/> : <Theme/>}

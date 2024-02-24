@@ -45,6 +45,7 @@ function LabelItem({ label, num }) {
         <div
           className={styles.right_menu}
           style={{ opacity: showItemMenu && 1 }}
+          id="right_menu"
         >
           <span onClick={showCardHandler} className={styles.right_menu_btn}>
             <Icon type="edit" />

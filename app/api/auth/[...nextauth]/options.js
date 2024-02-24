@@ -117,8 +117,6 @@ export const options = {
           }
           const userTheme = existingUser.themes[0];
           cookies().set("themeName", userTheme);
-          console.log(userTheme);
-          // setCookie({cookies});
 
         } catch (error) {
           user.accountStatus = "error";
