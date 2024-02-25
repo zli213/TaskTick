@@ -7,20 +7,30 @@
  * Param:
  *  - projectId
  *  - projectName
- *  - board
+ *  - boardcenter
  */
+"use client";
 
 import styles from "../../../../styles/scss/task.module.scss";
 import Link from "next/link";
 import Icon from "../../../application/widgets/Icon";
+import { useSelector } from "react-redux";
 
 export default function TaskHeaderLeft({
+  taskId,
   projectId,
   projectName,
   board,
   showInbox,
   reverse,
 }) {
+  let task = useSelector((state) => state.tasks[taskId]);
+  if (task) {
+    projectId =  task.projectId
+    projectName = task.projectName;
+    board = task.board;
+  }
+
   return (
     <div className={styles.task_header_title}>
       {!projectId && showInbox ? (

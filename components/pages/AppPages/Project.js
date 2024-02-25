@@ -20,11 +20,16 @@ export default function Project({ projectId }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
   let showCompletedTask = useSelector(
+    
     (state) => state.viewOptions.projects[projectId]
+  
   );
   showCompletedTask =
+   
     showCompletedTask !== undefined
+     
       ? showCompletedTask.showCompletedTasks
+     
       : false;
 
   const projects = useSelector((state) => state.projects);
@@ -43,7 +48,6 @@ export default function Project({ projectId }) {
   completedTasks =
     completedTasks !== undefined ? Object.values(completedTasks) : [];
   const groupedCompletedTasks = groupTasks(boards, completedTasks);
-
 
   const unarchiveHandler = async () => {
     (await UnarchiveProject(projectId)) &&

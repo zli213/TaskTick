@@ -99,7 +99,7 @@ function DatePicker({ onDateSelect, data }) {
                   >
                     <span
                       className={
-                        selected > 0 && selected === itemDays
+                        selected > 0 && selected == itemDays
                           ? styles.datepicker_selected
                           : styles.datepicker_normal
                       }

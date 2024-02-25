@@ -25,7 +25,7 @@ function TodoList({
   fromDate,
   isCompleted,
   titleClassName,
-  forbidEdit
+  forbidEdit,
 }) {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
@@ -232,37 +232,40 @@ function TodoList({
         )}
 
         {showList && (
-          <div>
-            {haveTasks &&
-              tasks.map((data) => (
-                <SingleItems
-                  key={data._id}
-                  _id={data._id}
-                  title={data.title}
-                  dueDate={data.dueDate}
-                  description={data.description}
-                  projectName={data.projectName}
-                  projectId={data.projectId}
-                  board={data.board}
-                  tags={data.tags}
-                  priority={data.priority}
-                  completed={data.completed}
-                  showProject={showProject}
-                  allTags={allTags}
-                  allProjects={allProjects}
-                />
-              ))}
-          </div>
-        )}
-        {title !== "Overdue" && !isCompleted && (
-          <AddTask
-            allTags={allTags}
-            allProjects={allProjects}
-            fromProject={fromProject}
-            fromBoard={fromBoard}
-            fromTag={fromTag}
-            fromDate={fromDate}
-          />
+          <>
+            <div>
+              {haveTasks &&
+                tasks.map((data) => (
+                  <SingleItems
+                    task={data}
+                    key={data._id}
+                    _id={data._id}
+                    title={data.title}
+                    dueDate={data.dueDate}
+                    description={data.description}
+                    projectName={data.projectName}
+                    projectId={data.projectId}
+                    board={data.board}
+                    tags={data.tags}
+                    priority={data.priority}
+                    completed={data.completed}
+                    showProject={showProject}
+                    allTags={allTags}
+                    allProjects={allProjects}
+                  />
+                ))}
+            </div>
+            {title !== "Overdue" && !isCompleted && (
+              <AddTask
+                allTags={allTags}
+                allProjects={allProjects}
+                fromProject={fromProject}
+                fromBoard={fromBoard}
+                fromTag={fromTag}
+                fromDate={fromDate}
+              />
+            )}
+          </>
         )}
       </section>
       {fromProject.projectId !== "" && (

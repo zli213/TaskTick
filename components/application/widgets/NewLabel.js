@@ -155,7 +155,7 @@ export default function NewLabel(props) {
                   id="edit_tag_modal_field_name"
                   onChange={tagChangeHandler}
                   value={enteredTag}
-                  maxlength="60"
+                  maxLength="60"
                 ></input>
               </div>
               <div className={styles.form_field}>
