@@ -234,7 +234,6 @@ export function SingleItems({
               projectId={projectId}
               completed={completed}
               className={styles.tag_box3}
-              styles={styles}
             />
             <div className={`${styles.task_content}`}>
               <Link

@@ -16,14 +16,9 @@ import Icon from "./Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
 
-const CheckBoxButton = ({
-  priority,
-  taskId,
-  completed,
-  styles,
-}) => {
+const CheckBoxButton = ({ priority, taskId, completed }) => {
   const task = useSelector((state) => state.tasks[taskId]);
-  if(task){
+  if (task) {
     priority = task.priority;
   }
 
