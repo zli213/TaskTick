@@ -19,11 +19,14 @@ import { completeTaskAction } from "../../../store/tasks";
 const CheckBoxButton = ({
   priority,
   taskId,
-  dueDate,
-  projectId,
   completed,
   styles,
 }) => {
+  const task = useSelector((state) => state.tasks[taskId]);
+  if(task){
+    priority = task.priority;
+  }
+
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const toastIds = useSelector((state) => state.toastIds.toastIds);

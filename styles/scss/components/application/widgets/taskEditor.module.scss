@@ -1,122 +1,148 @@
 @use "../../../utils/variable" as *;
 
 .popup_overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 }
 
-.task_edit_form{
-    position: relative;
-    background-color: #fff;
-    border:1px solid $lightGrayColor;
-    border-radius: 8px;
+.task_edit_form {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid $lightGrayColor;
+  border-radius: 8px;
 }
 
-.task_name{
-    outline:none;
-    font-weight: bold;
-    min-height: 1.5rem;
-    margin-bottom:0.4rem;
-    cursor:text;
-    [match-type=matched] {
-        background-color: antiquewhite;
-        margin-right: 3px;
-    }
-    &:empty:before{
-        content: attr(placeholder);
-        position: absolute;
-        color: $textSecondaryColor;
-        background-color: transparent;
-    }
-}
-
-
-.task_name_tag_selector{
+.task_name {
+  outline: none;
+  font-weight: bold;
+  min-height: $mobileSpacing;
+  margin-bottom: $marginXsm;
+  cursor: text;
+  [match-type="matched"] {
+    background-color: antiquewhite;
+    margin-right: 3px;
+  }
+  &:empty:before {
+    content: attr(placeholder);
     position: absolute;
-    width: 90%;
-    margin:0 auto;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0 2px 10px $grayColor;
-    max-height: 15rem;
-    overflow: auto;
-    z-index: 1000;
-    button{
-        text-align: left;
-        padding-left:1rem;
-        &:hover{
-            background-color: $grayColor;
-        }
-    }
-}
-.task_name_tag_selector_button_on{
-    background-color: $grayColor;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
 }
 
-.task_content{
-    outline: none;
-    min-height: 1.5rem;
-    margin-bottom: 0.8rem;
-    cursor: text;
-    &:empty:before {
-        content: attr(placeholder);
-        position: absolute;
-        color: $textSecondaryColor;
-        background-color: transparent;
-    }
-}
+.task_name_tag_selector {
+  position: absolute;
+  width: 90%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  box-shadow: 0 2px 10px $grayColor;
+  max-height: 20rem;
+  overflow: auto;
+  z-index: 1000;
+  padding: $paddingXsm;
 
-.task_edit_area{
+
+  button {
+    padding: $mobileSpacing;
+    @include flexRowStart();
     width: 100%;
-    padding:1rem;
-    border-bottom:1px solid $lightGrayColor;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: $paddingsm3;
+    border-radius: $borderRadiusXsm;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
 }
 
-.task_edit_buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    button{
-        border: 1px solid $grayColor;
-        border-radius: $borderRadiusSm;
-        margin: 0 .3rem;
-        padding: .5rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        &:hover{
-            background-color: $lightGrayColor;
-        }
+.task_name_tag_selector_button_on {
+  background-color: $grayColor;
+}
+
+.task_content {
+  outline: none;
+  min-height: 1.5rem;
+  margin-bottom: $marginXsm2;
+  cursor: text;
+  &:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
+}
+
+.task_edit_area {
+  width: 100%;
+  padding: $paddingsm3;
+  border-bottom: 1px solid $lightGrayColor;
+}
+
+.task_edit_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  button {
+    height: 3.5rem;
+    @include flexRowStart();
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm;
+    font-size: $fontSizeSm;
+    cursor: pointer;
+    &:hover {
+      background-color: $lightGrayColor;
     }
+  }
 }
 
 /* Scheduler */
 .scheduler {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: 0px 1px 2rem 1px $grayColor;
-    overflow: hidden;
-    padding: 1rem 0;
-    z-index: 1001;
+  color: $textSecondaryColor;
+  display: flex;
+  flex-direction: column;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  z-index: 1001;
+  // background-color: #fff;
+
+  button {
+    height: auto;
+    border: 0;
+    margin: 0;
+    font-size: $fontSizeXsm2;
+    cursor: pointer;
+  }
 }
 
 .scheduler_quickbutton {
-    padding: .5rem .9rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    cursor: pointer;
+  line-height: normal;
+  padding: $paddingXsm;
+  display: flex;
+  justify-content: space-between !important;
+  font-size: $fontSizeXsm2;
+  cursor: pointer;
+  border-radius: $borderRadiusSm;
+
+  &:hover {
+    background-color: $grayColor;
+  }
 }
 
 .scheduler_quickbutton:hover {
@@ -128,9 +154,10 @@
   flex-direction: row;
   justify-content: space-between;
   border-top: 1px solid $grayColor;
-  padding: 1rem 0.9rem 0.3rem;
-  font-size: 1.3rem;
+  padding: $paddingsm3 $paddingsm2 $gapXsm;
+  font-size: $fontSizeXsm2;
   font-weight: bold;
+  line-height: normal;
 }
 
 .datepicker_header_action {
@@ -138,7 +165,7 @@
   button {
     justify-content: center;
     text-align: center;
-    width: 2rem;
+    width: $paddingMd;
     padding: 0 !important;
   }
 }
@@ -146,9 +173,10 @@
 .week_names {
   display: flex;
   color: $grayColor;
-  font-size: 1.2rem;
-  padding: 0.5rem 0.9rem;
+  font-size: $fontSizeXsm;
+  padding: $paddingXsm $paddingsm;
   border-bottom: 1px solid $grayColor;
+  line-height: normal;
 
   div {
     width: 3rem;
@@ -159,7 +187,10 @@
 .datepicker_monthlist_wrapper {
   height: 19rem;
   overflow: auto;
-  margin-right: -17px;
+  // margin-right: -17px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .datepicker_monthlist {
@@ -178,13 +209,16 @@
   position: absolute;
   left: 0;
   right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 .datepicker_calendar_header {
-  padding: 0.7rem 0;
+  padding: $paddingXsm1 0;
   margin: 0 1.6rem;
   border-bottom: 1px solid $grayColor;
-  font-size: 1.3rem;
+  font-size: $fontSizeXsm2;
   font-weight: bold;
 }
 
@@ -196,16 +230,19 @@
 .datepicker_calendar_week {
   display: flex;
   flex-direction: row;
-  padding: 0.3rem 0.9rem;
+  padding: $gapXsm $paddingsm2;
 
   button {
     text-align: center;
     width: 14.28571%;
-    line-height: 2rem !important;
-    font-size: 1.3rem !important;
+    line-height: $paddingMd !important;
+    font-size: $fontSizeXsm2 !important;
     cursor: pointer;
   }
 
+  div {
+    width: 14.28571%;
+  }
   div {
     width: 14.28571%;
   }
@@ -216,22 +253,25 @@
   background-color: $primaryColor;
   border-radius: 50%;
   color: #fff;
-  width: 2rem;
-  margin: 0 auto;
+  width: $paddingMd;
+  margin: 0 auto !important;
   font-weight: bold;
+  span {
+    margin: 0 auto !important;
+    color: white !important;
+  }
 }
 
 .datepicker_normal {
   display: block;
   border-radius: 50%;
-  width: 2rem;
-  margin: 0 auto ;
+  width: $paddingMd;
+  margin: 0 auto;
   transition: all 100ms;
   text-align: center;
 
-  span{
-  margin: 0 auto !important;
-
+  span {
+    margin: 0 auto !important;
   }
 }
 
@@ -241,7 +281,7 @@
 
 .datepicker_today {
   font-weight: bold;
-  color: $primaryColor;
+  color: white;
 }
 /* end Scheduler */
 
@@ -250,10 +290,15 @@
   border: 0 !important;
   display: flex;
   justify-content: space-between;
-  font-size: 1.3rem;
+  align-items: center;
+  font-size: $fontSizeXsm2;
   margin: 0 !important;
   cursor: pointer;
   height: 100%;
+  padding: $paddingXsm;
+  border-radius: $borderRadiusSm;
+  gap: $gapSm;
+  width: 100%;
 
   &:hover {
     background-color: $grayColor;
@@ -262,41 +307,48 @@
 /* end priority picker */
 
 .tag_check_list_dropdown {
-  width: 39rem;
   max-height: 19rem;
   overflow: auto;
   z-index: 1001;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .tag_check_list_dropdown_btn {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.25rem;
+  padding: $paddingXxsm;
   border-radius: $borderRadiusSm;
   cursor: pointer;
   margin: 0 !important;
+  overflow: hidden;
+  font-size: $fontSizeXsm2;
 
   &:hover {
     background-color: $grayColor;
   }
 }
-.tag_checkbox{
-    position: relative;
-    display: block;
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid #000;
-    margin: auto 0;
+
+.tag_checkbox {
+  position: relative;
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  // border: 1px solid #000;
+  margin: auto 0;
 }
+
 .tag_checkbox_on {
   &:before {
-    content: "√";
+    content: "☑️";
     position: absolute;
     display: block;
-    font-size: 1.8rem;
+    font-size: $fontSizeSm2;
     top: -4px;
-    left: 1px;
+    left: -4px;
+    font-style: normal;
   }
 }
 
@@ -304,17 +356,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1rem;
+  padding: $paddingsm3;
   button {
     border-radius: 4px;
-    margin: 0 0.3rem;
-    padding: 0.5rem 2rem;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm $paddingMd;
     font-weight: bold;
   }
 }
+
 .project_board {
   border-radius: $borderRadius;
-  padding: 0.5rem 1rem;
+  padding: $paddingXsm $paddingsm3;
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -328,11 +381,11 @@
   &::after {
     content: "";
     border-top: 6px solid #000;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
+    border-left: $marginXsm solid transparent;
+    border-right: $marginXsm solid transparent;
     width: 0;
     height: 0;
-    margin-left: 5px;
+    margin-left: $marginXsm;
   }
 }
 
@@ -344,7 +397,7 @@
 
   li {
     @include flexRowStart();
-    padding: 0.4rem 1rem;
+    padding: 0.4rem $paddingsm3;
     border-radius: $borderRadiusSm;
 
     span {
@@ -361,7 +414,7 @@
     }
 
     &[indent-level="1"] {
-      padding-left: 2rem;
+      padding-left: $paddingMd;
     }
     &[indent-level="2"] {
       padding-left: 3rem;
@@ -373,6 +426,7 @@
   display: flex;
   justify-content: flex-end;
 }
+
 .task_footer_cancel {
   color: #000;
   background-color: #f5f5f5;
@@ -381,6 +435,7 @@
     background-color: $lightGrayColor;
   }
 }
+
 .task_footer_submit {
   color: #fff;
   background-color: $primaryColor;
@@ -423,4 +478,11 @@
   cursor: pointer;
   position: relative;
   max-width: 68%;
+}
+
+.notification_card {
+  max-width: 40rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

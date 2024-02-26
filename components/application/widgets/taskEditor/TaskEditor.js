@@ -27,11 +27,11 @@ import TaskNameInput from "./TaskNameInput";
 import TaskTagCheckList from "./TaskTagCheckList";
 import ProjectSelector from "./ProjectSelector";
 import { useSelector, useDispatch } from "react-redux";
-import Icon from "../Icon";
-import PopupMenu, { useMenu } from "../PopupMenu";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { addToastId } from "../../../../store/toastIds";
+import Icon from "../Icon";
+import PopupMenu, { useMenu } from "../PopupMenu";
 
 function TaskEditor({
   formType,
@@ -154,9 +154,6 @@ function TaskEditor({
   };
 
   const [allTags, setAllTags] = useState([...tagList]);
-  const updateAllTags = (taglist) => {
-    setAllTags(taglist);
-  };
 
   const [dispProjectId, setDispProjectId] = useState(
     newTaskData.current.projectId
@@ -223,6 +220,11 @@ function TaskEditor({
     );
   };
   const recordTaskName = (name) => {
+    if (name === "") {
+      setNotAllowSubmit(true);
+    } else {
+      setNotAllowSubmit(false);
+    }
     setNewTaskData("taskName", name);
   };
   const recordTaskTags = (tags) => {
@@ -248,18 +250,28 @@ function TaskEditor({
       projectName = newTaskData.current.projectName;
     }
 
-    const newToastId = toast.info(
-      <div>
-        <p>
-          Task has been added{"\u00a0"}
-          <Link href={routePath}>
-            <u>{projectName}</u>
-          </Link>
-        </p>
-      </div>,
-      { pauseOnHover: false }
-    );
-    dispatch(addToastId(newToastId));
+    if (formType === "add") {
+      const newToastId = toast.info(
+        <div>
+          <p className={styles.notification_card}>
+            Task has been added to{"\u00a0"}
+            <Link href={routePath}>
+              <u>{projectName}</u>
+            </Link>
+          </p>
+        </div>,
+        { pauseOnHover: false }
+      );
+      dispatch(addToastId(newToastId));
+    }
+  };
+
+  //content check
+  const [notAllowSubmit, setNotAllowSubmit] = useState(taskData.taskName == "");
+
+  const preSubmitCheck = () => {
+    submitCallBack(newTaskData.current);
+    handleSubmit();
   };
 
   return (
@@ -311,6 +323,7 @@ function TaskEditor({
                         changeSelectedDate(dateJson);
                         swichSchedulerHandler();
                       }}
+                      isEdit={true}
                     />
                   </PopupMenu>
                 )}
@@ -332,7 +345,7 @@ function TaskEditor({
                     onOverlayClick={swichPriorityHandler}
                     position={priorityPosition}
                     levels={4}
-                    menuWidth="110"
+                    menuWidth="120"
                   >
                     <PriorityPicker
                       onPrioritySelect={(pri) => {
@@ -418,12 +431,13 @@ function TaskEditor({
               </button>
               {formType === "add" ? (
                 <button
+                  disabled={notAllowSubmit}
                   className={styles.task_footer_submit}
                   type="button"
-                  onClick={() => {
-                    submitCallBack(newTaskData.current);
-                    handleSubmit();
-                    hideScheduler();
+                  onClick={preSubmitCheck}
+                  style={{
+                    backgroundColor: notAllowSubmit && "#e56c61",
+                    cursor: notAllowSubmit && "not-allowed",
                   }}
                 >
                   Add
@@ -431,12 +445,13 @@ function TaskEditor({
               ) : null}
               {formType === "edit" ? (
                 <button
+                  disabled={notAllowSubmit}
                   className={styles.task_footer_submit}
                   type="button"
-                  onClick={() => {
-                    submitCallBack(newTaskData.current);
-                    handleSubmit();
-                    hideScheduler();
+                  onClick={preSubmitCheck}
+                  style={{
+                    backgroundColor: notAllowSubmit && "#e56c61",
+                    cursor: notAllowSubmit && "not-allowed",
                   }}
                 >
                   Save
@@ -470,6 +485,5 @@ const boardNum = (allProjects) => {
   allProjects.forEach((proj) => {
     num += proj.boards.length + 1;
   });
-  console.log("1", num + 2);
   return num + 2;
 };

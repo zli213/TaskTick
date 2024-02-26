@@ -10,7 +10,6 @@ import styles from "../../../../styles/scss/components/application/widgets/taskE
 import Icon from "../Icon";
 
 function ProjectSelector({ allProjects, onProjSelect, onOverlayClick }) {
-  console.log(allProjects);
   return (
     <>
       <div className={styles.project_selector} scrollable="scrollable_area">

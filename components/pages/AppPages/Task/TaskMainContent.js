@@ -28,7 +28,7 @@ export default function TaskMainContent({
             <div className={styles.task_overview_main}>
               <div className={styles.task_overview_title}>{taskTitle}</div>
               <div className={styles.task_overview_description}>
-                {taskDescription ? taskDescription : "Description"}
+                {taskDescription ? taskDescription : "" }
               </div>
             </div>
           </div>
