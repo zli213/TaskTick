@@ -16,7 +16,7 @@ function LabelPage({ label }) {
   });
 
   useEffect(() => {
-    document.title = "Filters & Labels - Todo";
+    document.title = "Filters & Labels - TaskTick";
     localStorage.setItem("lastPage", `label/${label}`);
   }, []);
 
