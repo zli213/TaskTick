@@ -81,7 +81,6 @@
   white-space: normal;
   overflow-wrap: anywhere;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .task_description {
@@ -90,7 +89,7 @@
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
   white-space: normal;
-  overflow: hidden !important;
+  overflow: hidden ;
   text-overflow: ellipsis;
   overflow-wrap: anywhere;
 }

@@ -5,14 +5,25 @@
 //Calculate Position Function
 export function convertPosition2(position, levels, componentWidth) {
   const menuHeight = levels * 38;
-
   var newtop = position.height + 2;
-  var newleft = -componentWidth * 0.5 + position.width / 2 + 3;
+  var newleft = position.width / 2 - componentWidth / 2 + 3;
 
   const windowsWidth = window.innerWidth;
-  if (windowsWidth < 768) {
+  if (windowsWidth < 1010) {
     if (window.innerHeight - position.top < menuHeight) {
       newtop = -menuHeight;
+    }
+    if (position.left < componentWidth / 2) {
+      newleft = 0;
+    }
+    if (window.innerWidth - position.right < componentWidth / 2) {
+      newleft = position.width - componentWidth;
+      if (newleft < -position.left) {
+        newleft = -position.left - 2;
+      }
+    }
+    if (componentWidth < position.width) {
+      newleft = position.width / 2 - componentWidth / 2;
     }
   } else {
     if (window.innerHeight - position.top < menuHeight) {
