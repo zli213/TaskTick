@@ -54,10 +54,7 @@ const Topbar = ({ switchHandler }) => {
         >
           <Icon type="top_menu" />
         </div>
-        <Link
-          href="/application/today"
-          className={styles.icon_button}
-        >
+        <Link href="/application/today" className={styles.icon_button}>
           <Icon type="home" />
         </Link>
         <div className={styles.icon_button}>
