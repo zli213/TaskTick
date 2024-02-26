@@ -20,7 +20,7 @@ export default async function TaskModal({ params }) {
 
     return (
       <Modal>
-        <div className={styles.task_modal_container}>
+        <div className={styles.task_modal_container}  >
           <header className={styles.task_header}>
             <div className={styles.task_title_bar}>
               <TaskHeaderLeft

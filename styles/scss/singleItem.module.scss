@@ -77,17 +77,22 @@
 }
 
 .task_title {
+  max-width: 100%;
   white-space: normal;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task_description {
+  @include flexRowStart();
+  width: 100%;
   font-size: $fontSizeXsm;
   color: $textSecondaryColor;
-  white-space: pre;
-  overflow: hidden;
+  white-space: normal;
+  overflow: hidden !important;
   text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .task_info_container {
@@ -267,6 +272,7 @@
 }
 
 .tag_box2 {
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -290,4 +296,10 @@
   height: 100%;
   width: 100%;
   @include flexRowStart();
+}
+
+@media screen and (max-width: 600px) {
+  .task_description {
+    white-space: nowrap;
+  }
 }
