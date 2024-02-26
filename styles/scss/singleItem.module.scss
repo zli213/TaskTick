@@ -169,104 +169,6 @@
     color: $primaryColor !important;
   }
 
-  .task_checkBox {
-    width: 2.4rem;
-    height: 2.4rem;
-    display: grid;
-    grid-template-columns: "center";
-    place-items: center;
-    cursor: pointer;
-
-    .task_checkBox_backgroud {
-      width: 1.8rem;
-      height: 1.8rem;
-      border-radius: 50%;
-      box-sizing: border-box;
-      grid-area: center;
-      opacity: 0.1;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .task_checkBox_circle {
-      width: 1.8rem;
-      height: 1.8rem;
-      border: 1px solid $heaveGrayColor;
-      grid-area: center;
-      border-radius: 50%;
-      box-sizing: border-box;
-
-      z-index: 2;
-    }
-
-    svg {
-      grid-area: center;
-      opacity: 0;
-      color: $heaveGrayColor;
-      z-index: 3;
-    }
-
-    &:hover {
-      svg {
-        opacity: 1;
-      }
-    }
-  }
-
-  .task_priority1 {
-    .task_checkBox_backgroud {
-      background-color: $priorityRed;
-    }
-
-    .task_checkBox_circle {
-      border: 2px solid $priorityRed;
-    }
-
-    svg {
-      color: $priorityRed;
-    }
-  }
-
-  .task_priority2 {
-    .task_checkBox_backgroud {
-      background-color: $priorityYellow;
-    }
-
-    .task_checkBox_circle {
-      border: 2px solid $priorityYellow;
-    }
-
-    svg {
-      color: $priorityYellow;
-    }
-  }
-
-  .task_priority3 {
-    .task_checkBox_backgroud {
-      background-color: $priorityBlue;
-    }
-
-    .task_checkBox_circle {
-      border: 2px solid $priorityBlue;
-    }
-
-    svg {
-      color: $priorityBlue;
-    }
-  }
-
-  .completed_background {
-    background-color: $heaveGrayColor !important;
-    opacity: 1 !important;
-  }
-  .completed_circle {
-    border: 0 !important;
-  }
-  .completed_svg {
-    opacity: 1 !important;
-    color: white !important;
-  }
-
   .tag_box2 {
     overflow: hidden;
     white-space: nowrap;
@@ -288,8 +190,106 @@
   }
 }
 
-.flex_start{
+.flex_start {
   height: 100%;
   width: 100%;
   @include flexRowStart();
+}
+
+.task_checkBox {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  grid-template-columns: "center";
+  place-items: center;
+  cursor: pointer;
+
+  .task_checkBox_backgroud {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    grid-area: center;
+    opacity: 0.1;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .task_checkBox_circle {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid $heaveGrayColor;
+    grid-area: center;
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    z-index: 2;
+  }
+
+  svg {
+    grid-area: center;
+    opacity: 0;
+    color: $heaveGrayColor;
+    z-index: 3;
+  }
+
+  &:hover {
+    svg {
+      opacity: 1;
+    }
+  }
+}
+
+.task_priority1 {
+  .task_checkBox_backgroud {
+    background-color: $priorityRed;
+  }
+
+  .task_checkBox_circle {
+    border: 2px solid $priorityRed;
+  }
+
+  svg {
+    color: $priorityRed;
+  }
+}
+
+.task_priority2 {
+  .task_checkBox_backgroud {
+    background-color: $priorityYellow;
+  }
+
+  .task_checkBox_circle {
+    border: 2px solid $priorityYellow;
+  }
+
+  svg {
+    color: $priorityYellow;
+  }
+}
+
+.task_priority3 {
+  .task_checkBox_backgroud {
+    background-color: $priorityBlue;
+  }
+
+  .task_checkBox_circle {
+    border: 2px solid $priorityBlue;
+  }
+
+  svg {
+    color: $priorityBlue;
+  }
+}
+
+.completed_background {
+  background-color: $heaveGrayColor !important;
+  opacity: 1 !important;
+}
+.completed_circle {
+  border: 0 !important;
+}
+.completed_svg {
+  opacity: 1 !important;
+  color: white !important;
 }
