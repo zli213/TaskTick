@@ -4,6 +4,7 @@
  */
 
 import styles from "../../../../styles/scss/task.module.scss";
+import checkboxStyles from "../../../../styles/scss/singleItem.module.scss";
 import CheckBoxButton from "../../../application/widgets/CheckBoxButton";
 
 export default function TaskMainContent({
@@ -11,14 +12,19 @@ export default function TaskMainContent({
   taskTitle,
   taskDescription,
   taskCompleted,
-  taskPriority
+  taskPriority,
 }) {
   return (
     <div className={styles.task_main_container}>
       <div className={styles.task_main_sub_container}>
         <div>
           <div className={styles.task_main_task}>
-            <CheckBoxButton priority={taskPriority} taskId={taskId} completed={taskCompleted} />
+            <CheckBoxButton
+              priority={taskPriority}
+              taskId={taskId}
+              completed={taskCompleted}
+              styles={checkboxStyles}
+            />
             <div className={styles.task_overview_main}>
               <div className={styles.task_overview_title}>{taskTitle}</div>
               <div className={styles.task_overview_description}>

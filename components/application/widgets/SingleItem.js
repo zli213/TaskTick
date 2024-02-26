@@ -192,7 +192,7 @@ export function SingleItems({
   };
 
   return (
-    <li>
+    <li className={styles.taskListItem}>
       {isEditing ? (
         <TaskEditor
           formType={"edit"}
@@ -234,6 +234,7 @@ export function SingleItems({
               projectId={projectId}
               completed={completed}
               className={styles.tag_box3}
+              styles={styles}
             />
             <div className={`${styles.task_content}`}>
               <Link

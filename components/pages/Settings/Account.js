@@ -77,7 +77,7 @@ const SettingAccount = () => {
         <h4>Account Information</h4>
         {/* need to be fixed. click & close the modal */}
         <button onClick={onDismiss}>
-          <Icon type="close" />
+          <Icon type="close_small" />
         </button>
       </header>
       {userData ? (
