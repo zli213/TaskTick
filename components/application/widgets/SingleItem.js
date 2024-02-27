@@ -192,7 +192,7 @@ export function SingleItems({
   };
 
   return (
-    <li>
+    <li className={styles.taskListItem}>
       {isEditing ? (
         <TaskEditor
           formType={"edit"}
