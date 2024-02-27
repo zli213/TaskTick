@@ -15,17 +15,13 @@ import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { completeTaskAction } from "../../../store/tasks";
-import { addToastId } from "../../../store/toastIds";
-import { toast } from "react-toastify";
-import Link from "next/link";
 
-const CheckBoxButton = ({
-  priority,
-  taskId,
-  dueDate,
-  projectId,
-  completed,
-}) => {
+const CheckBoxButton = ({ priority, taskId, completed }) => {
+  const task = useSelector((state) => state.tasks[taskId]);
+  if (task) {
+    priority = task.priority;
+  }
+
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
   const toastIds = useSelector((state) => state.toastIds.toastIds);

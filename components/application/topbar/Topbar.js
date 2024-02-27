@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import UserMenu from "./UserMenu";
+import SearchCard from "./SearchCard";
 import Link from "next/link";
 import styles from "../../../styles/scss/topbar.module.scss";
 import Icon from "../widgets/Icon";
@@ -10,6 +11,7 @@ import AddTask from "../widgets/AddTask";
 const Topbar = ({ switchHandler }) => {
   const [showUserMenu, setShowMenu] = useState(false);
   const [addTask, setAddTask] = useState(false);
+  const [search, setSearch] = useState(false);
 
   const switchUserMenu = () => {
     setShowMenu((prevState) => !prevState);
@@ -17,6 +19,10 @@ const Topbar = ({ switchHandler }) => {
 
   const switchAddTaskCard = () => {
     setAddTask((prevState) => !prevState);
+  };
+
+  const switchSearchCard = () => {
+    setSearch((prevState) => !prevState);
   };
 
   const containerClickHandler = (event) => {
@@ -54,15 +60,13 @@ const Topbar = ({ switchHandler }) => {
         >
           <Icon type="top_menu" />
         </div>
-        <Link
-          href="/application/today"
-          className={styles.icon_button}
-        >
+        <Link href="/application/today" className={styles.icon_button}>
           <Icon type="home" />
         </Link>
-        <div className={styles.icon_button}>
+        <div onClick={switchSearchCard} className={styles.flex_center}>
           <Icon type="search" />
         </div>
+        {search && <SearchCard closeCardHandler={switchSearchCard} />}
       </div>
       <div className={styles.flex_center}>
         <div onClick={switchAddTaskCard} className={styles.avatar_button}>

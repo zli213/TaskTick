@@ -20,7 +20,7 @@ export default function ClientLayout(props) {
   dispatch(
     initialAllState(
       JSON.stringify(props.tasks),
-      props.projects,
+      props.projects, 
       props.inboxNum,
       props.todayNum,
       props.allTags,

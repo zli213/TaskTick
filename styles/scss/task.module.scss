@@ -75,12 +75,16 @@
   }
 
   .task_sidebar_label_title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 0.5rem 0;
+    @include flexRowBetween();
 
     h4 {
       line-height: $fontSizeMd;
+    }
+
+    div {
+      font-weight: 400;
+      // line-height: auto;
     }
   }
 
@@ -105,7 +109,7 @@
   }
 
   .task_tag_item:hover {
-    background-color: rgba($color: $textSecondaryColor, $alpha: 0.8);
+    background-color: rgba($color: $textSecondaryColor, $alpha: 0.3);
   }
 }
 
@@ -173,7 +177,7 @@
   width: 100%;
   cursor: pointer;
   align-items: center;
-  line-height: $lineHeight;
+  line-height: 2rem;
   vertical-align: center;
   border-radius: $borderRadius;
 }
@@ -184,6 +188,9 @@
 
 .flexStart {
   @include flexRowStart();
+  gap: $gapSm;
+  align-items: center;
+  justify-content: center;
 }
 
 .tag_box {
@@ -204,6 +211,31 @@
 }
 
 .btn_menu {
-  cursor: pointer !important;
+  cursor: pointer;
   position: relative;
+
+  &:hover {
+    background-color: $lightGrayColor !important;
+  }
+}
+
+.button_red {
+  color: $priorityRed;
+}
+
+.button_yellow {
+  color: $priorityYellow;
+}
+
+.button_blue {
+  color: $priorityBlue;
+}
+
+.tag_remove {
+  @include flexRowStart();
+  border-radius: $borderRadiusXsm;
+
+  &:hover {
+    background-color: $grayColor;
+  }
 }

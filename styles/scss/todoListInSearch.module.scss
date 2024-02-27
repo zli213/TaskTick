@@ -1,0 +1,116 @@
+@use "./utils/variable" as *;
+
+.section {
+  width: 100%;
+  margin-top: $marginXsm;
+}
+
+.todolist_header {
+  @include flexRowBetween();
+  margin: $marginXsm auto 0;
+  position: relative;
+  border-bottom: 1px solid $grayColor;
+  padding: $paddingXsm 0;
+
+  .menu_btn_container {
+    position: relative;
+
+    .menu_btn {
+      @include menuButton();
+    }
+  }
+}
+
+.content_wrapper {
+  position: absolute;
+  left: -3rem;
+  color: $textSecondaryColor;
+  width: 24px;
+  height: 24px;
+  border-radius: $borderRadiusXsm;
+  @include flexRowStart();
+
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $midGrayColor;
+  }
+}
+
+.content_wrapper_rotate {
+  svg {
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+  }
+}
+
+.task_item_action_menu {
+  @include menuItems();
+}
+
+.add_section_btn {
+  cursor: pointer;
+  @include flexRowBetween();
+  opacity: 0;
+  transition: all 0.2s;
+  font-weight: 500;
+  color: $primaryColor;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .line {
+    width: 42%;
+    height: 1px;
+    box-shadow: 0 0 1px rgba($primaryColor, 0.5);
+    background: rgba($primaryColor, 0.8);
+    margin: $marginXsm 0;
+  }
+}
+
+.add_section_form {
+  input,
+  button {
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm $paddingsm;
+    outline: none;
+    text-align: left;
+  }
+
+  input {
+    width: 100%;
+    font-weight: 500;
+    border: 1px solid $grayColor;
+    margin-bottom: 1rem;
+  }
+
+  .add_btn {
+    min-width: 12%;
+    cursor: not-allowed;
+    background-color: rgba($primaryColor, 0.5);
+    color: $lightGrayColor;
+    margin-right: 1rem;
+    margin-bottom: $marginSm;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .valid {
+    background-color: $primaryColor;
+    // transition: all 0.3s;
+  }
+
+  .cancel_btn {
+    width: 12%;
+    color: $textSecondaryColor;
+    text-align: center;
+
+    &:hover {
+      background-color: $lightGrayColor;
+      // color: $primaryColor;
+    }
+  }
+}

@@ -27,6 +27,7 @@ import FilterSelected from "../../../public/icon/filter_selected.svg";
 import FlagIcon from "../../../public/icon/flag.svg";
 import FlagBigIcon from "../../../public/icon/flag_big.svg";
 import FlagFilledIcon from "../../../public/icon/flag_filled.svg";
+import FlagFilledSmallIcon from "../../../public/icon/flag_filled_small.svg";
 import HashtagIcon from "../../../public/icon/hashtag.svg";
 import HashtagBigIcon from "../../../public/icon/hashtag_big.svg";
 import HashtagSmallIcon from "../../../public/icon/hashtag_small.svg";
@@ -41,6 +42,7 @@ import MenuUnfillIcon from "../../../public/icon/three_point_unfill.svg";
 import MoveListIcon from "../../../public/icon/move_list.svg";
 
 import SearchIcon from "../../../public/icon/search.svg";
+import SearchColorIcon from "../../../public/icon/search_color.svg";
 import SettingIcon from "../../../public/icon/setting.svg";
 import SmallTagIcon from "../../../public/icon/small_tag.svg";
 import SmallCalenderIcon from "../../../public/icon/small_calender.svg";
@@ -111,12 +113,16 @@ const Icon = ({ type, ...props }) => {
         return <MoveListIcon {...props} />;
       case "flag_filled":
         return <FlagFilledIcon {...props} />;
+      case "flag_filled_small":
+        return <FlagFilledSmallIcon {...props} />;
       case "flag_big":
         return <FlagBigIcon {...props} />;
       case "top_menu":
         return <TopMenuIcon {...props} />;
       case "search":
         return <SearchIcon {...props} />;
+      case "search_color":
+        return <SearchColorIcon {...props} />;
       case "calender":
         return <CalenderIcon {...props} />;
       case "flag":

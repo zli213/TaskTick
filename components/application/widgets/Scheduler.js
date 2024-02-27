@@ -14,12 +14,11 @@
 import styles from "../../../styles/scss/components/application/widgets/taskEditor.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "./DatePicker";
-import { convertPosition } from "../../../public/CommonFunctions";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToastId } from "../../../store/toastIds";
 
-function Scheduler({ data, onChangeDate, position }) {
+function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
   const dispatch = useDispatch();
   //---------------- variables -----------------
   // Calculate the dates for quick selection buttons.
@@ -325,16 +324,21 @@ function Scheduler({ data, onChangeDate, position }) {
 
   //--------- select date ------------
   const selectDate = (selDate) => {
+    if (selDate == "") {
+      onChangeDate({dateStr: null});
+      return;
+    }
     let dateJson = formatDate(selDate);
+
     // Change current selected date
     // Call parent function when select a date, and pass the date to parent using json convert
     // Show notification and undo button
-    const newToastId = toast.info(
+    const newToastId = !isEdit && toast.info(
       <Notification
         onUndo={() => {
-          clearTimeout(timer);
           let originalDateJson = formatDate(data.selectedDate);
           onChangeDate(originalDateJson);
+          onOverlayClick();
         }}
         date={dateJson.dateStr}
       />,
@@ -342,11 +346,9 @@ function Scheduler({ data, onChangeDate, position }) {
         pauseOnHover: false,
       }
     );
-    dispatch(addToastId(newToastId));
-    const timer = setTimeout(() => {
-      onChangeDate(dateJson);
-    }, 5000);
-    onOverlayClick();
+    
+    onChangeDate(dateJson);
+    !isEdit && dispatch(addToastId(newToastId));
   };
 
   //----------------- Notification ----------------
@@ -476,7 +478,7 @@ function Scheduler({ data, onChangeDate, position }) {
 
 // Convert selected date to string [today, tomorrow....]
 function convertSelectedDate(date) {
-  if (date === "") {
+  if (date === "" || date === null || date === undefined) {
     return "Due date";
   }
   const sameDate = (date1, date2) => {
@@ -514,7 +516,7 @@ export function formatDate(inDate) {
   if (indate !== "" || indate != null) {
     dateJson.dateTime = indate;
     dateJson.dateStr =
-      indate.getFullYear() +
+    indate.getFullYear() +
       "-" +
       (indate.getMonth() + 1) +
       "-" +
@@ -523,46 +525,6 @@ export function formatDate(inDate) {
 
   return dateJson;
 }
-
-// function convertPosition(position) {
-//   var newtop = position.top;
-//   var newleft = position.left;
-
-//   if(position.width == 0){
-//     return {
-//       ...position,
-//       left: position.left - 26 ,
-
-//     };
-//   }
-
-//   if (window.innerHeight - position.bottom < 450) {
-//     newtop = position.bottom - 380;
-//   }
-//   if (window.innerWidth - position.right < 120) {
-//     if (window.innerHeight - position.bottom < 200) {
-//       newtop = position.bottom - 380;
-//       newleft = window.innerWidth - 140;
-//     } else {
-//       newtop = position.bottom - 190;
-//       newleft = position.left - 130;
-//     }
-//   }
-
-//   if (newtop < 0) {
-//     newtop = 10;
-//   }
-
-//   if (newtop - 400 > window.innerHeight) {
-//     newtop = window.innerHeight - 410;
-//   }
-
-//   return {
-//     ...position,
-//     left: newleft - 114 + position.width / 2,
-//     top: newtop + 2,
-//   };
-// }
 
 export default Scheduler;
 

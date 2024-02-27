@@ -34,6 +34,7 @@ function Today(props) {
     const taskDueDate = new Date(task.dueDate);
     return taskDueDate.getTime() === today.getTime();
   });
+  
   useEffect(() => {
     document.title = "Today - Todo";
     localStorage.setItem("lastPage", "today");
@@ -83,11 +84,16 @@ function Today(props) {
             />
           )}
           <TodoList
+           
             tasks={todayTasks}
+           
             showProject={true}
+           
             title="Today"
+           
             fromDate={today}
             forbidEdit={true}
+         
           />
         </div>
       )}

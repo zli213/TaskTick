@@ -1,19 +1,12 @@
-import { useState, useRef } from "react";
-import { SingleItems } from "./SingleItem";
-import styles from "../../../styles/scss/todoList.module.scss";
-import AddTask from "./AddTask";
+import { useState } from "react";
+import { SingleItemsInSearch } from "./SingleItemsInSearch";
+import styles from "../../../styles/scss/todoListInSearch.module.scss";
 import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
-import {
-  addBoard,
-  deleteBoardAction,
-  editBoardAction,
-} from "../../../store/projects";
-import DeleteConfirmCard, { useDelete } from "./DeleteConfirmCard";
-import AddBoard, { useBoard } from "./AddBoard";
+import { useBoard } from "./AddBoard";
 
-function TodoList({
+function TodoListInSearch({
   tasks,
   title,
   showProject,
@@ -24,13 +17,11 @@ function TodoList({
   fromTag,
   fromDate,
   isCompleted,
-  titleClassName,
-  forbidEdit,
 }) {
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
-  const { showDeleteCard, showDeleteCardHandler } = useDelete();
+  //   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const {
     sectionInputRef,
     showAddSection,
@@ -176,17 +167,6 @@ function TodoList({
         id={title}
         style={{ marginTop: isCompleted && 0 }}
       >
-        {showEditSection && (
-          <AddBoard
-            refSection={sectionEditRef}
-            type="edit"
-            sectionName={sectionName2}
-            placeholder={placeholder2}
-            submitHandler={editBoardHandler}
-            nameChangeHandler={nameEditHandler}
-            closeHandler={switchEditSectionHandler}
-          />
-        )}
         {!showEditSection && haveTitle && (
           <header className={styles.todolist_header}>
             <div
@@ -197,15 +177,15 @@ function TodoList({
             >
               <Icon type="down_arrow_small" />
             </div>
-            <h4 className={titleClassName}>{title}</h4>
-            {!forbidEdit && (
+            <h4>{title}</h4>
+            {title !== "Today" && (
               <div className={styles.menu_btn_container}>
                 <button
                   onClick={swithMenuHandler}
                   className={styles.menu_btn}
                   style={{ backgroundColor: showItemMenu && "#eeeeee" }}
                 >
-                  <Icon type="menu_unfill" id="icon"/>
+                  <Icon type="menu_unfill" />
                 </button>
                 {showItemMenu && (
                   <PopupMenu
@@ -232,40 +212,27 @@ function TodoList({
         )}
 
         {showList && (
-          <>
-            <div>
-              {haveTasks &&
-                tasks.map((data) => (
-                  <SingleItems
-                    task={data}
-                    key={data._id}
-                    _id={data._id}
-                    title={data.title}
-                    dueDate={data.dueDate}
-                    description={data.description}
-                    projectName={data.projectName}
-                    projectId={data.projectId}
-                    board={data.board}
-                    tags={data.tags}
-                    priority={data.priority}
-                    completed={data.completed}
-                    showProject={showProject}
-                    allTags={allTags}
-                    allProjects={allProjects}
-                  />
-                ))}
-            </div>
-            {title !== "Overdue" && !isCompleted && (
-              <AddTask
-                allTags={allTags}
-                allProjects={allProjects}
-                fromProject={fromProject}
-                fromBoard={fromBoard}
-                fromTag={fromTag}
-                fromDate={fromDate}
-              />
-            )}
-          </>
+          <div>
+            {haveTasks &&
+              tasks.map((data) => (
+                <SingleItemsInSearch
+                  key={data._id}
+                  _id={data._id}
+                  title={data.title}
+                  dueDate={data.dueDate}
+                  description={data.description}
+                  projectName={data.projectName}
+                  projectId={data.projectId}
+                  board={data.board}
+                  tags={data.tags}
+                  priority={data.priority}
+                  completed={data.completed}
+                  showProject={showProject}
+                  allTags={allTags}
+                  allProjects={allProjects}
+                />
+              ))}
+          </div>
         )}
       </section>
       {fromProject.projectId !== "" && (
@@ -283,28 +250,8 @@ function TodoList({
           <span className={styles.line} />
         </button>
       )}
-      {showAddSection && (
-        <AddBoard
-          refSection={sectionInputRef}
-          type="add"
-          sectionName={sectionName}
-          placeholder={placeholder}
-          submitHandler={addBoardformHandler}
-          nameChangeHandler={nameChangeHandler}
-          closeHandler={switchAddSectionHandler}
-        />
-      )}
-      {showDeleteCard && (
-        <DeleteConfirmCard
-          closeHandler={showDeleteCardHandler}
-          actionFunction={deleteBoardHandler}
-          content2={" with its " + tasks.length + " tasks?"}
-          name={title}
-          type="Delete"
-        />
-      )}
     </>
   );
 }
 
-export default TodoList;
+export default TodoListInSearch;
