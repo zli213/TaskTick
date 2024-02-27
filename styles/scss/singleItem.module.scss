@@ -297,33 +297,6 @@
   color: white !important;
 }
 
-.tag_box2 {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.tag_box3 {
-  flex: 0 0 auto;
-}
-
-.tag_box4 {
-  max-width: 30%;
-  margin-left: auto;
-}
-
-.btn_menu {
-  cursor: pointer !important;
-  position: relative;
-}
-
-.flex_start{
-  height: 100%;
-  width: 100%;
-  @include flexRowStart();
-}
-
 @media screen and (max-width: 600px) {
   .task_description {
     white-space: nowrap;

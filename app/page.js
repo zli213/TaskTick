@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Navbar from "../components/pages/Navbar";
+import styles from "../styles/scss/home.module.scss";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="homeContainer">
+      <div className={styles.home_container}>
         <div className="slogan">
-          <h1 className="slogan_h1">Organize your work</h1>
+          <h1 className="slogan_h1">Oranize your work</h1>
           <h1 className="slogan_h1">and life, finally.</h1>
           <p className="slogan_p">
             Become focused, organized, and calm with TaskTick. The world’s #1
