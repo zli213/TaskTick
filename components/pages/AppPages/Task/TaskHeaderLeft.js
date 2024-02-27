@@ -38,17 +38,17 @@ export default function TaskHeaderLeft({
               <Icon type="hashtag_small" />
             </span>
           )}
-          &nbsp;<span className={styles.tag_box2} style={{display: 'block'}}>{projectName}</span>
+          &nbsp;<span className={styles.tag_box2} style={{display: 'block'}} id="tag">{projectName}</span>
           {board && (
             <>
               &nbsp;/&nbsp;
-              <span className={styles.tag_box3}>{board}</span>
+              <span className={styles.tag_box3} id="tag">{board}</span>
             </>
           )}
         </Link>
       )}
 
-      {projectName && reverse && <Icon type="hashtag_small"  className={styles.tag_box3}/>}
+      {projectName && reverse && <Icon type="hashtag_small"  className={styles.tag_box3} id="tag"/>}
     </div>
   );
 }

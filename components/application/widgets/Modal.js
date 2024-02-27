@@ -4,7 +4,7 @@
  */
 
 "use client";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/scss/modal.module.scss";
 
@@ -24,15 +24,15 @@ export default function Modal(props) {
     }
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("wheel", disableScroll, { passive: false });
-  //   document.addEventListener("touchmove", disableScroll, { passive: false });
+  useEffect(() => {
+    document.addEventListener("wheel", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false });
 
-  //   return () => {
-  //     document.removeEventListener("wheel", disableScroll);
-  //     document.removeEventListener("touchmove", disableScroll);
-  //   };
-  // }, []);
+    return () => {
+      document.removeEventListener("wheel", disableScroll);
+      document.removeEventListener("touchmove", disableScroll);
+    };
+  }, []);
 
   const onDismiss = useCallback(() => {
     const currentPage = localStorage.getItem("lastPage");

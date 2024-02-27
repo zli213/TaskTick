@@ -16,8 +16,6 @@ export default function RootLayout({ children }) {
   const themeName = getCookie("themeName", { cookies });
   const systemTheme = getCookie("systemTheme", { cookies });
 
-  console.log("get themeName=", themeName);
-  console.log("get systemTheme=", systemTheme);
   
   const styleName = themeName === "system" ? systemTheme : themeName;
   return (

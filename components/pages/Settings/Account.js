@@ -72,7 +72,7 @@ const SettingAccount = () => {
   }, [router]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="account_container">
       <header>
         <h4>Account Information</h4>
         <button onClick={onDismiss}>

@@ -148,7 +148,6 @@ export const options = {
         if (user[0]) {
           session.user.userId = user[0]._id.toString();
           session.user.username = user[0].username;
-          // session.user.theme = user[0].themes[0];
         } else {
           session.user.userId = null;
         }

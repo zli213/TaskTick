@@ -219,7 +219,7 @@ export function SingleItems({
                   {dispTags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
                       <Icon type="small_tag" id="icon"/>
-                      <span className={styles.tag_box}>{tag}</span>
+                      <span className={styles.tag_box} id="tag">{tag}</span>
                     </Link>
                   ))}
                   {showProject && (

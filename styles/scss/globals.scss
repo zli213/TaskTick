@@ -41,7 +41,14 @@
     }
   }
 
-  
+  #account_container {
+    span {
+      background-color: $textSecondaryColor;
+      &:hover {
+        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      }
+    }
+  }
   
   #taskEditor,
   #menuBox,
@@ -71,6 +78,10 @@
 
   #icon {
     color: $secondaryColor;
+  }
+
+  #tag {
+    color: $heaveGrayColor;
   }
 
   #settingRight {

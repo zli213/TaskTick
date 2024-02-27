@@ -71,6 +71,9 @@
 }
 
 .headerPic {
+    label {
+        color: $primaryColor;
+    }
     display: inline-flex;
     flex-direction: row;
     align-items: center;
