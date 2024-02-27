@@ -97,7 +97,7 @@ function MyProjectItem({ project, type }) {
   return (
     <li
       key={project.projectId}
-      style={{ backgroundColor: showItemMenu && "rgba(245, 245, 245, 0.5)" }}
+      className={showItemMenu ? "showed_menu" : ""}
       id="project_item"
     >
       <Link href={`/application/project/${project.projectId}`} className={styles.tag_box1}>

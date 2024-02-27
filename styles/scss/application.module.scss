@@ -196,7 +196,6 @@
     @include flexRowStart();
     width: $fontSizeMd;
     height: 2.8rem;
-    // background-color: $lightGrayColor;
     border-radius: $borderRadiusXsm;
     opacity: 0;
     cursor: pointer;
@@ -486,4 +485,8 @@
 .tag_box2{
   flex: 0 0 auto;
   @include flexRowStart();
+}
+
+.showed_menu {
+  background-color: rgba($lightGrayColor,0.5);
 }
