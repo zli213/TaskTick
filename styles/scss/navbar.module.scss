@@ -15,7 +15,7 @@
       border-radius: $borderRadiusSm;
     }
 
-    a{
+    a {
       @include flexRowStart();
       gap: $marginSm;
       color: $primaryColor;
@@ -34,21 +34,17 @@
       // margin-left: 15px;
       color: #000;
       text-decoration: none;
-     
 
       &:hover {
         text-decoration: underline;
       }
-
-     
     }
 
     .loginButton {
- 
       background-color: $primaryColor;
       color: $secondaryColor;
       border-radius: $borderRadius;
-      padding: $paddingXsm  $paddingsm;
+      padding: $paddingXsm $paddingsm;
       font-weight: 500;
       border: none;
       cursor: pointer;
