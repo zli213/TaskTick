@@ -276,7 +276,7 @@ function TaskEditor({
 
   return (
     <>
-      <div className={styles.task_edit_form} id="taskEditor">
+      <div className={styles.task_edit_form} id="task_editor">
         <form>
           <div className={styles.task_edit_area}>
             <div className="task_edit_inputs">
@@ -307,7 +307,7 @@ function TaskEditor({
             </div>
             <div className={styles.task_edit_buttons}>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={swichSchedulerHandler}>
+                <button type="button" onClick={swichSchedulerHandler} id="action_menu_btn">
                   {convertDate(selectedDate)}
                 </button>
                 {showSchedulerMenu && (
@@ -333,6 +333,7 @@ function TaskEditor({
                   type="button"
                   onClick={swichPriorityHandler}
                   style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
+                  id="action_menu_btn"
                 >
                   <Icon
                     type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
@@ -362,6 +363,7 @@ function TaskEditor({
                   type="button"
                   onClick={swichTagHandler}
                   style={{ backgroundColor: showTagMenu && "#f5f5f5" }}
+                  id="action_menu_btn"
                 >
                   Tags
                 </button>
@@ -394,6 +396,7 @@ function TaskEditor({
                 className={styles.project_board}
                 onClick={swichProjectHandler}
                 style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
+                id="action_menu_btn"
               >
                 <span className={styles.tag_box2}>
                   {dispProjectId === "" ? "Inbox" : dispProjectName}

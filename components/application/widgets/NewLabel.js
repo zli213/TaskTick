@@ -177,6 +177,7 @@ export default function NewLabel(props) {
               <button
                 onClick={props.closeHandler}
                 className={styles.btn_cancel}
+                id="btn_cancel"
               >
                 Cancel
               </button>

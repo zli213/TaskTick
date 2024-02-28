@@ -220,7 +220,7 @@ export function SingleItems({
         <div className={styles.task_container}>
           {/* content */}
           <div className={styles.content_container} id="content_holder">
-            <div className={styles.drag_tool}>
+            <div className={styles.drag_tool} id="action_menu_btn">
               <div>
                 <span className={styles.check}>
                   <Icon type="drag" id="icon"/>
@@ -307,10 +307,11 @@ export function SingleItems({
                 onClick={() => {
                   setIsEditing(true);
                 }}
+                id="action_menu_btn"
               >
                 <Icon type="edit" id="icon"/>
               </button>
-              <span className={styles.btn_menu}>
+              <span className={styles.btn_menu} id="action_menu_btn">
                 <button
                   onClick={swichSchedulerHandler2}
                   className={styles.two_btn}
@@ -341,6 +342,7 @@ export function SingleItems({
                 onClick={swithMenuHandler}
                 className={styles.menu_button}
                 style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+                id="action_menu_btn"
               >
                 <Icon type="menu_unfill" id="icon"/>
               </button>

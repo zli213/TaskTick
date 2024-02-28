@@ -97,12 +97,13 @@ function Leftbar({ showClass }) {
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
-            <button onClick={showProjectCardHandler}>
+            <button onClick={showProjectCardHandler} id="action_menu_btn">
               <Icon type="add" />
             </button>
             <button
               onClick={clickListHandler}
               className={showList ? "" : styles.show_project_icon}
+              id="action_menu_btn"
             >
               <Icon type="down_arrow" />
             </button>

@@ -27,13 +27,12 @@
   color: $secondaryColor;
   
   #leftbar,
-  #settingLeft,
   #task_sidebar,
   #task_sidebar_list {
-    background-color: $textSecondaryColor;
+    background-color: $darkerGrayColor;
     color: $secondaryColor;
 
-    h4, a, span {
+    h4 {
       color: $secondaryColor;
     }
   }
@@ -47,12 +46,11 @@
     }
   }
   
-  #taskEditor,
-  #menuBox,
-  #settingRight,
-  #addProject,
-  #newTask,
-  #noticeContainer,
+  #task_editor,
+  #menu_box,
+  #setting_right,
+  #add_project,
+  #notice_container,
   #task_header,
   #task_main_container,
   #project_popup_window,
@@ -64,11 +62,16 @@
     a, span {
       color: $secondaryColor;
     }
+
+    li:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
   }
 
-  #listBox,
-  #viewHeader,
-  #content_holder {
+  #list_box,
+  #view_header,
+  #content_holder,
+  #search_card {
     background-color: $textPrimaryColor;
     color: $secondaryColor;
   }
@@ -81,15 +84,17 @@
     color: $heaveGrayColor;
   }
 
-  #settingRight {
+  #setting_right {
     div {
       border-top: 1px solid $textPrimaryColor;
     }
   }
 
   #task_tag_item,
-  #add_btn {
-    background-color: $textPrimaryColor;
+  #add_btn,
+  #btn_cancel
+    {
+    background-color: $textSecondaryColor;
     &:hover {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
     }
@@ -99,6 +104,7 @@
   #action_menu_btn {
     background-color: none;
     color: $secondaryColor;
+    border-radius: $borderRadiusSm;
     &:hover {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
     }

@@ -108,7 +108,7 @@ export default function NewProject(props) {
   return (
     <div onClick={props.closeHandler}>
       <Modal>
-        <div className={styles.add_project_modal_container} id="addProject">
+        <div className={styles.add_project_modal_container} id="add_project">
           <div>
             <h1>{props.name ? "Edit" : "Add"} project</h1>
           </div>
@@ -150,6 +150,7 @@ export default function NewProject(props) {
               <button
                 onClick={props.closeHandler}
                 className={styles.btn_cancel}
+                id="btn_cancel"
               >
                 Cancel
               </button>

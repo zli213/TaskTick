@@ -7,7 +7,7 @@ function Notice ({ isOpen, onClose, onConfirm, promptText}) {
         isOpen && (
             <>
             <div className={styles.mask}></div>
-            <div className={styles.noticeContainer} id="noticeContainer">
+            <div className={styles.noticeContainer} id="notice_container">
                 <header className={styles.noticeHeader}>
                     <label>Discard Changes?</label>
                     <button>

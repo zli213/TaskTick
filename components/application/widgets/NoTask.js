@@ -34,7 +34,7 @@ const NoTask = (props) => {
   }
 
   return (
-    <div className={styles.list_box} id="listBox">
+    <div className={styles.list_box} id="list_box">
       <AddTask
         allTags={props.allTags}
         allProjects={props.allProjects}

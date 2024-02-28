@@ -35,13 +35,13 @@ export default function MyProjects(props) {
 
   return (
     <>
-      <div className={styles.view_header} id="viewHeader">
+      <div className={styles.view_header} id="view_header">
         <div
           className={`${styles.view_header_content} ${styles.view_header_project}`}
         >
           <h1>My Projects</h1>
           <div>
-            <Link href="/application/setting/account" scroll={false}>
+            <Link href="/application/setting/account" scroll={false} id="action_menu_btn">
               <Icon type="setting" />
               <span>Setting</span>
             </Link>
@@ -60,6 +60,7 @@ export default function MyProjects(props) {
             <div
               className={`${styles.active_btn_projects} ${styles.project_btn}`}
               onClick={swithMenuHandler}
+              id="action_menu_btn"
             >
               {props.type === "active"
                 ? "Active projects"

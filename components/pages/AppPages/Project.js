@@ -70,7 +70,7 @@ export default function Project({ projectId }) {
 
   return (
     <>
-      <div className={styles.view_header} id="viewHeader">
+      <div className={styles.view_header} id="view_header">
         <div className={styles.view_header_content}>
           <h1>{project.name}</h1>
           {!project.archived && (
@@ -114,7 +114,7 @@ export default function Project({ projectId }) {
       </div>
 
       {project.archived && (
-        <div className={`${styles.list_box} ${styles.archived_project} `} id="listBox">
+        <div className={`${styles.list_box} ${styles.archived_project} `} id="list_box">
           <p>This project is archived</p>
           <button onClick={unarchiveHandler}>Unarchive</button>
         </div>

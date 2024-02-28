@@ -34,7 +34,7 @@ function FilterPage() {
 
   return (
     <>
-      <div className={styles.view_header} id="viewHeader">
+      <div className={styles.view_header} id="view_header">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -42,7 +42,7 @@ function FilterPage() {
         </div>
       </div>
 
-      <div className={styles.list_box} id="listBox">
+      <div className={styles.list_box} id="list_box">
         <section>
           <header className={styles.filters_header}>
             <div

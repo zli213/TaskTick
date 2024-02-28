@@ -47,7 +47,7 @@ export default function Inbox(props) {
 
   return (
     <>
-      <div className={styles.view_header} id="viewHeader">
+      <div className={styles.view_header} id="view_header">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -94,7 +94,7 @@ export default function Inbox(props) {
       completedTasks.length !== 0 ? (
         <NoTask page="inbox" />
       ) : (
-        <div className={styles.list_box} id="listBox">
+        <div className={styles.list_box} id="list_box">
           <TodoList tasks={inBoxTasks} />
           {showCompletedTask && (
             <TodoList tasks={completedTasks} isCompleted={true} />
