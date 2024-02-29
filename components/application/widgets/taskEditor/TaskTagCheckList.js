@@ -37,7 +37,6 @@ function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
   return (
     <>
       <div
-        id="tagCheckList"
         scrollable="scrollable_area"
         className={styles.tag_check_list_dropdown}
       >
@@ -53,6 +52,7 @@ function TaskTagCheckList({ allTags, checkedTags, onTagCheckClick }) {
               updateNewCheckedTags(item, ele);
               onTagCheckClick(newCheckedTags.current);
             }}
+            id="tag_check_list_item"
           >
             <div className={styles.tag_box3}>
               <Icon type="hashtag_big" className={styles.tag_box} style={{color: "#999"}} />

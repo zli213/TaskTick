@@ -486,3 +486,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.btn_selected {
+  background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+  border-radius: $borderRadiusSm;
+}

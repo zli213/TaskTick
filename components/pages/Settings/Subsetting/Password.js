@@ -95,13 +95,13 @@ const SetPassword = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")}>
+          <button onClick={() => router.push("/application/setting/account")} id="option_link">
             <Icon type="left_arrow" />
           </button>
           <label>Modify your password</label>
         </span>
 
-        <button onClick={onDismiss}>
+        <button onClick={onDismiss} id="option_link">
           <Icon type="close"  id="icon"/>
         </button>
       </header>

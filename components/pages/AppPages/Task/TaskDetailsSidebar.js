@@ -212,6 +212,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
               ) : (
                 <div
                   className={`${styles.tag_box2} ${styles.task_sidebar_button}`}
+                  id="task_sidebar_button"
                 >
                   <span className={`${styles.tag_box3} ${styles.flexStart}`}>
                     <Icon type="hashtag_small" />
@@ -266,6 +267,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
               <span
                 className={styles.btn_menu}
                 style={{ position: "absolute" }}
+                id="task_sidebar_button"
               >
                 {showSecSchedulerMenu && !task.completed && (
                   <PopupMenu
@@ -324,11 +326,10 @@ export default function TaskDetailsSidebar({ task, taskId }) {
 
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button">
             <button
               className={styles.task_sidebar_button}
               onClick={swichPriorityHandler}
-              id="task_sidebar_button"
             >
               <div className={styles.flexStart}>
                 <Icon
@@ -358,7 +359,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button">
             <div
               className={` ${styles.task_sidebar_button} ${styles.task_sidebar_label_title}`}
               onClick={swichTagHandler}
@@ -388,7 +389,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
             {task.tags &&
               task.tags.map((tag, index) => (
                 <div key={tag}>
-                  <span className={styles.task_tag_item} key={index}>
+                  <span className={styles.task_tag_item} key={index} id="task_sidebar_button">
                     <Link
                       href={`/application/label/${tag}`}
                       className={styles.tag_box}

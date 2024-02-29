@@ -213,9 +213,10 @@
 .btn_menu {
   cursor: pointer;
   position: relative;
+  border-radius: $borderRadiusSm;
 
   &:hover {
-    background-color: $lightGrayColor !important;
+    background-color: $lightGrayColor;
   }
 }
 

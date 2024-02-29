@@ -62,7 +62,8 @@
     a, span {
       color: $secondaryColor;
     }
-
+    
+    button:hover,
     li:hover {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
     }
@@ -84,11 +85,6 @@
     color: $heaveGrayColor;
   }
 
-  #setting_right {
-    div {
-      border-top: 1px solid $textPrimaryColor;
-    }
-  }
 
   #task_tag_item,
   #add_btn,
@@ -101,20 +97,24 @@
   }
 
   #task_sidebar_button,
-  #action_menu_btn {
+  #action_menu_btn,
+  #tag_check_list_item {
     background-color: none;
     color: $secondaryColor;
-    border-radius: $borderRadiusSm;
     &:hover {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      border-radius: $borderRadiusSm;
     }
   }
 
   #leftbar_item:hover,
   #project_item:hover,
   #option_link:hover,
-  #setting_item:hover {
+  #setting_item:hover,
+  #menu_box a:hover,
+  #menu_box div:hover {
     background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    border-radius: $borderRadiusSm
   }
 
   #project_item,

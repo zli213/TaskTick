@@ -210,7 +210,6 @@ function TaskEditor({
     changeDispProjectName(projName);
     changeDispBoard(board);
     swichProjectHandler();
-    //console.log({ id: projId, name: projName, board: board });
   };
 
   const recordTaskContent = () => {
@@ -307,7 +306,12 @@ function TaskEditor({
             </div>
             <div className={styles.task_edit_buttons}>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={swichSchedulerHandler} id="action_menu_btn">
+                <button
+                  type="button"
+                  onClick={swichSchedulerHandler}
+                  id="action_menu_btn"
+                  className={showSchedulerMenu ? styles.btn_selected : ""}
+                >
                   {convertDate(selectedDate)}
                 </button>
                 {showSchedulerMenu && (
@@ -332,8 +336,9 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichPriorityHandler}
-                  style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
+                  // style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
                   id="action_menu_btn"
+                  className={showPriorityMenu ? styles.btn_selected : ""}
                 >
                   <Icon
                     type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
@@ -362,8 +367,8 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichTagHandler}
-                  style={{ backgroundColor: showTagMenu && "#f5f5f5" }}
                   id="action_menu_btn"
+                  className={showTagMenu ? styles.btn_selected : ""}
                 >
                   Tags
                 </button>
@@ -393,9 +398,8 @@ function TaskEditor({
             {/* project / board */}
             <div className={styles.btn_menu}>
               <div
-                className={styles.project_board}
+                className={`${styles.project_board} ${showProjectMenu ? styles.btn_selected : ""}`}
                 onClick={swichProjectHandler}
-                style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
                 id="action_menu_btn"
               >
                 <span className={styles.tag_box2}>

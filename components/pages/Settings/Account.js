@@ -75,7 +75,7 @@ const SettingAccount = () => {
     <div className={styles.container} id="account_container">
       <header>
         <h4>Account Information</h4>
-        <button onClick={onDismiss}>
+        <button onClick={onDismiss} id="option_link">
           <Icon type="close_small" id="icon"/>
         </button>
       </header>

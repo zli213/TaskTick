@@ -88,7 +88,7 @@ const SettingTheme = () => {
     <div className={styles.container}>
       <header>
         <h4>Theme</h4>
-        <button onClick={onDismiss}>
+        <button onClick={onDismiss} id="option_link">
           <Icon type="close" id="icon"/>
         </button>
       </header>

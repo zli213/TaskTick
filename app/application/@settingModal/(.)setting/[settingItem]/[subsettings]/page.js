@@ -37,7 +37,10 @@ export default function SettingModal({ params }) {
           <h2>Settings</h2>
           <ul>
             <li>
-              <div className={`${styles.leftGroup} ${styles.selected}`}>
+              <div
+                className={`${styles.leftGroup} ${styles.selected}`}
+                id="setting_item"
+              >
                 <Link href="/application/setting/account" scroll={false}>
                   <span>
                     <AccountSelected/>
@@ -50,7 +53,8 @@ export default function SettingModal({ params }) {
             </li>
             <li>
               <div
-              className={styles.leftGroup}
+                className={styles.leftGroup}
+                id="setting_item"
               >
                 <Link href="/application/setting/theme" scroll={false}>
                   <span><Theme/></span>
