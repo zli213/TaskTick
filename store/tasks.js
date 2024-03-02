@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialProjects, addProjectNum } from "./projects";
 import { initialLabels } from "./labels";
 import { initialNum, addInboxNum, addTodayNum } from "./num";
-import { initialCompletedTasks, addCompletedTask } from "./completedTask";
+import {
+  initialCompletedTasks,
+  addCompletedTask,
+  removeCompletedTask,
+} from "./completedTask";
 
 const initialState = {};
 
@@ -274,6 +278,7 @@ export const updateTaskAction =
 
 export const completeTaskAction = (_id) => (dispatch, getState) => {
   const task = getState().tasks[_id];
+  console.log("完成task内容:", task);
 
   dispatch(addCompletedTask(task));
   dispatch(deleteTask(_id));
@@ -293,6 +298,47 @@ export const completeTaskAction = (_id) => (dispatch, getState) => {
     const taskDueDate = new Date(dueDate);
     if (taskDueDate.getTime() <= today.getTime()) {
       dispatch(addTodayNum(-1));
+    }
+  }
+};
+
+export const undoCompleteTaskAction = (_id) => (dispatch, getState) => {
+  // Assuming that completed tasks and uncompleted tasks are stored in different sections, try to get the task object from completed tasks first
+  const completedTask =
+    getState().completedTasks.inbox[_id] ||
+    Object.values(getState().completedTasks).find((project) => project[_id]);
+
+  if (!completedTask) {
+    console.error("Task not found in completed tasks:", _id);
+    return;
+  }
+
+  const taskToReAdd = {
+    ...completedTask,
+    completed: false,
+    updatedAt: new Date().toISOString(),
+  };
+
+  // Add to the unfinished task list first
+  dispatch(addTask(taskToReAdd));
+
+  // Then remove it from the completed task list
+  dispatch(removeCompletedTask(_id));
+
+  // Update related counters
+  const { dueDate, projectId } = taskToReAdd;
+  if (projectId !== "" && projectId !== null) {
+    dispatch(addProjectNum({ projectId: projectId, num: 1 }));
+  } else {
+    dispatch(addInboxNum(1));
+  }
+
+  if (dueDate) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const taskDueDate = new Date(dueDate);
+    if (taskDueDate.getTime() <= today.getTime()) {
+      dispatch(addTodayNum(1));
     }
   }
 };
