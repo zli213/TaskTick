@@ -7,7 +7,6 @@
 .app_holder {
   position: relative;
   display: flex;
-
 }
 
 .list_sidebar_hide {
@@ -49,12 +48,12 @@
     padding-bottom: $paddingsm;
 
     h1 {
-      flex:1;
+      flex: 1;
       max-width: 90%;
       font-size: $fontSizeMd;
       // white-space: pre;
       // overflow-wrap: break-word;
-      word-wrap: break-word ;
+      word-wrap: break-word;
     }
   }
 
@@ -63,7 +62,7 @@
   }
 }
 
-.today_title{
+.today_title {
   width: 100%;
 }
 
@@ -190,7 +189,7 @@
     height: 4rem;
     @include flexRowStart();
     width: 100%;
-    align-items: center
+    align-items: center;
   }
 
   .project_item_menu {
@@ -311,7 +310,6 @@
     .labels_item_content {
       width: 100%;
       @include flexRowBetween();
-      
     }
   }
 
@@ -437,7 +435,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  top: -12px;
+  top: -10px;
   left: 2px;
   background-color: #fff;
   transition: 350ms ease all;
@@ -477,14 +475,14 @@
   color: $heaveGrayColor;
 }
 
-.tag_box1{
+.tag_box1 {
   flex: 1;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.tag_box2{
+.tag_box2 {
   flex: 0 0 auto;
   @include flexRowStart();
 }
