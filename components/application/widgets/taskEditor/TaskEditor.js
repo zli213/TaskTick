@@ -279,7 +279,7 @@ function TaskEditor({
       <div className={styles.task_edit_form}>
         <form>
           <div className={styles.task_edit_area}>
-            <div className="task_edit_inputs">
+            <div className={styles.task_edit_inputs}>
               <TaskNameInput
                 tags={newTaskData.current.tags}
                 taskName={newTaskData.current.taskName}

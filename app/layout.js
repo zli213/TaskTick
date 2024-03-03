@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/scss/globals.scss";
 import ProviderWrapper from "./ProviderWrapper";
 export const metadata = {
-  title: "Todo APP",
+  title: "TaskTick",
   description: "Your personal Todo list APP",
 };
 

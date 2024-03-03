@@ -29,7 +29,7 @@ export default function MyProjects(props) {
   }
 
   useEffect(() => {
-    document.title = "My Projects - Todo";
+    document.title = "My Projects - TaskTick";
     localStorage.setItem("lastPage", `projects/active`);
   }, []);
 

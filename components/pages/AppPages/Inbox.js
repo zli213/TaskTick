@@ -31,7 +31,7 @@ export default function Inbox(props) {
   };
 
   useEffect(() => {
-    document.title = "Inbox - Todo";
+    document.title = "Inbox - TaskTick";
     localStorage.setItem("lastPage", "inbox");
   }, []);
 
@@ -89,9 +89,8 @@ export default function Inbox(props) {
           </div>
         </div>
       </div>
-      {tasks.length == 0 &&
-      !showCompletedTask &&
-      completedTasks.length !== 0 ? (
+      {inBoxTasks.length == 0 &&
+      !showCompletedTask ? (
         <NoTask page="inbox" />
       ) : (
         <div className={styles.list_box}>

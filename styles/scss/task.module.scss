@@ -2,12 +2,15 @@
 
 .task_modal_container {
   position: fixed;
-  top: calc($marginLg);
-  left: calc(50vw - $taskPageWidth / 2);
+  padding: 0 auto;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
-  width: $taskPageWidth;
+  width: 80%;
   height: calc(100vh - $marginLg * 2);
   max-width: $taskPageWidth;
   overflow: hidden;
@@ -47,11 +50,12 @@
 }
 
 .task_sidebar {
-  width: $taskSideBarWidth;
+  max-width: 28rem;
+  min-width: 28rem;
   background-color: $lightGrayColor;
   height: calc(100vh - $marginLg * 2);
   padding: $paddingMd;
-  overflow: hidden;
+  // overflow: hidden;
 
   .task_sidebar_list {
     width: 100%;
@@ -238,4 +242,44 @@
   &:hover {
     background-color: $grayColor;
   }
+}
+
+
+@media screen and (max-width: 800px) {
+  .task_modal_container {
+    width: 90%;
+  }
+
+  .task_sidebar{
+    min-width: 35%;
+ 
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .task_modal_container{
+    width: 95%;
+  }
+
+  .task_container{
+    flex-direction: column;
+  }
+
+  .task_main_container{
+    min-height: 30rem;
+  }
+
+  .task_sidebar{
+    min-width: 100%;
+    height: auto;
+    background-color: #fff;
+    border-top: 1px solid $grayColor;
+  }
+}
+
+@media screen and (max-height: 900px) {
+  .task_modal_container{
+    height: 95%;
+  }
+
 }

@@ -77,19 +77,22 @@
     }
   }
 
-  .task_title {
-    white-space: normal;
-    overflow-wrap: break-word;
-    overflow: hidden;
-  }
+.task_title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
 
-  .task_description {
-    font-size: $fontSizeXsm;
-    color: $textSecondaryColor;
-    white-space: pre;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.task_description {
+  @include flexRowStart();
+  width: 100%;
+  font-size: $fontSizeXsm;
+  color: $textSecondaryColor;
+  white-space: normal;
+  overflow: hidden ;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+}
 
   .task_info_container {
     @include flexRowStart();
@@ -292,4 +295,10 @@
 .completed_svg {
   opacity: 1 !important;
   color: white !important;
+}
+
+@media screen and (max-width: 600px) {
+  .task_description {
+    white-space: nowrap;
+  }
 }
