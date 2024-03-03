@@ -278,7 +278,6 @@ export const updateTaskAction =
 
 export const completeTaskAction = (_id) => (dispatch, getState) => {
   const task = getState().tasks[_id];
-  console.log("完成task内容:", task);
 
   dispatch(addCompletedTask(task));
   dispatch(deleteTask(_id));

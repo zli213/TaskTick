@@ -27,7 +27,6 @@ const CheckBoxButton = ({ priority, taskId, completed }) => {
 
   const [isCompleted, setIsCompleted] = useState(completed);
   const dispatch = useDispatch();
-  // const toastIds = useSelector((state) => state.toastIds.toastIds);
   const getPriorityColor = (option) => {
     switch (option) {
       case "P1":
@@ -42,7 +41,6 @@ const CheckBoxButton = ({ priority, taskId, completed }) => {
   };
 
   const clickHandler = async () => {
-    console.log("click");
     const apiOption = isCompleted
       ? "/api/undoCompleteTask"
       : "/api/completeTask";
@@ -64,7 +62,7 @@ const CheckBoxButton = ({ priority, taskId, completed }) => {
       const result = await res.json();
       if (result) {
         dispatch(actionToDispatch(taskId));
-        setIsCompleted(!isCompleted);
+        // setIsCompleted(!isCompleted);
       } else {
         throw new Error("Operation failed without error message.");
       }
@@ -73,14 +71,16 @@ const CheckBoxButton = ({ priority, taskId, completed }) => {
     }
   };
   useEffect(() => {
-    console.log("completed status:", isCompleted);
-  }, [isCompleted]);
+    if (task) {
+      const completedStatus = task.completed;
+      setIsCompleted(completedStatus);
+    }
+  }, [isCompleted, task]);
 
   return (
     <button
       className={`${styles.task_checkBox} ${getPriorityColor(priority)} `}
       onClick={clickHandler}
-      // disabled={completed}
     >
       <span
         className={`${styles.task_checkBox_backgroud} ${
