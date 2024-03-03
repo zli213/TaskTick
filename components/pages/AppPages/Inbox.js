@@ -56,6 +56,7 @@ export default function Inbox(props) {
             <button
               onClick={swithMenuHandler}
               className={styles.btn_completed_task}
+              id="action_menu_btn"
             >
               <Icon type="view" />
               View
@@ -67,7 +68,7 @@ export default function Inbox(props) {
                 levels=""
               >
                 <div className={styles.task_item_action_menu}>
-                  <div className={styles.view_btn}>
+                  <div className={styles.view_btn} id="action_menu_btn">
                     <Icon type="check_circle" />
                     <label htmlFor="showCompletedTask">
                       <div>Completed tasks</div>

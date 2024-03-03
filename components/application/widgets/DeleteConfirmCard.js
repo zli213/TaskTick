@@ -64,13 +64,14 @@ function DeleteConfirmCard(props) {
   return (
     <div onClick={props.closeHandler}>
       <Modal>
-        <div className={styles.delete_container}>
+        <div className={styles.delete_container} id="content_holder">
           <div className={styles.header}>
             <Icon type="info" />
             <Icon
               className={styles.close}
               onClick={props.closeHandler}
               type="close"
+              id="action_menu_btn"
             />
           </div>
           <div className={styles.content_holder}>
@@ -81,7 +82,7 @@ function DeleteConfirmCard(props) {
             </p>
           </div>
           <footer className={styles.footer_btn}>
-            <button onClick={props.closeHandler} className={styles.btn_cancel}>
+            <button onClick={props.closeHandler} className={styles.btn_cancel} id="btn_cancel">
               Cancel
             </button>
             <button
