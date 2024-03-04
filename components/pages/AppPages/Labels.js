@@ -28,7 +28,7 @@ function LabelPage({ label }) {
   return (
     <>
       <div className={styles.back_to_filter}>
-        <Link href="/application/filters-labels">Filters & Labels</Link>/
+        <Link href="/application/filters-labels" id="action_menu_btn">Filters & Labels</Link>/
       </div>
       <div className={styles.view_header} id="view_header">
         <div

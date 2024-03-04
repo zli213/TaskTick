@@ -315,6 +315,8 @@
 
   &:hover {
     .right_menu {
+      background-color: $lightGrayColor;
+      border-radius: $borderRadiusXsm;
       opacity: 1;
     }
   }

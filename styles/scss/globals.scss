@@ -127,6 +127,12 @@
   #task_label {
     color: $grayColor;
   }
+
+  #taskName:empty:before,
+  #taskContent:empty:before {
+    color: $lightGrayColor;
+  }
+
 }
 
 .Toastify__toast-theme--dark {
