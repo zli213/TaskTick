@@ -281,7 +281,7 @@ function TodoList({
           disabled={showAddSection}
         >
           <span className={styles.line} />
-          <span>Add Section</span>
+          <span className={styles.tag_box3}>Add Section</span>
           <span className={styles.line} />
         </button>
       )}

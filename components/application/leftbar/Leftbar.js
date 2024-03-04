@@ -9,7 +9,7 @@ import NewProject, { useProject } from "../widgets/NewProject";
 import Icon from "../widgets/Icon";
 import { useSelector } from "react-redux";
 
-function Leftbar({ showClass }) {
+function Leftbar({ showClass, switchHandler }) {
   const pathname = usePathname();
   let projects = Object.values(useSelector((state) => state.projects));
   projects = projects
@@ -24,6 +24,9 @@ function Leftbar({ showClass }) {
 
   const handleItemClick = (type) => {
     setSeletedItemType(type);
+    if(window.innerWidth < 600){
+      switchHandler();
+    }
   };
 
   const clickListHandler = () => {

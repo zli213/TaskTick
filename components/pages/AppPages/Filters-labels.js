@@ -28,7 +28,7 @@ function FilterPage() {
   };
 
   useEffect(() => {
-    document.title = "Filters & Labels - Todo";
+    document.title = "Filters & Labels - TaskTick";
     localStorage.setItem("lastPage", "filters-labels");
   }, []);
 

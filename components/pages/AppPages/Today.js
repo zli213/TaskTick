@@ -36,7 +36,7 @@ function Today(props) {
   });
   
   useEffect(() => {
-    document.title = "Today - Todo";
+    document.title = "Today - TaskTick";
     localStorage.setItem("lastPage", "today");
 
     if ("settingMenu" in props) {

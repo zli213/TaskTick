@@ -21,6 +21,9 @@
   font-weight: bold;
   min-height: $mobileSpacing;
   margin-bottom: $marginXsm;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
   cursor: text;
   [match-type="matched"] {
     background-color: antiquewhite;
@@ -77,6 +80,8 @@
   outline: none;
   min-height: 1.5rem;
   margin-bottom: $marginXsm2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   cursor: text;
   &:empty:before {
     content: attr(placeholder);
@@ -353,10 +358,12 @@
 }
 
 .task_footer {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: $paddingsm3;
+  gap: $gapXsm;
   button {
     border-radius: 4px;
     margin: 0 $gapXsm;
@@ -366,14 +373,16 @@
 }
 
 .project_board {
+  width: 100%;
   border-radius: $borderRadius;
   padding: $paddingXsm $paddingsm3;
   display: flex;
   align-items: center;
   font-weight: bold;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  justify-content: space-between;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 
   &:hover {
     background-color: $lightGrayColor;
@@ -487,7 +496,9 @@
   text-overflow: ellipsis;
 }
 
-.btn_selected {
-  background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-  border-radius: $borderRadiusSm;
+@media screen and (max-width: 1060px) {
+  .task_footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

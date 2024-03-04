@@ -25,7 +25,6 @@ body {
   font-size: $fontSizeSm;
   color: $textPrimaryColor;
   background-color: $bodyBg;
-  letter-spacing: 1px;
   transition: background-color 0.25s, color 0.25s;
 }
 
@@ -78,17 +77,17 @@ i {
   justify-content: center; /* Center the text horizontally */
   align-items: center; /* Center the text vertically */
   padding: 10px;
-  margin: $marginSm;
-  font-size: $fontSizeXsm;
+  font-size: $fontSizeSm;
   border-radius: $borderRadius;
   background-color: $primaryColor;
   color: $secondaryColor;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .standard-button:hover {
-  background-color: $grayColor;
+  background-color: darken($primaryColor, 10%);
   color: $secondaryColor;
 }
 

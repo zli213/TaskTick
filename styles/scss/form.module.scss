@@ -1,5 +1,12 @@
 @use "../scss/utils/variable" as *;
 
+
+.container_root{
+  margin: 0 auto;
+  max-width: 128rem;
+}
+
+
 .container {
   width: 100%;
   height: auto;
@@ -181,6 +188,25 @@
       width: 100%;
       margin-bottom: $marginXsm;
     }
+    .image {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+
+    .title {
+      width: 100%;
+      text-align: center;
+    }
+
+    .main {
+      flex-direction: column;
+    }
+
     .image {
       display: none;
     }

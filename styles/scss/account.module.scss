@@ -114,15 +114,16 @@
         font-weight: bold;
       }
 
-      span {
-        display: inline-block;
-        padding: 10px;
-        text-decoration: none;
-        text-align: center;
-        background-color: #ccc;
-        border-radius: 5px;
-        color: #000;
-        width: 30%;
+            span {
+                display: inline-block;
+                padding: 10px;
+                text-decoration: none;
+                text-align: center;
+                background-color: #ccc;
+                border-radius: 5px;
+                color: #000;
+                width: 30%;
+                min-width: 21rem;
 
         &:hover {
           cursor: pointer;

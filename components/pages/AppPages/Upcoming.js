@@ -32,7 +32,7 @@ function Upcoming() {
 
 
   useEffect(() => {
-    document.title = "Upcoming - Todo";
+    document.title = "Upcoming - TaskTick";
     localStorage.setItem("lastPage", "upcoming");
   }, []);
 

@@ -1,4 +1,3 @@
-
 "use client";
 
 import styles from "../../../styles/scss/navbar.module.scss";
@@ -13,11 +12,15 @@ const Navbar = () => {
   return (
     <nav className={styles.navbarContainer}>
       <div className={styles.logo}>
-        <img className={styles.logoImage} src="/images/logo.png" alt="logo" />
+        <Link href="/" >
+          <img className={styles.logoImage} src="/images/logo.png" alt="logo" />
+          TaskTick
+        </Link>
       </div>
       <div className={styles.navLinks}>
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
+        |
         {!user && (
           <>
             <Link href="/auth/signin">

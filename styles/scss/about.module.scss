@@ -1,4 +1,11 @@
 @use "./utils/variable" as *;
+
+.about_page{
+  margin: 0 auto;
+  max-width: 128rem;
+}
+
+
 .container {
   display: flex;
   flex-direction: column;

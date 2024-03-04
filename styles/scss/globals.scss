@@ -1,25 +1,6 @@
 // App.scss
 @use "./utils/" as *;
 
-.homeContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .slogan {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: $textPrimaryColor;
-    margin: 0.5 rem;
-    padding: 0;
-    text-align: center;
-    justify-items: center;
-  }
-}
 
 //Dark theme
 .dark body{

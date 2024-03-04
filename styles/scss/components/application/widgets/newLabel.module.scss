@@ -3,11 +3,13 @@
 .add_label_modal_container {
   position: fixed;
   top: 18vh;
-  left: calc(50vw - $addProjectWidth / 2);
+  left: 50%;
+  transform: translateX( -50%);
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
-  width: $addProjectWidth;
+  width: 95%;
+  max-width: $addProjectWidth;
   // height: $addProjectHeight;
   overflow: hidden;
   z-index: 1000;

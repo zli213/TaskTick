@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import { getCookie } from "cookies-next";
 
 export const metadata = {
-  title: "Todo APP",
+  title: "TaskTick",
   description: "Your personal Todo list APP",
 };
 

@@ -7,7 +7,10 @@
 .app_holder {
   position: relative;
   display: flex;
+}
 
+.leftbar {
+  display: block;
 }
 
 .list_sidebar_hide {
@@ -18,6 +21,7 @@
 }
 
 .content_holder {
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -49,12 +53,12 @@
     padding-bottom: $paddingsm;
 
     h1 {
-      flex:1;
+      flex: 1;
       max-width: 90%;
       font-size: $fontSizeMd;
       // white-space: pre;
       // overflow-wrap: break-word;
-      word-wrap: break-word ;
+      word-wrap: break-word;
     }
   }
 
@@ -63,7 +67,7 @@
   }
 }
 
-.today_title{
+.today_title {
   width: 100%;
 }
 
@@ -78,8 +82,8 @@
 
 .content_box {
   margin: 0 auto;
-  max-width: $maxListWidth;
   width: 100%;
+  max-width: $maxListWidth;
   padding: $marginXsm $marginLg 0;
   display: flex;
   flex-direction: column;
@@ -189,7 +193,7 @@
     height: 4rem;
     @include flexRowStart();
     width: 100%;
-    align-items: center
+    align-items: center;
   }
 
   .project_item_menu {
@@ -310,6 +314,14 @@
       width: 100%;
       @include flexRowBetween();
       
+      span{
+        width: 100%;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
+      }
+
     }
   }
 
@@ -477,18 +489,22 @@
   color: $heaveGrayColor;
 }
 
-.tag_box1{
+.tag_box1 {
   flex: 1;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.tag_box2{
+.tag_box2 {
   flex: 0 0 auto;
   @include flexRowStart();
 }
 
-.showed_menu {
-  background-color: rgba($lightGrayColor,0.5);
+
+@media screen and (max-width: 400px) {
+  .btn_projects {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

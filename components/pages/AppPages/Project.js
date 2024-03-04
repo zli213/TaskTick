@@ -59,7 +59,7 @@ export default function Project({ projectId }) {
   };
 
   useEffect(() => {
-    document.title = project.name + " - Todo";
+    document.title = project.name + " - TaskTick";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 

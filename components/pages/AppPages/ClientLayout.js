@@ -12,15 +12,16 @@ import MyThemeContext from "../../application/widgets/MyThemeContext";
 import { getCookie } from "cookies-next";
 
 export default function ClientLayout(props) {
-  const [showLeftBar, setShowLeftBar] = useState(false);
   const { setThemeName } = useContext(MyThemeContext);
+  const [showLeftBar, setShowLeftBar] = useState(true);
+  const [pageWidth, setPageWidth] = useState(1000);
 
   const dispatch = useDispatch();
 
   dispatch(
     initialAllState(
       JSON.stringify(props.tasks),
-      props.projects, 
+      props.projects,
       props.inboxNum,
       props.todayNum,
       props.allTags,
@@ -38,11 +39,32 @@ export default function ClientLayout(props) {
     setThemeName(theme);
   }, [setThemeName])
 
+  const updatePageWidth = () => {
+    const newWidth = window.innerWidth;
+    setPageWidth(newWidth);
+
+    if (newWidth < 600) {
+      setShowLeftBar(false);
+    } else {
+      setShowLeftBar(true);
+    }
+  };
+
+  useEffect(() => {
+    updatePageWidth();
+    window.addEventListener('resize', updatePageWidth);
+
+    return () => {
+      window.removeEventListener('resize', updatePageWidth);
+    };
+
+  }, []);
+
   return (
     <div className={styles.app_layout}>
       <Topbar switchHandler={switchLeftBar} />
       <div id="app-holder" className={styles.app_holder}>
-        <Leftbar showClass={showLeftBar} />
+        <Leftbar showClass={showLeftBar} className={styles.leftbar} switchHandler={switchLeftBar} />
         <div className={styles.content_holder} id="content_holder">{props.children}</div>
       </div>
       <ToastContainer
