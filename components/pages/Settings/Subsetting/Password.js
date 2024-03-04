@@ -133,14 +133,14 @@ const SetPassword = () => {
               value={confirmPassword}
               onChange={handleConfirm}
             />
-            <p className={samePassword ? styles.hidden : styles.visible}>
+            <p className={samePassword ? styles.hidden : styles.visible} id="content_holder">
               Passwords do not match
             </p>
           </div>
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden}>
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder">
             {backendMessage}
           </p>
         </span>

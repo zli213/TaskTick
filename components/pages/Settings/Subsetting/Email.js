@@ -111,7 +111,7 @@ const SetEmail = () => {
               value={confirmEmail}
               onChange={handleConfirmEmail}
             />
-            <p className={sameEmail ? styles.hidden : styles.visible}>
+            <p className={sameEmail ? styles.hidden : styles.visible} id="content_holder">
               Email addresses do not match
             </p>
           </div>
@@ -123,7 +123,7 @@ const SetEmail = () => {
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden}>
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder">
             {backendMessage}
           </p>
         </span>

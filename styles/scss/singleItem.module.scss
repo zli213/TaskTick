@@ -55,6 +55,11 @@
     cursor: pointer;
     color: $textSecondaryColor;
 
+    .action_btn:hover {
+      background-color: $midGrayColor;
+      border-radius: $borderRadiusXsm;
+    }
+
     .task_list_action_last {
       position: absolute;
       left: 5rem;
@@ -65,6 +70,10 @@
       @include menuButton();
       @include flexRowStart();
       justify-content: center;
+    }
+
+    .showing {
+      background-color: $lightGrayColor;
     }
 
     .two_btn {

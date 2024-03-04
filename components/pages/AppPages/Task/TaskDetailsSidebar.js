@@ -202,10 +202,10 @@ export default function TaskDetailsSidebar({ task, taskId }) {
       <div className={styles.task_sidebar_list} id="task_sidebar_list">
         <div className={styles.task_sidebar_item}>
           <h4>Project</h4>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button">
             <span onClick={swichProjectHandler}>
               {!task.projectId ? (
-                <div className={styles.task_sidebar_button}>
+                <div className={styles.task_sidebar_button} id="task_sidebar_button">
                   <Icon type="hashtag_small" />
                   Inbox
                 </div>

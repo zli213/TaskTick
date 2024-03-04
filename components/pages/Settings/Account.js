@@ -137,6 +137,7 @@ const SettingAccount = () => {
             className={`${styles.submitButton} ${
               showButton ? styles.visible : styles.hidden
             }`}
+            id="content_holder"
           >
             {showButton && (
               <button onClick={handleSubmit} type="button">

@@ -82,7 +82,8 @@
   #tag_check_list_item {
     background-color: none;
     color: $secondaryColor;
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
       border-radius: $borderRadiusSm;
     }

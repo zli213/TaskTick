@@ -51,7 +51,7 @@ function Leftbar({ showClass, switchHandler }) {
   }, [pathname]);
 
   return (
-    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`} id="leftbar">
+    <div className={`${styles.list_sidebar}  ${showClass ? "" : styles.hide_left}`} id="leftbar">
       <div>
         <LeftItem
           label="Inbox"

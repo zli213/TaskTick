@@ -303,7 +303,7 @@ export function SingleItems({
           >
             <div className={styles.two_btn}>
               <button
-                className={styles.two_btn}
+                className={`${styles.two_btn} ${styles.action_btn}`}
                 onClick={() => {
                   setIsEditing(true);
                 }}
@@ -311,10 +311,11 @@ export function SingleItems({
               >
                 <Icon type="edit" id="icon"/>
               </button>
-              <span className={styles.btn_menu} id="action_menu_btn">
+              <span className={styles.btn_menu} >
                 <button
                   onClick={swichSchedulerHandler2}
-                  className={styles.two_btn}
+                  className={`${styles.two_btn} ${styles.action_btn}`}
+                  id="action_menu_btn"
                 >
                   <Icon type="calender_big" id="icon"/>
                 </button>
@@ -340,8 +341,7 @@ export function SingleItems({
             <div className={styles.task_list_action_last}>
               <button
                 onClick={swithMenuHandler}
-                className={styles.menu_button}
-                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+                className={`${styles.menu_button} ${showItemMenu && styles.showing}`}
                 id="action_menu_btn"
               >
                 <Icon type="menu_unfill" id="icon"/>
@@ -439,6 +439,7 @@ export function SingleItems({
                           <Icon
                             type="flag_big"
                             className={styles.button_gray}
+                            id="icon"
                           />
                         </button>
                       </div>

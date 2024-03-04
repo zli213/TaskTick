@@ -136,7 +136,7 @@ const LeftbarItem = ({
               onClick={swithMenuHandler}
             >
               <span>
-                <Icon type="menu_filled" />
+                <Icon type="menu_filled" id="icon"/>
               </span>
             </button>
           </div>

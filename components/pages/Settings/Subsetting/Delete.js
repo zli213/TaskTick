@@ -87,7 +87,7 @@ const DeleteAccount = () => {
         </div>
         <div>
           {/* dispay messages from backend */}
-          <p className={backendMessage ? styles.visible : styles.hidden}>
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder">
             {backendMessage}
           </p>
         </div>

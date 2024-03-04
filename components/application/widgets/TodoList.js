@@ -203,8 +203,7 @@ function TodoList({
               <div className={styles.menu_btn_container}>
                 <button
                   onClick={swithMenuHandler}
-                  className={styles.menu_btn}
-                  style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+                  className={`${styles.menu_btn} ${showItemMenu && styles.showing}`}
                   id="action_menu_btn"
                 >
                   <Icon type="menu_unfill" id="icon"/>
