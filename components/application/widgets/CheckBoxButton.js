@@ -10,7 +10,7 @@
  */
 
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../../styles/scss/singleItem.module.scss";
 import Icon from "./Icon";
 import { useDispatch, useSelector } from "react-redux";
