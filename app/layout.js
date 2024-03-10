@@ -1,29 +1,34 @@
-import "./globals.scss";
-import Link from "next/link";
+import dynamic from "next/dynamic";
+import StoreProvider from "../store/StoreProvider";
+import "react-toastify/dist/ReactToastify.css";
+import "../styles/scss/globals.scss";
+import { MyThemeContextProvider } from "../components/application/widgets/MyThemeContext";
+import ProviderWrapper from "./ProviderWrapper";
+import { cookies } from "next/headers";
+import { getCookie } from "cookies-next";
 
 export const metadata = {
-  title: "Todo APP",
+  title: "TaskTick",
   description: "Your personal Todo list APP",
 };
 
-
 export default function RootLayout({ children }) {
+  const themeName = getCookie("themeName", { cookies });
+  const systemTheme = getCookie("systemTheme", { cookies });
+
+  
+  const styleName = themeName === "system" ? systemTheme : themeName;
   return (
-    <html lang="en">
-      <body>
-        <nav>
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/today">Todo List</Link>
-          <Link href="/login">Login</Link>
-        </nav>
-        <main>{children}</main>
-      </body>
-    </html>
+    <StoreProvider>
+      <ProviderWrapper>
+        <MyThemeContextProvider>
+          <html lang="en" className={ styleName }>
+            <body>
+              <main>{children}</main>
+            </body>
+          </html>
+        </MyThemeContextProvider>
+      </ProviderWrapper>
+    </StoreProvider>
   );
 }
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

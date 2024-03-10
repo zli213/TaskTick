@@ -1,0 +1,43 @@
+@use "../scss/utils/variable" as *;
+
+.logo_style {
+  padding: $paddingLg;
+}
+
+.info_content {
+  font: $fontFamily;
+  margin: 0 auto;
+  text-align: center;
+  padding: $paddingLg;
+
+  h1 {
+    padding-bottom: $paddingsm;
+  }
+  p {
+    // font-size: $fontSizeLg;
+    padding: $paddingsm;
+  }
+  button {
+    padding: $paddingXsm $paddingsm;
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    border-radius: $borderRadius;
+    font-weight: 500;
+  }
+}
+
+.image_style {
+  display: block;
+  margin: 0 auto;
+}
+
+.limit_width {
+  width: 40%;
+  margin: 0 auto;
+  color: $textSecondaryColor;
+  font-size: $fontSizeXsm;
+}
+
+.big_padding {
+  margin-top: 10%;
+}

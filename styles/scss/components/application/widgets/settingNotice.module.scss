@@ -1,0 +1,93 @@
+@use "../../../utils/variable" as *;
+
+.mask {
+    z-index: 666;
+    background-color: rgba(0, 0, 0, 0.5);
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $borderRadius;
+}
+
+.noticeContainer {
+    position: fixed;
+    padding: $paddingMd;
+    top: 20vh;
+    left: 35vw;
+    width: 30vw;
+    height: 25vh;
+    background-color: $secondaryColor;
+    z-index: 777;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .noticeHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: sticky;
+        margin: 0;
+        padding: 0;
+        flex: 1;
+        border: none;
+
+        label {
+            font-size: $fontSizeSm;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: $borderRadius;
+
+            &:hover {
+                background-color: $grayColor;
+            }
+        }
+    }
+
+    p {
+        display: flex;
+        flex: 1.5;
+        align-items: center;
+    }
+
+    .buttonGroup {
+        display: flex;
+        justify-items: flex-end;
+        flex-direction: row-reverse;
+        position:relative;
+        width: 100%;
+        text-align: end;
+        position: sticky;
+        bottom: 0;
+        //flex:1;
+
+        .confirmButton {
+            padding: $paddingsm;
+            border-radius: $borderRadius;
+            background-color: $primaryColor;
+            color: $secondaryColor;
+            cursor: pointer;
+            margin-right: $marginXsm;
+        }
+
+        .cancelButton {
+            padding: $paddingsm;
+            border-radius: $borderRadius;
+            background-color: $grayColor;
+            color: $textPrimaryColor;
+            cursor: pointer;
+            margin-right: $marginXsm;
+        }
+    }
+}

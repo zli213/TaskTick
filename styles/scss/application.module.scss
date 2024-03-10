@@ -1,0 +1,515 @@
+@use "./utils/variable" as *;
+
+.app_layout {
+  position: relative;
+}
+
+.app_holder {
+  position: relative;
+  display: flex;
+}
+
+.leftbar {
+  display: block;
+}
+
+.list_sidebar_hide {
+  width: 0;
+  transform: translateX(-$appSideBarWidth);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.content_holder {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  max-width: $maxListWidth;
+  padding-bottom: 15rem;
+
+  li {
+    list-style: none;
+  }
+}
+
+.view_header {
+  padding: $marginLg $marginLg 0;
+  top: $navHeight;
+  background-color: $bodyBg;
+  z-index: 5;
+  width: 100%;
+  margin: 0 auto;
+
+  .view_header_content {
+    @include flexRowBetween();
+    width: 100%;
+    max-width: $maxListWidth;
+    flex-grow: 1;
+    margin: 0 auto;
+    border-bottom: 1px solid $grayColor;
+    padding-bottom: $paddingsm;
+
+    h1 {
+      flex: 1;
+      max-width: 90%;
+      font-size: $fontSizeMd;
+      // white-space: pre;
+      // overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+  }
+
+  .no_bottom_border {
+    border-bottom: 0;
+  }
+}
+
+.today_title {
+  width: 100%;
+}
+
+.list_box {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: $marginSm $marginLg;
+  position: relative;
+  width: 100%;
+}
+
+.content_box {
+  margin: 0 auto;
+  width: 100%;
+  max-width: $maxListWidth;
+  padding: $marginXsm $marginLg 0;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  h4 {
+    font-weight: 500;
+    padding-bottom: $paddingsm;
+    border-bottom: 1px solid $grayColor;
+  }
+
+  .searchArea_projects {
+    width: 100%;
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    @include flexRowStart();
+    padding: $paddingXsm;
+    gap: $paddingXsm;
+    outline: initial;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+  }
+}
+
+.searchArea_projects:focus-within {
+  border: 1px solid $textSecondaryColor;
+}
+
+.view_header_project {
+  border-bottom: 0px !important;
+
+  a {
+    @include flexRowStart();
+    gap: $paddingXsm;
+    padding: $paddingXsm $paddingsm;
+    border-radius: $borderRadiusSm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+.today_task_label {
+  padding-top: 0.2rem;
+  @include flexRowStart();
+  gap: 0.2rem;
+  font-size: $fontSizeXsm;
+  color: $textSecondaryColor;
+}
+
+.menu_btn_container {
+  flex: 0 0 auto;
+  @include flexRowStart();
+  position: relative;
+  z-index: 5;
+}
+
+.btn_projects {
+  @include flexRowBetween();
+
+  .project_btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: $borderRadiusSm;
+    padding: $paddingXsm $paddingsm;
+    gap: $paddingXsm;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
+
+  .add_btn_projects {
+    background-color: $lightGrayColor;
+    font-weight: 500;
+  }
+
+  .active_btn_projects {
+    border: 1px solid $grayColor;
+  }
+}
+
+.project_list {
+  li {
+    @include flexRowBetween();
+    border-radius: $borderRadius;
+    padding-right: $paddingMd;
+
+    &:hover {
+      background-color: $lightGrayColor;
+
+      .project_item_menu {
+        opacity: 1;
+      }
+    }
+  }
+
+  a {
+    box-sizing: content-box;
+    padding: $paddingsm $paddingXsm;
+    height: 4rem;
+    @include flexRowStart();
+    width: 100%;
+    align-items: center;
+  }
+
+  .project_item_menu {
+    @include flexRowStart();
+    width: $fontSizeMd;
+    height: 2.8rem;
+    border-radius: $borderRadiusXsm;
+    opacity: 0;
+    cursor: pointer;
+    color: $textSecondaryColor;
+
+    &:hover {
+      color: $textPrimaryColor;
+    }
+  }
+}
+
+.task_item_action_menu {
+  @include menuItems();
+
+  h4 {
+    padding: $paddingsm;
+    font-weight: 500;
+  }
+
+  a {
+    @include flexRowBetween();
+
+    div {
+      @include flexRowStart();
+    }
+  }
+}
+
+.no_tasks {
+  margin: 0 auto;
+  text-align: center;
+  width: 40%;
+
+  img {
+    margin-top: $marginLg;
+  }
+
+  h4 {
+    margin-top: $marginXsm;
+  }
+
+  .no_tasks_content {
+    margin: 0 auto;
+    width: 70%;
+    padding: $paddingsm;
+    font-size: $fontSizeXsm;
+  }
+}
+
+//Filters-labels
+.filters_header {
+  @include flexRowBetween();
+  margin: 0 auto;
+  position: relative;
+  border-bottom: 1px solid $grayColor;
+  padding: $paddingXsm 0;
+
+  button {
+    width: 2.4rem;
+    height: 2.4rem;
+    cursor: pointer;
+    border-radius: $borderRadiusXsm;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
+}
+
+.content_wrapper {
+  position: absolute;
+  left: -3rem;
+  color: $textSecondaryColor;
+  width: 24px;
+  height: 24px;
+  border-radius: $borderRadiusXsm;
+  @include flexRowStart();
+
+  button svg {
+    @include flexRowBetween();
+  }
+
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background: $midGrayColor;
+  }
+}
+
+.content_wrapper_rotate {
+  svg {
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+  }
+}
+
+.labels_item_container {
+  position: relative;
+  border-bottom: 1px solid $grayColor;
+
+  svg {
+    color: $heaveGrayColor;
+  }
+
+  a {
+    @include flexRowStart();
+    padding: $paddingsm 0;
+
+    .labels_item_content {
+      width: 100%;
+      @include flexRowBetween();
+      
+      span{
+        width: 100%;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
+      }
+
+    }
+  }
+
+  &:hover {
+    .right_menu {
+      background-color: $lightGrayColor;
+      border-radius: $borderRadiusXsm;
+      opacity: 1;
+    }
+  }
+}
+
+.right_menu {
+  position: absolute;
+  top: $paddingsm;
+  right: 0;
+  @include flexRowStart();
+  opacity: 0;
+  //background-color: #fff;
+
+  .right_menu_btn {
+    position: relative;
+    // padding-left: 4px;
+    @include menuButton();
+    @include flexRowBetween();
+    align-items: center;
+    margin-left: 0;
+  }
+}
+
+.back_to_filter {
+  padding: $marginSm $marginLg 0;
+  z-index: 10;
+  color: $textSecondaryColor;
+  font-weight: 500;
+  font-size: $fontSizeSm;
+  line-height: $fontSizeSm;
+
+  a {
+    padding: $paddingXsm 0.2rem;
+    border-radius: $borderRadiusSm;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+.archived_project {
+  @include flexRowBetween();
+  align-items: flex-start;
+  margin-top: $marginSm;
+
+  button {
+    background-color: $primaryColor;
+    border-radius: $borderRadiusSm;
+    color: #fff;
+    padding: $paddingsm $paddingMd;
+    cursor: pointer;
+  }
+}
+
+.btn_completed_task {
+  @include flexRowBetween();
+  gap: $gapXsm;
+  cursor: pointer;
+  border-radius: $borderRadiusSm;
+  padding: $paddingXsm;
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.view_btn {
+  @include flexRowStart();
+  padding: 0.4rem;
+  border-radius: $borderRadiusSm;
+  color: $textSecondaryColor;
+
+  label {
+    @include flexRowBetween();
+    align-items: center;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.toggle_switch {
+  @include flexRowStart();
+  align-items: center;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 22px;
+  // background-color: $grayColor;
+  // border-radius: 15px;
+}
+
+.toggle_background {
+  position: absolute;
+  width: 30px;
+  height: 17px;
+  top: 3px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  background-color: $grayColor;
+  transition: 350ms ease all;
+}
+
+.view_checkbox {
+  border-radius: 50%;
+  position: relative;
+  appearance: none;
+  z-index: 1;
+}
+
+.view_checkbox::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: -12px;
+  left: 2px;
+  background-color: #fff;
+  transition: 350ms ease all;
+  border-radius: 15px;
+}
+
+.view_checkbox:checked::before {
+  left: 16px;
+}
+
+.view_checkbox:checked + .toggle_background {
+  background-color: $primaryColor;
+}
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: small;
+  u {
+    margin-left: 4px;
+  }
+  .undoBtn {
+    background-color: $primaryColor;
+    color: $secondaryColor;
+    border: none;
+    padding: $paddingXsm $paddingsm;
+    margin-left: $marginXsm;
+    cursor: pointer;
+    border-radius: $borderRadius;
+    &:hover {
+      background-color: $errorColor;
+    }
+  }
+}
+
+.no_task_list {
+  color: $heaveGrayColor;
+}
+
+.tag_box1 {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag_box2 {
+  flex: 0 0 auto;
+  @include flexRowStart();
+}
+
+
+@media screen and (max-width: 400px) {
+  .btn_projects {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.showing {
+  background-color: $lightGrayColor;
+  padding-left: 4px;
+}

@@ -1,0 +1,56 @@
+@use "./utils/variable" as *;
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $paddingMd;
+  background-color: $secondaryColor;
+  height: 4rem;
+
+  .logo {
+    height: 4 rem;
+    width: auto;
+    .logoImage {
+      width: 4rem !important;
+      border-radius: $borderRadiusSm;
+    }
+
+    a {
+      @include flexRowStart();
+      gap: $marginSm;
+      color: $primaryColor;
+      font-size: $fontSizeMd;
+      font-weight: 700;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+    align-items: center;
+    gap: $marginSm;
+    margin-right: $marginSm;
+
+    a {
+      // margin-left: 15px;
+      color: #000;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .loginButton {
+      background-color: $primaryColor;
+      color: $secondaryColor;
+      border-radius: $borderRadius;
+      padding: $paddingXsm $paddingsm;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($primaryColor, 10%);
+      }
+    }
+  }
+}

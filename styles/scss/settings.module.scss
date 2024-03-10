@@ -1,0 +1,97 @@
+@use "./utils/variable" as *;
+
+.setting_modal_container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  width: 95%;
+  max-width: $settingPageWidth;
+  flex-direction: row;
+  height: 60%;
+  max-height: $settingPageWidth;
+  box-shadow: 0px 0px 4px 4px rgba($color: black, $alpha: 0.1);
+
+}
+
+.setting_left {
+  width: 20%;
+  padding: $paddingsm;
+  min-width: 12rem;
+  text-align: left;
+  background-color: $lightGrayColor;
+  border-radius: $borderRadius 0 0 $borderRadius;
+
+  h2 {
+    padding: $paddingsm;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    div {
+      border-radius: $borderRadius;
+      font-size: $fontSizeSm;
+      padding: $paddingXsm $paddingsm $paddingXsm $paddingXsm;
+
+      &:hover {
+          background-color: $hoverColor;
+      }
+    }
+  }
+
+
+  .leftGroup {
+    width: 100%;
+    @include flexRowStart();
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      @include flexRowStart();
+    }
+
+    a {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-items: baseline
+    }
+
+    .list_item_content {
+      padding-left: $paddingXsm;
+      line-height: $fontSizeLg;
+    }
+  }
+}
+
+.selected {
+  background-color: rgba($color: $selectedColor, $alpha: 0.6);
+  color: $primaryColor;
+}
+
+.setting_right {
+  width: 80%;
+  padding: $paddingsm;
+  border-radius: 0 $borderRadius $borderRadius 0;
+  text-align: left;
+  overflow: hidden;
+}
+
+.grey_cover {
+  background-color: rgba($color:black, $alpha: 0.5);
+  z-index: 10;
+}
+
+@media screen and (max-height: 900px) {
+  .setting_modal_container {
+    height: 95%;
+  }
+
+}

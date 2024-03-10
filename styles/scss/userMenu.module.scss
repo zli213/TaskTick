@@ -1,0 +1,22 @@
+@use "./utils/variable" as *;
+
+
+.menu_box {
+  position: fixed;
+  display: flex;
+  box-sizing: border-box;
+  width: $mobileWidth;
+  flex-direction: column;
+  right: 2rem;
+  top: calc($navHeight - 0.2rem);
+  background-color: white;
+  border-radius: $borderRadius;
+  color: $textPrimaryColor;
+  box-shadow: 0 0 0.6rem  $grayColor;
+  padding: $paddingsm ;
+  align-items: flex-start;
+
+  div:hover {
+    background-color: $grayColor;
+  }
+}

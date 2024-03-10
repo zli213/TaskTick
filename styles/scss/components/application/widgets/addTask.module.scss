@@ -1,0 +1,38 @@
+@use "../../../../scss/utils/variable" as *;
+
+.add_task_btn {
+  @include flexRowStart();
+  width: 100%;
+  padding: $paddingsm 0;
+  color: $heaveGrayColor;
+  cursor: pointer;
+
+  .add_task_icon {
+    @include flexRowBetween();
+    fill: $primaryColor;
+    justify-content: center;
+    align-items: center;
+    margin-right: $marginXsm;
+    border-radius: 50%;
+    margin-left: 3px;
+    width: 1.8rem;
+    height: 1.8rem;
+
+    svg {
+      margin-left: -3px;
+      color: $primaryColor;
+    }
+  }
+
+  &:hover {
+    color: $primaryColor;
+
+    .add_task_icon {
+      background-color: $primaryColor;
+
+      svg {
+        color: #fff;
+      }
+    }
+  }
+}

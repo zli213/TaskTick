@@ -1,0 +1,67 @@
+@use "../scss/utils/variable" as *;
+
+.main_content {
+  position: relative;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  // width: calc(100vw - 305px)
+  width: 100%;
+  flex-grow: 1;
+}
+
+.list-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list_content {
+  position: relative;
+  display: flex;
+}
+
+.list_sidebar {
+  position: sticky;
+  top: $navHeight;
+  width: $appSideBarWidth;
+  height: calc(100vh - $navHeight);
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  padding: $paddingLg 0;
+  gap: $gap;
+
+  //for hide animation
+  transition: all 270ms ease 0ms;
+  flex-shrink: 0;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    // padding: 0 5px;
+  }
+
+  li {
+    list-style: circle;
+    display: flex;
+    justify-content: space-between;
+    padding: $paddingXsm $paddingMd;
+    font-size: $fontSizeSm;
+  }
+}
+
+// //for hide animation
+.list_sidebar_hide {
+  width: 0px;
+  transform: translateX(-$appSideBarWidth);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading {
+  margin: 0 auto;
+  padding: 40vh;
+  width: 100%;
+}

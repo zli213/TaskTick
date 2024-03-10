@@ -1,0 +1,191 @@
+@use "./utils/variable" as *;
+
+.container {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: max;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .subsettingForm {
+    justify-content: space-between;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    padding: $paddingsm;
+    border-bottom: 1px solid $grayColor;
+
+    span {
+      display: flex;
+      flex-direction: row;
+
+      label {
+        font-size: $fontSizeSm;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        padding: $paddingsm;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      border-radius: $borderRadius;
+
+      &:hover {
+        background-color: $grayColor;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    overflow-y: auto;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .submitButton {
+      position: sticky;
+      display: flex;
+      justify-items: flex-end;
+      flex-direction: row-reverse;
+      width: 100%;
+      bottom: 0;
+      height: $itemMinHeightSm;
+      text-align: end;
+      padding: 10px;
+      z-index: 66;
+      background-color: $secondaryColor;
+      border-top: 1px solid $grayColor;
+
+      button {
+        padding: $paddingsm;
+        border-radius: $borderRadius;
+        background-color: $primaryColor;
+        color: $secondaryColor;
+        cursor: pointer;
+        margin-right: $marginXsm;
+      }
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: $paddingXsm;
+
+      input {
+        border: 1px solid $grayColor;
+        border-radius: $borderRadius;
+        padding: $paddingsm;
+        width: 30%;
+
+        &:focus {
+          outline: none;
+          border: 1px solid grey;
+        }
+      }
+
+      * {
+        margin: $marginXsm;
+      }
+
+      label {
+        font-size: $fontSizeSm;
+        font-weight: bold;
+      }
+
+            span {
+                display: inline-block;
+                padding: 10px;
+                text-decoration: none;
+                text-align: center;
+                background-color: #ccc;
+                border-radius: 5px;
+                color: #000;
+                width: 30%;
+                min-width: 21rem;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #aaa;
+        }
+      }
+    }
+
+    // ⬇️for email&password editing page
+    .smallGroup {
+      display: flex;
+      flex-direction: row;
+      justify-items: left;
+      border-top: none;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+
+      p {
+        color: $textSecondaryColor;
+        font-size: $fontSizeSm;
+        vertical-align: bottom;
+        padding-top: $paddingsm;
+      }
+    }
+
+    .buttonGroup {
+      display: flex;
+      justify-items: flex-end;
+      flex-direction: row-reverse;
+      position: relative;
+      width: 100%;
+      text-align: end;
+      padding: 10px;
+      position: sticky;
+      bottom: 0;
+    }
+
+    .cannotSubmit {
+      padding: $paddingsm;
+      border-radius: $borderRadius;
+      background-color: $accentColor;
+      color: $secondaryColor;
+      margin-right: $marginXsm;
+      cursor: not-allowed;
+    }
+
+    .canSubmit {
+      padding: $paddingsm;
+      border-radius: $borderRadius;
+      background-color: $primaryColor;
+      color: $secondaryColor;
+      cursor: pointer;
+      margin-right: $marginXsm;
+    }
+
+    .cancelButton {
+      padding: $paddingsm;
+      border-radius: $borderRadius;
+      background-color: $grayColor;
+      color: $textPrimaryColor;
+      cursor: pointer;
+      margin-right: $marginXsm;
+    }
+  }
+}

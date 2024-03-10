@@ -1,0 +1,130 @@
+/* color palette */
+$primaryColor: #de473a;
+$secondaryColor: #fefdfc;
+$accentColor: #ff7383;
+$textPrimaryColor: #333333;
+$textSecondaryColor: #555555;
+$darkerGrayColor: #414040;
+$bodyBg: $secondaryColor;
+$heaveGrayColor: #999;
+$grayColor: #d6d6d6;
+$midGrayColor: #eeeeee;
+$lightGrayColor: #f5f5f5;
+$errorColor: #db190c;
+$warningColor: $errorColor;
+// task priority colors
+$MiddleLevel: #ffcc8a;
+$HighLevel: $accentColor;
+$LowLevel: $grayColor;
+
+$fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$fontSizeXsm: 1.2rem;
+$fontSizeXsm2: 1.3rem;
+$fontSizeSm: 1.6rem;
+$fontSizeSm2: 1.8rem;
+$fontSizeMd: 2.4rem;
+$fontSizeLg: 3rem;
+$fontSizeXl: 4rem;
+$gap: 2rem;
+$gapXsm: 0.3rem;
+$gapSm: 0.6rem;
+$marginXsm: 0.5rem;
+$marginXsm2: 0.8rem;
+$marginSm: 2rem;
+$marginMd: 3rem;
+$marginLg: 4rem;
+$paddingXxsm: 0.25rem;
+$paddingXsm: 0.5rem;
+$paddingXsm1: 0.7rem;
+$paddingsm: 0.8rem;
+$paddingsm2: 0.9rem;
+$paddingsm3: 1rem;
+$paddingMd: 2rem;
+$paddingLg: 3rem;
+$itemMinHeightSm: 20rem;
+$itemMinHeightMd: 30rem;
+$itemMinHeightLg: 40rem;
+
+$sideBarWidth: 15rem;
+$mobileSpacing: 1.5rem;
+$borderRadius: 0.8rem;
+$borderRadiusSm: 0.6rem;
+$borderRadiusXsm: 0.3rem;
+$hoverColor: #f6efee;
+$selectedColor: #fee6e3;
+
+$mobileWidth: 28rem;
+$tabletWidth: 42rem;
+$appSideBarWidth: 28rem;
+$minComputerWidth: 62.5rem;
+$maxListWidth: 80rem;
+
+$navHeight: 4.31rem;
+
+$settingHeight: 60rem;
+$settingPageWidth: 100rem;
+
+$taskPageWidth: 90rem;
+$taskSideBarWidth: 38rem;
+$lineHeight: 2.8rem;
+
+$addProjectWidth: 50rem;
+$addProjectHeight: 64rem;
+
+$priorityRed: #d1453b;
+$priorityYellow: #eb8909;
+$priorityBlue: #246fe0;
+$buttonLightBlue: #55acee;
+$buttonDarkBlue: #007bff;
+
+//When you need flex with Row direction, you can use functions below like:
+// @include flexRowStart();
+
+@mixin flexRowBetween() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: $paddingsm;
+}
+
+@mixin flexRowStart() {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $paddingsm;
+  justify-content: flex-start;
+}
+
+@mixin menuItems() {
+  button,
+  a {
+    width: 100%;
+    @include flexRowStart();
+    border-radius: $borderRadiusXsm;
+    cursor: pointer;
+    padding: $paddingXsm $paddingsm;
+    line-height: $fontSizeSm;
+    text-align: center;
+    color: $textPrimaryColor;
+
+    &:hover {
+      background-color: $midGrayColor;
+    }
+  }
+}
+
+@mixin menuButton() {
+  width: $fontSizeMd;
+  height: $fontSizeMd;
+  cursor: pointer;
+  margin-left: $marginXsm;
+  color: $textSecondaryColor;
+  border-radius: $borderRadiusXsm;
+
+  &:hover {
+    color: $textPrimaryColor;
+    background-color: $midGrayColor;
+  }
+}

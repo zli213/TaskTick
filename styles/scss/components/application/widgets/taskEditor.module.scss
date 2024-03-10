@@ -1,0 +1,504 @@
+@use "../../../utils/variable" as *;
+
+.popup_overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.task_edit_form {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid $lightGrayColor;
+  border-radius: 8px;
+}
+
+.task_name {
+  outline: none;
+  font-weight: bold;
+  min-height: $mobileSpacing;
+  margin-bottom: $marginXsm;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
+  cursor: text;
+  [match-type="matched"] {
+    background-color: antiquewhite;
+    margin-right: 3px;
+  }
+  &:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
+}
+
+.task_name_tag_selector {
+  position: absolute;
+  width: 90%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #fff;
+  border-radius: $borderRadius;
+  box-shadow: 0 2px 10px $grayColor;
+  max-height: 20rem;
+  overflow: auto;
+  z-index: 1000;
+  padding: $paddingXsm;
+
+
+  button {
+    padding: $mobileSpacing;
+    @include flexRowStart();
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: $paddingsm3;
+    border-radius: $borderRadiusXsm;
+
+    &:hover {
+      background-color: $grayColor;
+    }
+  }
+}
+
+.task_name_tag_selector_button_on {
+  background-color: $grayColor;
+}
+
+.task_content {
+  outline: none;
+  min-height: 1.5rem;
+  margin-bottom: $marginXsm2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  cursor: text;
+  &:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: $textSecondaryColor;
+    background-color: transparent;
+  }
+}
+
+.task_edit_area {
+  width: 100%;
+  padding: $paddingsm3;
+  border-bottom: 1px solid $lightGrayColor;
+}
+
+.task_edit_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  button {
+    height: 3.5rem;
+    @include flexRowStart();
+    border: 1px solid $grayColor;
+    border-radius: $borderRadiusSm;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm;
+    font-size: $fontSizeSm;
+    cursor: pointer;
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+/* Scheduler */
+.scheduler {
+  color: $textSecondaryColor;
+  display: flex;
+  flex-direction: column;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  z-index: 1001;
+  // background-color: #fff;
+
+  button {
+    height: auto;
+    border: 0;
+    margin: 0;
+    font-size: $fontSizeXsm2;
+    cursor: pointer;
+  }
+}
+
+.scheduler_quickbutton {
+  line-height: normal;
+  padding: $paddingXsm;
+  display: flex;
+  justify-content: space-between !important;
+  font-size: $fontSizeXsm2;
+  cursor: pointer;
+  border-radius: $borderRadiusSm;
+
+  &:hover {
+    background-color: $grayColor;
+  }
+}
+
+.scheduler_quickbutton:hover {
+  background-color: $grayColor;
+}
+
+.datepicker_head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid $grayColor;
+  padding: $paddingsm3 $paddingsm2 $gapXsm;
+  font-size: $fontSizeXsm2;
+  font-weight: bold;
+  line-height: normal;
+}
+
+.datepicker_header_action {
+  @include flexRowStart();
+  button {
+    justify-content: center;
+    text-align: center;
+    width: $paddingMd;
+    padding: 0 !important;
+  }
+}
+
+.week_names {
+  display: flex;
+  color: $grayColor;
+  font-size: $fontSizeXsm;
+  padding: $paddingXsm $paddingsm;
+  border-bottom: 1px solid $grayColor;
+  line-height: normal;
+
+  div {
+    width: 3rem;
+    text-align: center;
+  }
+}
+
+.datepicker_monthlist_wrapper {
+  height: 19rem;
+  overflow: auto;
+  // margin-right: -17px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.datepicker_monthlist {
+  height: 200000px;
+  position: relative;
+
+  button {
+    padding: 0;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+.datepicker_calendar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.datepicker_calendar_header {
+  padding: $paddingXsm1 0;
+  margin: 0 1.6rem;
+  border-bottom: 1px solid $grayColor;
+  font-size: $fontSizeXsm2;
+  font-weight: bold;
+}
+
+.datepicker_calendar_body {
+  display: flex;
+  flex-direction: column;
+}
+
+.datepicker_calendar_week {
+  display: flex;
+  flex-direction: row;
+  padding: $gapXsm $paddingsm2;
+
+  button {
+    text-align: center;
+    width: 14.28571%;
+    line-height: $paddingMd !important;
+    font-size: $fontSizeXsm2 !important;
+    cursor: pointer;
+  }
+
+  div {
+    width: 14.28571%;
+  }
+  div {
+    width: 14.28571%;
+  }
+}
+
+.datepicker_selected {
+  display: block;
+  background-color: $primaryColor;
+  border-radius: 50%;
+  color: #fff;
+  width: $paddingMd;
+  margin: 0 auto !important;
+  font-weight: bold;
+  span {
+    margin: 0 auto !important;
+    color: white !important;
+  }
+}
+
+.datepicker_normal {
+  display: block;
+  border-radius: 50%;
+  width: $paddingMd;
+  margin: 0 auto;
+  transition: all 100ms;
+  text-align: center;
+
+  span {
+    margin: 0 auto !important;
+  }
+}
+
+.datepicker_normal:hover {
+  background-color: $grayColor;
+}
+
+.datepicker_today {
+  font-weight: bold;
+  color: white;
+}
+/* end Scheduler */
+
+/* priority picker */
+.priority_picker_button {
+  border: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $fontSizeXsm2;
+  margin: 0 !important;
+  cursor: pointer;
+  height: 100%;
+  padding: $paddingXsm;
+  border-radius: $borderRadiusSm;
+  gap: $gapSm;
+  width: 100%;
+
+  &:hover {
+    background-color: $grayColor;
+  }
+}
+/* end priority picker */
+
+.tag_check_list_dropdown {
+  max-height: 19rem;
+  overflow: auto;
+  z-index: 1001;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tag_check_list_dropdown_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: $paddingXxsm;
+  border-radius: $borderRadiusSm;
+  cursor: pointer;
+  margin: 0 !important;
+  overflow: hidden;
+  font-size: $fontSizeXsm2;
+
+  &:hover {
+    background-color: $grayColor;
+  }
+}
+
+.tag_checkbox {
+  position: relative;
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  // border: 1px solid #000;
+  margin: auto 0;
+}
+
+.tag_checkbox_on {
+  &:before {
+    content: "☑️";
+    position: absolute;
+    display: block;
+    font-size: $fontSizeSm2;
+    top: -4px;
+    left: -4px;
+    font-style: normal;
+  }
+}
+
+.task_footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: $paddingsm3;
+  gap: $gapXsm;
+  button {
+    border-radius: 4px;
+    margin: 0 $gapXsm;
+    padding: $paddingXsm $paddingMd;
+    font-weight: bold;
+  }
+}
+
+.project_board {
+  width: 100%;
+  border-radius: $borderRadius;
+  padding: $paddingXsm $paddingsm3;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  overflow: hidden;
+  justify-content: space-between;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
+
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+  &::after {
+    content: "";
+    border-top: 6px solid #000;
+    border-left: $marginXsm solid transparent;
+    border-right: $marginXsm solid transparent;
+    width: 0;
+    height: 0;
+    margin-left: $marginXsm;
+  }
+}
+
+.project_selector {
+  max-width: 30rem;
+  max-height: 30rem;
+  overflow: auto;
+  z-index: 1001;
+
+  li {
+    @include flexRowStart();
+    padding: 0.4rem $paddingsm3;
+    border-radius: $borderRadiusSm;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &[role="option"] {
+      cursor: pointer;
+      &:hover {
+        background-color: $grayColor;
+      }
+    }
+
+    &[indent-level="1"] {
+      padding-left: $paddingMd;
+    }
+    &[indent-level="2"] {
+      padding-left: 3rem;
+    }
+  }
+}
+
+.task_footer_btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task_footer_cancel {
+  color: #000;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  &:hover {
+    background-color: $lightGrayColor;
+  }
+}
+
+.task_footer_submit {
+  color: #fff;
+  background-color: $primaryColor;
+  cursor: pointer;
+  &:hover {
+    background-color: #c3392c;
+  }
+}
+
+.tag_box {
+  @include flexRowStart();
+  flex: 0 0 auto;
+}
+
+.tag_box2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag_box3 {
+  @include flexRowStart();
+  overflow: hidden;
+  flex: 1;
+}
+
+.button_red {
+  color: $priorityRed;
+}
+
+.button_yellow {
+  color: $priorityYellow;
+}
+
+.button_blue {
+  color: $priorityBlue;
+}
+
+.btn_menu {
+  cursor: pointer;
+  position: relative;
+  max-width: 68%;
+}
+
+.notification_card {
+  max-width: 40rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1060px) {
+  .task_footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
