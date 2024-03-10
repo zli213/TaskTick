@@ -11,6 +11,8 @@
 
       .task_list_action {
         opacity: 1;
+        background-color: $lightGrayColor;
+        border-radius: $borderRadiusXsm;
       }
     }
   }
@@ -54,8 +56,11 @@
     opacity: 0;
     cursor: pointer;
     color: $textSecondaryColor;
-    background-color: #fff;
-    box-shadow: 0 1px 2px 2px rgba(255, 255, 255, 1);
+
+    .action_btn:hover {
+      background-color: $midGrayColor;
+      border-radius: $borderRadiusXsm;
+    }
 
     .task_list_action_last {
       position: absolute;
@@ -67,6 +72,10 @@
       @include menuButton();
       @include flexRowStart();
       justify-content: center;
+    }
+
+    .showing {
+      background-color: $lightGrayColor;
     }
 
     .two_btn {

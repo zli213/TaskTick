@@ -35,13 +35,13 @@ export default function MyProjects(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header2">
         <div
           className={`${styles.view_header_content} ${styles.view_header_project}`}
         >
           <h1>My Projects</h1>
           <div>
-            <Link href="/application/setting/account" scroll={false}>
+            <Link href="/application/setting/account" scroll={false} id="action_menu_btn21">
               <Icon type="setting" />
               <span>Setting</span>
             </Link>
@@ -60,6 +60,7 @@ export default function MyProjects(props) {
             <div
               className={`${styles.active_btn_projects} ${styles.project_btn}`}
               onClick={swithMenuHandler}
+              id="action_menu_btn22"
             >
               {props.type === "active"
                 ? "Active projects"
@@ -74,14 +75,14 @@ export default function MyProjects(props) {
               >
                 <div className={`${styles.task_item_action_menu}`}>
                   <h4>Project type</h4>
-                  <Link href="/application/projects/active">
+                  <Link href="/application/projects/active" id="option_link8">
                     <div>
                       <Icon type="list" />
                       <span>Active project</span>
                     </div>
                     {props.type === "active" && <Icon type="check" />}
                   </Link>
-                  <Link href="/application/projects/archived">
+                  <Link href="/application/projects/archived" id="option_link9">
                     <div>
                       <Icon type="archive" />
                       <span>Archived project</span>
@@ -95,6 +96,7 @@ export default function MyProjects(props) {
           <div
             className={`${styles.add_btn_projects} ${styles.project_btn}`}
             onClick={showProjectCardHandler}
+            id="add_btn"
           >
             <Icon type="add" />
             <span>Add project</span>

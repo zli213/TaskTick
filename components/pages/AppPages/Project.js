@@ -70,7 +70,7 @@ export default function Project({ projectId }) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header3">
         <div className={styles.view_header_content}>
           <h1>{project.name}</h1>
           {!project.archived && (
@@ -78,6 +78,7 @@ export default function Project({ projectId }) {
               <button
                 onClick={swithMenuHandler}
                 className={styles.btn_completed_task}
+                id="action_menu_btn23"
               >
                 <Icon type="view" />
                 View
@@ -89,7 +90,7 @@ export default function Project({ projectId }) {
                   levels=""
                 >
                   <div className={styles.task_item_action_menu}>
-                    <div className={styles.view_btn}>
+                    <div className={styles.view_btn} id="action_menu_btn24">
                       <Icon type="check_circle" />
                       <label htmlFor="showCompletedTask">
                         <div>Completed tasks</div>
@@ -114,7 +115,7 @@ export default function Project({ projectId }) {
       </div>
 
       {project.archived && (
-        <div className={`${styles.list_box} ${styles.archived_project} `}>
+        <div className={`${styles.list_box} ${styles.archived_project} `} id="list_box3">
           <p>This project is archived</p>
           <button onClick={unarchiveHandler}>Unarchive</button>
         </div>

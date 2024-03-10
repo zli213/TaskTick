@@ -72,12 +72,11 @@ const SettingAccount = () => {
   }, [router]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="account_container">
       <header>
         <h4>Account Information</h4>
-        {/* need to be fixed. click & close the modal */}
-        <button onClick={onDismiss}>
-          <Icon type="close_small" />
+        <button onClick={onDismiss} id="option_link">
+          <Icon type="close_small" id="icon19"/>
         </button>
       </header>
       {userData ? (
@@ -138,6 +137,7 @@ const SettingAccount = () => {
             className={`${styles.submitButton} ${
               showButton ? styles.visible : styles.hidden
             }`}
+            id="content_holder3"
           >
             {showButton && (
               <button onClick={handleSubmit} type="button">

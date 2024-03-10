@@ -28,9 +28,9 @@ function LabelPage({ label }) {
   return (
     <>
       <div className={styles.back_to_filter}>
-        <Link href="/application/filters-labels">Filters & Labels</Link>/
+        <Link href="/application/filters-labels" id="action_menu_btn20">Filters & Labels</Link>/
       </div>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header1">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -39,7 +39,7 @@ function LabelPage({ label }) {
       </div>
       {tasks.length === 0 && <NoTask page="label" />}
       {tasks.length !== 0 && (
-        <div className={styles.list_box}>
+        <div className={styles.list_box} id="list_box2">
           <TodoList tasks={tasks} fromTag={label} />
         </div>
       )}

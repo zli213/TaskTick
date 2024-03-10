@@ -43,12 +43,12 @@ function Upcoming() {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header5">
         <div className={styles.view_header_content}>
           <h1>Next 7 days</h1>
         </div>
       </div>
-      <div className={styles.list_box}>
+      <div className={styles.list_box} id="list_box5">
         {futureTasks.map((futureTask, index) => {
           let todayPlusI = new Date(today);
           todayPlusI.setDate(today.getDate() + index);

@@ -26,7 +26,7 @@ export default function TaskHeaderButton() {
     <div className={styles.task_header_button}>
       &nbsp;
       <button onClick={onDismiss}>
-        <Icon type="close" />
+        <Icon type="close" id="icon18"/>
       </button>
     </div>
   );

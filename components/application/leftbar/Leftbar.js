@@ -51,7 +51,7 @@ function Leftbar({ showClass, switchHandler }) {
   }, [pathname]);
 
   return (
-    <div className={`${styles.list_sidebar}  ${!showClass && styles.hide_left}`}>
+    <div className={`${styles.list_sidebar}  ${showClass ? "" : styles.hide_left}`} id="leftbar1">
       <div>
         <LeftItem
           label="Inbox"
@@ -91,6 +91,7 @@ function Leftbar({ showClass, switchHandler }) {
           className={`${styles.project_title} ${
             selectedItemType === "projects/active" ? styles.selected_item : ""
           }`}
+          id="leftbar_item"
         >
           <Link
             href="/application/projects/active"
@@ -99,12 +100,13 @@ function Leftbar({ showClass, switchHandler }) {
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
-            <button onClick={showProjectCardHandler}>
+            <button onClick={showProjectCardHandler} id="action_menu_btn">
               <Icon type="add" />
             </button>
             <button
               onClick={clickListHandler}
               className={showList ? "" : styles.show_project_icon}
+              id="action_menu_btn0"
             >
               <Icon type="down_arrow" />
             </button>

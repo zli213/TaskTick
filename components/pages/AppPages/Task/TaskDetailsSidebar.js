@@ -198,20 +198,21 @@ export default function TaskDetailsSidebar({ task, taskId }) {
   } = useMenu();
 
   return (
-    <div className={styles.task_sidebar}>
-      <div className={styles.task_sidebar_list}>
+    <div className={styles.task_sidebar} id="task_sidebar">
+      <div className={styles.task_sidebar_list} id="task_sidebar_list">
         <div className={styles.task_sidebar_item}>
           <h4>Project</h4>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button">
             <span onClick={swichProjectHandler}>
               {!task.projectId ? (
-                <div className={styles.task_sidebar_button}>
+                <div className={styles.task_sidebar_button} id="task_sidebar_button0">
                   <Icon type="hashtag_small" />
                   Inbox
                 </div>
               ) : (
                 <div
                   className={`${styles.tag_box2} ${styles.task_sidebar_button}`}
+                  id="task_sidebar_button1"
                 >
                   <span className={`${styles.tag_box3} ${styles.flexStart}`}>
                     <Icon type="hashtag_small" />
@@ -261,11 +262,12 @@ export default function TaskDetailsSidebar({ task, taskId }) {
                 style={{ cursor: "pointer" }}
               >
                 <span>Due date</span>
-                <Icon type="add" />
+                <Icon type="add" id="icon15"/>
               </h4>
               <span
                 className={styles.btn_menu}
                 style={{ position: "absolute" }}
+                id="task_sidebar_button2"
               >
                 {showSecSchedulerMenu && !task.completed && (
                   <PopupMenu
@@ -293,6 +295,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
                 <button
                   className={styles.task_sidebar_button}
                   onClick={swichSchedulerHandler}
+                  id="task_sidebar_button3"
                 >
                   <div className={styles.flexStart}>
                     <Icon type="calender" />
@@ -323,7 +326,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
 
         <div className={styles.task_sidebar_item}>
           <h4>Priority</h4>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button4">
             <button
               className={styles.task_sidebar_button}
               onClick={swichPriorityHandler}
@@ -356,13 +359,13 @@ export default function TaskDetailsSidebar({ task, taskId }) {
         </div>
         <hr />
         <div className={styles.task_sidebar_item}>
-          <div className={styles.btn_menu}>
+          <div className={styles.btn_menu} id="task_sidebar_button5">
             <div
               className={` ${styles.task_sidebar_button} ${styles.task_sidebar_label_title}`}
               onClick={swichTagHandler}
             >
               <h4>Labels</h4>
-              <Icon type="add" />
+              <Icon type="add" id="icon16"/>
             </div>
             {showTagMenu && !task.completed && (
               <PopupMenu
@@ -386,7 +389,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
             {task.tags &&
               task.tags.map((tag, index) => (
                 <div key={tag}>
-                  <span className={styles.task_tag_item} key={index}>
+                  <span className={styles.task_tag_item} key={index} id="task_sidebar_button6">
                     <Link
                       href={`/application/label/${tag}`}
                       className={styles.tag_box}
@@ -399,7 +402,7 @@ export default function TaskDetailsSidebar({ task, taskId }) {
                         removeOneTag(tag);
                       }}
                     >
-                      <Icon type="close_small" />
+                      <Icon type="close_small" id="icon17"/>
                     </div>
                   </span>
                 </div>

@@ -2,6 +2,233 @@
 @use "./utils/" as *;
 
 
+//Dark theme
+.dark body{
+  background-color: $textPrimaryColor;
+  color: $secondaryColor;
+  
+  #leftbar,
+  #leftbar0,
+  #leftbar1,
+  #task_sidebar,
+  #task_sidebar_list {
+    background-color: $darkerGrayColor;
+    color: $secondaryColor;
+
+    h4 {
+      color: $secondaryColor;
+    }
+  }
+
+  #account_container {
+    span {
+      background-color: $textSecondaryColor;
+      &:hover {
+        background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      }
+    }
+  }
+  
+  #task_editor,
+  #menu_box,
+  #setting_right,
+  #setting_right0,
+  #add_project,
+  #notice_container,
+  #task_header,
+  #task_main_container,
+  #task_main_container0,
+  #project_popup_window,
+  #project_popup_window0
+  #add_label {
+    background-color: $textPrimaryColor;
+    color: $secondaryColor;
+    border: $textSecondaryColor 0.2px solid;
+
+    a, span {
+      color: $secondaryColor;
+    }
+    
+    button:hover,
+    li:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
+  }
+
+  #list_box,
+  #list_box0,
+  #list_box1,
+  #list_box2,
+  #list_box3,
+  #list_box4,
+  #list_box5,
+  #view_header,
+  #view_header0,
+  #view_header1,
+  #view_header2,
+  #view_header3,
+  #view_header4,
+  #view_header5,
+  #content_holder, 
+  #content_holder0,
+  #content_holder1,
+  #content_holder2,
+  #content_holder3,
+  #content_holder4,
+  #content_holder5,
+  #content_holder6,
+  #content_holder7,
+  #content_holder8,
+  #search_card {
+    background-color: $textPrimaryColor;
+    color: $secondaryColor;
+  }
+
+  #icon,
+  #icon0,
+  #icon1,
+  #icon2,
+  #icon3,
+  #icon4,
+  #icon5,
+  #icon6,
+  #icon7,
+  #icon8,
+  #icon9,
+  #icon10,
+  #icon11,
+  #icon12,
+  #icon13,
+  #icon14,
+  #icon15,
+  #icon16,
+  #icon17,
+  #icon18,
+  #icon19,
+  #icon20,
+  #icon21,
+  #icon22,
+  #icon23 {
+    color: $secondaryColor;
+  }
+
+  #tag,
+  #tag0,
+  #tag1,
+  #tag2 {
+    color: $heaveGrayColor;
+  }
+
+
+  #add_btn,
+  #btn_cancel,
+  #btn_cancel0,
+  #btn_cancel1 {
+    background-color: $textSecondaryColor;
+    &:hover {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    }
+  }
+
+  #task_sidebar_button,
+  #task_sidebar_button0,
+  #task_sidebar_button1,
+  #task_sidebar_button2,
+  #task_sidebar_button3,
+  #task_sidebar_button4,
+  #task_sidebar_button5,
+  #task_sidebar_button6,
+  #action_menu_btn,
+  #action_menu_btn0,
+  #action_menu_btn1,
+  #action_menu_btn2,
+  #action_menu_btn3,
+  #action_menu_btn4,
+  #action_menu_btn5,
+  #action_menu_btn6,
+  #action_menu_btn7,
+  #action_menu_btn8,
+  #action_menu_btn9,
+  #action_menu_btn10,
+  #action_menu_btn11,
+  #action_menu_btn12,
+  #action_menu_btn13,
+  #action_menu_btn14,
+  #action_menu_btn15,
+  #action_menu_btn16,
+  #action_menu_btn17,
+  #action_menu_btn18,
+  #action_menu_btn19,
+  #action_menu_btn20,
+  #action_menu_btn21,
+  #action_menu_btn22,
+  #action_menu_btn23,
+  #action_menu_btn24,
+  #tag_check_list_item {
+    background-color: none;
+    color: $secondaryColor;
+    &:hover,
+    &:focus {
+      background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+      border-radius: $borderRadiusXsm;
+    }
+  }
+
+  #leftbar_item:hover,
+  #leftbar_item0:hover,
+  #project_item:hover,
+  #option_link:hover,
+  #option_link0:hover,
+  #option_link1:hover,
+  #option_link2:hover,
+  #option_link3:hover,
+  #option_link4:hover,
+  #option_link5:hover,
+  #option_link6:hover,
+  #option_link7:hover,
+  #option_link8:hover,
+  #option_link9:hover,
+  #option_link10:hover,
+  #option_link11:hover,
+  #option_link12:hover,
+  #option_link13:hover,
+  #option_link14:hover,
+  #option_link15:hover,
+  #option_link16:hover,
+  #setting_item:hover,
+  #setting_item0:hover,
+  #setting_item1:hover,
+  #setting_item2:hover,
+  #menu_box a:hover,
+  #menu_box div:hover {
+    background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
+    border-radius: $borderRadiusSm
+  }
+
+  #project_item,
+  #right_menu {
+    background-color: none;
+    color: $secondaryColor;
+  }
+
+  #task_discription,
+  #task_label {
+    color: $grayColor;
+  }
+
+  #taskName:empty:before,
+  #taskContent:empty:before {
+    color: $lightGrayColor;
+  }
+
+  #taskListItem:hover {
+    #task_list_action {
+      background-color: $textSecondaryColor;
+      border-radius: $borderRadiusXsm;
+    }
+  }
+}
+
 .Toastify__toast-theme--dark {
   background-color: $textSecondaryColor;
 }

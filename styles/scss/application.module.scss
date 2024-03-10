@@ -75,10 +75,9 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 0 $marginLg;
+  padding: $marginSm $marginLg;
   position: relative;
   width: 100%;
-  margin: $marginXsm auto;
 }
 
 .content_box {
@@ -201,7 +200,6 @@
     @include flexRowStart();
     width: $fontSizeMd;
     height: 2.8rem;
-    background-color: $lightGrayColor;
     border-radius: $borderRadiusXsm;
     opacity: 0;
     cursor: pointer;
@@ -329,6 +327,8 @@
 
   &:hover {
     .right_menu {
+      background-color: $lightGrayColor;
+      border-radius: $borderRadiusXsm;
       opacity: 1;
     }
   }
@@ -340,7 +340,7 @@
   right: 0;
   @include flexRowStart();
   opacity: 0;
-  background-color: #fff;
+  //background-color: #fff;
 
   .right_menu_btn {
     position: relative;
@@ -507,4 +507,9 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.showing {
+  background-color: $lightGrayColor;
+  padding-left: 4px;
 }

@@ -192,7 +192,7 @@ export function SingleItems({
   };
 
   return (
-    <li className={styles.taskListItem}>
+    <li className={styles.taskListItem} id="taskListItem">
       {isEditing ? (
         <TaskEditor
           formType={"edit"}
@@ -219,11 +219,11 @@ export function SingleItems({
       ) : (
         <div className={styles.task_container}>
           {/* content */}
-          <div className={styles.content_container}>
-            <div className={styles.drag_tool}>
+          <div className={styles.content_container} id="content_holder1">
+            <div className={styles.drag_tool} id="action_menu_btn6">
               <div>
                 <span className={styles.check}>
-                  <Icon type="drag" />
+                  <Icon type="drag" id="4"/>
                 </span>
               </div>
             </div>
@@ -242,7 +242,7 @@ export function SingleItems({
                 className={styles.tag_box2}
               >
                 <div className={styles.task_title}>{title}</div>
-                <div className={styles.task_description}>{description}</div>
+                <div className={styles.task_description} id="task_discription">{description}</div>
               </Link>
               <div className={styles.task_info_container}>
                 <div className={styles.task_info}>
@@ -252,7 +252,7 @@ export function SingleItems({
                         className={styles.task_info_date}
                         onClick={swichSchedulerHandler}
                       >
-                        <Icon type="calender_small" />
+                        <Icon type="calender_small" id="icon5"/>
                         {dateJson.dateStr}
                       </button>
                       {showSchedulerMenu && (
@@ -276,8 +276,8 @@ export function SingleItems({
                   )}
                   {tags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
-                      <Icon type="small_tag" />
-                      <span className={styles.tag_box}>{tag}</span>
+                      <Icon type="small_tag" id="icon6"/>
+                      <span className={styles.tag_box} id="tag">{tag}</span>
                     </Link>
                   ))}
                   {showProject && (
@@ -300,22 +300,25 @@ export function SingleItems({
           <div
             className={styles.task_list_action}
             style={{ opacity: (showItemMenu || showSchedulerMenu2) && 1 }}
+            id="task_list_action"
           >
             <div className={styles.two_btn}>
               <button
-                className={styles.two_btn}
+                className={`${styles.two_btn} ${styles.action_btn}`}
                 onClick={() => {
                   setIsEditing(true);
                 }}
+                id="action_menu_btn8"
               >
-                <Icon type="edit" />
+                <Icon type="edit" id="icon7"/>
               </button>
-              <span className={styles.btn_menu}>
+              <span className={styles.btn_menu} >
                 <button
                   onClick={swichSchedulerHandler2}
-                  className={styles.two_btn}
+                  className={`${styles.two_btn} ${styles.action_btn}`}
+                  id="action_menu_btn7"
                 >
-                  <Icon type="calender_big" />
+                  <Icon type="calender_big" id="icon8"/>
                 </button>
                 {showSchedulerMenu2 && (
                   <PopupMenu
@@ -339,10 +342,10 @@ export function SingleItems({
             <div className={styles.task_list_action_last}>
               <button
                 onClick={swithMenuHandler}
-                className={styles.menu_button}
-                style={{ backgroundColor: showItemMenu && "#eeeeee" }}
+                className={`${styles.menu_button} ${showItemMenu && styles.showing}`}
+                id="action_menu_btn9"
               >
-                <Icon type="menu_unfill" />
+                <Icon type="menu_unfill" id="icon12"/>
               </button>
               {showItemMenu && (
                 <PopupMenu
@@ -356,13 +359,14 @@ export function SingleItems({
                         swithMenuHandler();
                         setIsEditing(true);
                       }}
+                      id="option_link1"
                     >
-                      <Icon type="edit" />
+                      <Icon type="edit" id="icon10"/>
                       <span>Edit</span>
                     </button>
                     {projectName && (
-                      <Link href={`/application/project/${projectId}`}>
-                        <Icon type="list" />
+                      <Link href={`/application/project/${projectId}`} id="option_link2">
+                        <Icon type="list" id="icon11"/>
                         <span>Go to Project</span>
                       </Link>
                     )}
@@ -376,6 +380,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link0"
                           onClick={() => {
                             changeSelectedPriority("P1");
                             swithMenuHandler();
@@ -392,6 +397,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link3"
                           onClick={() => {
                             changeSelectedPriority("P2");
                             swithMenuHandler();
@@ -408,6 +414,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link4"
                           onClick={() => {
                             changeSelectedPriority("P3");
                             swithMenuHandler();
@@ -424,6 +431,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
+                          id="option_link5"
                           onClick={() => {
                             changeSelectedPriority("P4");
                             swithMenuHandler();
@@ -432,17 +440,18 @@ export function SingleItems({
                           <Icon
                             type="flag_big"
                             className={styles.button_gray}
+                            id="icon"
                           />
                         </button>
                       </div>
                     </div>
                     <hr />
-                    <button className={styles.btn_menu}>
+                    <button className={styles.btn_menu} id="option_link7">
                       <div
                         className={styles.flex_start}
                         onClick={swichProjectHandler}
                       >
-                        <Icon type="move_list" />
+                        <Icon type="move_list" id="icon13" />
                         <span>Move to...</span>
                       </div>
                       {showProjectMenu && !task.completed && (
@@ -468,6 +477,7 @@ export function SingleItems({
                     <button
                       className={styles.button_delete}
                       onClick={menuDeleteHandler}
+                      id="option_link6"
                     >
                       <Icon type="delete" />
                       <span>Delete</span>

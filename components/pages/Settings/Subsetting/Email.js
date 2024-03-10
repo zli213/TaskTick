@@ -87,13 +87,13 @@ const SetEmail = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")}>
+          <button onClick={() => router.push("/application/setting/account")} id="option_link13">
             <Icon type="left_arrow" />
           </button>
           <label>Modify your email address</label>
         </span>
-        <button onClick={onDismiss}>
-          <Icon type="close" />
+        <button onClick={onDismiss} id="option_link14">
+          <Icon type="close" id="icon22"/>
         </button>
       </header>
 
@@ -111,7 +111,7 @@ const SetEmail = () => {
               value={confirmEmail}
               onChange={handleConfirmEmail}
             />
-            <p className={sameEmail ? styles.hidden : styles.visible}>
+            <p className={sameEmail ? styles.hidden : styles.visible} id="content_holder5">
               Email addresses do not match
             </p>
           </div>
@@ -123,7 +123,7 @@ const SetEmail = () => {
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden}>
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder6">
             {backendMessage}
           </p>
         </span>

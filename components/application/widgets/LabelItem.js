@@ -33,7 +33,7 @@ function LabelItem({ label, num }) {
   };
 
   return (
-    <div className={styles.labels_item_container}>
+    <div className={styles.labels_item_container} id="label_item">
       <li>
         <Link href={`/application/label/${showLabel}`}>
           <Icon type="hashtag_big" className={styles.tag_box2} />
@@ -45,6 +45,7 @@ function LabelItem({ label, num }) {
         <div
           className={styles.right_menu}
           style={{ opacity: showItemMenu && 1 }}
+          id="right_menu"
         >
           <span onClick={showCardHandler} className={styles.right_menu_btn}>
             <Icon type="edit" />
@@ -68,12 +69,12 @@ function LabelItem({ label, num }) {
               >
                 <div className={styles.task_item_action_menu}>
                   <button onClick={menuEditHandler}>
-                    <Icon type="edit" />
+                    <Icon type="edit" id="icon9"/>
                     <span>Edit label</span>
                   </button>
                   <hr />
                   <button onClick={menuDeleteHandler}>
-                    <Icon type="delete" />
+                    <Icon type="delete" id="icon0"/>
                     <span>Delete label</span>
                   </button>
                 </div>

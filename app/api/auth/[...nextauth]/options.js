@@ -6,13 +6,14 @@ import connect from "../../../../src/utils/data/db";
 import User from "../../../../src/models/User";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import { cookies } from "next/headers";
 
 export const options = {
   providers: [
     GitHubProvider({
       profile(profile) {
         let userRole = "GitHub User";
-        if (profile?.email == "admin@admin.com") {
+        if (profile?.email === "admin@admin.com") {
           userRole = "admin";
         }
 
@@ -70,6 +71,8 @@ export const options = {
               delete foundUser.password;
 
               foundUser["role"] = "Email user";
+              const userTheme = foundUser.themes[0];
+              cookies().set("themeName", userTheme);
               return foundUser;
             }
           }
@@ -108,6 +111,9 @@ export const options = {
           } else {
             user.accountStatus = "existing_user";
           }
+          const userTheme = existingUser.themes[0];
+          cookies().set("themeName", userTheme);
+
         } catch (error) {
           user.accountStatus = "error";
           throw new Error("User creation failed");

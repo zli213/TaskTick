@@ -1,5 +1,15 @@
 /* Base styles */
 @use "./variable" as *;
+:root {
+  --background: $bodyBg;
+  --text-color: $textPrimaryColor;
+}
+
+[data-theme='dark'] {
+  --background: $textPrimaryColor;
+  --text-color: $lightGrayColor;
+}
+
 * {
   margin: 0;
   padding: 0;
