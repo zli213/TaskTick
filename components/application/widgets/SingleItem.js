@@ -192,7 +192,7 @@ export function SingleItems({
   };
 
   return (
-    <li className={styles.taskListItem}>
+    <li className={styles.taskListItem} id="taskListItem">
       {isEditing ? (
         <TaskEditor
           formType={"edit"}
@@ -300,6 +300,7 @@ export function SingleItems({
           <div
             className={styles.task_list_action}
             style={{ opacity: (showItemMenu || showSchedulerMenu2) && 1 }}
+            id="task_list_action"
           >
             <div className={styles.two_btn}>
               <button

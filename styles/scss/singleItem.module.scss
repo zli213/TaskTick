@@ -11,6 +11,8 @@
 
       .task_list_action {
         opacity: 1;
+        background-color: $lightGrayColor;
+        border-radius: $borderRadiusXsm;
       }
     }
   }

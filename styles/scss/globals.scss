@@ -170,7 +170,7 @@
     &:hover,
     &:focus {
       background-color: rgba($color: $heaveGrayColor, $alpha: 0.8);
-      border-radius: $borderRadiusSm;
+      border-radius: $borderRadiusXsm;
     }
   }
 
@@ -221,6 +221,12 @@
     color: $lightGrayColor;
   }
 
+  #taskListItem:hover {
+    #task_list_action {
+      background-color: $textSecondaryColor;
+      border-radius: $borderRadiusXsm;
+    }
+  }
 }
 
 .Toastify__toast-theme--dark {
