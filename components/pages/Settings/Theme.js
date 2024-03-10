@@ -88,8 +88,8 @@ const SettingTheme = () => {
     <div className={styles.container}>
       <header>
         <h4>Theme</h4>
-        <button onClick={onDismiss} id="option_link">
-          <Icon type="close" id="icon"/>
+        <button onClick={onDismiss} id="option_link10">
+          <Icon type="close" id="icon20"/>
         </button>
       </header>
       <p>Personalize your TaskTick with colors to match your style, mood, and personality.</p>

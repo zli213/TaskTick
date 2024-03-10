@@ -51,7 +51,7 @@ function Leftbar({ showClass, switchHandler }) {
   }, [pathname]);
 
   return (
-    <div className={`${styles.list_sidebar}  ${showClass ? "" : styles.hide_left}`} id="leftbar">
+    <div className={`${styles.list_sidebar}  ${showClass ? "" : styles.hide_left}`} id="leftbar1">
       <div>
         <LeftItem
           label="Inbox"
@@ -106,7 +106,7 @@ function Leftbar({ showClass, switchHandler }) {
             <button
               onClick={clickListHandler}
               className={showList ? "" : styles.show_project_icon}
-              id="action_menu_btn"
+              id="action_menu_btn0"
             >
               <Icon type="down_arrow" />
             </button>

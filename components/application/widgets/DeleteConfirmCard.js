@@ -71,7 +71,7 @@ function DeleteConfirmCard(props) {
               className={styles.close}
               onClick={props.closeHandler}
               type="close"
-              id="action_menu_btn"
+              id="action_menu_btn1"
             />
           </div>
           <div className={styles.content_holder}>

@@ -11,7 +11,7 @@ function Notice ({ isOpen, onClose, onConfirm, promptText}) {
                 <header className={styles.noticeHeader}>
                     <label>Discard Changes?</label>
                     <button>
-                        <Close id="icon" onClick={onClose}/>
+                        <Close id="icon3" onClick={onClose}/>
                     </button>
                 </header>
                 <p>{promptText}</p>

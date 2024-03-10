@@ -33,13 +33,13 @@ export default function SettingModal({ params }) {
   return (
     <Modal>
       <div className={styles.setting_modal_container}>
-        <div className={styles.setting_left} id="leftbar">
+        <div className={styles.setting_left} id="leftbar0">
           <h2>Settings</h2>
           <ul>
             <li>
               <div
                 className={`${styles.leftGroup} ${styles.selected}`}
-                id="setting_item"
+                id="setting_item1"
               >
                 <Link href="/application/setting/account" scroll={false}>
                   <span>
@@ -54,7 +54,7 @@ export default function SettingModal({ params }) {
             <li>
               <div
                 className={styles.leftGroup}
-                id="setting_item"
+                id="setting_item2"
               >
                 <Link href="/application/setting/theme" scroll={false}>
                   <span><Theme/></span>
@@ -64,7 +64,7 @@ export default function SettingModal({ params }) {
             </li>
           </ul>
         </div>
-        <div className={styles.setting_right} id="setting_right">
+        <div className={styles.setting_right} id="setting_right0">
           <div>{activePage}</div>
         </div>
       </div>

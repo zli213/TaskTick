@@ -372,7 +372,7 @@ function Scheduler({ data, onChangeDate, onOverlayClick, isEdit }) {
       <div
         className={styles.scheduler}
         scrollable={"scrollable_area"}
-        id="content_holder"
+        id="content_holder0"
       >
         <button
           className={styles.scheduler_quickbutton}

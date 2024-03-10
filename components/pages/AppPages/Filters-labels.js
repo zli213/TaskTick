@@ -42,7 +42,7 @@ function FilterPage() {
         </div>
       </div>
 
-      <div className={styles.list_box} id="list_box">
+      <div className={styles.list_box} id="list_box0">
         <section>
           <header className={styles.filters_header}>
             <div

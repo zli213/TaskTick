@@ -219,11 +219,11 @@ export function SingleItems({
       ) : (
         <div className={styles.task_container}>
           {/* content */}
-          <div className={styles.content_container} id="content_holder">
-            <div className={styles.drag_tool} id="action_menu_btn">
+          <div className={styles.content_container} id="content_holder1">
+            <div className={styles.drag_tool} id="action_menu_btn6">
               <div>
                 <span className={styles.check}>
-                  <Icon type="drag" id="icon"/>
+                  <Icon type="drag" id="4"/>
                 </span>
               </div>
             </div>
@@ -252,7 +252,7 @@ export function SingleItems({
                         className={styles.task_info_date}
                         onClick={swichSchedulerHandler}
                       >
-                        <Icon type="calender_small" id="icon"/>
+                        <Icon type="calender_small" id="icon5"/>
                         {dateJson.dateStr}
                       </button>
                       {showSchedulerMenu && (
@@ -276,7 +276,7 @@ export function SingleItems({
                   )}
                   {tags.map((tag) => (
                     <Link href={`/application/label/${tag}`} key={tag}>
-                      <Icon type="small_tag" id="icon"/>
+                      <Icon type="small_tag" id="icon6"/>
                       <span className={styles.tag_box} id="tag">{tag}</span>
                     </Link>
                   ))}
@@ -307,17 +307,17 @@ export function SingleItems({
                 onClick={() => {
                   setIsEditing(true);
                 }}
-                id="action_menu_btn"
+                id="action_menu_btn8"
               >
-                <Icon type="edit" id="icon"/>
+                <Icon type="edit" id="icon7"/>
               </button>
               <span className={styles.btn_menu} >
                 <button
                   onClick={swichSchedulerHandler2}
                   className={`${styles.two_btn} ${styles.action_btn}`}
-                  id="action_menu_btn"
+                  id="action_menu_btn7"
                 >
-                  <Icon type="calender_big" id="icon"/>
+                  <Icon type="calender_big" id="icon8"/>
                 </button>
                 {showSchedulerMenu2 && (
                   <PopupMenu
@@ -342,9 +342,9 @@ export function SingleItems({
               <button
                 onClick={swithMenuHandler}
                 className={`${styles.menu_button} ${showItemMenu && styles.showing}`}
-                id="action_menu_btn"
+                id="action_menu_btn9"
               >
-                <Icon type="menu_unfill" id="icon"/>
+                <Icon type="menu_unfill" id="icon12"/>
               </button>
               {showItemMenu && (
                 <PopupMenu
@@ -358,14 +358,14 @@ export function SingleItems({
                         swithMenuHandler();
                         setIsEditing(true);
                       }}
-                      id="option_link"
+                      id="option_link1"
                     >
-                      <Icon type="edit" id="icon"/>
+                      <Icon type="edit" id="icon10"/>
                       <span>Edit</span>
                     </button>
                     {projectName && (
-                      <Link href={`/application/project/${projectId}`} id="option_link">
-                        <Icon type="list" id="icon"/>
+                      <Link href={`/application/project/${projectId}`} id="option_link2">
+                        <Icon type="list" id="icon11"/>
                         <span>Go to Project</span>
                       </Link>
                     )}
@@ -379,7 +379,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
-                          id="option_link"
+                          id="option_link0"
                           onClick={() => {
                             changeSelectedPriority("P1");
                             swithMenuHandler();
@@ -396,7 +396,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
-                          id="option_link"
+                          id="option_link3"
                           onClick={() => {
                             changeSelectedPriority("P2");
                             swithMenuHandler();
@@ -413,7 +413,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
-                          id="option_link"
+                          id="option_link4"
                           onClick={() => {
                             changeSelectedPriority("P3");
                             swithMenuHandler();
@@ -430,7 +430,7 @@ export function SingleItems({
                               ? styles.button_selected
                               : ""
                           }
-                          id="option_link"
+                          id="option_link5"
                           onClick={() => {
                             changeSelectedPriority("P4");
                             swithMenuHandler();
@@ -445,12 +445,12 @@ export function SingleItems({
                       </div>
                     </div>
                     <hr />
-                    <button className={styles.btn_menu} id="option_link">
+                    <button className={styles.btn_menu} id="option_link7">
                       <div
                         className={styles.flex_start}
                         onClick={swichProjectHandler}
                       >
-                        <Icon type="move_list" id="icon" />
+                        <Icon type="move_list" id="icon13" />
                         <span>Move to...</span>
                       </div>
                       {showProjectMenu && !task.completed && (
@@ -476,7 +476,7 @@ export function SingleItems({
                     <button
                       className={styles.button_delete}
                       onClick={menuDeleteHandler}
-                      id="option_link"
+                      id="option_link6"
                     >
                       <Icon type="delete" />
                       <span>Delete</span>

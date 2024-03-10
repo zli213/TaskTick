@@ -150,7 +150,7 @@ export default function NewProject(props) {
               <button
                 onClick={props.closeHandler}
                 className={styles.btn_cancel}
-                id="btn_cancel"
+                id="btn_cancel1"
               >
                 Cancel
               </button>

@@ -309,7 +309,7 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichSchedulerHandler}
-                  id="action_menu_btn"
+                  id="action_menu_btn14"
                   className={showSchedulerMenu ? styles.btn_selected : ""}
                 >
                   {convertDate(selectedDate)}
@@ -336,8 +336,7 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichPriorityHandler}
-                  // style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
-                  id="action_menu_btn"
+                  id="action_menu_btn15"
                   className={showPriorityMenu ? styles.btn_selected : ""}
                 >
                   <Icon
@@ -367,7 +366,7 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichTagHandler}
-                  id="action_menu_btn"
+                  id="action_menu_btn16"
                   className={showTagMenu ? styles.btn_selected : ""}
                 >
                   Tags
@@ -400,7 +399,7 @@ function TaskEditor({
               <div
                 className={`${styles.project_board} ${showProjectMenu ? styles.btn_selected : ""}`}
                 onClick={swichProjectHandler}
-                id="action_menu_btn"
+                id="action_menu_btn17"
               >
                 <span className={styles.tag_box2}>
                   {dispProjectId === "" ? "Inbox" : dispProjectName}

@@ -95,14 +95,14 @@ const SetPassword = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")} id="option_link">
+          <button onClick={() => router.push("/application/setting/account")} id="option_link16">
             <Icon type="left_arrow" />
           </button>
           <label>Modify your password</label>
         </span>
 
-        <button onClick={onDismiss} id="option_link">
-          <Icon type="close"  id="icon"/>
+        <button onClick={onDismiss} id="option_link15">
+          <Icon type="close"  id="icon23"/>
         </button>
       </header>
 
@@ -133,14 +133,14 @@ const SetPassword = () => {
               value={confirmPassword}
               onChange={handleConfirm}
             />
-            <p className={samePassword ? styles.hidden : styles.visible} id="content_holder">
+            <p className={samePassword ? styles.hidden : styles.visible} id="content_holder7">
               Passwords do not match
             </p>
           </div>
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder">
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder8">
             {backendMessage}
           </p>
         </span>

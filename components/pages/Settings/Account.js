@@ -76,7 +76,7 @@ const SettingAccount = () => {
       <header>
         <h4>Account Information</h4>
         <button onClick={onDismiss} id="option_link">
-          <Icon type="close_small" id="icon"/>
+          <Icon type="close_small" id="icon19"/>
         </button>
       </header>
       {userData ? (
@@ -137,7 +137,7 @@ const SettingAccount = () => {
             className={`${styles.submitButton} ${
               showButton ? styles.visible : styles.hidden
             }`}
-            id="content_holder"
+            id="content_holder3"
           >
             {showButton && (
               <button onClick={handleSubmit} type="button">

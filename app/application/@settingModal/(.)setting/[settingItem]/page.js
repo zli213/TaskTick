@@ -59,7 +59,7 @@ export default function SettingModal({ params }) {
                 className={`${styles.leftGroup} ${
                   selected === "theme" ? styles.selected : ""
                 }`}
-                id="setting_item"
+                id="setting_item0"
               >
                 <Link href="/application/setting/theme" scroll={false}>
                   <span>

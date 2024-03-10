@@ -194,7 +194,7 @@ function TodoList({
                 !showList && styles.content_wrapper_rotate
               }`}
               onClick={switchListHandler}
-              id="action_menu_btn"
+              id="action_menu_btn10"
             >
               <Icon type="down_arrow_small" />
             </div>
@@ -204,9 +204,9 @@ function TodoList({
                 <button
                   onClick={swithMenuHandler}
                   className={`${styles.menu_btn} ${showItemMenu && styles.showing}`}
-                  id="action_menu_btn"
+                  id="action_menu_btn11"
                 >
-                  <Icon type="menu_unfill" id="icon"/>
+                  <Icon type="menu_unfill" id="icon14"/>
                 </button>
                 {showItemMenu && (
                   <PopupMenu
@@ -215,12 +215,12 @@ function TodoList({
                     levels="2"
                   >
                     <div className={styles.task_item_action_menu}>
-                      <button onClick={menuEditHandler} id="action_menu_btn">
+                      <button onClick={menuEditHandler} id="action_menu_btn12">
                         <Icon type="edit" />
                         <span>Edit</span>
                       </button>
                       <hr />
-                      <button onClick={menuDeleteHandler} id="action_menu_btn">
+                      <button onClick={menuDeleteHandler} id="action_menu_btn13">
                         <Icon type="delete" />
                         <span>Delete</span>
                       </button>

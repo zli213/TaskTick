@@ -69,12 +69,12 @@ function LabelItem({ label, num }) {
               >
                 <div className={styles.task_item_action_menu}>
                   <button onClick={menuEditHandler}>
-                    <Icon type="edit" id="icon"/>
+                    <Icon type="edit" id="icon9"/>
                     <span>Edit label</span>
                   </button>
                   <hr />
                   <button onClick={menuDeleteHandler}>
-                    <Icon type="delete" id="icon"/>
+                    <Icon type="delete" id="icon0"/>
                     <span>Delete label</span>
                   </button>
                 </div>

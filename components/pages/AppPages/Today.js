@@ -54,7 +54,7 @@ function Today(props) {
   useDismissToast();
   return (
     <>
-      <div className={styles.view_header} id="view_header">
+      <div className={styles.view_header} id="view_header4">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -74,7 +74,7 @@ function Today(props) {
       {todayNum === 0 ? (
         <NoTask page="today" fromDate={today} />
       ) : (
-        <div className={styles.list_box} id="list_box">
+        <div className={styles.list_box} id="list_box4">
           {overDueTasks.length !== 0 && (
             <TodoList
               tasks={overDueTasks}

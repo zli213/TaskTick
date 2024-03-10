@@ -110,7 +110,7 @@ function MyProjectItem({ project, type }) {
           onClick={swithMenuHandler}
           style={{ opacity: showItemMenu && 1 }}
         >
-          <Icon type="menu_unfill" id="icon"/>
+          <Icon type="menu_unfill" id="icon2"/>
         </span>
         {showItemMenu && (
           <PopupMenu
@@ -119,16 +119,16 @@ function MyProjectItem({ project, type }) {
             levels="3"
           >
             <div className={`${styles.task_item_action_menu}`}>
-              <button onClick={menuEditHandler} id="action_menu_btn">
+              <button onClick={menuEditHandler} id="action_menu_btn3">
                 <Icon type="edit" />
                 <span>Edit</span>
               </button>
               <hr />
-              <button onClick={menuArchiveHandler} id="action_menu_btn">
+              <button onClick={menuArchiveHandler} id="action_menu_btn4">
                 <Icon type={type === "active" ? "archive" : "unarchive"} />
                 <span>{type === "active" ? "Archive" : "Unarchive"}</span>
               </button>
-              <button onClick={menuDeleteHandler} id="action_menu_btn">
+              <button onClick={menuDeleteHandler} id="action_menu_btn5">
                 <Icon type="delete" />
                 <span>Delete</span>
               </button>
