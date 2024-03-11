@@ -121,7 +121,10 @@ export const options = {
       }
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update" && session) {
+        return { ...token, ...session?.user };
+      }
       if (user) {
         token.role = user.role;
         if (user.role === "GitHub User") {

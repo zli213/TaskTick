@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 
-export const POST = async (req) => {
+export const PATCH = async (req) => {
     await connect();
     const session = await getServerSession(options);
     const result = await req.json();   
@@ -24,7 +24,7 @@ export const POST = async (req) => {
             const filter = { email: session.user.email };
             const update = { email: newEmail };
             await User.updateOne(filter, update);
-            return NextResponse.json({ message: "Succeed. "}, {status: 201});
+            return NextResponse.json({ message: "Succeed. "}, {status: 201}, update);
         }
     } catch (error) {
         console.log(error);

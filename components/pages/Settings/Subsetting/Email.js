@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from 'next-auth/react';
 import styles from "../../../../styles/scss/account.module.scss";
 import Notice from "../../../application/widgets/settingNotice";
 import Icon from "../../../application/widgets/Icon";
 
 const SetEmail = () => {
   const router = useRouter();
+  const { data: session, update} = useSession();
   const [newEmail, setNewEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +51,7 @@ const SetEmail = () => {
     e.preventDefault();
     try {
       const res = await fetch("/api/updateEmail", {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -57,6 +59,15 @@ const SetEmail = () => {
       });
 
       if (res.ok) {
+        //update session
+        const updateUser = {
+          ...session,
+          user: {
+            ...session?.user,
+            email: confirmEmail,
+          },
+        };
+        await update(updateUser);
         router.push("/application/setting/account");
       } else {
         const data = await res.json();

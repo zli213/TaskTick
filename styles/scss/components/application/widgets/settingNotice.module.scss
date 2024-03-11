@@ -14,10 +14,11 @@
 .noticeContainer {
     position: fixed;
     padding: $paddingMd;
-    top: 20vh;
-    left: 35vw;
-    width: 30vw;
-    height: 25vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 35vw;
+    min-height: 25vh;
     background-color: $secondaryColor;
     z-index: 777;
     border-radius: $borderRadius;
@@ -68,7 +69,6 @@
         position:relative;
         width: 100%;
         text-align: end;
-        position: sticky;
         bottom: 0;
         //flex:1;
 
