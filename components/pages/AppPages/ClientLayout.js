@@ -17,17 +17,18 @@ export default function ClientLayout(props) {
   const [pageWidth, setPageWidth] = useState(1000);
 
   const dispatch = useDispatch();
-
-  dispatch(
-    initialAllState(
-      JSON.stringify(props.tasks),
-      props.projects,
-      props.inboxNum,
-      props.todayNum,
-      props.allTags,
-      JSON.stringify(props.completedTasks)
-    )
-  );
+  useEffect(() => {
+    dispatch(
+      initialAllState(
+        JSON.stringify(props.tasks),
+        props.projects,
+        props.inboxNum,
+        props.todayNum,
+        props.allTags,
+        JSON.stringify(props.completedTasks)
+      )
+    );
+  }, []);
 
   const switchLeftBar = () => {
     setShowLeftBar((prevState) => !prevState);
@@ -37,7 +38,7 @@ export default function ClientLayout(props) {
   useEffect(() => {
     const theme = getCookie("themeName");
     setThemeName(theme);
-  }, [setThemeName])
+  }, [setThemeName]);
 
   const updatePageWidth = () => {
     const newWidth = window.innerWidth;
@@ -52,20 +53,25 @@ export default function ClientLayout(props) {
 
   useEffect(() => {
     updatePageWidth();
-    window.addEventListener('resize', updatePageWidth);
+    window.addEventListener("resize", updatePageWidth);
 
     return () => {
-      window.removeEventListener('resize', updatePageWidth);
+      window.removeEventListener("resize", updatePageWidth);
     };
-
   }, []);
 
   return (
     <div className={styles.app_layout}>
       <Topbar switchHandler={switchLeftBar} />
       <div id="app-holder" className={styles.app_holder}>
-        <Leftbar showClass={showLeftBar} className={styles.leftbar} switchHandler={switchLeftBar} />
-        <div className={styles.content_holder} id="content_holder2">{props.children}</div>
+        <Leftbar
+          showClass={showLeftBar}
+          className={styles.leftbar}
+          switchHandler={switchLeftBar}
+        />
+        <div className={styles.content_holder} id="content_holder2">
+          {props.children}
+        </div>
       </div>
       <ToastContainer
         position="bottom-left"

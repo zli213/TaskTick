@@ -20,25 +20,22 @@ export default function Project({ projectId }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
   let showCompletedTask = useSelector(
-    
     (state) => state.viewOptions.projects[projectId]
-  
   );
   showCompletedTask =
-   
     showCompletedTask !== undefined
-     
       ? showCompletedTask.showCompletedTasks
-     
       : false;
 
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
-  if (project.state === "deleted") {
-    router.push("/application/inbox");
-  }
+  useEffect(() => {
+    if (project?.state === "deleted") {
+      router.push("/application/inbox");
+    }
+  }, [project]);
 
-  const boards = project.boards !== undefined ? project.boards : [];
+  const boards = project?.boards !== undefined ? project.boards : [];
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => task.projectId === projectId);
 
@@ -59,7 +56,7 @@ export default function Project({ projectId }) {
   };
 
   useEffect(() => {
-    document.title = project.name + " - TaskTick";
+    document.title = project?.name + " - TaskTick";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 
@@ -72,8 +69,8 @@ export default function Project({ projectId }) {
     <>
       <div className={styles.view_header} id="view_header3">
         <div className={styles.view_header_content}>
-          <h1>{project.name}</h1>
-          {!project.archived && (
+          <h1>{project?.name}</h1>
+          {!project?.archived && (
             <div className={styles.menu_btn_container}>
               <button
                 onClick={swithMenuHandler}
@@ -114,18 +111,21 @@ export default function Project({ projectId }) {
         </div>
       </div>
 
-      {project.archived && (
-        <div className={`${styles.list_box} ${styles.archived_project} `} id="list_box3">
+      {project?.archived && (
+        <div
+          className={`${styles.list_box} ${styles.archived_project} `}
+          id="list_box3"
+        >
           <p>This project is archived</p>
           <button onClick={unarchiveHandler}>Unarchive</button>
         </div>
       )}
 
-      {!project.archived &&
+      {!project?.archived &&
         (boards.length === 0 && tasks.length === 0 && !showCompletedTask ? (
           <NoTask
             page="project"
-            fromProject={{ projectId: projectId, projectName: project.name }}
+            fromProject={{ projectId: projectId, projectName: project?.name }}
             fromBoard={""}
           />
         ) : (
