@@ -108,55 +108,59 @@ const SetEmail = () => {
         </button>
       </header>
 
-      <form className={styles.subsettingForm}>
-        <div>
-          <label>New email address</label>
-          <input type="email" value={newEmail} onChange={handleNewEmail} />
-        </div>
-
-        <div>
-          <label>Confirm new email address</label>
-          <div className={styles.smallGroup}>
-            <input
-              type="email"
-              value={confirmEmail}
-              onChange={handleConfirmEmail}
-            />
-            <p className={sameEmail ? styles.hidden : styles.visible} id="content_holder5">
-              Email addresses do not match
-            </p>
+      {session.user.role !== "Email user" ? (
+        <p>You cannot modify your email as you are logged in with {session.user.role}</p>
+      ) : (
+        <form className={styles.subsettingForm}>
+          <div>
+            <label>New email address</label>
+            <input type="email" value={newEmail} onChange={handleNewEmail} />
           </div>
-        </div>
 
-        <div>
-          <label>Verify your password</label>
-          <input type="password" value={password} onChange={handlePassword} />
-        </div>
+          <div>
+            <label>Confirm new email address</label>
+            <div className={styles.smallGroup}>
+              <input
+                type="email"
+                value={confirmEmail}
+                onChange={handleConfirmEmail}
+              />
+              <p className={sameEmail ? styles.hidden : styles.visible} id="content_holder5">
+                Email addresses do not match
+              </p>
+            </div>
+          </div>
 
-        <span>
-          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder6">
-            {backendMessage}
-          </p>
-        </span>
+          <div>
+            <label>Verify your password</label>
+            <input type="password" value={password} onChange={handlePassword} />
+          </div>
 
-        <div className={styles.buttonGroup}>
-          <button
-            type="button"
-            className={styles.cancelButton}
-            onClick={clickCancel}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={submitDisabled}
-            className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}
-          >
-            Submit
-          </button>
-        </div>
+          <span>
+            <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder6">
+              {backendMessage}
+            </p>
+          </span>
+
+          <div className={styles.buttonGroup}>
+            <button
+              type="button"
+              className={styles.cancelButton}
+              onClick={clickCancel}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={submitDisabled}
+              className={submitDisabled ? styles.cannotSubmit : styles.canSubmit}
+            >
+              Submit
+            </button>
+          </div>
       </form>
+      )}
 
       <Notice
         isOpen={isAllFilled && showModal}
