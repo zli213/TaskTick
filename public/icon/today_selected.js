@@ -16,6 +16,7 @@ export default function TodayIconSelected() {
         fill="currentColor"
       ></path>
       <text
+        id="today_selected"
         fontFamily="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
         fontSize="9"
         transform="translate(4 2)"

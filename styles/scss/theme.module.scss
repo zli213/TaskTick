@@ -1,0 +1,126 @@
+@use "./utils/variable" as *;
+.container {
+    border: 0;
+    margin: 0;
+    padding: $paddingsm;
+    width: max;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: sticky;
+        padding: $paddingsm;
+        border-bottom: 1px solid $grayColor;
+
+        span {
+            display: flex;
+            flex-direction: row;
+
+            label {
+                font-size: $fontSizeSm;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                padding: $paddingsm;
+            }
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: $borderRadius;
+
+            &:hover {
+                background-color: $grayColor;
+            }
+        }
+    }
+
+    .switchContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .notice {
+        font-size: small;
+    }
+
+    h4 {
+        font-weight: bold;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    box-shadow: 0 0 2px $primaryColor;
+    border-radius: 24px;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + span{
+            background-color: $midGrayColor;
+            &::before {
+            background-color: $primaryColor;
+        }}
+
+        &:focus + span {
+            box-shadow: 0 0 1px $primaryColor;
+        }
+
+        &:checked + span::before {
+            -webkit-transform: translateX(18px);
+            -ms-transform: translateX(18px);
+            transform: translateX(18px);
+        }
+    }
+
+    span {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $grayColor;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 24px;
+
+        &::before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: $lightGrayColor;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+    }
+}
+
+.themeButtons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}

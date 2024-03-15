@@ -98,7 +98,7 @@ const SignInPage = () => {
   }, [session, signUpInitiated]);
 
   return (
-    <>
+    <div className={styles.container_root}>
       <Navbar />
       <div className={styles.container}>
         <div className={styles.title}>
@@ -146,7 +146,7 @@ const SignInPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

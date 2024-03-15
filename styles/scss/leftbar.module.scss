@@ -12,7 +12,6 @@
   padding: $paddingLg $paddingsm;
   gap: $gap;
   z-index: 10;
-  // overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 
@@ -61,7 +60,7 @@
 }
 
 .hide_left {
-  width: 0;
+  width: 0!important;
   transform: translateX(-$appSideBarWidth);
   visibility: hidden;
   opacity: 0;
@@ -188,7 +187,7 @@
 }
 
 .selected_item {
-  background-color: $selectedColor !important;
+  background-color: rgba($color: $selectedColor, $alpha: 0.6);
   color: $primaryColor;
 }
 
@@ -203,7 +202,7 @@
   }
 
   &:hover {
-    background-color: $lightGrayColor !important;
+    background-color: $lightGrayColor;
   }
 }
 
@@ -227,4 +226,17 @@
   transform: translateY(-3rem);
   overflow: hidden;
   opacity: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .list_sidebar {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .list_sidebar {
+    position:fixed;
+    width: $appSideBarWidth;
+  }
 }

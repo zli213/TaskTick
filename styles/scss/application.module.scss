@@ -9,6 +9,10 @@
   display: flex;
 }
 
+.leftbar {
+  display: block;
+}
+
 .list_sidebar_hide {
   width: 0;
   transform: translateX(-$appSideBarWidth);
@@ -17,6 +21,7 @@
 }
 
 .content_holder {
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -70,16 +75,15 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 0 $marginLg;
+  padding: $marginSm $marginLg;
   position: relative;
   width: 100%;
-  margin: $marginXsm auto;
 }
 
 .content_box {
   margin: 0 auto;
-  max-width: $maxListWidth;
   width: 100%;
+  max-width: $maxListWidth;
   padding: $marginXsm $marginLg 0;
   display: flex;
   flex-direction: column;
@@ -196,7 +200,6 @@
     @include flexRowStart();
     width: $fontSizeMd;
     height: 2.8rem;
-    background-color: $lightGrayColor;
     border-radius: $borderRadiusXsm;
     opacity: 0;
     cursor: pointer;
@@ -310,11 +313,21 @@
     .labels_item_content {
       width: 100%;
       @include flexRowBetween();
+
+      span {
+        width: 100%;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
+      }
     }
   }
 
   &:hover {
     .right_menu {
+      background-color: $lightGrayColor;
+      border-radius: $borderRadiusXsm;
       opacity: 1;
     }
   }
@@ -326,7 +339,7 @@
   right: 0;
   @include flexRowStart();
   opacity: 0;
-  background-color: #fff;
+  //background-color: #fff;
 
   .right_menu_btn {
     position: relative;
@@ -478,11 +491,23 @@
 .tag_box1 {
   flex: 1;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tag_box2 {
   flex: 0 0 auto;
   @include flexRowStart();
+}
+
+@media screen and (max-width: 400px) {
+  .btn_projects {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.showing {
+  background-color: $lightGrayColor;
+  padding-left: 4px;
 }

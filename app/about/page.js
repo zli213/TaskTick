@@ -4,7 +4,7 @@ import Gallery from "../../components/pages/About/GalleryComponent";
 
 function About() {
   return (
-    <div className="aboutPage">
+    <div>
       <AboutPage />
       <Gallery />
     </div>

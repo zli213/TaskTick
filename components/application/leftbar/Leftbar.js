@@ -9,7 +9,7 @@ import NewProject, { useProject } from "../widgets/NewProject";
 import Icon from "../widgets/Icon";
 import { useSelector } from "react-redux";
 
-function Leftbar({ showClass }) {
+function Leftbar({ showClass, switchHandler }) {
   const pathname = usePathname();
   let projects = Object.values(useSelector((state) => state.projects));
   projects = projects
@@ -24,6 +24,9 @@ function Leftbar({ showClass }) {
 
   const handleItemClick = (type) => {
     setSeletedItemType(type);
+    if(window.innerWidth < 600){
+      switchHandler();
+    }
   };
 
   const clickListHandler = () => {
@@ -48,7 +51,7 @@ function Leftbar({ showClass }) {
   }, [pathname]);
 
   return (
-    <div className={`${styles.list_sidebar}  ${showClass && styles.hide_left}`}>
+    <div className={`${styles.list_sidebar}  ${showClass ? "" : styles.hide_left}`} id="leftbar1">
       <div>
         <LeftItem
           label="Inbox"
@@ -88,6 +91,7 @@ function Leftbar({ showClass }) {
           className={`${styles.project_title} ${
             selectedItemType === "projects/active" ? styles.selected_item : ""
           }`}
+          id="leftbar_item"
         >
           <Link
             href="/application/projects/active"
@@ -96,12 +100,13 @@ function Leftbar({ showClass }) {
             <h4 className={styles.leftbar_project_header}>My Projects</h4>
           </Link>
           <div className={styles.leftbar_btn}>
-            <button onClick={showProjectCardHandler}>
+            <button onClick={showProjectCardHandler} id="action_menu_btn">
               <Icon type="add" />
             </button>
             <button
               onClick={clickListHandler}
               className={showList ? "" : styles.show_project_icon}
+              id="action_menu_btn0"
             >
               <Icon type="down_arrow" />
             </button>

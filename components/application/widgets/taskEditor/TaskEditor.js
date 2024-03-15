@@ -210,7 +210,6 @@ function TaskEditor({
     changeDispProjectName(projName);
     changeDispBoard(board);
     swichProjectHandler();
-    //console.log({ id: projId, name: projName, board: board });
   };
 
   const recordTaskContent = () => {
@@ -276,10 +275,10 @@ function TaskEditor({
 
   return (
     <>
-      <div className={styles.task_edit_form}>
+      <div className={styles.task_edit_form} id="task_editor">
         <form>
           <div className={styles.task_edit_area}>
-            <div className="task_edit_inputs">
+            <div className={styles.task_edit_inputs}>
               <TaskNameInput
                 tags={newTaskData.current.tags}
                 taskName={newTaskData.current.taskName}
@@ -307,7 +306,12 @@ function TaskEditor({
             </div>
             <div className={styles.task_edit_buttons}>
               <span className={styles.btn_menu}>
-                <button type="button" onClick={swichSchedulerHandler}>
+                <button
+                  type="button"
+                  onClick={swichSchedulerHandler}
+                  id="action_menu_btn14"
+                  className={showSchedulerMenu ? styles.btn_selected : ""}
+                >
                   {convertDate(selectedDate)}
                 </button>
                 {showSchedulerMenu && (
@@ -332,7 +336,8 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichPriorityHandler}
-                  style={{ backgroundColor: showPriorityMenu && "#f5f5f5" }}
+                  id="action_menu_btn15"
+                  className={showPriorityMenu ? styles.btn_selected : ""}
                 >
                   <Icon
                     type={selectedPriority == 4 ? "flag_big" : "flag_filled"}
@@ -361,7 +366,8 @@ function TaskEditor({
                 <button
                   type="button"
                   onClick={swichTagHandler}
-                  style={{ backgroundColor: showTagMenu && "#f5f5f5" }}
+                  id="action_menu_btn16"
+                  className={showTagMenu ? styles.btn_selected : ""}
                 >
                   Tags
                 </button>
@@ -391,9 +397,9 @@ function TaskEditor({
             {/* project / board */}
             <div className={styles.btn_menu}>
               <div
-                className={styles.project_board}
+                className={`${styles.project_board} ${showProjectMenu ? styles.btn_selected : ""}`}
                 onClick={swichProjectHandler}
-                style={{ backgroundColor: showProjectMenu && "#f5f5f5" }}
+                id="action_menu_btn17"
               >
                 <span className={styles.tag_box2}>
                   {dispProjectId === "" ? "Inbox" : dispProjectName}

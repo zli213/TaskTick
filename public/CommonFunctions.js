@@ -5,21 +5,39 @@
 //Calculate Position Function
 export function convertPosition2(position, levels, componentWidth) {
   const menuHeight = levels * 38;
-
   var newtop = position.height + 2;
-  var newleft = -componentWidth * 0.5 + position.width / 2 + 3;
+  var newleft = position.width / 2 - componentWidth / 2 + 3;
 
-  if (window.innerHeight - position.top < menuHeight) {
-    newtop = -menuHeight;
-  }
+  const windowsWidth = window.innerWidth;
+  if (windowsWidth < 1010) {
+    if (window.innerHeight - position.top < menuHeight) {
+      newtop = -menuHeight;
+    }
+    if (position.left < componentWidth / 2) {
+      newleft = 0;
+    }
+    if (window.innerWidth - position.right < componentWidth / 2) {
+      newleft = position.width - componentWidth;
+      if (newleft < -position.left) {
+        newleft = -position.left - 2;
+      }
+    }
+    if (componentWidth < position.width) {
+      newleft = position.width / 2 - componentWidth / 2;
+    }
+  } else {
+    if (window.innerHeight - position.top < menuHeight) {
+      newtop = -menuHeight;
+    }
 
-  if (window.innerWidth - position.right < componentWidth / 2) {
-    if (window.innerHeight - position.top < menuHeight / 2) {
-      newtop = -menuHeight + window.innerHeight - position.bottom - 10;
-      newleft = -componentWidth - 2;
-    } else {
-      newtop = -menuHeight / 2;
-      newleft = -componentWidth - 2;
+    if (window.innerWidth - position.right < componentWidth / 2) {
+      if (window.innerHeight - position.top < menuHeight / 2) {
+        newtop = -menuHeight + window.innerHeight - position.bottom - 10;
+        newleft = -componentWidth - 2;
+      } else {
+        newtop = -menuHeight / 2;
+        newleft = -componentWidth - 2;
+      }
     }
   }
 

@@ -7,7 +7,7 @@
   padding: 0 $paddingXsm;
   height: $navHeight;
   line-height: $navHeight;
-  z-index: 10;
+  z-index: 20;
   background-color: $primaryColor;
   color: $secondaryColor;
 }
@@ -43,6 +43,9 @@
   height: $fontSizeLg;
   padding: 0 $paddingsm;
   transition: all 100ms ease-in-out;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
 
   .icon_btn {
     @include flexRowBetween();
@@ -67,7 +70,7 @@
   @include flexRowBetween();
   justify-content: center;
   align-items: flex-start;
-  padding-top: 10%;
+  padding-top: 15rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -78,7 +81,7 @@
 
 .add_task_card {
   background-color: #fff;
-  padding: $paddingXsm;
+  padding: 0;
   color: $textPrimaryColor;
   line-height: $fontSizeMd;
   width: 60rem;
@@ -99,5 +102,11 @@
   to {
     transform: translate(0, 0) scale(1);
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .flex_center {
+    gap: $paddingXsm;
   }
 }

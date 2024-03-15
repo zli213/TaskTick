@@ -52,13 +52,13 @@ const DeleteAccount = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")}>
-            <Icon type="left_arrow" />
+          <button onClick={() => router.push("/application/setting/account")} id="option_link11">
+            <Icon type="left_arrow" id="icon21"/>
           </button>
           <label>Modify your password</label>
         </span>
 
-        <button onClick={onDismiss}>
+        <button onClick={onDismiss} id="option_link12">
           <Icon type="close" />
         </button>
       </header>
@@ -87,7 +87,7 @@ const DeleteAccount = () => {
         </div>
         <div>
           {/* dispay messages from backend */}
-          <p className={backendMessage ? styles.visible : styles.hidden}>
+          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder4">
             {backendMessage}
           </p>
         </div>
@@ -99,7 +99,6 @@ const DeleteAccount = () => {
           >
             Cancel
           </button>
-          {/* not working */}
           <button
             type="button"
             onClick={handleDelete}

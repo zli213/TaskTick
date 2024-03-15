@@ -4,11 +4,13 @@
   position: fixed;
   padding: $fontSizeSm;
   top: 18vh;
-  left: calc(50vw - $addProjectWidth / 2);
+  left: 50%;
+  transform: translateX( -50%);
   background-color: #fff;
   border-radius: $borderRadius;
   color: $textPrimaryColor;
-  width: $addProjectWidth;
+  width: 95%;
+  max-width: $addProjectWidth;
   // height: $addProjectHeight;
   overflow: hidden;
   box-shadow: 0px 0px 4px 4px rgba($color: black, $alpha: 0.1);

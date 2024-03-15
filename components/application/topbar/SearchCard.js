@@ -43,7 +43,7 @@ const SearchCard = ({ closeCardHandler }) => {
 
   return (
     <div className="click_close_cover" onClick={closeCardHandler}>
-      <div className={styles.search_card} onClick={containerClickHandler}>
+      <div className={styles.search_card} onClick={containerClickHandler} id="search_card">
         <div className={styles.search_card_header}>
           <Icon type="search" />
           <input

@@ -77,7 +77,7 @@ const LeftbarItem = ({
       break;
     case "today":
       icon = isSelected ? (
-        <Icon type="today_selected" />
+        <Icon type="today_selected" id="today_selected"/>
       ) : (
         <Icon type="today" />
       );
@@ -109,6 +109,7 @@ const LeftbarItem = ({
       className={`${isSelected ? styles.selected_item : ""} ${
         showItemMenu && styles.li_hover
       }`}
+      id="leftbar_item0"
     >
       <div className={styles.list_item_box} onClick={clickHandler}>
         <Link href={link} passHref>
@@ -135,7 +136,7 @@ const LeftbarItem = ({
               onClick={swithMenuHandler}
             >
               <span>
-                <Icon type="menu_filled" />
+                <Icon type="menu_filled" id="icon1"/>
               </span>
             </button>
           </div>
@@ -145,11 +146,13 @@ const LeftbarItem = ({
             onOverlayClick={swithMenuHandler}
             position={buttonPosition}
             levels="3"
+            id="project_popup_window0"
           >
             <ul>
               <li
                 className={styles.action_btn_menu_item}
                 onClick={menuEditHandler}
+                id="action_menu_btn2"
               >
                 <span>
                   <Icon type="edit" />

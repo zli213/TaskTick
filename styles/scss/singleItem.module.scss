@@ -11,6 +11,8 @@
 
       .task_list_action {
         opacity: 1;
+        background-color: $lightGrayColor;
+        border-radius: $borderRadiusXsm;
       }
     }
   }
@@ -54,8 +56,11 @@
     opacity: 0;
     cursor: pointer;
     color: $textSecondaryColor;
-    background-color: #fff;
-    box-shadow: 0 1px 2px 2px rgba(255, 255, 255, 1);
+
+    .action_btn:hover {
+      background-color: $midGrayColor;
+      border-radius: $borderRadiusXsm;
+    }
 
     .task_list_action_last {
       position: absolute;
@@ -69,6 +74,10 @@
       justify-content: center;
     }
 
+    .showing {
+      background-color: $lightGrayColor;
+    }
+
     .two_btn {
       @include flexRowStart();
       justify-content: center;
@@ -77,19 +86,22 @@
     }
   }
 
-  .task_title {
-    white-space: normal;
-    overflow-wrap: break-word;
-    overflow: hidden;
-  }
+.task_title {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
 
-  .task_description {
-    font-size: $fontSizeXsm;
-    color: $textSecondaryColor;
-    white-space: pre;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.task_description {
+  @include flexRowStart();
+  width: 100%;
+  font-size: $fontSizeXsm;
+  color: $textSecondaryColor;
+  white-space: normal;
+  overflow: hidden ;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+}
 
   .task_info_container {
     @include flexRowStart();
@@ -292,4 +304,10 @@
 .completed_svg {
   opacity: 1 !important;
   color: white !important;
+}
+
+@media screen and (max-width: 600px) {
+  .task_description {
+    white-space: nowrap;
+  }
 }

@@ -127,6 +127,7 @@ export default function PopupMenu(props) {
       <div
         className={styles.action_btn_menu}
         style={{ ...menuPosition, width: props.menuWidth + "px" }}
+        id="project_popup_window"
       >
         {props.children}
       </div>

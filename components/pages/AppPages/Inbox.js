@@ -31,7 +31,7 @@ export default function Inbox(props) {
   };
 
   useEffect(() => {
-    document.title = "Inbox - Todo";
+    document.title = "Inbox - TaskTick";
     localStorage.setItem("lastPage", "inbox");
   }, []);
 
@@ -47,7 +47,7 @@ export default function Inbox(props) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header0">
         <div
           className={`${styles.view_header_content} ${styles.no_bottom_border}`}
         >
@@ -56,6 +56,7 @@ export default function Inbox(props) {
             <button
               onClick={swithMenuHandler}
               className={styles.btn_completed_task}
+              id="action_menu_btn18"
             >
               <Icon type="view" />
               View
@@ -67,7 +68,7 @@ export default function Inbox(props) {
                 levels=""
               >
                 <div className={styles.task_item_action_menu}>
-                  <div className={styles.view_btn}>
+                  <div className={styles.view_btn} id="action_menu_btn19">
                     <Icon type="check_circle" />
                     <label htmlFor="showCompletedTask">
                       <div>Completed tasks</div>
@@ -89,12 +90,11 @@ export default function Inbox(props) {
           </div>
         </div>
       </div>
-      {tasks.length == 0 &&
-      !showCompletedTask &&
-      completedTasks.length !== 0 ? (
+      {inBoxTasks.length == 0 &&
+      !showCompletedTask ? (
         <NoTask page="inbox" />
       ) : (
-        <div className={styles.list_box}>
+        <div className={styles.list_box} id="list_box1">
           <TodoList tasks={inBoxTasks} />
           {showCompletedTask && (
             <TodoList tasks={completedTasks} isCompleted={true} />
