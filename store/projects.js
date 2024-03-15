@@ -104,7 +104,6 @@ export default projectSlice.reducer;
 
 export const updateProjectNumAction = (projectId) => (dispatch, getState) => {
   let tasks = Object.values(getState().tasks);
-  console.log("1", tasks);
 
   tasks = tasks
     .filter((task) => task.archived !== true && task.completed !== true)

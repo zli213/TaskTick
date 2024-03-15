@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { initialProjects, addProjectNum } from "./projects";
 import { initialLabels } from "./labels";
 import { initialNum, addInboxNum, addTodayNum } from "./num";
-import { initialCompletedTasks, addCompletedTask } from "./completedTask";
+import {
+  initialCompletedTasks,
+  addCompletedTask,
+  removeCompletedTask,
+} from "./completedTask";
 
 const initialState = {};
 
@@ -272,27 +276,83 @@ export const updateTaskAction =
     }
   };
 
-export const completeTaskAction = (_id) => (dispatch, getState) => {
-  const task = getState().tasks[_id];
+export const completeTaskAction =
+  (_id, _projectId = null) =>
+  (dispatch, getState) => {
+    const task = getState().tasks[_id];
+    const effectiveProjectId =
+      _projectId !== undefined ? _projectId : task.projectId;
 
-  dispatch(addCompletedTask(task));
-  dispatch(deleteTask(_id));
+    dispatch(addCompletedTask(task));
+    dispatch(deleteTask(_id));
 
-  //update counters
-  const dueDate = task.dueDate;
-  const projectId = task.projectId;
-  if (projectId !== "" && projectId !== null) {
-    dispatch(addProjectNum({ projectId: projectId, num: -1 }));
-  } else {
-    dispatch(addInboxNum(-1));
-  }
-
-  if (dueDate !== null && dueDate !== "") {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const taskDueDate = new Date(dueDate);
-    if (taskDueDate.getTime() <= today.getTime()) {
-      dispatch(addTodayNum(-1));
+    //update counters
+    const dueDate = task.dueDate;
+    // const projectId = task.projectId;
+    if (effectiveProjectId !== "" && effectiveProjectId !== null) {
+      dispatch(addProjectNum({ projectId: effectiveProjectId, num: -1 }));
+    } else {
+      dispatch(addInboxNum(-1));
     }
-  }
-};
+
+    if (dueDate !== null && dueDate !== "") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const taskDueDate = new Date(dueDate);
+      if (taskDueDate.getTime() <= today.getTime()) {
+        dispatch(addTodayNum(-1));
+      }
+    }
+  };
+
+export const undoCompleteTaskAction =
+  (_id, _projectId = null) =>
+  (dispatch, getState) => {
+    let taskToReAdd;
+    // Assuming that completed tasks and uncompleted tasks are stored in different sections, try to get the task object from completed tasks first
+    const completedTask = getState().completedTasks;
+    const effectiveProjectId =
+      _projectId !== undefined ? _projectId : task.projectId;
+    if (effectiveProjectId !== "" && effectiveProjectId !== null) {
+      const projectTask = completedTask[effectiveProjectId];
+      if (!projectTask[_id]) {
+        console.error("Task not found in completed tasks:", _id);
+        return;
+      }
+
+      taskToReAdd = {
+        ...projectTask[_id],
+        completed: false,
+        updatedAt: new Date().toISOString(),
+      };
+    } else {
+      taskToReAdd = {
+        ...completedTask.inbox[_id],
+        completed: false,
+        updatedAt: new Date().toISOString(),
+      };
+    }
+    // Add to the unfinished task list first
+    dispatch(addTask(taskToReAdd));
+
+    // Then remove it from the completed task list
+    dispatch(removeCompletedTask(_id));
+
+    // Update related counters
+    const { dueDate, projectId } = taskToReAdd;
+
+    if (projectId !== "" && projectId !== null) {
+      dispatch(addProjectNum({ projectId: projectId, num: 1 }));
+    } else {
+      dispatch(addInboxNum(1));
+    }
+
+    if (dueDate) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const taskDueDate = new Date(dueDate);
+      if (taskDueDate.getTime() <= today.getTime()) {
+        dispatch(addTodayNum(1));
+      }
+    }
+  };

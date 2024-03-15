@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { addToastId } from "../../../store/toastIds";
 import styles from "../../../styles/scss/application.module.scss";
+import { undoCompleteTaskAction } from "../../../store/tasks";
 
 function useCompletedTaskNotification() {
   const dispatch = useDispatch();
@@ -39,8 +40,33 @@ function useCompletedTaskNotification() {
       if (currentTime - latestCompletedTaskTime <= 1000) {
         const newToastId = toast.success(
           <Notification
-            onUndo={() => {
-              // TODO: Add undo function after completed task can be converted back to uncompleted
+            onUndo={async () => {
+              const requestBody = JSON.stringify(latestCompletedTask._id);
+              try {
+                const res = await fetch("/api/undoCompleteTask", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: requestBody,
+                });
+                if (!res.ok) {
+                  throw new Error(`Server responded with status ${res.status}`);
+                }
+                const result = await res.json();
+                if (result) {
+                  dispatch(
+                    undoCompleteTaskAction(
+                      latestCompletedTask._id,
+                      latestCompletedTask.projectId
+                    )
+                  );
+                } else {
+                  throw new Error("Operation failed without error message.");
+                }
+              } catch (error) {
+                throw error;
+              }
             }}
             task={latestCompletedTask}
           />,
