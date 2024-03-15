@@ -55,7 +55,12 @@ function useCompletedTaskNotification() {
                 }
                 const result = await res.json();
                 if (result) {
-                  dispatch(undoCompleteTaskAction(latestCompletedTask._id));
+                  dispatch(
+                    undoCompleteTaskAction(
+                      latestCompletedTask._id,
+                      latestCompletedTask.projectId
+                    )
+                  );
                 } else {
                   throw new Error("Operation failed without error message.");
                 }

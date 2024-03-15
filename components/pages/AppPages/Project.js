@@ -20,25 +20,22 @@ export default function Project({ projectId }) {
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
 
   let showCompletedTask = useSelector(
-    
     (state) => state.viewOptions.projects[projectId]
-  
   );
   showCompletedTask =
-   
     showCompletedTask !== undefined
-     
       ? showCompletedTask.showCompletedTasks
-     
       : false;
 
   const projects = useSelector((state) => state.projects);
   const project = projects[projectId];
-  if (project.state === "deleted") {
-    router.push("/application/inbox");
-  }
+  useEffect(() => {
+    if (project?.state === "deleted") {
+      router.push("/application/inbox");
+    }
+  }, [project]);
 
-  const boards = project.boards !== undefined ? project.boards : [];
+  const boards = project?.boards !== undefined ? project.boards : [];
   let tasks = Object.values(useSelector((state) => state.tasks));
   tasks = tasks.filter((task) => task.projectId === projectId);
 
@@ -59,7 +56,7 @@ export default function Project({ projectId }) {
   };
 
   useEffect(() => {
-    document.title = project.name + " - Todo";
+    document.title = project?.name + " - TaskTick";
     localStorage.setItem("lastPage", `project/${projectId}`);
   }, []);
 
@@ -70,14 +67,15 @@ export default function Project({ projectId }) {
 
   return (
     <>
-      <div className={styles.view_header}>
+      <div className={styles.view_header} id="view_header3">
         <div className={styles.view_header_content}>
-          <h1>{project.name}</h1>
-          {!project.archived && (
+          <h1>{project?.name}</h1>
+          {!project?.archived && (
             <div className={styles.menu_btn_container}>
               <button
                 onClick={swithMenuHandler}
                 className={styles.btn_completed_task}
+                id="action_menu_btn23"
               >
                 <Icon type="view" />
                 View
@@ -89,7 +87,7 @@ export default function Project({ projectId }) {
                   levels=""
                 >
                   <div className={styles.task_item_action_menu}>
-                    <div className={styles.view_btn}>
+                    <div className={styles.view_btn} id="action_menu_btn24">
                       <Icon type="check_circle" />
                       <label htmlFor="showCompletedTask">
                         <div>Completed tasks</div>
@@ -113,18 +111,21 @@ export default function Project({ projectId }) {
         </div>
       </div>
 
-      {project.archived && (
-        <div className={`${styles.list_box} ${styles.archived_project} `}>
+      {project?.archived && (
+        <div
+          className={`${styles.list_box} ${styles.archived_project} `}
+          id="list_box3"
+        >
           <p>This project is archived</p>
           <button onClick={unarchiveHandler}>Unarchive</button>
         </div>
       )}
 
-      {!project.archived &&
+      {!project?.archived &&
         (boards.length === 0 && tasks.length === 0 && !showCompletedTask ? (
           <NoTask
             page="project"
-            fromProject={{ projectId: projectId, projectName: project.name }}
+            fromProject={{ projectId: projectId, projectName: project?.name }}
             fromBoard={""}
           />
         ) : (
@@ -142,13 +143,19 @@ export default function Project({ projectId }) {
                   }}
                   fromBoard={group.name}
                 />
-                {showCompletedTask && (
-                  <TodoList
-                    key={index}
-                    tasks={groupedCompletedTasks[index].tasks}
-                    isCompleted={true}
-                  />
-                )}
+                {showCompletedTask &&
+                  groupedCompletedTasks.map((group, index) => (
+                    <TodoList
+                      key={index}
+                      tasks={groupedCompletedTasks[index].tasks}
+                      fromProject={{
+                        projectId: projectId,
+                        projectName: project.name,
+                      }}
+                      fromBoard={group.name}
+                      isCompleted={true}
+                    />
+                  ))}
               </React.Fragment>
             ))}
           </div>

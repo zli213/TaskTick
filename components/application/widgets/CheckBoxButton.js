@@ -19,8 +19,9 @@ import {
   undoCompleteTaskAction,
 } from "../../../store/tasks";
 
-const CheckBoxButton = ({ priority, taskId, completed }) => {
+const CheckBoxButton = ({ priority, taskId, completed, projectId }) => {
   const task = useSelector((state) => state.tasks[taskId]);
+
   if (task) {
     priority = task.priority;
   }
@@ -61,7 +62,7 @@ const CheckBoxButton = ({ priority, taskId, completed }) => {
       }
       const result = await res.json();
       if (result) {
-        dispatch(actionToDispatch(taskId));
+        dispatch(actionToDispatch(taskId, projectId));
         // setIsCompleted(!isCompleted);
       } else {
         throw new Error("Operation failed without error message.");
