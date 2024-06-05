@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../../styles/scss/account.module.scss";
-import Notice from "../../../application/widgets/settingNotice";
+import Notice from "../../../application/widgets/SettingNotice";
 import Icon from "../../../application/widgets/Icon";
 
 const SetPassword = () => {
@@ -95,14 +95,17 @@ const SetPassword = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")} id="option_link16">
+          <button
+            onClick={() => router.push("/application/setting/account")}
+            id="option_link16"
+          >
             <Icon type="left_arrow" />
           </button>
           <label>Modify your password</label>
         </span>
 
         <button onClick={onDismiss} id="option_link15">
-          <Icon type="close"  id="icon23"/>
+          <Icon type="close" id="icon23" />
         </button>
       </header>
 
@@ -133,14 +136,20 @@ const SetPassword = () => {
               value={confirmPassword}
               onChange={handleConfirm}
             />
-            <p className={samePassword ? styles.hidden : styles.visible} id="content_holder7">
+            <p
+              className={samePassword ? styles.hidden : styles.visible}
+              id="content_holder7"
+            >
               Passwords do not match
             </p>
           </div>
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder8">
+          <p
+            className={backendMessage ? styles.visible : styles.hidden}
+            id="content_holder8"
+          >
             {backendMessage}
           </p>
         </span>
