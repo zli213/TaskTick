@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../../styles/scss/account.module.scss";
-import Notice from "../../../application/widgets/settingNotice";
+import Notice from "../../../application/widgets/SettingNotice";
 import Icon from "../../../application/widgets/Icon";
 
 const SetEmail = () => {
@@ -87,13 +87,16 @@ const SetEmail = () => {
     <div className={styles.container}>
       <header>
         <span>
-          <button onClick={() => router.push("/application/setting/account")} id="option_link13">
+          <button
+            onClick={() => router.push("/application/setting/account")}
+            id="option_link13"
+          >
             <Icon type="left_arrow" />
           </button>
           <label>Modify your email address</label>
         </span>
         <button onClick={onDismiss} id="option_link14">
-          <Icon type="close" id="icon22"/>
+          <Icon type="close" id="icon22" />
         </button>
       </header>
 
@@ -111,7 +114,10 @@ const SetEmail = () => {
               value={confirmEmail}
               onChange={handleConfirmEmail}
             />
-            <p className={sameEmail ? styles.hidden : styles.visible} id="content_holder5">
+            <p
+              className={sameEmail ? styles.hidden : styles.visible}
+              id="content_holder5"
+            >
               Email addresses do not match
             </p>
           </div>
@@ -123,7 +129,10 @@ const SetEmail = () => {
         </div>
 
         <span>
-          <p className={backendMessage ? styles.visible : styles.hidden} id="content_holder6">
+          <p
+            className={backendMessage ? styles.visible : styles.hidden}
+            id="content_holder6"
+          >
             {backendMessage}
           </p>
         </span>
