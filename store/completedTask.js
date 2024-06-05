@@ -42,11 +42,23 @@ export const completedTaskSlice = createSlice({
         };
       }
     },
+    removeCompletedTask: (state, action) => {
+      const taskId = action.payload;
+      if (state.inbox[taskId]) {
+        delete state.inbox[taskId];
+      } else {
+        Object.keys(state).forEach((projectId) => {
+          if (state[projectId] && state[projectId][taskId]) {
+            delete state[projectId][taskId];
+          }
+        });
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { initialCompletedTasks, addCompletedTask } =
+export const { initialCompletedTasks, addCompletedTask, removeCompletedTask } =
   completedTaskSlice.actions;
 
 export default completedTaskSlice.reducer;
