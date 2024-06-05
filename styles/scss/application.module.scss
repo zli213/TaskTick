@@ -313,15 +313,14 @@
     .labels_item_content {
       width: 100%;
       @include flexRowBetween();
-      
-      span{
+
+      span {
         width: 100%;
         white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
         overflow-wrap: anywhere;
       }
-
     }
   }
 
@@ -449,7 +448,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  top: -12px;
+  top: -10px;
   left: 2px;
   background-color: #fff;
   transition: 350ms ease all;
@@ -500,7 +499,6 @@
   flex: 0 0 auto;
   @include flexRowStart();
 }
-
 
 @media screen and (max-width: 400px) {
   .btn_projects {
