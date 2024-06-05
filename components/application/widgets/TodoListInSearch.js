@@ -5,7 +5,11 @@ import Icon from "./Icon";
 import PopupMenu, { useMenu } from "./PopupMenu";
 import { useDispatch } from "react-redux";
 import { useBoard } from "./AddBoard";
-
+import {
+  addBoard,
+  deleteBoardAction,
+  editBoardAction,
+} from "../../../store/projects";
 function TodoListInSearch({
   tasks,
   title,
@@ -21,7 +25,6 @@ function TodoListInSearch({
   const dispatch = useDispatch();
   const [showList, setShowList] = useState(true);
   const { showItemMenu, buttonPosition, swithMenuHandler } = useMenu();
-  //   const { showDeleteCard, showDeleteCardHandler } = useDelete();
   const {
     sectionInputRef,
     showAddSection,
@@ -61,7 +64,6 @@ function TodoListInSearch({
 
   const menuDeleteHandler = (event) => {
     swithMenuHandler(event);
-    showDeleteCardHandler();
   };
 
   const menuEditHandler = (event) => {
@@ -119,7 +121,6 @@ function TodoListInSearch({
 
       if (result.body === "success") {
         dispatch(deleteBoardAction(fromProject.projectId, board));
-        showDeleteCardHandler(false);
       }
     } catch (error) {
       throw error;
