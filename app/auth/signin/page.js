@@ -13,9 +13,7 @@ import EmailInputField from "../../../components/pages/Signin/EmailInputField";
 import PasswordInputField from "../../../components/pages/Signin/PasswordInputField";
 
 const SignInPage = () => {
-  const { data: session } = useSession();
-  const [signUpInitiated, setSignUpInitiated] = useState(false);
-
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -43,7 +41,7 @@ const SignInPage = () => {
       });
       setLoading(false);
       if (!res?.error) {
-        router.push("/application/today");
+        router.replace("/application/today");
       } else {
         setError("invalid email or password.");
       }
@@ -70,18 +68,15 @@ const SignInPage = () => {
     await signIn(provider, {
       redirect: false,
     });
-    setSignUpInitiated(true);
+    // setSignUpInitiated(true);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (status === "authenticated") {
       const accountStatus = session?.user?.accountStatus;
       console.log("accountStatus: ", accountStatus);
-      if (accountStatus === "created") {
-        console.log("User created successfully!");
-        router.push("/application/today");
-      } else if (accountStatus === "existing_user") {
-        router.push("/application/today");
+      if (accountStatus === "created" || accountStatus === "existing_user") {
+        router.replace("/application/today");
       } else if (accountStatus === "existing_user_different_provider") {
         showNotification(
           "The email address has already been used. Please log in using the corresponding registration information!"
@@ -93,9 +88,8 @@ const SignInPage = () => {
       } else {
         showNotification(accountStatus);
       }
-    };
-    fetchData();
-  }, [session, signUpInitiated]);
+    }
+  }, [status, session, router]);
 
   return (
     <div className={styles.container_root}>
